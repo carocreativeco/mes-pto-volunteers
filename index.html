@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PTO Volunteer Interest Form — Moore Elementary</title>
+<link href="https://fonts.googleapis.com/css2?family=Baskervville&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --gold:   #ffc200;
+  --orange: #db6d42;
+  --navy:   #0c1546;
+  --black:  #000000;
+  --white:  #ffffff;
+  --bg:     #f0f2f7;
+  --card:   #ffffff;
+  --border: #dde1ee;
+  --text:   #1a1a2e;
+  --muted:  #6b7280;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Noto Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* HEADER */
+.site-header { background: var(--navy); border-bottom: 5px solid var(--gold); padding: 28px 24px 20px; text-align: center; }
+.header-logo-wrap { margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; min-height: 80px; }
+.header-logo-wrap img { max-height: 100px; max-width: 220px; object-fit: contain; }
+.header-logo-wrap .initials { font-family: 'Baskervville', serif; font-size: 2rem; color: var(--gold); }
+.header-school { font-family: 'Noto Sans', sans-serif; font-weight: 700; font-size: 1.3rem; color: var(--white); line-height: 1.2; }
+.header-sub { font-size: .78rem; color: var(--gold); text-transform: uppercase; letter-spacing: .12em; margin-top: 4px; opacity: .9; }
+.accent-bar { height: 5px; background: linear-gradient(90deg, var(--gold), var(--orange)); }
+
+/* HERO */
+.hero-band { background: var(--gold); padding: 14px 24px; text-align: center; }
+.hero-band h1 { font-family: 'Baskervville', serif; font-size: 1.5rem; color: var(--navy); }
+.hero-band p { font-size: .82rem; color: var(--navy); opacity: .75; margin-top: 3px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+
+/* MAIN */
+.main { max-width: 860px; margin: 0 auto; padding: 32px 24px 60px; }
+
+.intro-card { background: var(--navy); color: var(--white); border-radius: 10px; padding: 20px 24px; margin-bottom: 28px; display: flex; gap: 14px; align-items: flex-start; }
+.intro-card .icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
+.intro-card h2 { font-family: 'Baskervville', serif; font-size: 1.1rem; color: var(--gold); margin-bottom: 4px; }
+.intro-card p { font-size: .85rem; line-height: 1.7; opacity: .88; }
+
+/* FORM CARD */
+.form-card { background: var(--card); border-radius: 12px; box-shadow: 0 2px 16px rgba(12,21,70,.09); overflow: hidden; }
+.form-section { padding: 24px 28px; border-bottom: 1px solid var(--border); }
+
+.section-label { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.section-num { width: 26px; height: 26px; background: var(--navy); color: var(--gold); border-radius: 50%; font-size: .72rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.section-title { font-family: 'Baskervville', serif; font-size: 1.05rem; color: var(--navy); }
+
+.field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.field-full { grid-column: 1 / -1; }
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field label { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--navy); }
+.field label .req { color: var(--orange); margin-left: 2px; }
+.field input, .field select, .field textarea {
+  font-family: 'Noto Sans', sans-serif; font-size: .875rem; padding: 9px 12px;
+  border: 1.5px solid var(--border); border-radius: 7px; background: var(--bg);
+  color: var(--text); outline: none; transition: border-color .15s, box-shadow .15s;
+}
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(12,21,70,.08); }
+.field textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+
+/* Children rows */
+.child-row { display: grid; grid-template-columns: 1fr 140px 160px 36px; gap: 10px; align-items: end; margin-bottom: 10px; }
+.btn-remove { width: 36px; height: 36px; background: #fff0ee; border: 1.5px solid #f5c4bb; border-radius: 7px; color: var(--orange); cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: background .15s; }
+.btn-remove:hover { background: #ffe0d9; }
+.btn-add-child { margin-top: 10px; background: none; border: 1.5px dashed var(--border); border-radius: 7px; padding: 8px 14px; font-family: 'Noto Sans', sans-serif; font-size: .82rem; color: var(--muted); cursor: pointer; width: 100%; transition: border-color .15s, color .15s; }
+.btn-add-child:hover { border-color: var(--navy); color: var(--navy); }
+
+/* Checkboxes */
+.check-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+.check-item { display: flex; align-items: center; gap: 10px; background: var(--bg); border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 12px; cursor: pointer; transition: border-color .15s, background .15s; user-select: none; }
+.check-item:hover { border-color: var(--gold); background: #fffdf0; }
+.check-item input[type="checkbox"] { display: none; }
+.check-item.checked { border-color: var(--navy); background: #eef0f8; }
+.check-box { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: var(--white); transition: background .15s, border-color .15s; }
+.check-item.checked .check-box { background: var(--navy); border-color: var(--navy); }
+.check-box svg { display: none; }
+.check-item.checked .check-box svg { display: block; }
+.check-label { font-size: .84rem; font-weight: 500; line-height: 1.3; }
+
+/* Availability */
+.avail-grid { display: grid; grid-template-columns: 100px repeat(3, 1fr); gap: 8px; align-items: center; }
+.avail-head { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); text-align: center; padding-bottom: 6px; }
+.avail-day { font-size: .84rem; font-weight: 600; color: var(--navy); }
+.avail-cell { display: flex; align-items: center; justify-content: center; }
+.avail-cell input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--navy); cursor: pointer; }
+
+/* Submit */
+.submit-section { padding: 24px 28px; background: var(--bg); display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.submit-note { font-size: .78rem; color: var(--muted); line-height: 1.5; }
+.btn-submit { background: var(--navy); color: var(--white); border: none; border-radius: 8px; padding: 13px 32px; font-family: 'Noto Sans', sans-serif; font-weight: 700; font-size: .95rem; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: opacity .15s, transform .1s; white-space: nowrap; }
+.btn-submit:hover { opacity: .88; transform: translateY(-1px); }
+.btn-submit:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+/* CONFIRMATION */
+#confirmScreen { display: none; text-align: center; padding: 48px 28px 36px; }
+.confirm-icon { font-size: 3rem; margin-bottom: 12px; }
+.confirm-title { font-family: 'Baskervville', serif; font-size: 1.8rem; color: var(--navy); margin-bottom: 10px; }
+.confirm-msg { color: var(--muted); font-size: .9rem; line-height: 1.7; margin-bottom: 28px; }
+.confirm-ctas { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-bottom: 28px; }
+
+.insta-cta { background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); border-radius: 12px; padding: 16px 24px; display: flex; align-items: center; gap: 14px; color: white; text-decoration: none; width: 100%; max-width: 400px; transition: opacity .15s, transform .1s; }
+.insta-cta:hover { opacity: .9; transform: translateY(-2px); }
+.insta-cta-text { text-align: left; }
+.insta-cta-text strong { display: block; font-size: .95rem; font-weight: 700; }
+.insta-cta-text span { font-size: .78rem; opacity: .9; }
+
+.donate-cta { background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 20px 24px; display: flex; align-items: center; gap: 20px; width: 100%; max-width: 400px; }
+.donate-qr img { width: 90px; height: 90px; border-radius: 6px; border: 1px solid var(--border); }
+.donate-text { text-align: left; }
+.donate-text strong { display: block; font-family: 'Baskervville', serif; font-size: 1.05rem; color: var(--navy); margin-bottom: 4px; }
+.donate-text p { font-size: .78rem; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
+.donate-link { display: inline-block; background: var(--navy); color: var(--white); font-size: .78rem; font-weight: 700; padding: 6px 14px; border-radius: 6px; text-decoration: none; }
+.donate-link:hover { opacity: .85; }
+
+.btn-another { background: var(--gold); color: var(--navy); border: none; border-radius: 8px; padding: 11px 24px; font-family: 'Noto Sans', sans-serif; font-weight: 700; font-size: .9rem; cursor: pointer; }
+
+/* FOOTER */
+.site-footer { background: var(--navy); padding: 18px 24px; display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 48px; }
+.footer-ig { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+.footer-ig a { color: var(--gold); text-decoration: none; font-size: .8rem; font-weight: 600; display: flex; align-items: center; gap: 6px; opacity: .9; transition: opacity .15s; }
+.footer-ig a:hover { opacity: 1; }
+.footer-copy { font-size: .68rem; color: rgba(255,255,255,.35); text-align: center; }
+.footer-admin a { color: rgba(255,255,255,.25); font-size: .7rem; text-decoration: none; }
+.footer-admin a:hover { color: var(--gold); }
+
+/* ADMIN LOGIN */
+#adminLogin { display: none; max-width: 380px; margin: 60px auto; background: var(--white); border-radius: 12px; box-shadow: 0 4px 24px rgba(12,21,70,.12); padding: 32px; text-align: center; }
+#adminLogin h3 { font-family: 'Baskervville', serif; font-size: 1.3rem; color: var(--navy); margin-bottom: 6px; }
+#adminLogin p { font-size: .82rem; color: var(--muted); margin-bottom: 20px; }
+#adminLogin input { width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 7px; font-family: 'Noto Sans', sans-serif; font-size: .9rem; margin-bottom: 12px; outline: none; }
+#adminLogin input:focus { border-color: var(--navy); }
+#adminLoginError { color: var(--orange); font-size: .78rem; margin-bottom: 8px; display: none; }
+
+/* ADMIN PANEL */
+#adminPanel { display: none; max-width: 1100px; margin: 0 auto; padding: 32px 24px 60px; }
+.admin-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+.admin-header h2 { font-family: 'Baskervville', serif; font-size: 1.4rem; color: var(--navy); }
+.admin-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn-sm { padding: 8px 16px; border-radius: 7px; font-family: 'Noto Sans', sans-serif; font-weight: 700; font-size: .8rem; cursor: pointer; border: none; transition: opacity .15s; }
+.btn-sm:hover { opacity: .85; }
+.btn-navy { background: var(--navy); color: var(--white); }
+.btn-gold { background: var(--gold); color: var(--navy); }
+.btn-outline { background: transparent; border: 2px solid var(--border); color: var(--muted); }
+.btn-danger { background: #fff0ee; border: 1.5px solid #f5c4bb; color: var(--orange); }
+
+.stats-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.stat-card { background: var(--white); border-radius: 10px; padding: 16px; box-shadow: 0 1px 8px rgba(12,21,70,.07); }
+.stat-num { font-family: 'Baskervville', serif; font-size: 2rem; color: var(--navy); line-height: 1; }
+.stat-label { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; margin-top: 4px; }
+
+/* Tabs */
+.admin-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.tab-btn { padding: 7px 14px; border-radius: 20px; font-family: 'Noto Sans', sans-serif; font-size: .78rem; font-weight: 600; cursor: pointer; border: 2px solid var(--border); background: var(--white); color: var(--muted); transition: all .15s; white-space: nowrap; }
+.tab-btn:hover { border-color: var(--navy); color: var(--navy); }
+.tab-btn.active { background: var(--navy); color: var(--white); border-color: var(--navy); }
+
+.table-wrap { background: var(--white); border-radius: 10px; box-shadow: 0 1px 8px rgba(12,21,70,.07); overflow: hidden; }
+.table-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+th { background: var(--navy); color: var(--white); text-align: left; padding: 10px 14px; font-size: .72rem; text-transform: uppercase; letter-spacing: .07em; white-space: nowrap; }
+td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; word-break: break-word; max-width: 220px; }
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: #f9fafb; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: .68rem; font-weight: 700; background: #eef0f8; color: var(--navy); margin: 2px 2px 2px 0; white-space: nowrap; }
+.badge-orange { background: #fff0e8; color: var(--orange); }
+.empty-admin { padding: 48px; text-align: center; color: var(--muted); font-size: .9rem; }
+
+@media (max-width: 640px) {
+  .field-grid { grid-template-columns: 1fr; }
+  .child-row { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .child-row > div:last-child { display: none; }
+  .avail-grid { grid-template-columns: 72px repeat(3,1fr); font-size:.76rem; }
+  .submit-section { flex-direction: column; align-items: stretch; }
+  .btn-submit { justify-content: center; }
+  .donate-cta { flex-direction: column; align-items: center; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-logo-wrap">
+    <img src="MES Stacked.png" alt="Moore Elementary School"
+         onerror="this.style.display='none';document.getElementById('headerInitials').style.display='block'"/>
+    <span class="initials" id="headerInitials" style="display:none">ME</span>
+  </div>
+  <div class="header-school">Moore Elementary School</div>
+  <div class="header-sub">Parent Teacher Organization</div>
+</header>
+<div class="accent-bar"></div>
+<div class="hero-band">
+  <h1>Volunteer Interest Form</h1>
+  <p>2026 – 2027 School Year</p>
+</div>
+
+<!-- FORM VIEW -->
+<div id="formView">
+  <div class="main">
+
+    <div class="intro-card">
+      <div class="icon">🤝</div>
+      <div>
+        <h2>We need YOU!</h2>
+        <p>Our PTO runs entirely on the energy of our amazing parent and guardian volunteers. Whether you can give an hour or a whole day, every bit of help makes a difference for our Moore Elementary students. Fill out this form and we'll reach out when opportunities match your interests and availability.</p>
+      </div>
+    </div>
+
+    <div class="form-card">
+
+      <!-- Section 1 -->
+      <div class="form-section">
+        <div class="section-label"><div class="section-num">1</div><div class="section-title">Your Contact Information</div></div>
+        <div class="field-grid">
+          <div class="field"><label>First Name <span class="req">*</span></label><input type="text" id="firstName" placeholder="First name" autocomplete="given-name"/></div>
+          <div class="field"><label>Last Name <span class="req">*</span></label><input type="text" id="lastName" placeholder="Last name" autocomplete="family-name"/></div>
+          <div class="field"><label>Email Address <span class="req">*</span></label><input type="email" id="email" placeholder="you@email.com" autocomplete="email"/></div>
+          <div class="field"><label>Phone Number</label><input type="tel" id="phone" placeholder="(615) 555-0000" autocomplete="tel"/></div>
+          <div class="field field-full">
+            <label>Preferred Contact Method</label>
+            <select id="contactPref">
+              <option value="">No preference</option>
+              <option>Email</option><option>Phone call</option><option>Text message</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2 -->
+      <div class="form-section">
+        <div class="section-label"><div class="section-num">2</div><div class="section-title">Your Child(ren) at Moore Elementary</div></div>
+        <div id="childrenList">
+          <div class="child-row">
+            <div class="field"><label>Child's Name</label><input type="text" class="childName" placeholder="First Last"/></div>
+            <div class="field"><label>Grade</label>
+              <select class="childGrade">
+                <option value="">Select</option>
+                <option>Kindergarten</option><option>1st Grade</option><option>2nd Grade</option>
+                <option>3rd Grade</option><option>4th Grade</option><option>5th Grade</option>
+              </select>
+            </div>
+            <div class="field"><label>Teacher's Name</label><input type="text" class="childTeacher" placeholder="e.g. Ms. Smith"/></div>
+            <div style="display:flex;align-items:flex-end;padding-bottom:1px;"><button class="btn-remove" onclick="removeChild(this)">✕</button></div>
+          </div>
+        </div>
+        <button class="btn-add-child" onclick="addChild()">+ Add another child</button>
+      </div>
+
+      <!-- Section 3 -->
+      <div class="form-section">
+        <div class="section-label"><div class="section-num">3</div><div class="section-title">Areas of Interest <span style="font-size:.8rem;font-family:'Noto Sans',sans-serif;color:var(--muted);font-weight:400;">(select all that apply)</span></div></div>
+        <div class="check-grid" id="volunteerAreas"></div>
+        <div class="field" style="margin-top:14px;">
+          <label>Other / Additional Skills or Interests</label>
+          <input type="text" id="otherSkills" placeholder="e.g. Photography, Bilingual Spanish, Carpentry…"/>
+        </div>
+      </div>
+
+      <!-- Section 4 -->
+      <div class="form-section">
+        <div class="section-label"><div class="section-num">4</div><div class="section-title">General Availability</div></div>
+        <div class="avail-grid" id="availGrid">
+          <div class="avail-head"></div>
+          <div class="avail-head">Morning</div>
+          <div class="avail-head">Afternoon</div>
+          <div class="avail-head">Evening</div>
+        </div>
+        <div class="field" style="margin-top:16px;">
+          <label>Any scheduling notes?</label>
+          <input type="text" id="availNotes" placeholder="e.g. Available most Fridays, not during school holidays…"/>
+        </div>
+      </div>
+
+      <!-- Section 5 -->
+      <div class="form-section">
+        <div class="section-label"><div class="section-num">5</div><div class="section-title">Anything else you'd like us to know?</div></div>
+        <div class="field"><label>Additional Comments</label><textarea id="comments" placeholder="Special skills, questions, limitations, or just a hello!"></textarea></div>
+        <div class="field" style="margin-top:14px;">
+          <label>How did you hear about volunteering?</label>
+          <select id="hearAbout">
+            <option value="">Select an option</option>
+            <option>School newsletter</option><option>Another parent</option><option>Teacher</option>
+            <option>School website</option><option>Social media</option><option>PTO meeting</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <div class="submit-section" id="submitSection">
+        <p class="submit-note">By submitting, you agree to be contacted by Moore Elementary PTO regarding volunteer opportunities for the 2026–2027 school year.</p>
+        <button class="btn-submit" id="submitBtn" onclick="submitForm()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Submit My Interest
+        </button>
+      </div>
+
+      <!-- Confirmation -->
+      <div id="confirmScreen">
+        <div class="confirm-icon">🎉</div>
+        <div class="confirm-title">Thank you for volunteering!</div>
+        <p class="confirm-msg">We've received your interest form and will be in touch when opportunities match your schedule and interests. Moore Elementary is so lucky to have such a wonderful community of supporters!</p>
+        <div class="confirm-ctas">
+          <a class="insta-cta" href="https://www.instagram.com/mooreelementarypto/following/" target="_blank" rel="noopener">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            <div class="insta-cta-text">
+              <strong>Follow us on Instagram</strong>
+              <span>@mooreelementarypto — Stay up to date on all PTO news!</span>
+            </div>
+          </a>
+          <div class="donate-cta">
+            <div class="donate-qr">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=https://venmo.com/u/jetza-nunez&color=0c1546&bgcolor=ffffff" alt="Venmo QR Code"/>
+            </div>
+            <div class="donate-text">
+              <strong>Support the PTO</strong>
+              <p>Every donation helps fund events, supplies, and enrichment for our students.</p>
+              <a class="donate-link" href="https://venmo.com/u/jetza-nunez" target="_blank" rel="noopener">Donate via Venmo →</a>
+            </div>
+          </div>
+        </div>
+        <button class="btn-another" onclick="resetForm()">Submit another response</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div id="adminLogin">
+  <h3>PTO Admin Access</h3>
+  <p>Enter the admin password to view submissions.</p>
+  <input type="password" id="adminPassInput" placeholder="Password" onkeydown="if(event.key==='Enter')checkAdminPass()"/>
+  <div id="adminLoginError">Incorrect password. Please try again.</div>
+  <button class="btn-submit" style="width:100%;justify-content:center;margin-top:4px;" onclick="checkAdminPass()">Sign In</button>
+  <br/><br/>
+  <a href="#" onclick="showForm(event)" style="font-size:.8rem;color:var(--muted);">← Back to form</a>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel">
+  <div class="admin-header">
+    <div>
+      <h2>Volunteer Submissions</h2>
+      <p style="font-size:.8rem;color:var(--muted);margin-top:3px;">2026–2027 School Year · Moore Elementary PTO</p>
+    </div>
+    <div class="admin-actions">
+      <button class="btn-sm btn-gold" onclick="exportCSV()">⬇ Export CSV</button>
+      <button class="btn-sm btn-navy" onclick="window.print()">⬇ Print / PDF</button>
+      <button class="btn-sm btn-danger" onclick="clearAllData()">🗑 Clear All</button>
+      <button class="btn-sm btn-outline" onclick="showForm(null)">← Back to Form</button>
+    </div>
+  </div>
+  <div class="stats-row" id="statsRow"></div>
+  <div class="admin-tabs" id="adminTabs"></div>
+  <div class="table-wrap">
+    <div class="table-scroll">
+      <table>
+        <thead id="adminThead"></thead>
+        <tbody id="submissionsBody"></tbody>
+      </table>
+    </div>
+    <div class="empty-admin" id="emptyAdmin" style="display:none">No submissions yet.</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-ig">
+    <a href="https://www.instagram.com/mesfssd/" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      @mesfssd
+    </a>
+    <a href="https://www.instagram.com/mooreelementarypto/following/" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      @mooreelementarypto
+    </a>
+  </div>
+  <div class="footer-copy">Moore Elementary School · Parent Teacher Organization · 2026–2027</div>
+  <div class="footer-admin"><a href="#" onclick="showAdminLogin(event)">Admin</a></div>
+</footer>
+
+<script>
+const ADMIN_PASS  = 'moorePTO2026';
+const STORAGE_KEY = 'moore_pto_v3';
+
+const VOLUNTEER_AREAS = [
+  'Moore Miles',
+  'Bake Sale',
+  'Book Fair',
+  'Teacher Appreciation Week',
+  'Decorations Committee',
+  'Classroom Parties',
+  'Field Trip Chaperone',
+  'School Events Setup / Cleanup',
+  'Photography / Videography',
+  'Graphic Design',
+  'Arts & Crafts',
+  'Fundraising & Sponsorships',
+];
+
+const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+document.addEventListener('DOMContentLoaded', () => {
+  buildVolunteerAreas();
+  buildAvailGrid();
+});
+
+function buildVolunteerAreas() {
+  const grid = document.getElementById('volunteerAreas');
+  VOLUNTEER_AREAS.forEach(area => {
+    const item = document.createElement('label');
+    item.className = 'check-item';
+    item.innerHTML = `
+      <input type="checkbox" value="${area}"/>
+      <div class="check-box">
+        <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg>
+      </div>
+      <span class="check-label">${area}</span>`;
+    item.addEventListener('click', () => {
+      const cb = item.querySelector('input');
+      cb.checked = !cb.checked;
+      item.classList.toggle('checked', cb.checked);
+    });
+    grid.appendChild(item);
+  });
+}
+
+function buildAvailGrid() {
+  const grid = document.getElementById('availGrid');
+  DAYS.forEach(day => {
+    const d = document.createElement('div');
+    d.className = 'avail-day'; d.textContent = day;
+    grid.appendChild(d);
+    ['morning','afternoon','evening'].forEach(time => {
+      const cell = document.createElement('div');
+      cell.className = 'avail-cell';
+      cell.innerHTML = `<input type="checkbox" id="avail_${day}_${time}"/>`;
+      grid.appendChild(cell);
+    });
+  });
+}
+
+let childCount = 1;
+function addChild() {
+  childCount++;
+  const list = document.getElementById('childrenList');
+  const row = document.createElement('div');
+  row.className = 'child-row';
+  row.innerHTML = `
+    <div class="field"><label>Child's Name</label><input type="text" class="childName" placeholder="First Last"/></div>
+    <div class="field"><label>Grade</label>
+      <select class="childGrade">
+        <option value="">Select</option>
+        <option>Kindergarten</option><option>1st Grade</option><option>2nd Grade</option>
+        <option>3rd Grade</option><option>4th Grade</option><option>5th Grade</option>
+      </select>
+    </div>
+    <div class="field"><label>Teacher's Name</label><input type="text" class="childTeacher" placeholder="e.g. Ms. Smith"/></div>
+    <div style="display:flex;align-items:flex-end;padding-bottom:1px;">
+      <button class="btn-remove" onclick="removeChild(this)">✕</button>
+    </div>`;
+  list.appendChild(row);
+}
+function removeChild(btn) {
+  if (document.querySelectorAll('.child-row').length > 1) btn.closest('.child-row').remove();
+}
+
+function collectFormData() {
+  const children = [];
+  document.querySelectorAll('.child-row').forEach(row => {
+    const name    = row.querySelector('.childName').value.trim();
+    const grade   = row.querySelector('.childGrade').value;
+    const teacher = row.querySelector('.childTeacher').value.trim();
+    if (name || grade || teacher) children.push({ name, grade, teacher });
+  });
+  const areas = [];
+  document.querySelectorAll('#volunteerAreas .check-item.checked input').forEach(cb => areas.push(cb.value));
+  const availability = [];
+  DAYS.forEach(day => {
+    ['morning','afternoon','evening'].forEach(time => {
+      const cb = document.getElementById(`avail_${day}_${time}`);
+      if (cb && cb.checked) availability.push(`${day} ${time}`);
+    });
+  });
+  return {
+    submittedAt: new Date().toISOString(),
+    firstName: document.getElementById('firstName').value.trim(),
+    lastName:  document.getElementById('lastName').value.trim(),
+    email:     document.getElementById('email').value.trim(),
+    phone:     document.getElementById('phone').value.trim(),
+    contactPref: document.getElementById('contactPref').value,
+    children, volunteerAreas: areas,
+    otherSkills: document.getElementById('otherSkills').value.trim(),
+    availability,
+    availNotes: document.getElementById('availNotes').value.trim(),
+    comments:   document.getElementById('comments').value.trim(),
+    hearAbout:  document.getElementById('hearAbout').value,
+  };
+}
+
+function validate(d) {
+  if (!d.firstName) return 'Please enter your first name.';
+  if (!d.lastName)  return 'Please enter your last name.';
+  if (!d.email || !/\S+@\S+\.\S+/.test(d.email)) return 'Please enter a valid email address.';
+  return null;
+}
+
+async function submitForm() {
+  const data = collectFormData();
+  const err  = validate(data);
+  if (err) { alert(err); return; }
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.textContent = 'Submitting…';
+  const subs = getSubmissions(); subs.push(data);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(subs));
+  document.querySelectorAll('.form-section').forEach(s => s.style.display = 'none');
+  document.getElementById('submitSection').style.display = 'none';
+  document.getElementById('confirmScreen').style.display = 'block';
+  btn.disabled = false;
+  btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Submit My Interest`;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetForm() {
+  document.querySelectorAll('.form-section').forEach(s => s.style.display = '');
+  document.getElementById('submitSection').style.display = '';
+  document.getElementById('confirmScreen').style.display = 'none';
+  document.querySelectorAll('input[type=text],input[type=email],input[type=tel],textarea').forEach(el => el.value = '');
+  document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+  document.querySelectorAll('.check-item').forEach(el => { el.classList.remove('checked'); el.querySelector('input').checked = false; });
+  document.querySelectorAll('#availGrid input[type=checkbox]').forEach(cb => cb.checked = false);
+  const list = document.getElementById('childrenList');
+  while (list.children.length > 1) list.removeChild(list.lastChild);
+  list.querySelector('.childName').value = '';
+  list.querySelector('.childGrade').selectedIndex = 0;
+  list.querySelector('.childTeacher').value = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showForm(e) { if (e) e.preventDefault(); document.getElementById('formView').style.display=''; document.getElementById('adminLogin').style.display='none'; document.getElementById('adminPanel').style.display='none'; }
+function showAdminLogin(e) { if (e) e.preventDefault(); document.getElementById('formView').style.display='none'; document.getElementById('adminLogin').style.display='block'; document.getElementById('adminPanel').style.display='none'; }
+function checkAdminPass() {
+  if (document.getElementById('adminPassInput').value === ADMIN_PASS) {
+    document.getElementById('adminLogin').style.display = 'none';
+    document.getElementById('adminPanel').style.display = 'block';
+    document.getElementById('adminPassInput').value = '';
+    document.getElementById('adminLoginError').style.display = 'none';
+    renderAdmin('__all__');
+  } else {
+    document.getElementById('adminLoginError').style.display = 'block';
+  }
+}
+
+function getSubmissions() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { return []; } }
+
+let activeTab = '__all__';
+function renderAdmin(tab) {
+  activeTab = tab || '__all__';
+  const allSubs = getSubmissions();
+
+  // Stats
+  const areaCounts = {};
+  allSubs.forEach(s => s.volunteerAreas.forEach(a => areaCounts[a] = (areaCounts[a]||0)+1));
+  const topEntry = Object.entries(areaCounts).sort((a,b)=>b[1]-a[1])[0];
+  document.getElementById('statsRow').innerHTML = `
+    <div class="stat-card"><div class="stat-num">${allSubs.length}</div><div class="stat-label">Total Volunteers</div></div>
+    <div class="stat-card"><div class="stat-num">${[...new Set(allSubs.flatMap(s=>s.volunteerAreas))].length}</div><div class="stat-label">Areas Covered</div></div>
+    <div class="stat-card"><div class="stat-num" style="font-size:.95rem;padding-top:8px;line-height:1.3">${topEntry ? topEntry[0] : '—'}</div><div class="stat-label">Top Area${topEntry?' ('+topEntry[1]+')':''}</div></div>`;
+
+  // Tabs
+  const tabsEl = document.getElementById('adminTabs');
+  tabsEl.innerHTML = '';
+  const makeTab = (label, key) => {
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn' + (activeTab === key ? ' active' : '');
+    btn.textContent = label;
+    btn.onclick = () => renderAdmin(key);
+    tabsEl.appendChild(btn);
+  };
+  makeTab(`All (${allSubs.length})`, '__all__');
+  VOLUNTEER_AREAS.forEach(area => {
+    const count = allSubs.filter(s => s.volunteerAreas.includes(area)).length;
+    makeTab(`${area} (${count})`, area);
+  });
+
+  // Filter subs
+  const subs = activeTab === '__all__' ? allSubs : allSubs.filter(s => s.volunteerAreas.includes(activeTab));
+
+  // Table header
+  document.getElementById('adminThead').innerHTML = activeTab === '__all__'
+    ? `<tr><th>#</th><th>Submitted</th><th>Name</th><th>Email</th><th>Children / Teachers</th><th>Volunteer Areas</th><th>Availability</th><th>Notes</th></tr>`
+    : `<tr><th>#</th><th>Submitted</th><th>Name</th><th>Email / Phone</th><th>Children / Teachers</th><th>Availability</th><th>Notes</th></tr>`;
+
+  const tbody = document.getElementById('submissionsBody');
+  const empty = document.getElementById('emptyAdmin');
+
+  if (!subs.length) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    empty.textContent = activeTab === '__all__' ? 'No submissions yet. Share the form to start collecting responses!' : `No volunteers signed up for "${activeTab}" yet.`;
+    return;
+  }
+  empty.style.display = 'none';
+
+  tbody.innerHTML = subs.map((s, i) => {
+    const date     = new Date(s.submittedAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    const children = s.children.filter(c=>c.name||c.grade).map(c=>`<strong>${c.name}</strong>${c.grade?' · '+c.grade:''}${c.teacher?'<br/><span style="font-size:.72rem;color:var(--muted)">'+c.teacher+'</span>':''}`).join('<br/>') || '—';
+    const areas    = s.volunteerAreas.map(a=>`<span class="badge">${a}</span>`).join('') || '—';
+    const avail    = s.availability.length ? s.availability.join(', ') : '—';
+    const notesParts = [
+      s.availNotes,
+      s.comments,
+      s.otherSkills ? `<span class="badge badge-orange">✦ ${s.otherSkills}</span>` : '',
+      s.hearAbout ? `<span style="font-size:.7rem;color:var(--muted)">Via: ${s.hearAbout}</span>` : ''
+    ].filter(Boolean);
+    const notes = notesParts.join('<br/>') || '—';
+
+    if (activeTab === '__all__') {
+      return `<tr>
+        <td style="color:var(--muted);font-size:.75rem">${i+1}</td>
+        <td style="white-space:nowrap;font-size:.78rem">${date}</td>
+        <td><strong>${s.firstName} ${s.lastName}</strong></td>
+        <td><a href="mailto:${s.email}" style="color:var(--navy);font-size:.78rem">${s.email}</a></td>
+        <td style="font-size:.8rem">${children}</td>
+        <td>${areas}</td>
+        <td style="font-size:.78rem">${avail}</td>
+        <td style="font-size:.78rem">${notes}</td>
+      </tr>`;
+    } else {
+      return `<tr>
+        <td style="color:var(--muted);font-size:.75rem">${i+1}</td>
+        <td style="white-space:nowrap;font-size:.78rem">${date}</td>
+        <td><strong>${s.firstName} ${s.lastName}</strong></td>
+        <td style="font-size:.78rem"><a href="mailto:${s.email}" style="color:var(--navy)">${s.email}</a>${s.phone?'<br/>'+s.phone:''}</td>
+        <td style="font-size:.8rem">${children}</td>
+        <td style="font-size:.78rem">${avail}</td>
+        <td style="font-size:.78rem">${notes}</td>
+      </tr>`;
+    }
+  }).join('');
+}
+
+function exportCSV() {
+  const subs = getSubmissions();
+  if (!subs.length) { alert('No submissions to export yet.'); return; }
+  const headers = ['#','Submitted','First','Last','Email','Phone','Contact Pref','Children','Teachers','Volunteer Areas','Other Skills','Availability','Avail Notes','Comments','Heard About'];
+  const rows = subs.map((s,i) => [
+    i+1, new Date(s.submittedAt).toLocaleString(),
+    s.firstName, s.lastName, s.email, s.phone, s.contactPref,
+    s.children.map(c=>`${c.name} (${c.grade})`).join('; '),
+    s.children.map(c=>c.teacher).filter(Boolean).join('; '),
+    s.volunteerAreas.join('; '), s.otherSkills,
+    s.availability.join('; '), s.availNotes, s.comments, s.hearAbout
+  ].map(v=>`"${(v||'').toString().replace(/"/g,'""')}"`));
+  const csv = [headers.join(','), ...rows.map(r=>r.join(','))].join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download = 'moore-pto-volunteers-2026-27.csv';
+  a.click();
+}
+
+function clearAllData() {
+  if (confirm('Delete ALL submissions? This cannot be undone.')) {
+    localStorage.removeItem(STORAGE_KEY);
+    renderAdmin('__all__');
+  }
+}
+</script>
+</body>
+</html>
