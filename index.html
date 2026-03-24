@@ -3,27 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Title</title>
-    <style>
-        .center {
-            text-align: center;
-        }
-    </style>
+    <title>PTO Volunteer Interest Form</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <div class="center">
-        <h1>Follow us on Instagram!</h1>
-    </div>
-
-    <div>
-        <button>Venmo Button</button>
-    </div>
-
-    <div class="center">
-        <h2>Share with another MES parent!</h2>
-        <img src="NEW_QR_CODE_IMAGE_URL" alt="QR Code to Share">  
-    </div>
-
+    <header>
+        <h1>PTO Volunteer Interest Form</h1>
+    </header>
+    <main>
+        <form id="volunteer-form">
+            <section>
+                <h2>Personal Information</h2>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </section>
+            <section>
+                <h2>Volunteer Interests</h2>
+                <label for="interests">Select your interests:</label>
+                <select id="interests" name="interests" multiple required>
+                    <option value="event-planning">Event Planning</option>
+                    <option value="fundraising">Fundraising</option>
+                    <option value="tutoring">Tutoring</option>
+                    <option value="community-service">Community Service</option>
+                </select>
+            </section>
+            <section>
+                <h2>Availability</h2>
+                <label for="availability">Select your availability:</label>
+                <input type="checkbox" id="weekdays" name="availability" value="weekdays">
+                <label for="weekdays">Weekdays</label>
+                <input type="checkbox" id="weekends" name="availability" value="weekends">
+                <label for="weekends">Weekends</label>
+            </section>
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2026 PTO Volunteers</p>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
