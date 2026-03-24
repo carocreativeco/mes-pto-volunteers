@@ -546,7 +546,8 @@ async function submitForm() {
   btn.disabled = true; btn.textContent = 'Submitting…';
   const subs = getSubmissions(); subs.push(data);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(subs));
-  document.querySelectorAll('.form-section').forEach(s => s.style.display = 'none');
+document.querySelectorAll('.form-section').forEach(s => s.style.display = 'none');
+  document.querySelector('.intro-card').style.display = 'none';  document.querySelector('.intro-card').style.display = 'none';
   document.getElementById('submitSection').style.display = 'none';
   document.getElementById('confirmScreen').style.display = 'block';
   btn.disabled = false;
@@ -556,6 +557,8 @@ async function submitForm() {
 
 function resetForm() {
   document.querySelectorAll('.form-section').forEach(s => s.style.display = '');
+  document.querySelector('.intro-card').style.display = '';
+  document.querySelector('.intro-card').style.display = '';
   document.getElementById('submitSection').style.display = '';
   document.getElementById('confirmScreen').style.display = 'none';
   document.querySelectorAll('input[type=text],input[type=email],input[type=tel],textarea').forEach(el => el.value = '');
