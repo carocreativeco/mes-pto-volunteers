@@ -538,12 +538,28 @@ function validate(d) {
   return null;
 }
 
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzjLYGefv3G4UzsY2nV5LGo4my2_zj9tAYrOn6lzEHvtOWNjJcy9Aiw70mNIqCsLihx/exec';
+
 async function submitForm() {
   const data = collectFormData();
   const err  = validate(data);
   if (err) { alert(err); return; }
   const btn = document.getElementById('submitBtn');
   btn.disabled = true; btn.textContent = 'Submitting…';
+  
+  // Save to Google Sheets
+  try {
+    await fetch(GOOGLE_SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+  } catch (error) {
+    console.error('Error saving to Google Sheets:', error);
+  }
+  
+  // Also save locally as backup
   const subs = getSubmissions(); subs.push(data);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(subs));
 document.querySelectorAll('.form-section').forEach(s => s.style.display = 'none');
