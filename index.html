@@ -98,44 +98,39 @@ body { font-family: 'Noto Sans', sans-serif; background: var(--bg); color: var(-
 .btn-submit:disabled { opacity: .5; cursor: not-allowed; transform: none; }
 
 /* CONFIRMATION */
-<!-- Confirmation -->
-<div id="confirmScreen">
-  <div class="confirm-icon">🎉</div>
-  <div class="confirm-title">Thank you for volunteering!</div>
-  <p class="confirm-msg">We've received your interest form and will be in touch when opportunities match your schedule and interests. Moore Elementary is so lucky to have such a wonderful community of supporters!</p>
-  <div class="confirm-ctas">
-    <a class="insta-cta" href="https://www.instagram.com/mooreelementarypto/following/" target="_blank" rel="noopener" style="justify-content: center; text-align: center;">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-      <div class="insta-cta-text">
-        <strong>Follow us on Instagram</strong>
-        <span>@mooreelementarypto — Stay up to date on all PTO news!</span>
-      </div>
-    </a>
-    <div class="share-cta">
-      <div class="share-qr">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://carocreativeco.github.io/mes-pto-volunteers/&color=0c1546&bgcolor=ffffff" alt="Form QR Code"/>
-      </div>
-      <div class="share-text">
-        <strong>Share this with another MES parent!</strong>
-        <p>Help us spread the word — the more volunteers, the better!</p>
-        <div class="copy-link-wrap">
-          <input type="text" id="shareLinkInput" value="https://carocreativeco.github.io/mes-pto-volunteers/" readonly/>
-          <button class="copy-link-btn" onclick="copyShareLink()">
-            <span id="copyBtnText">Copy</span>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="donate-cta" style="justify-content: center; text-align: center; padding: 16px 24px;">
-      <div class="donate-text" style="text-align: center;">
-        <strong>Support the PTO</strong>
-        <p>Every donation helps fund events, supplies, and enrichment for our students.</p>
-        <a class="donate-link" href="https://venmo.com/u/jetza-nunez" target="_blank" rel="noopener">Donate via Venmo →</a>
-      </div>
-    </div>
-  </div>
-  <button class="btn-another" onclick="resetForm()">Submit another response</button>
-</div>
+#confirmScreen { display: none; text-align: center; padding: 48px 28px 36px; }
+.confirm-icon { font-size: 3rem; margin-bottom: 12px; }
+.confirm-title { font-family: 'Baskervville', serif; font-size: 1.8rem; color: var(--navy); margin-bottom: 10px; }
+.confirm-msg { color: var(--muted); font-size: .9rem; line-height: 1.7; margin-bottom: 28px; }
+.confirm-ctas { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-bottom: 28px; }
+
+.insta-cta { background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); border-radius: 12px; padding: 16px 24px; display: flex; align-items: center; gap: 14px; color: white; text-decoration: none; width: 100%; max-width: 400px; transition: opacity .15s, transform .1s; }
+.insta-cta:hover { opacity: .9; transform: translateY(-2px); }
+.insta-cta-text { text-align: left; }
+.insta-cta-text strong { display: block; font-size: .95rem; font-weight: 700; }
+.insta-cta-text span { font-size: .78rem; opacity: .9; }
+
+.donate-cta { background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 20px 24px; display: flex; align-items: center; gap: 20px; width: 100%; max-width: 400px; }
+.donate-qr img { width: 90px; height: 90px; border-radius: 6px; border: 1px solid var(--border); }
+.donate-text { text-align: left; }
+.donate-text strong { display: block; font-family: 'Baskervville', serif; font-size: 1.05rem; color: var(--navy); margin-bottom: 4px; }
+.donate-text p { font-size: .78rem; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
+.donate-link { display: inline-block; background: var(--navy); color: var(--white); font-size: .78rem; font-weight: 700; padding: 6px 14px; border-radius: 6px; text-decoration: none; }
+
+/* Share CTA */
+.share-cta { background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 20px 24px; display: flex; align-items: center; gap: 20px; width: 100%; max-width: 400px; }
+.share-qr img { width: 100px; height: 100px; border-radius: 6px; border: 1px solid var(--border); }
+.share-text { text-align: left; flex: 1; }
+.share-text strong { display: block; font-family: 'Baskervville', serif; font-size: 1.05rem; color: var(--navy); margin-bottom: 4px; }
+.share-text p { font-size: .78rem; color: var(--muted); line-height: 1.5; margin-bottom: 10px; }
+.copy-link-wrap { display: flex; gap: 6px; }
+.copy-link-wrap input { flex: 1; font-family: 'Noto Sans', sans-serif; font-size: .72rem; padding: 7px 10px; border: 1.5px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); min-width: 0; }
+.copy-link-btn { background: var(--navy); color: var(--white); border: none; border-radius: 6px; padding: 7px 14px; font-family: 'Noto Sans', sans-serif; font-size: .75rem; font-weight: 700; cursor: pointer; white-space: nowrap; transition: opacity .15s; }
+.copy-link-btn:hover { opacity: .85; }
+.copy-link-btn.copied { background: #22c55e; }
+
+.btn-another { background: var(--gold); color: var(--navy); border: none; border-radius: 8px; padding: 11px 24px; font-family: 'Noto Sans', sans-serif; font-weight: 700; font-size: .9rem; cursor: pointer; }
+
 /* FOOTER */
 .site-footer { background: var(--navy); padding: 18px 24px; display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 48px; }
 .footer-ig { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
@@ -195,6 +190,10 @@ tr:nth-child(even) td { background: #f9fafb; }
   .submit-section { flex-direction: column; align-items: stretch; }
   .btn-submit { justify-content: center; }
   .donate-cta { flex-direction: column; align-items: center; text-align: center; }
+  .share-cta { flex-direction: column; align-items: center; text-align: center; }
+  .share-text { text-align: center; }
+  .copy-link-wrap { flex-direction: column; }
+  .copy-link-wrap input { text-align: center; }
 }
 </style>
 </head>
@@ -322,18 +321,30 @@ tr:nth-child(even) td { background: #f9fafb; }
         <div class="confirm-title">Thank you for volunteering!</div>
         <p class="confirm-msg">We've received your interest form and will be in touch when opportunities match your schedule and interests. Moore Elementary is so lucky to have such a wonderful community of supporters!</p>
         <div class="confirm-ctas">
-          <a class="insta-cta" href="https://www.instagram.com/mooreelementarypto/following/" target="_blank" rel="noopener">
+          <a class="insta-cta" href="https://www.instagram.com/mooreelementarypto/following/" target="_blank" rel="noopener" style="justify-content: center; text-align: center;">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
             <div class="insta-cta-text">
               <strong>Follow us on Instagram</strong>
               <span>@mooreelementarypto — Stay up to date on all PTO news!</span>
             </div>
           </a>
-          <div class="donate-cta">
-            <div class="donate-qr">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=https://venmo.com/u/jetza-nunez&color=0c1546&bgcolor=ffffff" alt="Venmo QR Code"/>
+          <div class="share-cta">
+            <div class="share-qr">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://carocreativeco.github.io/mes-pto-volunteers/&color=0c1546&bgcolor=ffffff" alt="Form QR Code"/>
             </div>
-            <div class="donate-text">
+            <div class="share-text">
+              <strong>Share this with another MES parent!</strong>
+              <p>Help us spread the word — the more volunteers, the better!</p>
+              <div class="copy-link-wrap">
+                <input type="text" id="shareLinkInput" value="https://carocreativeco.github.io/mes-pto-volunteers/" readonly/>
+                <button class="copy-link-btn" onclick="copyShareLink()">
+                  <span id="copyBtnText">Copy</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="donate-cta" style="justify-content: center; text-align: center; padding: 16px 24px;">
+            <div class="donate-text" style="text-align: center;">
               <strong>Support the PTO</strong>
               <p>Every donation helps fund events, supplies, and enrichment for our students.</p>
               <a class="donate-link" href="https://venmo.com/u/jetza-nunez" target="_blank" rel="noopener">Donate via Venmo →</a>
@@ -557,6 +568,31 @@ function resetForm() {
   list.querySelector('.childGrade').selectedIndex = 0;
   list.querySelector('.childTeacher').value = '';
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function copyShareLink() {
+  const input = document.getElementById('shareLinkInput');
+  const btn = document.querySelector('.copy-link-btn');
+  const btnText = document.getElementById('copyBtnText');
+  
+  navigator.clipboard.writeText(input.value).then(() => {
+    btn.classList.add('copied');
+    btnText.textContent = 'Copied!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btnText.textContent = 'Copy';
+    }, 2000);
+  }).catch(() => {
+    // Fallback for older browsers
+    input.select();
+    document.execCommand('copy');
+    btn.classList.add('copied');
+    btnText.textContent = 'Copied!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btnText.textContent = 'Copy';
+    }, 2000);
+  });
 }
 
 function showForm(e) { if (e) e.preventDefault(); document.getElementById('formView').style.display=''; document.getElementById('adminLogin').style.display='none'; document.getElementById('adminPanel').style.display='none'; }
