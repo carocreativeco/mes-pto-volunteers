@@ -840,7 +840,7 @@ async function submitForm() {
     await fetch(GOOGLE_SHEET_URL, {
       method: 'POST',
       mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(data)
     });
   } catch (error) {
@@ -1218,7 +1218,7 @@ async function saveEvent() {
     await fetch(GOOGLE_SHEET_URL, {
       method: 'POST',
       mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({ action: 'saveEvent', event: event })
     });
   } catch (error) {
@@ -1291,7 +1291,7 @@ async function deleteEvent(eventId) {
     await fetch(GOOGLE_SHEET_URL, {
       method: 'POST',
       mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({ action: 'deleteEvent', eventId: eventId })
     });
   } catch (error) {
@@ -1344,7 +1344,7 @@ async function assignToEvent(subId) {
     await fetch(GOOGLE_SHEET_URL, {
       method: 'POST',
       mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({
         action: 'assignVolunteer',
         eventId: event.id,
@@ -1370,7 +1370,7 @@ async function removeFromEvent(eventId, subId) {
     await fetch(GOOGLE_SHEET_URL, {
       method: 'POST',
       mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({
         action: 'removeAssignment',
         eventId: eventId,
