@@ -823,7 +823,7 @@ function validate(d) {
   if (!d.lastName)  return 'Please enter your last name.';
   if (!d.email || !/\S+@\S+\.\S+/.test(d.email)) return 'Please enter a valid email address.';
   if (!d.children.length || !d.children[0].name) return 'Please enter at least one child\'s name.';
-  if (!d.children[0].grade) return 'Please select your child\'s grade.';
+   if (!d.children[0].grade) return 'Please select your child\'s grade.';
   if (!d.children[0].teacher) return 'Please enter your child\'s teacher\'s name.';
   if (!d.volunteerAreas.length) return 'Please select at least one area of interest.';
   return null;
