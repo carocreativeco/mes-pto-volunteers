@@ -377,11 +377,12 @@ tr:nth-child(even) td { background: #f9fafb; }
       <p style="font-size:.8rem;color:var(--muted);margin-top:3px;">2026–2027 School Year · Moore Elementary PTO</p>
     </div>
     <div class="admin-actions">
-      <button class="btn-sm btn-gold" onclick="exportCSV()">⬇ Export CSV</button>
-      <button class="btn-sm btn-navy" onclick="window.print()">⬇ Print / PDF</button>
-      <button class="btn-sm btn-danger" onclick="clearAllData()">🗑 Clear All</button>
-      <button class="btn-sm btn-outline" onclick="showForm(null)">← Back to Form</button>
-    </div>
+  <button class="btn-sm btn-gold" onclick="exportCSV()">⬇ Export All</button>
+  <button class="btn-sm btn-gold" onclick="exportFiltered()">⬇ Export Current View</button>
+  <button class="btn-sm btn-navy" onclick="window.print()">⬇ Print / PDF</button>
+  <button class="btn-sm btn-danger" onclick="clearAllData()">🗑 Clear All</button>
+  <button class="btn-sm btn-outline" onclick="showForm(null)">← Back to Form</button>
+</div>
   </div>
   <div class="stats-row" id="statsRow"></div>
   <div class="admin-tabs" id="adminTabs"></div>
@@ -737,6 +738,33 @@ function exportCSV() {
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
   a.download = 'moore-pto-volunteers-2026-27.csv';
+  a.click();
+}
+
+function exportFiltered() {
+  const allSubs = getSubmissions();
+  const subs = activeTab === '__all__' ? allSubs : allSubs.filter(s => s.volunteerAreas.includes(activeTab));
+  
+  if (!subs.length) { 
+    alert(activeTab === '__all__' ? 'No submissions to export yet.' : `No volunteers for "${activeTab}" yet.`); 
+    return; 
+  }
+  
+  // Simple export with just names and emails for easy contact
+  const headers = ['First Name', 'Last Name', 'Email', 'Phone'];
+  const rows = subs.map(s => [
+    s.firstName, s.lastName, s.email, s.phone
+  ].map(v => `"${(v || '').toString().replace(/"/g, '""')}"`));
+  
+  const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], {type: 'text/csv'}));
+  
+  const filename = activeTab === '__all__' 
+    ? 'moore-pto-all-volunteers-contacts.csv' 
+    : `moore-pto-${activeTab.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-volunteers.csv`;
+  
+  a.download = filename;
   a.click();
 }
 
