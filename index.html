@@ -181,6 +181,11 @@ tr:nth-child(even) td { background: #f9fafb; }
 .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: .68rem; font-weight: 700; background: #eef0f8; color: var(--navy); margin: 2px 2px 2px 0; white-space: nowrap; }
 .badge-orange { background: #fff0e8; color: var(--orange); }
 .empty-admin { padding: 48px; text-align: center; color: var(--muted); font-size: .9rem; }
+.select-cell { text-align: center; }
+.select-cell input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--navy); cursor: pointer; }
+.select-actions { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+.select-count { font-size: .82rem; color: var(--muted); }
+.select-count strong { color: var(--navy); }
 
 @media (max-width: 640px) {
   .field-grid { grid-template-columns: 1fr; }
@@ -386,7 +391,19 @@ tr:nth-child(even) td { background: #f9fafb; }
   </div>
   <div class="stats-row" id="statsRow"></div>
   <div class="admin-tabs" id="adminTabs"></div>
-  <div class="table-wrap">
+<div class="select-actions" id="selectActions" style="display:none;">
+  <label class="check-item" style="width:auto;margin:0;padding:8px 12px;" onclick="toggleSelectAll(event)">
+    <input type="checkbox" id="selectAllCheckbox"/>
+    <div class="check-box">
+      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg>
+    </div>
+    <span class="check-label">Select All</span>
+  </label>
+  <span class="select-count"><strong id="selectedCount">0</strong> selected</span>
+  <button class="btn-sm btn-gold" onclick="exportSelected()">⬇ Export Selected</button>
+  <button class="btn-sm btn-outline" onclick="clearSelection()">Clear Selection</button>
+</div>
+<div class="table-wrap">
     <div class="table-scroll">
       <table>
         <thead id="adminThead"></thead>
@@ -636,6 +653,8 @@ function checkAdminPass() {
 function getSubmissions() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { return []; } }
 
 let activeTab = '__all__';
+let selectedIds = new Set();
+
 function renderAdmin(tab) {
   activeTab = tab || '__all__';
   const allSubs = getSubmissions();
@@ -656,7 +675,7 @@ function renderAdmin(tab) {
     const btn = document.createElement('button');
     btn.className = 'tab-btn' + (activeTab === key ? ' active' : '');
     btn.textContent = label;
-    btn.onclick = () => renderAdmin(key);
+    btn.onclick = () => { selectedIds.clear(); renderAdmin(key); };
     tabsEl.appendChild(btn);
   };
   makeTab(`All (${allSubs.length})`, '__all__');
@@ -668,10 +687,15 @@ function renderAdmin(tab) {
   // Filter subs
   const subs = activeTab === '__all__' ? allSubs : allSubs.filter(s => s.volunteerAreas.includes(activeTab));
 
+  // Show/hide select actions
+  const selectActions = document.getElementById('selectActions');
+  selectActions.style.display = subs.length ? 'flex' : 'none';
+  updateSelectedCount();
+
   // Table header
   document.getElementById('adminThead').innerHTML = activeTab === '__all__'
-    ? `<tr><th>#</th><th>Submitted</th><th>Name</th><th>Email</th><th>Children / Teachers</th><th>Volunteer Areas</th><th>Availability</th><th>Notes</th></tr>`
-    : `<tr><th>#</th><th>Submitted</th><th>Name</th><th>Email / Phone</th><th>Children / Teachers</th><th>Availability</th><th>Notes</th></tr>`;
+    ? `<tr><th class="select-cell"><input type="checkbox" id="selectAllHeader" onchange="toggleSelectAll(event)"/></th><th>#</th><th>Submitted</th><th>Name</th><th>Email</th><th>Children / Teachers</th><th>Volunteer Areas</th><th>Availability</th><th>Notes</th></tr>`
+    : `<tr><th class="select-cell"><input type="checkbox" id="selectAllHeader" onchange="toggleSelectAll(event)"/></th><th>#</th><th>Submitted</th><th>Name</th><th>Email / Phone</th><th>Children / Teachers</th><th>Availability</th><th>Notes</th></tr>`;
 
   const tbody = document.getElementById('submissionsBody');
   const empty = document.getElementById('emptyAdmin');
@@ -685,6 +709,8 @@ function renderAdmin(tab) {
   empty.style.display = 'none';
 
   tbody.innerHTML = subs.map((s, i) => {
+    const subId = s.submittedAt + s.email;
+    const isChecked = selectedIds.has(subId) ? 'checked' : '';
     const date     = new Date(s.submittedAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
     const children = s.children.filter(c=>c.name||c.grade).map(c=>`<strong>${c.name}</strong>${c.grade?' · '+c.grade:''}${c.teacher?'<br/><span style="font-size:.72rem;color:var(--muted)">'+c.teacher+'</span>':''}`).join('<br/>') || '—';
     const areas    = s.volunteerAreas.map(a=>`<span class="badge">${a}</span>`).join('') || '—';
@@ -699,6 +725,7 @@ function renderAdmin(tab) {
 
     if (activeTab === '__all__') {
       return `<tr>
+        <td class="select-cell"><input type="checkbox" ${isChecked} onchange="toggleSelect('${subId}')"/></td>
         <td style="color:var(--muted);font-size:.75rem">${i+1}</td>
         <td style="white-space:nowrap;font-size:.78rem">${date}</td>
         <td><strong>${s.firstName} ${s.lastName}</strong></td>
@@ -710,6 +737,7 @@ function renderAdmin(tab) {
       </tr>`;
     } else {
       return `<tr>
+        <td class="select-cell"><input type="checkbox" ${isChecked} onchange="toggleSelect('${subId}')"/></td>
         <td style="color:var(--muted);font-size:.75rem">${i+1}</td>
         <td style="white-space:nowrap;font-size:.78rem">${date}</td>
         <td><strong>${s.firstName} ${s.lastName}</strong></td>
@@ -720,8 +748,164 @@ function renderAdmin(tab) {
       </tr>`;
     }
   }).join('');
+  
+  updateSelectAllCheckbox();
 }
 
+function toggleSelect(subId) {
+  if (selectedIds.has(subId)) {
+    selectedIds.delete(subId);
+  } else {
+    selectedIds.add(subId);
+  }
+  updateSelectedCount();
+  updateSelectAllCheckbox();
+}
+
+function toggleSelectAll(event) {
+  const allSubs = getSubmissions();
+  const subs = activeTab === '__all__' ? allSubs : allSubs.filter(s => s.volunteerAreas.includes(activeTab));
+  
+  const allSelected = subs.every(s => selectedIds.has(s.submittedAt + s.email));
+  
+  if (allSelected) {
+    subs.forEach(s => selectedIds.delete(s.submittedAt + s.email));
+  } else {
+    subs.forEach(s => selectedIds.add(s.submittedAt + s.email));
+  }
+  
+  renderAdmin(activeTab);
+}
+
+function updateSelectedCount() {
+  document.getElementById('selectedCount').textContent = selectedIds.size;
+}
+
+function updateSelectAllCheckbox() {
+  const allSubs = getSubmissions();
+  const subs = activeTab === '__all__' ? allSubs : allSubs.filter(s => s.volunteerAreas.includes(activeTab));
+  const allSelected = subs.length > 0 && subs.every(s => selectedIds.has(s.submittedAt + s.email));
+  
+  const headerCheckbox = document.getElementById('selectAllHeader');
+  const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+  
+  if (headerCheckbox) headerCheckbox.checked = allSelected;
+  if (selectAllCheckbox) selectAllCheckbox.checked = allSelected;
+  
+  const selectAllItem = selectAllCheckbox?.closest('.check-item');
+  if (selectAllItem) {
+    selectAllItem.classList.toggle('checked', allSelected);
+  }
+}
+
+function clearSelection() {
+  selectedIds.clear();
+  renderAdmin(activeTab);
+}
+
+function exportSelected() {
+  if (selectedIds.size === 0) {
+    alert('Please select at least one submission to export.');
+    return;
+  }
+  
+  const allSubs = getSubmissions();
+  const subs = allSubs.filter(s => selectedIds.has(s.submittedAt + s.email));
+  
+  const headers = ['First Name', 'Last Name', 'Email', 'Phone', 'Volunteer Areas'];
+  const rows = subs.map(s => [
+    s.firstName, 
+    s.lastName, 
+    s.email, 
+    s.phone,
+    s.volunteerAreas.join('; ')
+  ].map(v => `"${(v || '').toString().replace(/"/g, '""')}"`));
+  
+  const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], {type: 'text/csv'}));
+  a.download = `moore-pto-selected-volunteers-${selectedIds.size}.csv`;
+  a.click();
+}
+}
+
+  function toggleSelect(subId) {
+  if (selectedIds.has(subId)) {
+    selectedIds.delete(subId);
+  } else {
+    selectedIds.add(subId);
+  }
+  updateSelectedCount();
+  updateSelectAllCheckbox();
+}
+
+function toggleSelectAll(event) {
+  const allSubs = getSubmissions();
+  const subs = activeTab === '__all__' ? allSubs : allSubs.filter(s => s.volunteerAreas.includes(activeTab));
+  
+  const allSelected = subs.every(s => selectedIds.has(s.submittedAt + s.email));
+  
+  if (allSelected) {
+    subs.forEach(s => selectedIds.delete(s.submittedAt + s.email));
+  } else {
+    subs.forEach(s => selectedIds.add(s.submittedAt + s.email));
+  }
+  
+  renderAdmin(activeTab);
+}
+
+function updateSelectedCount() {
+  document.getElementById('selectedCount').textContent = selectedIds.size;
+}
+
+function updateSelectAllCheckbox() {
+  const allSubs = getSubmissions();
+  const subs = activeTab === '__all__' ? allSubs : allSubs.filter(s => s.volunteerAreas.includes(activeTab));
+  const allSelected = subs.length > 0 && subs.every(s => selectedIds.has(s.submittedAt + s.email));
+  
+  const headerCheckbox = document.getElementById('selectAllHeader');
+  const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+  
+  if (headerCheckbox) headerCheckbox.checked = allSelected;
+  if (selectAllCheckbox) selectAllCheckbox.checked = allSelected;
+  
+  const selectAllItem = selectAllCheckbox?.closest('.check-item');
+  if (selectAllItem) {
+    selectAllItem.classList.toggle('checked', allSelected);
+  }
+}
+
+function clearSelection() {
+  selectedIds.clear();
+  renderAdmin(activeTab);
+}
+
+function exportSelected() {
+  if (selectedIds.size === 0) {
+    alert('Please select at least one submission to export.');
+    return;
+  }
+  
+  const allSubs = getSubmissions();
+  const subs = allSubs.filter(s => selectedIds.has(s.submittedAt + s.email));
+  
+  const headers = ['First Name', 'Last Name', 'Email', 'Phone', 'Volunteer Areas'];
+  const rows = subs.map(s => [
+    s.firstName, 
+    s.lastName, 
+    s.email, 
+    s.phone,
+    s.volunteerAreas.join('; ')
+  ].map(v => `"${(v || '').toString().replace(/"/g, '""')}"`));
+  
+  const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], {type: 'text/csv'}));
+  a.download = `moore-pto-selected-volunteers-${selectedIds.size}.csv`;
+  a.click();
+}
+
+  
 function exportCSV() {
   const subs = getSubmissions();
   if (!subs.length) { alert('No submissions to export yet.'); return; }
