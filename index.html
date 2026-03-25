@@ -252,15 +252,15 @@ tr:nth-child(even) td { background: #f9fafb; }
         <div class="section-label"><div class="section-num">2</div><div class="section-title">Your Child(ren) at Moore Elementary</div></div>
         <div id="childrenList">
           <div class="child-row">
-            <div class="field"><label>Child's Name</label><input type="text" class="childName" placeholder="First Last"/></div>
-            <div class="field"><label>Grade</label>
+  <div class="field"><label>Child's Name <span class="req">*</span></label><input type="text" class="childName" placeholder="First Last"/></div>
+  <div class="field"><label>Grade <span class="req">*</span></label>
               <select class="childGrade">
                 <option value="">Select</option>
                 <option>Kindergarten</option><option>1st Grade</option><option>2nd Grade</option>
                 <option>3rd Grade</option><option>4th Grade</option><option>5th Grade</option>
               </select>
             </div>
-            <div class="field"><label>Teacher's Name</label><input type="text" class="childTeacher" placeholder="e.g. Ms. Smith"/></div>
+            <div class="field"><label>Teacher's Name <span class="req">*</span></label><input type="text" class="childTeacher" placeholder="e.g. Ms. Smith"/></div>
             <div style="display:flex;align-items:flex-end;padding-bottom:1px;"><button class="btn-remove" onclick="removeChild(this)">✕</button></div>
           </div>
         </div>
@@ -269,7 +269,7 @@ tr:nth-child(even) td { background: #f9fafb; }
 
       <!-- Section 3 -->
       <div class="form-section">
-        <div class="section-label"><div class="section-num">3</div><div class="section-title">Areas of Interest <span style="font-size:.8rem;font-family:'Noto Sans',sans-serif;color:var(--muted);font-weight:400;">(select all that apply)</span></div></div>
+        <div class="section-label"><div class="section-num">3</div><div class="section-title">Areas of Interest <span class="req">*</span> <span style="font-size:.8rem;font-family:'Noto Sans',sans-serif;color:var(--muted);font-weight:400;">(select at least one)</span></div></div>
         <div class="check-grid" id="volunteerAreas"></div>
         <div class="field" style="margin-top:14px;">
           <label>Other / Additional Skills or Interests</label>
@@ -480,8 +480,8 @@ function addChild() {
   const row = document.createElement('div');
   row.className = 'child-row';
   row.innerHTML = `
-    <div class="field"><label>Child's Name</label><input type="text" class="childName" placeholder="First Last"/></div>
-    <div class="field"><label>Grade</label>
+    <div class="field"><label>Child's Name <span class="req">*</span></label><input type="text" class="childName" placeholder="First Last"/></div>
+    <div class="field"><label>Grade <span class="req">*</span></label>
       <select class="childGrade">
         <option value="">Select</option>
         <option>Kindergarten</option><option>1st Grade</option><option>2nd Grade</option>
@@ -535,6 +535,10 @@ function validate(d) {
   if (!d.firstName) return 'Please enter your first name.';
   if (!d.lastName)  return 'Please enter your last name.';
   if (!d.email || !/\S+@\S+\.\S+/.test(d.email)) return 'Please enter a valid email address.';
+  if (!d.children.length || !d.children[0].name) return 'Please enter at least one child\'s name.';
+  if (!d.children[0].grade) return 'Please select your child\'s grade.';
+  if (!d.children[0].teacher) return 'Please enter your child\'s teacher\'s name.';
+  if (!d.volunteerAreas.length) return 'Please select at least one area of interest.';
   return null;
 }
 
