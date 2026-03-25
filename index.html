@@ -695,7 +695,7 @@ const ADMIN_PASS  = 'moorePTO2026';
 const STORAGE_KEY = 'moore_pto_v3';
 const EVENTS_KEY = 'moore_pto_events';
 const STATUS_KEY = 'moore_pto_status';
-const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycby3N6dvqgZSDDdbI3UFnN6-0gRTgwdjvaRzZpfsXNs-fssivjRpwgePe62sqcuiHihm/exec';
+const https://script.google.com/macros/s/AKfycbx6g763uPH0YU40IVbNFm6TwwqPHkXEMKW9OkR3j3RVfQMMkDqrmRMOfKumSZPB-qKS/exec = 'https://script.google.com/macros/s/AKfycby3N6dvqgZSDDdbI3UFnN6-0gRTgwdjvaRzZpfsXNs-fssivjRpwgePe62sqcuiHihm/exec';
 
 const VOLUNTEER_AREAS = [
   'Moore Miles',
@@ -837,7 +837,7 @@ async function submitForm() {
   btn.disabled = true; btn.textContent = 'Submitting…';
   
   try {
-    await fetch(GOOGLE_SHEET_URL, {
+    await fetch(https://script.google.com/macros/s/AKfycbx6g763uPH0YU40IVbNFm6TwwqPHkXEMKW9OkR3j3RVfQMMkDqrmRMOfKumSZPB-qKS/exec, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
@@ -1190,7 +1190,7 @@ function clearEventForm() {
   document.querySelectorAll('.event-area-chip').forEach(chip => chip.classList.remove('selected'));
 }
 
-function saveEvent() {
+async function saveEvent() {
   const name = document.getElementById('eventName').value.trim();
   const date = document.getElementById('eventDate').value;
   
@@ -1212,6 +1212,19 @@ function saveEvent() {
     assignedVolunteers: []
   };
   
+  // Save to Google Sheets
+  try {
+    await fetch(https://script.google.com/macros/s/AKfycbx6g763uPH0YU40IVbNFm6TwwqPHkXEMKW9OkR3j3RVfQMMkDqrmRMOfKumSZPB-qKS/exec, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'saveEvent', event: event })
+    });
+  } catch (error) {
+    console.error('Error saving event:', error);
+  }
+  
+  // Also save locally as backup
   const events = getEvents();
   events.push(event);
   localStorage.setItem(EVENTS_KEY, JSON.stringify(events));
@@ -1269,23 +1282,89 @@ function renderEvents() {
   }).join('');
 }
 
-function deleteEvent(eventId) {
+async function deleteEvent(eventId) {
   if (!confirm('Delete this event?')) return;
   
+  // Delete from Google Sheets
+  try {
+    await fetch(https://script.google.com/macros/s/AKfycbx6g763uPH0YU40IVbNFm6TwwqPHkXEMKW9OkR3j3RVfQMMkDqrmRMOfKumSZPB-qKS/exec, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'deleteEvent', eventId: eventId })
+    });
+  } catch (error) {
+    console.error('Error deleting event:', error);
+  }
+  
+  // Also delete locally
   let events = getEvents();
   events = events.filter(e => e.id !== eventId);
   localStorage.setItem(EVENTS_KEY, JSON.stringify(events));
+  
   renderEvents();
   populateSignupEventSelect();
 }
 
-function assignToEvent(subId) {
+async function assignToEvent(subId) {
   const events = getEvents();
+  const allSubs = getSubmissions();
   
   if (!events.length) {
     alert('No events created yet. Create an event first!');
     return;
   }
+  
+  const volunteer = allSubs.find(s => (s.submittedAt + s.email) === subId);
+  if (!volunteer) {
+    alert('Volunteer not found.');
+    return;
+  }
+  
+  const choice = prompt(`Enter event number to assign:\n\n${events.map((e, i) => `${i + 1}. ${e.name} (${e.date})`).join('\n')}`);
+  
+  if (!choice) return;
+  
+  const index = parseInt(choice) - 1;
+  if (isNaN(index) || index < 0 || index >= events.length) {
+    alert('Invalid selection.');
+    return;
+  }
+  
+  const event = events[index];
+  
+  if (event.assignedVolunteers && event.assignedVolunteers.includes(subId)) {
+    alert('Volunteer already assigned to this event.');
+    return;
+  }
+  
+  // Save to Google Sheets
+  try {
+    await fetch(https://script.google.com/macros/s/AKfycbx6g763uPH0YU40IVbNFm6TwwqPHkXEMKW9OkR3j3RVfQMMkDqrmRMOfKumSZPB-qKS/exec, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'assignVolunteer',
+        eventId: event.id,
+        eventName: event.name,
+        volunteerId: subId,
+        volunteerName: `${volunteer.firstName} ${volunteer.lastName}`,
+        volunteerEmail: volunteer.email
+      })
+    });
+  } catch (error) {
+    console.error('Error assigning volunteer:', error);
+  }
+  
+  // Also save locally
+  if (!event.assignedVolunteers) event.assignedVolunteers = [];
+  event.assignedVolunteers.push(subId);
+  localStorage.setItem(EVENTS_KEY, JSON.stringify(events));
+  
+  alert('Volunteer assigned!');
+  renderEvents();
+}
   
   const eventOptions = events.map(e => `${e.name} (${e.date})`).join('\n');
   const choice = prompt(`Enter event number to assign:\n\n${events.map((e, i) => `${i + 1}. ${e.name} (${e.date})`).join('\n')}`);
@@ -1308,7 +1387,24 @@ function assignToEvent(subId) {
   }
 }
 
-function removeFromEvent(eventId, subId) {
+async function removeFromEvent(eventId, subId) {
+  // Remove from Google Sheets
+  try {
+    await fetch(https://script.google.com/macros/s/AKfycbx6g763uPH0YU40IVbNFm6TwwqPHkXEMKW9OkR3j3RVfQMMkDqrmRMOfKumSZPB-qKS/exec, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'removeAssignment',
+        eventId: eventId,
+        volunteerId: subId
+      })
+    });
+  } catch (error) {
+    console.error('Error removing assignment:', error);
+  }
+  
+  // Also remove locally
   const events = getEvents();
   const event = events.find(e => e.id === eventId);
   if (event) {
