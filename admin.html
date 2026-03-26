@@ -157,6 +157,8 @@
   gap:10px;
   margin-top:16px
 }
+  .print-note{margin-top:10px;font-size:.78rem;color:var(--muted)}
+@media print{.print-note{display:none}}
 .site-footer{background:var(--navy);padding:18px 24px;display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:48px}.footer-ig{display:flex;gap:20px;flex-wrap:wrap;justify-content:center}.footer-ig a{color:var(--gold);text-decoration:none;font-size:.8rem;font-weight:600;display:flex;align-items:center;gap:6px;opacity:.9}.footer-ig a:hover{opacity:1}.footer-copy{font-size:.68rem;color:rgba(255,255,255,.35);text-align:center}
 .loading-msg{padding:32px;text-align:center;color:var(--muted);font-size:.9rem}.loading-msg .spinner{display:inline-block;width:20px;height:20px;border:3px solid var(--border);border-top-color:var(--navy);border-radius:50%;animation:spin .6s linear infinite;margin-right:8px;vertical-align:middle}@keyframes spin{to{transform:rotate(360deg)}}.refresh-bar{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding:8px 14px;background:#eef0f8;border-radius:8px;font-size:.78rem;color:var(--muted)}.refresh-bar .last-refresh{flex:1}.refresh-btn{background:var(--navy);color:var(--white);border:none;border-radius:6px;padding:6px 14px;font-family:'Noto Sans',sans-serif;font-size:.75rem;font-weight:700;cursor:pointer}.refresh-btn:hover{opacity:.85}
 @media print{
@@ -244,9 +246,10 @@
   </div>
 
   <div class="signup-actions">
-    <button class="btn-sm btn-navy" onclick="printSignupSheet()">&#128424; Print</button>
-    <button class="btn-sm btn-outline" onclick="addBlankRows()">+ Add Blank Rows</button>
-  </div>
+  <button class="btn-sm btn-navy" onclick="printSignupSheet()">&#128424; Print</button>
+  <button class="btn-sm btn-outline" onclick="addBlankRows()">+ Add Blank Rows</button>
+</div>
+<p class="print-note">For a clean printout, uncheck browser “Headers and footers” in the print dialog.</p>
 </div></div>
 </div>
 <footer class="site-footer"><div class="footer-ig"><a href="https://www.instagram.com/mesfssd/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg> @mesfssd</a><a href="https://www.instagram.com/mooreelementarypto/following/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg> @mooreelementarypto</a></div><div class="footer-copy">Moore Elementary School &#183; Parent Teacher Organization &#183; 2026&#8211;2027</div></footer>
