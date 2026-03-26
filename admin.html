@@ -55,7 +55,54 @@
   <div id="eventsList" class="events-list"></div>
   <div class="empty-admin" id="emptyEvents">No events created yet.</div>
 </div>
-<div id="tabSignups" class="admin-tab-content" style="display:none;"><div class="signups-header"><h3>Generate Sign-up Sheets</h3></div><p style="color:var(--muted);font-size:.85rem;margin-bottom:20px;">Select an event to generate a printable sign-up sheet.</p><div class="field" style="max-width:400px;margin-bottom:20px;"><label>Select Event</label><select id="signupEventSelect" onchange="previewSignupSheet()"><option value="">Choose an event...</option></select></div><div id="signupPreview" class="signup-preview" style="display:none;"><div class="signup-sheet" id="signupSheet"><div class="signup-sheet-header"><h2 id="signupEventName"></h2><div class="signup-meta"><span id="signupEventDate"></span><span id="signupEventTime"></span><span id="signupEventLocation"></span></div></div><table class="signup-table"><thead><tr><th style="width:30px;">#</th><th>Volunteer Name</th><th>Phone</th><th>Check-in</th><th>Check-out</th></tr></thead><tbody id="signupTableBody"></tbody></table><div class="signup-footer"><p>Moore Elementary PTO &#183; 2026-2027</p></div></div><div class="signup-actions"><button class="btn-sm btn-navy" onclick="printSignupSheet()">&#128424; Print</button><button class="btn-sm btn-outline" onclick="addBlankRows()">+ Add Blank Rows</button></div></div></div>
+<div id="tabSignups" class="admin-tab-content" style="display:none;"><div class="signups-header"><h3>Generate Sign-up Sheets</h3></div><p style="color:var(--muted);font-size:.85rem;margin-bottom:20px;">Select an event to generate a printable sign-up sheet.</p><div class="field" style="max-width:400px;margin-bottom:20px;"><label>Select Event</label><select id="signupEventSelect" onchange="previewSignupSheet()"><option value="">Choose an event...</option></select></div><div id="signupPreview" class="signup-preview" style="display:none;">
+  <div class="signup-sheet" id="signupSheet">
+    <div class="signup-sheet-header">
+      <div class="signup-sheet-brand">
+        <div class="signup-sheet-logo-wrap">
+          <img src="MES Stacked.png" alt="Moore Elementary School"
+               onerror="this.style.display='none';document.getElementById('signupInitials').style.display='block'"/>
+          <span class="signup-initials" id="signupInitials" style="display:none">ME</span>
+        </div>
+        <div class="signup-sheet-brand-text">
+          <div class="signup-sheet-school">Moore Elementary School</div>
+          <div class="signup-sheet-sub">Parent Teacher Organization</div>
+        </div>
+      </div>
+
+      <div class="signup-sheet-title">Volunteer Sign-Up Sheet</div>
+
+      <div class="signup-meta">
+        <span><strong>Event:</strong> <span id="signupEventName"></span></span>
+        <span><strong>Date:</strong> <span id="signupEventDate"></span></span>
+        <span id="signupTimeWrap" style="display:none;"><strong>Time:</strong> <span id="signupEventTime"></span></span>
+        <span id="signupLocationWrap" style="display:none;"><strong>Location:</strong> <span id="signupEventLocation"></span></span>
+      </div>
+    </div>
+
+    <table class="signup-table">
+      <thead>
+        <tr>
+          <th style="width:30px;">#</th>
+          <th>Volunteer Name</th>
+          <th>Phone</th>
+          <th>Check-in</th>
+          <th>Check-out</th>
+        </tr>
+      </thead>
+      <tbody id="signupTableBody"></tbody>
+    </table>
+
+    <div class="signup-footer">
+      <p>Moore Elementary PTO &#183; 2026-2027</p>
+    </div>
+  </div>
+
+  <div class="signup-actions">
+    <button class="btn-sm btn-navy" onclick="printSignupSheet()">&#128424; Print</button>
+    <button class="btn-sm btn-outline" onclick="addBlankRows()">+ Add Blank Rows</button>
+  </div>
+</div></div>
 </div>
 <footer class="site-footer"><div class="footer-ig"><a href="https://www.instagram.com/mesfssd/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg> @mesfssd</a><a href="https://www.instagram.com/mooreelementarypto/following/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg> @mooreelementarypto</a></div><div class="footer-copy">Moore Elementary School &#183; Parent Teacher Organization &#183; 2026&#8211;2027</div></footer>
 
