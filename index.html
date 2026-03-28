@@ -53,10 +53,64 @@
       <div class="field" style="margin-top:14px;"><label>Other / Additional Skills or Interests</label><input type="text" id="otherSkills" placeholder="e.g. Photography, Bilingual Spanish, Carpentry…"/></div>
     </div>
     <div class="form-section">
-      <div class="section-label"><div class="section-num">4</div><div class="section-title">General Availability</div></div>
-      <div class="avail-grid" id="availGrid"><div class="avail-head"></div><div class="avail-head">Morning</div><div class="avail-head">Afternoon</div><div class="avail-head">Evening</div></div>
-      <div class="field" style="margin-top:16px;"><label>Any scheduling notes?</label><input type="text" id="availNotes" placeholder="e.g. Available most Fridays, not during school holidays…"/></div>
+  <div class="section-label"><div class="section-num">4</div><div class="section-title">Availability</div></div>
+
+  <div class="field" style="margin-bottom:14px;">
+    <p style="font-size:.88rem; line-height:1.6; color:var(--muted);">
+      Any time you can offer is appreciated — we’ll do our best to work with your schedule.
+    </p>
+  </div>
+
+  <div class="field">
+    <label>When are you most likely to be available?</label>
+    <div class="check-grid" id="availabilityOptions">
+      <label class="check-item">
+        <input type="checkbox" value="During school hours"/>
+        <div class="check-box">
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="2 6 5 9 10 3"/>
+          </svg>
+        </div>
+        <span class="check-label">During school hours</span>
+      </label>
+
+      <label class="check-item">
+        <input type="checkbox" value="After school / evenings"/>
+        <div class="check-box">
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="2 6 5 9 10 3"/>
+          </svg>
+        </div>
+        <span class="check-label">After school / evenings</span>
+      </label>
+
+      <label class="check-item">
+        <input type="checkbox" value="Weekends"/>
+        <div class="check-box">
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="2 6 5 9 10 3"/>
+          </svg>
+        </div>
+        <span class="check-label">Weekends</span>
+      </label>
+
+      <label class="check-item">
+        <input type="checkbox" value="My availability varies"/>
+        <div class="check-box">
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="2 6 5 9 10 3"/>
+          </svg>
+        </div>
+        <span class="check-label">My availability varies</span>
+      </label>
     </div>
+  </div>
+
+  <div class="field" style="margin-top:16px;">
+    <label>Anything you'd like us to know about your schedule?</label>
+    <input type="text" id="availNotes" placeholder="Optional — for example: I work full-time, but can sometimes volunteer with advance notice."/>
+  </div>
+</div>
     <div class="form-section">
       <div class="section-label"><div class="section-num">5</div><div class="section-title">Anything else you'd like us to know?</div></div>
       <div class="field"><label>Additional Comments</label><textarea id="comments" placeholder="Special skills, questions, limitations, or just a hello!"></textarea></div>
@@ -108,23 +162,29 @@ function sendToSheet(payload){
   }catch(err){console.error('[Sync] error:',err);}
 }
 
-document.addEventListener('DOMContentLoaded',function(){buildVolunteerAreas();buildAvailGrid();});
+document.addEventListener('DOMContentLoaded',function(){
+  buildVolunteerAreas();
+  setupCheckItems();
+});
 
 function buildVolunteerAreas(){
   var g=document.getElementById('volunteerAreas');
   VOLUNTEER_AREAS.forEach(function(a){
-    var it=document.createElement('label');it.className='check-item';
+    var it=document.createElement('label');
+    it.className='check-item';
     it.innerHTML='<input type="checkbox" value="'+a+'"/><div class="check-box"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></div><span class="check-label">'+a+'</span>';
-    it.addEventListener('click',function(e){e.preventDefault();var cb=it.querySelector('input');cb.checked=!cb.checked;it.classList.toggle('checked',cb.checked);});
     g.appendChild(it);
   });
+
+  setupCheckItems();
 }
-function buildAvailGrid(){
-  var g=document.getElementById('availGrid');
-  DAYS.forEach(function(d){
-    var el=document.createElement('div');el.className='avail-day';el.textContent=d;g.appendChild(el);
-    ['morning','afternoon','evening'].forEach(function(t){
-      var c=document.createElement('div');c.className='avail-cell';c.innerHTML='<input type="checkbox" id="avail_'+d+'_'+t+'"/>';g.appendChild(c);
+function setupCheckItems(){
+  document.querySelectorAll('.check-item').forEach(function(it){
+    it.addEventListener('click',function(e){
+      e.preventDefault();
+      var cb=it.querySelector('input');
+      cb.checked=!cb.checked;
+      it.classList.toggle('checked',cb.checked);
     });
   });
 }
@@ -137,7 +197,10 @@ function removeChild(btn){if(document.querySelectorAll('.child-row').length>1)bt
 function collectFormData(){
   var children=[];document.querySelectorAll('.child-row').forEach(function(row){var n=row.querySelector('.childName').value.trim(),gr=row.querySelector('.childGrade').value,t=row.querySelector('.childTeacher').value.trim();if(n||gr||t)children.push({name:n,grade:gr,teacher:t});});
   var areas=[];document.querySelectorAll('#volunteerAreas .check-item.checked input').forEach(function(cb){areas.push(cb.value);});
-  var avail=[];DAYS.forEach(function(d){['morning','afternoon','evening'].forEach(function(t){var cb=document.getElementById('avail_'+d+'_'+t);if(cb&&cb.checked)avail.push(d+' '+t);});});
+  var avail=[];
+document.querySelectorAll('#availabilityOptions .check-item input:checked').forEach(function(cb){
+  avail.push(cb.value);
+});
   return{submittedAt:new Date().toISOString(),firstName:document.getElementById('firstName').value.trim(),lastName:document.getElementById('lastName').value.trim(),email:document.getElementById('email').value.trim(),phone:document.getElementById('phone').value.trim(),contactPref:document.getElementById('contactPref').value,children:children,volunteerAreas:areas,otherSkills:document.getElementById('otherSkills').value.trim(),availability:avail,availNotes:document.getElementById('availNotes').value.trim(),comments:document.getElementById('comments').value.trim(),hearAbout:document.getElementById('hearAbout').value};
 }
 function validate(d){
@@ -169,7 +232,10 @@ function resetForm(){
   document.querySelectorAll('input[type=text],input[type=email],input[type=tel],textarea').forEach(function(el){el.value='';});
   document.querySelectorAll('select').forEach(function(el){el.selectedIndex=0;});
   document.querySelectorAll('.check-item').forEach(function(el){el.classList.remove('checked');el.querySelector('input').checked=false;});
-  document.querySelectorAll('#availGrid input[type=checkbox]').forEach(function(cb){cb.checked=false;});
+  document.querySelectorAll('#availabilityOptions .check-item').forEach(function(el){
+  el.classList.remove('checked');
+  el.querySelector('input').checked=false;
+});
   var list=document.getElementById('childrenList');while(list.children.length>1)list.removeChild(list.lastChild);
   list.querySelector('.childName').value='';list.querySelector('.childGrade').selectedIndex=0;list.querySelector('.childTeacher').value='';
   window.scrollTo({top:0,behavior:'smooth'});
