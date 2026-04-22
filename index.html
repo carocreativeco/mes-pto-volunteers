@@ -90,6 +90,8 @@ body{font-family:'Noto Sans',sans-serif;background:var(--bg);color:var(--text);m
 .footer-copy{font-size:.68rem;color:rgba(255,255,255,.35);text-align:center}
 .footer-admin a{color:rgba(255,255,255,.25);font-size:.7rem;text-decoration:none}
 .footer-admin a:hover{color:var(--gold)}
+.error-msg{background:#fef2f2;border:1px solid #fecaca;color:#dc2626;padding:12px 16px;border-radius:8px;margin-bottom:16px;font-size:.875rem;display:none}
+.error-msg.show{display:block}
 @media(max-width:640px){
   .field-grid{grid-template-columns:1fr}
   .child-row{grid-template-columns:1fr 1fr;gap:8px}
@@ -133,6 +135,8 @@ body{font-family:'Noto Sans',sans-serif;background:var(--bg);color:var(--text);m
   </div>
 
   <div class="form-card">
+    <div id="errorMsg" class="error-msg"></div>
+    
     <div class="form-section">
       <div class="section-label">
         <div class="section-num">1</div>
@@ -157,10 +161,10 @@ body{font-family:'Noto Sans',sans-serif;background:var(--bg);color:var(--text);m
           <div class="field"><label>Child's Name <span class="req">*</span></label><input type="text" class="childName" placeholder="First Last"/></div>
           <div class="field"><label>Grade <span class="req">*</span></label><select class="childGrade"><option value="">Select</option><option>Kindergarten</option><option>1st Grade</option><option>2nd Grade</option><option>3rd Grade</option><option>4th Grade</option><option>5th Grade</option></select></div>
           <div class="field"><label>Teacher's Name <span class="req">*</span></label><input type="text" class="childTeacher" placeholder="e.g. Ms. Smith"/></div>
-          <div style="display:flex;align-items:flex-end;padding-bottom:1px;"><button class="btn-remove" onclick="removeChild(this)">✕</button></div>
+          <div style="display:flex;align-items:flex-end;padding-bottom:1px;"><button type="button" class="btn-remove" onclick="removeChild(this)">✕</button></div>
         </div>
       </div>
-      <button class="btn-add-child" onclick="addChild()">+ Add another child</button>
+      <button type="button" class="btn-add-child" onclick="addChild()">+ Add another child</button>
     </div>
 
     <div class="form-section">
@@ -179,54 +183,14 @@ body{font-family:'Noto Sans',sans-serif;background:var(--bg);color:var(--text);m
       </div>
 
       <div class="field" style="margin-bottom:14px;">
-  <p style="font-size:.88rem;line-height:1.6;color:var(--muted);">
-    We appreciate any time you’re able to give, whether it’s during the school day, after school, or only once in a while — we’re happy to work with your schedule.
-  </p>
-</div>
+        <p style="font-size:.88rem;line-height:1.6;color:var(--muted);">
+          We appreciate any time you're able to give, whether it's during the school day, after school, or only once in a while — we're happy to work with your schedule.
+        </p>
+      </div>
 
       <div class="field">
         <label>When are you most likely to be available?</label>
-        <div class="check-grid" id="availabilityOptions">
-          <label class="check-item">
-            <input type="checkbox" value="During school hours"/>
-            <div class="check-box">
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="2 6 5 9 10 3"/>
-              </svg>
-            </div>
-            <span class="check-label">During school hours</span>
-          </label>
-
-          <label class="check-item">
-            <input type="checkbox" value="After school / evenings"/>
-            <div class="check-box">
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="2 6 5 9 10 3"/>
-              </svg>
-            </div>
-            <span class="check-label">After school / evenings</span>
-          </label>
-
-          <label class="check-item">
-            <input type="checkbox" value="Weekends"/>
-            <div class="check-box">
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="2 6 5 9 10 3"/>
-              </svg>
-            </div>
-            <span class="check-label">Weekends</span>
-          </label>
-
-          <label class="check-item">
-            <input type="checkbox" value="My availability varies"/>
-            <div class="check-box">
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="2 6 5 9 10 3"/>
-              </svg>
-            </div>
-            <span class="check-label">My availability varies</span>
-          </label>
-        </div>
+        <div class="check-grid" id="availabilityOptions"></div>
       </div>
 
       <div class="field" style="margin-top:16px;">
@@ -246,7 +210,7 @@ body{font-family:'Noto Sans',sans-serif;background:var(--bg);color:var(--text);m
 
     <div class="submit-section" id="submitSection">
       <p class="submit-note">By submitting, you agree to be contacted by Moore Elementary PTO regarding volunteer opportunities for the 2026–2027 school year.</p>
-      <button class="btn-submit" id="submitBtn" onclick="submitForm()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Submit My Interest</button>
+      <button type="button" class="btn-submit" id="submitBtn" onclick="submitForm()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Submit My Interest</button>
     </div>
 
     <div id="confirmScreen">
@@ -261,12 +225,12 @@ body{font-family:'Noto Sans',sans-serif;background:var(--bg);color:var(--text);m
 
         <div class="share-cta">
           <div class="share-qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://carocreativeco.github.io/mes-pto-volunteers/&color=0c1546&bgcolor=ffffff" alt="Form QR Code"/></div>
-          <div class="share-text"><strong>Share this with another MES parent!</strong><p>Help us spread the word — the more volunteers, the better!</p><div class="copy-link-wrap"><input type="text" id="shareLinkInput" value="https://carocreativeco.github.io/mes-pto-volunteers/" readonly/><button class="copy-link-btn" onclick="copyShareLink()"><span id="copyBtnText">Copy</span></button></div></div>
+          <div class="share-text"><strong>Share this with another MES parent!</strong><p>Help us spread the word — the more volunteers, the better!</p><div class="copy-link-wrap"><input type="text" id="shareLinkInput" value="https://carocreativeco.github.io/mes-pto-volunteers/" readonly/><button type="button" class="copy-link-btn" onclick="copyShareLink()"><span id="copyBtnText">Copy</span></button></div></div>
         </div>
 
         <div class="donate-cta" style="justify-content:center;text-align:center;padding:16px 24px;"><div class="donate-text" style="text-align:center;"><strong>Support the PTO</strong><p>Every donation helps fund events, supplies, and enrichment for our students.</p><a class="donate-link" href="https://venmo.com/u/jetza-nunez" target="_blank" rel="noopener">Donate via Venmo →</a></div></div>
       </div>
-      <button class="btn-another" onclick="resetForm()">Submit another response</button>
+      <button type="button" class="btn-another" onclick="resetForm()">Submit another response</button>
     </div>
   </div>
 </div>
@@ -281,186 +245,296 @@ body{font-family:'Noto Sans',sans-serif;background:var(--bg);color:var(--text);m
 </footer>
 
 <script>
-var STORAGE_KEY='moore_pto_v3',STATUS_KEY='moore_pto_status';
-var GOOGLE_SHEET_URL='https://script.google.com/macros/s/AKfycbzLDUJzgPn034yxBg8vrdf98yb2eJ1HYFjdsZRg8P4PB4EKdmzmfdi1g8AzO6e9TXv3PQ/exec';
-var VOLUNTEER_AREAS=['Moore Miles','Bake Sale','Book Fair','Teacher Appreciation Week','Decorations Committee','Classroom Parties','Field Trip Chaperone','School Events Setup / Cleanup','Photography / Videography','Graphic Design','Arts & Crafts','Fundraising & Sponsorships'];
+var STORAGE_KEY = 'moore_pto_v3';
+var STATUS_KEY = 'moore_pto_status';
+var GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzLDUJzgPn034yxBg8vrdf98yb2eJ1HYFjdsZRg8P4PB4EKdmzmfdi1g8AzO6e9TXv3PQ/exec';
 
-function sendToSheet(payload){
-  try{
-    var f=document.createElement('form');
-    f.method='POST';
-    f.action=GOOGLE_SHEET_URL;
-    f.target='hidden_iframe';
-    f.style.display='none';
-    var inp=document.createElement('input');
-    inp.type='hidden';
-    inp.name='data';
-    inp.value=JSON.stringify(payload);
+var VOLUNTEER_AREAS = [
+  'Moore Miles',
+  'Bake Sale',
+  'Book Fair',
+  'Teacher Appreciation Week',
+  'Decorations Committee',
+  'Classroom Parties',
+  'Field Trip Chaperone',
+  'School Events Setup / Cleanup',
+  'Photography / Videography',
+  'Graphic Design',
+  'Arts & Crafts',
+  'Fundraising & Sponsorships'
+];
+
+var AVAILABILITY_OPTIONS = [
+  'During school hours',
+  'After school / evenings',
+  'Weekends',
+  'My availability varies'
+];
+
+function sendToSheet(payload) {
+  try {
+    var f = document.createElement('form');
+    f.method = 'POST';
+    f.action = GOOGLE_SHEET_URL;
+    f.target = 'hidden_iframe';
+    f.style.display = 'none';
+    var inp = document.createElement('input');
+    inp.type = 'hidden';
+    inp.name = 'data';
+    inp.value = JSON.stringify(payload);
     f.appendChild(inp);
     document.body.appendChild(f);
     f.submit();
     document.body.removeChild(f);
-    console.log('[Sync] sent:',payload.action||'submission');
-  }catch(err){
-    console.error('[Sync] error:',err);
+    console.log('[Sync] sent:', payload.action || 'submission');
+  } catch (err) {
+    console.error('[Sync] error:', err);
   }
 }
 
-document.addEventListener('DOMContentLoaded',function(){
+document.addEventListener('DOMContentLoaded', function() {
   buildVolunteerAreas();
+  buildAvailabilityOptions();
   setupCheckItems();
 });
 
-function buildVolunteerAreas(){
-  var g=document.getElementById('volunteerAreas');
-  VOLUNTEER_AREAS.forEach(function(a){
-    var it=document.createElement('label');
-    it.className='check-item';
-    it.innerHTML='<input type="checkbox" value="'+a+'"/><div class="check-box"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></div><span class="check-label">'+a+'</span>';
-    g.appendChild(it);
+function buildCheckItem(value) {
+  var it = document.createElement('label');
+  it.className = 'check-item';
+  it.innerHTML = '<input type="checkbox" value="' + value + '"/>' +
+    '<div class="check-box">' +
+    '<svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
+    '<polyline points="2 6 5 9 10 3"/>' +
+    '</svg>' +
+    '</div>' +
+    '<span class="check-label">' + value + '</span>';
+  return it;
+}
+
+function buildVolunteerAreas() {
+  var container = document.getElementById('volunteerAreas');
+  if (!container) {
+    console.error('volunteerAreas container not found');
+    return;
+  }
+  VOLUNTEER_AREAS.forEach(function(area) {
+    container.appendChild(buildCheckItem(area));
   });
 }
 
-function setupCheckItems(){
-  document.querySelectorAll('.check-item').forEach(function(it){
-    it.addEventListener('click',function(e){
+function buildAvailabilityOptions() {
+  var container = document.getElementById('availabilityOptions');
+  if (!container) {
+    console.error('availabilityOptions container not found');
+    return;
+  }
+  AVAILABILITY_OPTIONS.forEach(function(option) {
+    container.appendChild(buildCheckItem(option));
+  });
+}
+
+function setupCheckItems() {
+  document.querySelectorAll('.check-item').forEach(function(it) {
+    it.addEventListener('click', function(e) {
       e.preventDefault();
-      var cb=it.querySelector('input');
-      cb.checked=!cb.checked;
-      it.classList.toggle('checked',cb.checked);
+      var cb = it.querySelector('input');
+      cb.checked = !cb.checked;
+      it.classList.toggle('checked', cb.checked);
     });
   });
 }
 
-function addChild(){
-  var list=document.getElementById('childrenList'),row=document.createElement('div');
-  row.className='child-row';
-  row.innerHTML='<div class="field"><label>Child\\'s Name <span class="req">*</span></label><input type="text" class="childName" placeholder="First Last"/></div><div class="field"><label>Grade <span class="req">*</span></label><select class="childGrade"><option value="">Select</option><option>Kindergarten</option><option>1st Grade</option><option>2nd Grade</option><option>3rd Grade</option><option>4th Grade</option><option>5th Grade</option></select></div><div class="field"><label>Teacher\\'s Name <span class="req">*</span></label><input type="text" class="childTeacher" placeholder="e.g. Ms. Smith"/></div><div style="display:flex;align-items:flex-end;padding-bottom:1px;"><button class="btn-remove" onclick="removeChild(this)">✕</button></div>';
+function addChild() {
+  var list = document.getElementById('childrenList');
+  var row = document.createElement('div');
+  row.className = 'child-row';
+  row.innerHTML = '<div class="field"><label>Child\'s Name <span class="req">*</span></label><input type="text" class="childName" placeholder="First Last"/></div>' +
+    '<div class="field"><label>Grade <span class="req">*</span></label><select class="childGrade"><option value="">Select</option><option>Kindergarten</option><option>1st Grade</option><option>2nd Grade</option><option>3rd Grade</option><option>4th Grade</option><option>5th Grade</option></select></div>' +
+    '<div class="field"><label>Teacher\'s Name <span class="req">*</span></label><input type="text" class="childTeacher" placeholder="e.g. Ms. Smith"/></div>' +
+    '<div style="display:flex;align-items:flex-end;padding-bottom:1px;"><button type="button" class="btn-remove" onclick="removeChild(this)">✕</button></div>';
   list.appendChild(row);
 }
 
-function removeChild(btn){
-  if(document.querySelectorAll('.child-row').length>1)btn.closest('.child-row').remove();
+function removeChild(btn) {
+  if (document.querySelectorAll('.child-row').length > 1) {
+    btn.closest('.child-row').remove();
+  }
 }
 
-function collectFormData(){
-  var children=[];
-  document.querySelectorAll('.child-row').forEach(function(row){
-    var n=row.querySelector('.childName').value.trim(),
-        gr=row.querySelector('.childGrade').value,
-        t=row.querySelector('.childTeacher').value.trim();
-    if(n||gr||t)children.push({name:n,grade:gr,teacher:t});
+function collectFormData() {
+  var children = [];
+  document.querySelectorAll('.child-row').forEach(function(row) {
+    var n = row.querySelector('.childName').value.trim();
+    var gr = row.querySelector('.childGrade').value;
+    var t = row.querySelector('.childTeacher').value.trim();
+    if (n || gr || t) {
+      children.push({ name: n, grade: gr, teacher: t });
+    }
   });
 
-  var areas=[];
-  document.querySelectorAll('#volunteerAreas .check-item.checked input').forEach(function(cb){
+  var areas = [];
+  document.querySelectorAll('#volunteerAreas .check-item.checked input').forEach(function(cb) {
     areas.push(cb.value);
   });
 
-  var avail=[];
-  document.querySelectorAll('#availabilityOptions .check-item input:checked').forEach(function(cb){
+  var avail = [];
+  document.querySelectorAll('#availabilityOptions .check-item.checked input').forEach(function(cb) {
     avail.push(cb.value);
   });
 
-  return{
-    submittedAt:new Date().toISOString(),
-    firstName:document.getElementById('firstName').value.trim(),
-    lastName:document.getElementById('lastName').value.trim(),
-    email:document.getElementById('email').value.trim(),
-    phone:document.getElementById('phone').value.trim(),
-    contactPref:document.getElementById('contactPref').value,
-    children:children,
-    volunteerAreas:areas,
-    otherSkills:document.getElementById('otherSkills').value.trim(),
-    availability:avail,
-    availNotes:document.getElementById('availNotes').value.trim(),
-    comments:document.getElementById('comments').value.trim(),
-    hearAbout:document.getElementById('hearAbout').value
+  return {
+    submittedAt: new Date().toISOString(),
+    firstName: document.getElementById('firstName').value.trim(),
+    lastName: document.getElementById('lastName').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
+    contactPref: document.getElementById('contactPref').value,
+    children: children,
+    volunteerAreas: areas,
+    otherSkills: document.getElementById('otherSkills').value.trim(),
+    availability: avail,
+    availNotes: document.getElementById('availNotes').value.trim(),
+    comments: document.getElementById('comments').value.trim(),
+    hearAbout: document.getElementById('hearAbout').value
   };
 }
 
-function validate(d){
-  if(!d.firstName)return'Please enter your first name.';
-  if(!d.lastName)return'Please enter your last name.';
-  if(!d.email||!/\S+@\S+\.\S+/.test(d.email))return'Please enter a valid email address.';
-  if(!d.children.length||!d.children[0].name)return"Please enter at least one child's name.";
-  if(!d.children[0].grade)return"Please select your child's grade.";
-  if(!d.children[0].teacher)return"Please enter your child's teacher's name.";
-  if(!d.volunteerAreas.length)return'Please select at least one area of interest.';
+function showError(msg) {
+  var errorEl = document.getElementById('errorMsg');
+  errorEl.textContent = msg;
+  errorEl.classList.add('show');
+  errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function hideError() {
+  var errorEl = document.getElementById('errorMsg');
+  errorEl.classList.remove('show');
+}
+
+function validate(d) {
+  if (!d.firstName) return 'Please enter your first name.';
+  if (!d.lastName) return 'Please enter your last name.';
+  if (!d.email || !/\S+@\S+\.\S+/.test(d.email)) return 'Please enter a valid email address.';
+  if (!d.children.length || !d.children[0].name) return "Please enter at least one child's name.";
+  if (!d.children[0].grade) return "Please select your child's grade.";
+  if (!d.children[0].teacher) return "Please enter your child's teacher's name.";
+  if (!d.volunteerAreas.length) return 'Please select at least one area of interest.';
   return null;
 }
 
-function getSubmissions(){
-  try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||[];}catch(e){return[];}
+function getSubmissions() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+  } catch (e) {
+    return [];
+  }
 }
 
-function getStatuses(){
-  try{return JSON.parse(localStorage.getItem(STATUS_KEY))||{};}catch(e){return{};}
+function getStatuses() {
+  try {
+    return JSON.parse(localStorage.getItem(STATUS_KEY)) || {};
+  } catch (e) {
+    return {};
+  }
 }
 
-function submitForm(){
-  var data=collectFormData(),err=validate(data);
-  if(err){alert(err);return;}
-  var btn=document.getElementById('submitBtn');
-  btn.disabled=true;
-  btn.textContent='Submitting…';
+function submitForm() {
+  hideError();
+  
+  var data = collectFormData();
+  var err = validate(data);
+  
+  if (err) {
+    showError(err);
+    return;
+  }
+  
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting…';
+  
+  // Send to Google Sheet
   sendToSheet(data);
-  var subs=getSubmissions();
+  
+  // Save locally
+  var subs = getSubmissions();
   subs.push(data);
-  localStorage.setItem(STORAGE_KEY,JSON.stringify(subs));
-  var st=getStatuses();
-  st[data.submittedAt+data.email]='New';
-  localStorage.setItem(STATUS_KEY,JSON.stringify(st));
-  document.querySelectorAll('.form-section').forEach(function(s){s.style.display='none';});
-  document.querySelector('.intro-card').style.display='none';
-  document.getElementById('submitSection').style.display='none';
-  document.getElementById('confirmScreen').style.display='block';
-  btn.disabled=false;
-  btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Submit My Interest';
-  window.scrollTo({top:0,behavior:'smooth'});
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(subs));
+  
+  var st = getStatuses();
+  st[data.submittedAt + data.email] = 'New';
+  localStorage.setItem(STATUS_KEY, JSON.stringify(st));
+  
+  // Show confirmation after a brief delay
+  setTimeout(function() {
+    document.querySelectorAll('.form-section').forEach(function(s) {
+      s.style.display = 'none';
+    });
+    document.querySelector('.intro-card').style.display = 'none';
+    document.getElementById('submitSection').style.display = 'none';
+    document.getElementById('errorMsg').style.display = 'none';
+    document.getElementById('confirmScreen').style.display = 'block';
+    
+    btn.disabled = false;
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Submit My Interest';
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 500);
 }
 
-function resetForm(){
-  document.querySelectorAll('.form-section').forEach(function(s){s.style.display='';});
-  document.querySelector('.intro-card').style.display='';
-  document.getElementById('submitSection').style.display='';
-  document.getElementById('confirmScreen').style.display='none';
+function resetForm() {
+  document.querySelectorAll('.form-section').forEach(function(s) {
+    s.style.display = '';
+  });
+  document.querySelector('.intro-card').style.display = '';
+  document.getElementById('submitSection').style.display = '';
+  document.getElementById('confirmScreen').style.display = 'none';
+  hideError();
 
-  document.querySelectorAll('input[type=text],input[type=email],input[type=tel],textarea').forEach(function(el){el.value='';});
-  document.querySelectorAll('select').forEach(function(el){el.selectedIndex=0;});
-
-  document.querySelectorAll('.check-item').forEach(function(el){
-    el.classList.remove('checked');
-    el.querySelector('input').checked=false;
+  document.querySelectorAll('input[type=text],input[type=email],input[type=tel],textarea').forEach(function(el) {
+    el.value = '';
+  });
+  document.querySelectorAll('select').forEach(function(el) {
+    el.selectedIndex = 0;
   });
 
-  var list=document.getElementById('childrenList');
-  while(list.children.length>1)list.removeChild(list.lastChild);
-  list.querySelector('.childName').value='';
-  list.querySelector('.childGrade').selectedIndex=0;
-  list.querySelector('.childTeacher').value='';
+  document.querySelectorAll('.check-item').forEach(function(el) {
+    el.classList.remove('checked');
+    el.querySelector('input').checked = false;
+  });
 
-  window.scrollTo({top:0,behavior:'smooth'});
+  var list = document.getElementById('childrenList');
+  while (list.children.length > 1) {
+    list.removeChild(list.lastChild);
+  }
+  list.querySelector('.childName').value = '';
+  list.querySelector('.childGrade').selectedIndex = 0;
+  list.querySelector('.childTeacher').value = '';
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function copyShareLink(){
-  var inp=document.getElementById('shareLinkInput'),btn=document.querySelector('.copy-link-btn'),txt=document.getElementById('copyBtnText');
-  navigator.clipboard.writeText(inp.value).then(function(){
+function copyShareLink() {
+  var inp = document.getElementById('shareLinkInput');
+  var btn = document.querySelector('.copy-link-btn');
+  var txt = document.getElementById('copyBtnText');
+  
+  navigator.clipboard.writeText(inp.value).then(function() {
     btn.classList.add('copied');
-    txt.textContent='Copied!';
-    setTimeout(function(){
+    txt.textContent = 'Copied!';
+    setTimeout(function() {
       btn.classList.remove('copied');
-      txt.textContent='Copy';
-    },2000);
-  }).catch(function(){
+      txt.textContent = 'Copy';
+    }, 2000);
+  }).catch(function() {
     inp.select();
     document.execCommand('copy');
     btn.classList.add('copied');
-    txt.textContent='Copied!';
-    setTimeout(function(){
+    txt.textContent = 'Copied!';
+    setTimeout(function() {
       btn.classList.remove('copied');
-      txt.textContent='Copy';
-    },2000);
+      txt.textContent = 'Copy';
+    }, 2000);
   });
 }
 </script>
