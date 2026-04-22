@@ -296,14 +296,6 @@
       opacity: 1;
     }
 
-    #page.low-ink .accent-bar {
-      background: linear-gradient(90deg, #888 0%, #666 100%);
-    }
-
-    #page.low-ink .doc-type-row {
-      background: #e0e0e0;
-    }
-
     #page.low-ink .page-footer {
       background: #e0e0e0;
     }
@@ -805,16 +797,6 @@
       </div>
 
       <div class="panel-section">
-        <label>Link Builder</label>
-        <div class="link-builder">
-          <input type="text" id="linkText" placeholder="Link text (e.g. HERE)" />
-          <input type="text" id="linkURL" placeholder="URL (e.g. https://example.com)" />
-          <button type="button" class="mini-btn full" onclick="insertLink()">Insert Link Into Content</button>
-        </div>
-        <p class="hint">Place your cursor inside the content box first, then click the button.</p>
-      </div>
-
-      <div class="panel-section">
         <label>QR Code Builder</label>
         <div class="link-builder">
           <input type="text" id="qrURL" class="full" placeholder="URL for QR code (e.g. https://forms.google.com/...)" />
@@ -1156,45 +1138,6 @@
       return html;
     }
 
-    function insertLink() {
-      var linkText = document.getElementById('linkText').value.trim();
-      var linkURL = document.getElementById('linkURL').value.trim();
-      var textarea = document.getElementById('rawContent');
-
-      if (!linkText) {
-        alert('Please enter link text.');
-        document.getElementById('linkText').focus();
-        return;
-      }
-
-      if (!linkURL) {
-        alert('Please enter a URL.');
-        document.getElementById('linkURL').focus();
-        return;
-      }
-
-      if (!/^https?:\/\//i.test(linkURL) && !/^mailto:/i.test(linkURL)) {
-        linkURL = 'https://' + linkURL;
-      }
-
-      var token = '[[LINK:' + linkText.replace(/\|/g, '') + '|' + linkURL.replace(/\]/g, '') + ']]';
-
-      textarea.focus();
-
-      var start = textarea.selectionStart || 0;
-      var end = textarea.selectionEnd || 0;
-      var before = textarea.value.substring(0, start);
-      var after = textarea.value.substring(end);
-
-      textarea.value = before + token + after;
-      textarea.selectionStart = textarea.selectionEnd = start + token.length;
-
-      document.getElementById('linkText').value = '';
-      document.getElementById('linkURL').value = '';
-
-      updatePreview();
-    }
-
     function downloadPDF() {
       window.print();
     }
@@ -1267,8 +1210,6 @@
       document.getElementById('docDate').valueAsDate = new Date();
       document.getElementById('sigName').value = '';
       document.getElementById('sigTitle').value = '';
-      document.getElementById('linkText').value = '';
-      document.getElementById('linkURL').value = '';
       document.getElementById('qrURL').value = '';
       
       // Reset QR code
