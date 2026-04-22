@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moore Elementary Announcement Builder</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baskervville&family=Baskervville+SC&family=Noto+Sans:wght@400;600;700&family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold:   #ffc200;
+      --orange: #db6d42;
+      --navy:   #0c1546;
+      --black:  #000000;
+      --white:  #ffffff;
+      --bg:     #f4f5f8;
+      --border: #dde0ea;
+      --page-w: 680px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      background: var(--bg);
+      color: var(--black);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .app-bar {
+      background: var(--navy);
+      color: var(--white);
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 4px solid var(--gold);
+    }
+
+    .app-bar h1 {
+      font-family: 'Baskervville SC', serif;
+      font-size: 1.25rem;
+      letter-spacing: .04em;
+      color: var(--gold);
+    }
+
+    .app-bar span {
+      font-size: .8rem;
+      color: rgba(255,255,255,.55);
+      margin-left: auto;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      flex: 1;
+      height: calc(100vh - 57px);
+    }
+
+    .panel {
+      background: var(--white);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .panel-section {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .panel-section label {
+      display: block;
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .panel-section input[type="text"],
+    .panel-section input[type="date"],
+    .panel-section textarea,
+    .panel-section select {
+      width: 100%;
+      font-family: 'Noto Sans', sans-serif;
+      font-size: .875rem;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg);
+      color: var(--black);
+      outline: none;
+      transition: border-color .15s;
+    }
+
+    .panel-section input:focus,
+    .panel-section textarea:focus,
+    .panel-section select:focus {
+      border-color: var(--navy);
+    }
+
+    .panel-section textarea {
+      resize: vertical;
+      min-height: 260px;
+      line-height: 1.6;
+    }
+
+    .link-builder {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .link-builder .full {
+      grid-column: 1 / -1;
+    }
+
+    .mini-btn {
+      border: none;
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Noto Sans', sans-serif;
+      font-size: .78rem;
+      font-weight: 700;
+      border-radius: 6px;
+      padding: 9px 10px;
+      cursor: pointer;
+    }
+
+    .mini-btn:hover {
+      opacity: .9;
+    }
+
+    .hint {
+      font-size: .73rem;
+      color: #888;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    .actions {
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 11px 18px;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Noto Sans', sans-serif;
+      font-weight: 700;
+      font-size: .875rem;
+      cursor: pointer;
+      transition: opacity .15s, transform .1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn:hover { opacity: .88; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .btn-secondary {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .preview-wrap {
+      background: #e8e9ed;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 24px 48px;
+    }
+
+    .preview-label {
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #888;
+      margin-bottom: 14px;
+      align-self: flex-start;
+      margin-left: calc(50% - var(--page-w)/2);
+    }
+
+    #page {
+      width: var(--page-w);
+      min-height: 880px;
+      background: var(--white);
+      box-shadow: 0 4px 32px rgba(0,0,0,.18);
+      border-radius: 4px;
+      overflow: visible;
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .page-header {
+      background: var(--navy);
+      padding: 22px 32px 18px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .page-header-logo {
+      height: 62px;
+      min-width: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .page-header-logo img {
+      height: 62px;
+      max-width: 120px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .page-header-text { flex: 1; }
+
+    .school-name {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: .02em;
+      line-height: 1.1;
+    }
+
+    .school-tagline {
+      font-size: .72rem;
+      color: var(--gold);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-top: 3px;
+      opacity: .85;
+    }
+
+    .accent-bar {
+      height: 6px;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--orange) 100%);
+    }
+
+    .doc-type-row {
+      background: var(--gold);
+      padding: 5px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .doc-type-label {
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--navy);
+    }
+
+    .doc-date {
+      font-size: .7rem;
+      color: var(--navy);
+      opacity: .75;
+    }
+
+    /* Low-ink mode styles */
+    #page.low-ink .page-header {
+      background: var(--white);
+      border: none;
+    }
+
+    #page.low-ink .school-name {
+      color: var(--navy);
+    }
+
+    #page.low-ink .school-tagline {
+      color: var(--gold);
+      opacity: 1;
+    }
+
+    #page.low-ink .accent-bar {
+      background: linear-gradient(90deg, #888 0%, #666 100%);
+    }
+
+    #page.low-ink .doc-type-row {
+      background: #e0e0e0;
+    }
+
+    #page.low-ink .page-footer {
+      background: #e0e0e0;
+    }
+
+    #page.low-ink .page-footer .footer-text {
+      color: #333;
+    }
+
+    #page.low-ink .page-footer .footer-accent {
+      background: #888;
+    }
+
+    #page.low-ink .running-header {
+      background: var(--white);
+      border-bottom: 2px solid var(--navy);
+    }
+
+    #page.low-ink .running-header .running-title,
+    #page.low-ink .running-header .running-date {
+      color: var(--navy);
+    }
+
+    #page.low-ink .running-footer {
+      background: var(--white);
+      border-top: 2px solid var(--navy);
+    }
+
+    #page.low-ink .running-footer .footer-text {
+      color: var(--navy);
+    }
+
+    .page-body {
+      padding: 30px 56px 36px;
+      flex: 1;
+    }
+
+    .announcement-title {
+      font-family: 'Noto Serif', serif;
+      font-size: 1.6rem;
+      color: var(--navy);
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .title-rule {
+      width: 54px;
+      height: 4px;
+      background: var(--orange);
+      border-radius: 2px;
+      margin-bottom: 22px;
+    }
+
+    .doc-content {
+      font-size: .875rem;
+      color: var(--black);
+      line-height: 1.75;
+    }
+
+    .doc-content p { margin-bottom: 14px; }
+
+    .doc-content h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 22px 0 6px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid var(--gold);
+    }
+
+    .doc-content h3 {
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--orange);
+      margin: 16px 0 4px;
+    }
+
+    .doc-content ul {
+      padding-left: 20px;
+      margin-bottom: 14px;
+    }
+
+    .doc-content ul li { margin-bottom: 4px; }
+
+    .doc-content ol {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 14px;
+    }
+
+    .doc-content ol li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .doc-content strong {
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .doc-content a {
+      color: var(--navy);
+      font-weight: 700;
+      text-decoration: underline;
+      word-break: break-word;
+    }
+
+    .doc-content code {
+      background: #f2f3f7;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 4px;
+      font-size: .82rem;
+    }
+
+    .doc-content .callout {
+      background: #fffbeb;
+      border-left: 4px solid var(--gold);
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      margin: 14px 0;
+      font-size: .84rem;
+    }
+
+    .doc-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: .82rem;
+    }
+
+    .doc-content th {
+      background: var(--navy);
+      color: var(--white);
+      font-weight: 600;
+      text-align: left;
+      padding: 7px 10px;
+      font-size: .78rem;
+      letter-spacing: .04em;
+    }
+
+    .doc-content td {
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .doc-content tr:nth-child(even) td {
+      background: #f9f9fb;
+    }
+
+    .page-footer {
+      background: var(--navy);
+      padding: 10px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+
+    .footer-text {
+      font-size: .65rem;
+      color: rgba(255,255,255,.45);
+    }
+
+    .footer-accent {
+      width: 28px;
+      height: 3px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    .empty-state {
+      padding: 48px 32px;
+      text-align: center;
+      color: #bbb;
+      font-size: .875rem;
+      line-height: 1.8;
+    }
+
+    .empty-state .big {
+      font-size: 2.5rem;
+      margin-bottom: 8px;
+    }
+
+    .signature-block {
+      margin-top: 24px;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .signature-block p {
+      margin-bottom: 0;
+    }
+
+    .sincerely {
+      font-family: 'Baskervville', serif;
+      font-size: 1rem;
+      color: #000;
+      border-top: 1.5px solid var(--border);
+      padding-top: 10px;
+      display: inline-block;
+      min-width: 200px;
+      margin-bottom: 0;
+    }
+
+    .sig-name {
+      font-family: 'Baskervville', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--navy);
+      display: block;
+      padding-left: 2px;
+      margin-top: 2px;
+    }
+
+    .sig-title {
+      font-size: .82rem;
+      color: #666;
+      margin-top: 0;
+      padding-left: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .qr-code-container {
+      position: absolute;
+      padding: 8px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      display: none;
+    }
+
+    .qr-code-container.active {
+      display: block;
+    }
+
+    .qr-code-container.bottom-right {
+      bottom: 60px;
+      right: 32px;
+    }
+
+    .qr-code-container.bottom-left {
+      bottom: 60px;
+      left: 32px;
+    }
+
+    .qr-code-container.top-right {
+      top: 140px;
+      right: 32px;
+    }
+
+    .qr-code-container.top-left {
+      top: 140px;
+      left: 32px;
+    }
+
+    .qr-code-container canvas,
+    .qr-code-container img {
+      display: block;
+    }
+
+    #qrCodeCanvas {
+      line-height: 0;
+    }
+
+    #qrCodeCanvas canvas {
+      display: block;
+    }
+
+    #qrCodeCanvas img {
+      display: none;
+    }
+
+    .qr-code-label {
+      font-size: .6rem;
+      color: #888;
+      text-align: center;
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .support-footer {
+      text-align: center;
+      padding: 12px 20px;
+      font-size: .85rem;
+      color: #666;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+
+    .support-footer a {
+      color: var(--navy);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .support-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .running-header {
+      display: none;
+    }
+
+    .running-footer {
+      display: none;
+    }
+
+    @media print {
+      @page {
+        size: letter portrait;
+        margin: 0;
+      }
+
+      body {
+        background: white;
+      }
+
+      .app-bar,
+      .panel,
+      .preview-label,
+      .support-footer {
+        display: none !important;
+      }
+
+      .workspace {
+        display: block;
+        height: auto;
+      }
+
+      .preview-wrap {
+        padding: 0;
+        background: white;
+      }
+
+      #page {
+        width: 8.5in;
+        min-height: 11in;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+        padding-top: 66px;
+        padding-bottom: 40px;
+        overflow: visible;
+      }
+
+      .running-header {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 8.5in;
+        height: 36px;
+        background: var(--navy);
+        color: var(--white);
+        padding: 0 32px;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 1000;
+      }
+
+      .running-title {
+        font-family: 'Noto Serif', serif;
+        font-size: .85rem;
+        font-weight: 700;
+      }
+
+      .running-date {
+        font-size: .7rem;
+        opacity: .7;
+      }
+
+      .running-footer {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 8.5in;
+        height: 40px;
+        background: var(--navy);
+        padding: 0 32px;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 1000;
+      }
+
+      .running-footer .footer-text {
+        font-size: .65rem;
+        color: rgba(255,255,255,.45);
+      }
+
+      .running-footer .footer-accent {
+        width: 28px;
+        height: 3px;
+        background: var(--gold);
+        border-radius: 2px;
+      }
+
+      .page-header {
+        margin-top: -66px;
+        position: relative;
+        z-index: 1001;
+      }
+
+      .page-footer {
+        display: none;
+      }
+
+      .page-body {
+        padding: 30px 56px 36px;
+      }
+
+      .page-header,
+      .accent-bar,
+      .doc-type-row {
+        break-inside: avoid;
+      }
+
+      .qr-code-container {
+        border: none;
+        background: white;
+      }
+
+      .qr-code-container.bottom-right {
+        bottom: 50px;
+        right: 0.5in;
+      }
+
+      .qr-code-container.bottom-left {
+        bottom: 50px;
+        left: 0.5in;
+      }
+
+      .qr-code-container.top-right {
+        top: 1.5in;
+        right: 0.5in;
+      }
+
+      .qr-code-container.top-left {
+        top: 1.5in;
+        left: 0.5in;
+      }
+
+      #qrCodeCanvas canvas {
+        display: none !important;
+      }
+
+      #qrCodeCanvas img {
+        display: block !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-bar">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffc200" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+      <polyline points="14 2 14 8 20 8"/>
+      <line x1="16" y1="13" x2="8" y2="13"/>
+      <line x1="16" y1="17" x2="8" y2="17"/>
+      <polyline points="10 9 9 9 8 9"/>
+    </svg>
+    <h1>Moore Elementary - Announcement Builder</h1>
+    <span>Paste - Format - Download PDF</span>
+  </div>
+
+  <div class="workspace">
+    <div class="panel">
+      <div class="panel-section">
+        <label>Announcement Title</label>
+        <input type="text" id="annTitle" placeholder="e.g. Spring Field Day 2025" />
+      </div>
+
+      <div class="panel-section">
+        <label>Document Type</label>
+        <select id="docType">
+          <option value="School Announcement">School Announcement</option>
+          <option value="Parent Newsletter">Parent Newsletter</option>
+          <option value="Event Notice">Event Notice</option>
+          <option value="Important Update">Important Update</option>
+          <option value="Classroom News">Classroom News</option>
+          <option value="PTO Communication">PTO Communication</option>
+          <option value="PTO Announcement">PTO Announcement</option>
+        </select>
+        <label style="display: flex; align-items: center; gap: 8px; margin-top: 12px; cursor: pointer; text-transform: none; letter-spacing: 0; font-weight: 400; font-size: .82rem;">
+          <input type="checkbox" id="lowInkMode" style="width: auto; margin: 0;" />
+          Low-ink header (for printing)
+        </label>
+      </div>
+
+      <div class="panel-section">
+        <label>Date</label>
+        <input type="date" id="docDate" />
+      </div>
+
+      <div class="panel-section">
+        <label>Link Builder</label>
+        <div class="link-builder">
+          <input type="text" id="linkText" placeholder="Link text (e.g. HERE)" />
+          <input type="text" id="linkURL" placeholder="URL (e.g. https://example.com)" />
+          <button type="button" class="mini-btn full" onclick="insertLink()">Insert Link Into Content</button>
+        </div>
+        <p class="hint">Place your cursor inside the content box first, then click the button.</p>
+      </div>
+
+      <div class="panel-section">
+        <label>QR Code Builder</label>
+        <div class="link-builder">
+          <input type="text" id="qrURL" class="full" placeholder="URL for QR code (e.g. https://forms.google.com/...)" />
+          <select id="qrPosition">
+            <option value="bottom-right">Bottom Right</option>
+            <option value="bottom-left">Bottom Left</option>
+            <option value="top-right">Top Right</option>
+            <option value="top-left">Top Left</option>
+          </select>
+          <select id="qrSize">
+            <option value="80">Small</option>
+            <option value="100" selected>Medium</option>
+            <option value="130">Large</option>
+          </select>
+          <button type="button" class="mini-btn full" onclick="toggleQRCode()">Add QR Code</button>
+        </div>
+        <p class="hint">QR code will appear in your document at the selected position.</p>
+      </div>
+
+      <div class="panel-section">
+        <label>Paste Your Content</label>
+        <textarea id="rawContent"></textarea>
+      </div>
+
+      <div class="panel-section">
+        <label>Signature Name</label>
+        <input type="text" id="sigName" placeholder="e.g. Mrs. Johnson" />
+      </div>
+
+      <div class="panel-section">
+        <label>Signature Title <span style="font-weight:400; text-transform:none; letter-spacing:0; color:#888;">(Optional)</span></label>
+        <input type="text" id="sigTitle" placeholder="e.g. Principal" />
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" onclick="downloadPDF()">Download PDF</button>
+        <button class="btn btn-secondary" onclick="clearAll()">Clear and Start Over</button>
+      </div>
+    </div>
+
+    <div class="preview-wrap">
+      <div class="preview-label">Live Preview</div>
+
+      <div id="page">
+        <div class="running-header">
+          <span class="running-title" id="runningTitle">Your Announcement Title</span>
+          <span class="running-date" id="runningDate"></span>
+        </div>
+        <div class="running-footer">
+          <span class="footer-text">Moore Elementary School &nbsp;&bull;&nbsp; Official Communication</span>
+          <div class="footer-accent"></div>
+        </div>
+        <div class="page-header">
+          <div class="page-header-logo">
+            <img src="moore-tool.png" alt="Moore Elementary Logo" />
+          </div>
+          <div class="page-header-text">
+            <div class="school-name">Moore Elementary School</div>
+            <div class="school-tagline" id="pageDocTypeTag">School Announcement</div>
+          </div>
+        </div>
+
+        <div class="accent-bar"></div>
+
+        <div class="doc-type-row">
+          <span class="doc-type-label" id="pageDocTypeBadge">School Announcement</span>
+          <span class="doc-date" id="pageDocDate"></span>
+        </div>
+
+        <div class="page-body">
+          <div class="announcement-title" id="pageTitle">Your Announcement Title</div>
+          <div class="title-rule"></div>
+
+          <div class="doc-content" id="pageContent">
+            <div class="empty-state">
+              <div class="big">&#128196;</div>
+              Paste your content in the left panel<br />and it will appear here, formatted.
+            </div>
+          </div>
+
+          <div class="signature-block" id="pageSignature" style="display:none">
+            <p class="sincerely">Sincerely,</p>
+            <p class="sig-name" id="sigDisplay"></p>
+            <p class="sig-title" id="sigTitleDisplay" style="display:none"></p>
+          </div>
+        </div>
+
+        <div class="qr-code-container bottom-right" id="qrCodeContainer">
+          <img id="qrCodeImage" src="" alt="QR Code" style="display:none;" />
+          <div class="qr-code-label" id="qrCodeLabel">Scan to visit</div>
+        </div>
+
+        <div class="page-footer">
+          <span class="footer-text">Moore Elementary School &nbsp;&bull;&nbsp; Official Communication</span>
+          <div class="footer-accent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="support-footer">
+    Having issues with the tool?
+    <a href="/cdn-cgi/l/email-protection#aecdc6dbc9c6cbdd80ddc1cdc7cfc2eec9c3cfc7c280cdc1c391dddbccc4cbcdda93e7dddddbcb8b9c9ed9c7dac68b9c9ee3c1c1dccb8b9c9eebc2cbc3cbc0dacfdcd78b9c9eefc0c0c1dbc0cdcbc3cbc0da8b9c9eecdbc7c2cacbdc">Click here</a>.
+    &nbsp;&bull;&nbsp;
+    <a href="moore-announcement-builder-guide.pdf" target="_blank">View User Guide</a>
+  </div>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('docDate').valueAsDate = new Date();
+
+      document.getElementById('rawContent').placeholder =
+        'Paste your text here...\n\n' +
+        'Formatting tips:\n' +
+        '- Lines ending with : become section headers\n' +
+        '- Lines starting with - become bullets\n' +
+        '- Lines starting with 1. become numbered items\n' +
+        '- Use **bold** for bold text\n' +
+        '- Start a line with ! for a callout box\n' +
+        '- Use the Link Builder above to insert hyperlinks';
+
+      ['annTitle', 'docType', 'docDate', 'rawContent', 'sigName', 'sigTitle'].forEach(function(id) {
+        var el = document.getElementById(id);
+        el.addEventListener(id === 'docType' ? 'change' : 'input', updatePreview);
+      });
+
+      document.getElementById('qrPosition').addEventListener('change', updateQRPosition);
+      document.getElementById('qrSize').addEventListener('change', updateQRSize);
+      document.getElementById('lowInkMode').addEventListener('change', toggleLowInkMode);
+
+      updatePreview();
+    });
+
+    function toggleLowInkMode() {
+      var page = document.getElementById('page');
+      var lowInk = document.getElementById('lowInkMode').checked;
+      if (lowInk) {
+        page.classList.add('low-ink');
+      } else {
+        page.classList.remove('low-ink');
+      }
+    }
+
+    function updatePreview() {
+      var title = document.getElementById('annTitle').value.trim();
+      var docType = document.getElementById('docType').value;
+      var rawDate = document.getElementById('docDate').value;
+      var raw = document.getElementById('rawContent').value;
+      var sigName = document.getElementById('sigName').value.trim();
+      var sigTitle = document.getElementById('sigTitle').value.trim();
+
+      document.getElementById('pageTitle').textContent = title || 'Your Announcement Title';
+      document.getElementById('runningTitle').textContent = title || 'Your Announcement Title';
+      document.getElementById('pageDocTypeBadge').textContent = docType;
+      document.getElementById('pageDocTypeTag').textContent = docType;
+
+      if (rawDate) {
+        var d = new Date(rawDate + 'T12:00:00');
+        var formattedDate = d.toLocaleDateString('en-US', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        document.getElementById('pageDocDate').textContent = formattedDate;
+        document.getElementById('runningDate').textContent = formattedDate;
+      } else {
+        document.getElementById('pageDocDate').textContent = '';
+        document.getElementById('runningDate').textContent = '';
+      }
+
+      // FIXED: Build content with signature INSIDE the content area
+      var contentHTML = '';
+      
+      if (raw.trim()) {
+        contentHTML = parseContent(raw);
+      } else {
+        contentHTML = '<div class="empty-state"><div class="big">&#128196;</div>Paste your content in the left panel<br/>and it will appear here, formatted.</div>';
+      }
+      
+      // Append signature to content if sigName exists
+      if (sigName) {
+        var sigHTML = '<div class="signature-block">';
+        sigHTML += '<p class="sincerely">Sincerely,</p>';
+        sigHTML += '<p class="sig-name">' + escapeHTML(sigName) + '</p>';
+        if (sigTitle) {
+          sigHTML += '<p class="sig-title">' + escapeHTML(sigTitle).toUpperCase() + '</p>';
+        }
+        sigHTML += '</div>';
+        contentHTML += sigHTML;
+      }
+      
+      document.getElementById('pageContent').innerHTML = contentHTML;
+      
+      // Hide the original signature block since we're now including it in content
+      document.getElementById('pageSignature').style.display = 'none';
+    }
+
+    function escapeHTML(text) {
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function escapeAttribute(text) {
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    function formatInline(text) {
+      var placeholders = [];
+      var escaped = escapeHTML(text);
+
+      escaped = escaped.replace(/\[\[LINK:(.*?)\|(.*?)\]\]/g, function(match, label, url) {
+        var token = '%%LINK' + placeholders.length + '%%';
+        placeholders.push('<a href="' + escapeAttribute(url) + '" target="_blank" rel="noopener noreferrer">' + label + '</a>');
+        return token;
+      });
+
+      escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      escaped = escaped.replace(/\*(.*?)\*/g, '<em>$1</em>');
+      escaped = escaped.replace(/`(.*?)`/g, '<code>$1</code>');
+
+      escaped = escaped.replace(/%%LINK(\d+)%%/g, function(match, i) {
+        return placeholders[Number(i)];
+      });
+
+      return escaped;
+    }
+
+    function parseContent(text) {
+      var lines = text.split('\n');
+      var html = '';
+      var inList = false;
+      var listType = '';
+      var tableBuffer = [];
+
+      function flushList() {
+        if (!inList) return;
+        html += '</' + listType + '>';
+        inList = false;
+        listType = '';
+      }
+
+      function flushTable() {
+        if (!tableBuffer.length) return;
+        var thtml = '<table>';
+        for (var i = 0; i < tableBuffer.length; i++) {
+          var cells = tableBuffer[i].split('|').map(function(c) { return c.trim(); }).filter(function(c) { return c !== ''; });
+          if (cells.every(function(c) { return /^-+$/.test(c); })) continue;
+          thtml += '<tr>';
+          for (var j = 0; j < cells.length; j++) {
+            thtml += i === 0 ? '<th>' + formatInline(cells[j]) + '</th>' : '<td>' + formatInline(cells[j]) + '</td>';
+          }
+          thtml += '</tr>';
+        }
+        thtml += '</table>';
+        html += thtml;
+        tableBuffer = [];
+      }
+
+      for (var i = 0; i < lines.length; i++) {
+        var trimmed = lines[i].trim();
+
+        if (!trimmed) {
+          flushList();
+          flushTable();
+          continue;
+        }
+
+        if (trimmed.charAt(0) === '|' && trimmed.charAt(trimmed.length - 1) === '|') {
+          flushList();
+          tableBuffer.push(trimmed.slice(1, -1));
+          continue;
+        } else if (tableBuffer.length) {
+          flushTable();
+        }
+
+        if (trimmed.charAt(0) === '!') {
+          flushList();
+          html += '<div class="callout">' + formatInline(trimmed.slice(1).trim()) + '</div>';
+          continue;
+        }
+
+        if (
+          trimmed.charAt(trimmed.length - 1) === ':' &&
+          trimmed.charAt(0) !== '-' &&
+          trimmed.charAt(0) !== '*' &&
+          trimmed.length > 1
+        ) {
+          flushList();
+          html += '<h2>' + formatInline(trimmed.slice(0, -1)) + '</h2>';
+          continue;
+        }
+
+        if (trimmed.slice(0, 3) === '## ') {
+          flushList();
+          html += '<h3>' + formatInline(trimmed.slice(3)) + '</h3>';
+          continue;
+        }
+
+        if (/^[-*]\s/.test(trimmed)) {
+          if (!inList || listType !== 'ul') {
+            flushList();
+            html += '<ul>';
+            inList = true;
+            listType = 'ul';
+          }
+          html += '<li>' + formatInline(trimmed.slice(2).trim()) + '</li>';
+          continue;
+        }
+
+        var olMatch = trimmed.match(/^(\d+)[.)]\s(.*)$/);
+        if (olMatch) {
+          var itemNum = olMatch[1];
+          var itemText = olMatch[2];
+          if (!inList || listType !== 'ol') {
+            flushList();
+            html += '<ol>';
+            inList = true;
+            listType = 'ol';
+          }
+          html += '<li><span style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:#0c1546;color:#ffc200;font-family:sans-serif;font-weight:700;font-size:.75rem;display:inline-flex;align-items:center;justify-content:center;">' + itemNum + '</span><span>' + formatInline(itemText) + '</span></li>';
+          continue;
+        }
+
+        flushList();
+        html += '<p>' + formatInline(trimmed) + '</p>';
+      }
+
+      flushList();
+      flushTable();
+      return html;
+    }
+
+    function insertLink() {
+      var linkText = document.getElementById('linkText').value.trim();
+      var linkURL = document.getElementById('linkURL').value.trim();
+      var textarea = document.getElementById('rawContent');
+
+      if (!linkText) {
+        alert('Please enter link text.');
+        document.getElementById('linkText').focus();
+        return;
+      }
+
+      if (!linkURL) {
+        alert('Please enter a URL.');
+        document.getElementById('linkURL').focus();
+        return;
+      }
+
+      if (!/^https?:\/\//i.test(linkURL) && !/^mailto:/i.test(linkURL)) {
+        linkURL = 'https://' + linkURL;
+      }
+
+      var token = '[[LINK:' + linkText.replace(/\|/g, '') + '|' + linkURL.replace(/\]/g, '') + ']]';
+
+      textarea.focus();
+
+      var start = textarea.selectionStart || 0;
+      var end = textarea.selectionEnd || 0;
+      var before = textarea.value.substring(0, start);
+      var after = textarea.value.substring(end);
+
+      textarea.value = before + token + after;
+      textarea.selectionStart = textarea.selectionEnd = start + token.length;
+
+      document.getElementById('linkText').value = '';
+      document.getElementById('linkURL').value = '';
+
+      updatePreview();
+    }
+
+    function downloadPDF() {
+      window.print();
+    }
+
+    function toggleQRCode() {
+      var qrURL = document.getElementById('qrURL').value.trim();
+      var qrContainer = document.getElementById('qrCodeContainer');
+      var qrImage = document.getElementById('qrCodeImage');
+      var qrPosition = document.getElementById('qrPosition').value;
+      var qrSize = document.getElementById('qrSize').value;
+      var btn = document.querySelector('.panel-section button[onclick="toggleQRCode()"]');
+
+      if (qrContainer.classList.contains('active')) {
+        qrContainer.classList.remove('active');
+        qrImage.src = '';
+        qrImage.style.display = 'none';
+        btn.textContent = 'Add QR Code';
+        return;
+      }
+
+      if (!qrURL) {
+        alert('Please enter a URL for the QR code.');
+        document.getElementById('qrURL').focus();
+        return;
+      }
+
+      if (!/^https?:\/\//i.test(qrURL)) {
+        qrURL = 'https://' + qrURL;
+        document.getElementById('qrURL').value = qrURL;
+      }
+
+      var apiURL = 'https://api.qrserver.com/v1/create-qr-code/?size=' + qrSize + 'x' + qrSize + '&color=0c1546&data=' + encodeURIComponent(qrURL);
+      qrImage.src = apiURL;
+      qrImage.style.display = 'block';
+      qrImage.style.width = qrSize + 'px';
+      qrImage.style.height = qrSize + 'px';
+
+      qrContainer.className = 'qr-code-container active ' + qrPosition;
+      
+      btn.textContent = 'Remove QR Code';
+    }
+
+    function updateQRPosition() {
+      var qrContainer = document.getElementById('qrCodeContainer');
+      var qrPosition = document.getElementById('qrPosition').value;
+      
+      if (qrContainer.classList.contains('active')) {
+        qrContainer.className = 'qr-code-container active ' + qrPosition;
+      }
+    }
+
+    function updateQRSize() {
+      var qrContainer = document.getElementById('qrCodeContainer');
+      var qrImage = document.getElementById('qrCodeImage');
+      var qrSize = document.getElementById('qrSize').value;
+      var qrURL = document.getElementById('qrURL').value.trim();
+      
+      if (qrContainer.classList.contains('active') && qrURL) {
+        var apiURL = 'https://api.qrserver.com/v1/create-qr-code/?size=' + qrSize + 'x' + qrSize + '&color=0c1546&data=' + encodeURIComponent(qrURL);
+        qrImage.src = apiURL;
+        qrImage.style.width = qrSize + 'px';
+        qrImage.style.height = qrSize + 'px';
+      }
+    }
+
+    function clearAll() {
+      document.getElementById('annTitle').value = '';
+      document.getElementById('rawContent').value = '';
+      document.getElementById('docType').selectedIndex = 0;
+      document.getElementById('docDate').valueAsDate = new Date();
+      document.getElementById('sigName').value = '';
+      document.getElementById('sigTitle').value = '';
+      document.getElementById('linkText').value = '';
+      document.getElementById('linkURL').value = '';
+      document.getElementById('qrURL').value = '';
+      
+      // Reset QR code
+      var qrContainer = document.getElementById('qrCodeContainer');
+      var qrImage = document.getElementById('qrCodeImage');
+      var btn = document.querySelector('.panel-section button[onclick="toggleQRCode()"]');
+      qrContainer.classList.remove('active');
+      qrContainer.className = 'qr-code-container bottom-right';
+      qrImage.src = '';
+      qrImage.style.display = 'none';
+      if (btn) btn.textContent = 'Add QR Code';
+      document.getElementById('qrPosition').selectedIndex = 0;
+      document.getElementById('qrSize').selectedIndex = 1;
+      
+      // Reset low-ink mode
+      document.getElementById('lowInkMode').checked = false;
+      document.getElementById('page').classList.remove('low-ink');
+      
+      updatePreview();
+    }
+  </script>
+</body>
+</html>
