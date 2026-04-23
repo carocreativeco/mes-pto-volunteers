@@ -1,813 +1,747 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Moore Elementary PTO</title>
-<link href="https://fonts.googleapis.com/css2?family=Baskervville:wght@400;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Baskervville:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
 :root{
   --gold:#ffc200;
-  --gold-soft:#ffe08a;
   --orange:#db6d42;
   --navy:#0c1546;
-  --navy-2:#16245f;
-  --navy-3:#24357d;
-  --black:#000;
-  --white:#fff;
-  --bg:#eef1f7;
-  --bg-2:#f7f8fc;
-  --card:rgba(255,255,255,.92);
-  --card-solid:#ffffff;
-  --border:#d9dfef;
-  --border-strong:#c8d0e6;
-  --text:#182033;
+  --navy-2:#18245a;
+  --text:#172033;
   --muted:#667085;
-  --shadow-sm:0 8px 24px rgba(12,21,70,.06);
-  --shadow-md:0 14px 40px rgba(12,21,70,.10);
-  --shadow-lg:0 24px 60px rgba(12,21,70,.18);
-  --radius:18px;
-  --radius-sm:12px;
-  --radius-lg:28px;
-  --max:1120px;
+  --line:#dde3ef;
+  --line-soft:#e9edf5;
+  --bg:#f7f8fb;
+  --white:#ffffff;
+  --max:1160px;
+  --radius:20px;
+  --shadow:0 20px 50px rgba(12,21,70,.08);
 }
 
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 html{scroll-behavior:smooth}
 
 body{
-  font-family:'Noto Sans',sans-serif;
-  background:
-    radial-gradient(circle at top left, rgba(255,194,0,.08), transparent 28%),
-    radial-gradient(circle at top right, rgba(12,21,70,.06), transparent 22%),
-    linear-gradient(180deg,#f8f9fc 0%, #eef2f8 100%);
+  font-family:'Inter',sans-serif;
+  background:linear-gradient(180deg,#fbfcfe 0%, #f3f6fb 100%);
   color:var(--text);
   min-height:100vh;
-  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
 }
 
-/* Top Bar */
+img{max-width:100%;display:block}
+a{color:inherit}
+
+.container{
+  width:min(var(--max), calc(100% - 40px));
+  margin:0 auto;
+}
+
+/* Top bar */
 .top-bar{
-  background:linear-gradient(90deg, var(--navy) 0%, #101d57 100%);
-  padding:14px 24px;
+  background:var(--navy);
+  color:var(--white);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.top-bar-inner{
+  width:min(var(--max), calc(100% - 40px));
+  margin:0 auto;
+  min-height:68px;
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:12px;
-  border-bottom:1px solid rgba(255,255,255,.08);
-  box-shadow:0 6px 20px rgba(12,21,70,.14);
-  position:relative;
-  z-index:20;
+  gap:14px;
+  padding:14px 0;
 }
-.top-bar::after{
-  content:"";
-  position:absolute;
-  bottom:0; left:0; right:0;
-  height:1px;
-  background:linear-gradient(90deg, transparent, rgba(255,194,0,.75), transparent);
+.top-bar-logo{
+  height:38px;
+  width:auto;
 }
-.top-bar-logo{height:38px;width:auto;filter:drop-shadow(0 3px 8px rgba(0,0,0,.18))}
 .top-bar-text{
-  font-weight:700;
-  font-size:.84rem;
-  color:var(--white);
   text-transform:uppercase;
-  letter-spacing:.14em;
+  letter-spacing:.12em;
+  font-size:.78rem;
+  font-weight:700;
+  color:rgba(255,255,255,.92);
 }
 .top-bar-text span{color:var(--gold)}
 
 /* Hero */
 .hero{
   position:relative;
+  background:var(--navy);
+  color:var(--white);
   overflow:hidden;
-  background:linear-gradient(180deg,var(--navy) 0%,#18255d 100%);
 }
-.hero::before{
-  content:"";
+.hero-media{
   position:absolute;
   inset:0;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(255,194,0,.12), transparent 20%),
-    radial-gradient(circle at 80% 30%, rgba(255,255,255,.07), transparent 18%),
-    linear-gradient(180deg, rgba(12,21,70,.18), rgba(12,21,70,.72));
-  z-index:1;
 }
-.hero-image{
+.hero-media img{
   width:100%;
-  height:760px;
+  height:100%;
   object-fit:cover;
-  display:block;
-  opacity:.32;
-  transform:scale(1.02);
+  opacity:.24;
 }
 .hero-overlay{
   position:absolute;
   inset:0;
-  z-index:2;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:40px 24px;
+  background:
+    linear-gradient(180deg, rgba(12,21,70,.4) 0%, rgba(12,21,70,.7) 100%),
+    radial-gradient(circle at 20% 20%, rgba(255,194,0,.12), transparent 25%);
 }
 .hero-inner{
-  max-width:860px;
-  padding:38px 34px;
-  border:1px solid rgba(255,255,255,.14);
-  background:rgba(255,255,255,.06);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  border-radius:28px;
-  box-shadow:0 18px 50px rgba(0,0,0,.18);
+  position:relative;
+  z-index:2;
+  width:min(var(--max), calc(100% - 40px));
+  margin:0 auto;
+  min-height:620px;
+  display:flex;
+  align-items:center;
+  padding:80px 0;
 }
-.hero-kicker{
+.hero-content{
+  max-width:720px;
+}
+.eyebrow{
   display:inline-block;
   margin-bottom:18px;
-  padding:8px 14px;
-  border-radius:999px;
-  background:rgba(255,194,0,.14);
-  border:1px solid rgba(255,194,0,.32);
-  color:var(--gold-soft);
-  font-size:.76rem;
-  font-weight:700;
-  letter-spacing:.16em;
+  color:var(--gold);
+  font-size:.78rem;
+  letter-spacing:.18em;
   text-transform:uppercase;
+  font-weight:700;
 }
 .hero h1{
   font-family:'Baskervville',serif;
-  font-size:3.4rem;
-  line-height:1.08;
-  color:var(--white);
-  margin-bottom:18px;
-  text-shadow:0 8px 30px rgba(0,0,0,.35);
+  font-size:clamp(2.6rem, 6vw, 4.75rem);
+  line-height:1.02;
+  margin-bottom:20px;
+  letter-spacing:-.02em;
 }
 .hero p{
-  font-size:1.08rem;
-  color:rgba(255,255,255,.92);
-  max-width:650px;
-  margin:0 auto;
+  font-size:1.05rem;
   line-height:1.85;
-  text-shadow:0 1px 10px rgba(0,0,0,.22);
+  max-width:620px;
+  color:rgba(255,255,255,.9);
 }
-.accent-bar{
-  height:5px;
+.hero-actions{
+  margin-top:30px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:14px 20px;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:600;
+  font-size:.92rem;
+  transition:transform .2s ease, opacity .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{
+  background:var(--gold);
+  color:var(--navy);
+}
+.btn-secondary{
+  border:1px solid rgba(255,255,255,.22);
+  color:var(--white);
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(6px);
+}
+.hero-divider{
+  height:4px;
   background:linear-gradient(90deg,var(--gold),var(--orange),var(--gold));
-  box-shadow:0 2px 10px rgba(219,109,66,.22);
 }
 
 /* Main */
-.main{
-  max-width:var(--max);
-  margin:0 auto;
-  padding:70px 24px 80px;
+main{
+  padding:70px 0 90px;
 }
 
-/* Generic section */
-.section{margin-bottom:62px}
-.section-header{
-  display:flex;
+/* Sections */
+.section{
+  padding:34px 0;
+}
+.section-head{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:30px;
   align-items:end;
-  justify-content:space-between;
-  gap:20px;
-  margin-bottom:24px;
-  flex-wrap:wrap;
+  margin-bottom:26px;
 }
 .section-title{
   font-family:'Baskervville',serif;
-  font-size:1.7rem;
+  font-size:clamp(1.7rem, 3vw, 2.4rem);
   color:var(--navy);
-  position:relative;
-  display:inline-block;
-  padding-bottom:12px;
+  line-height:1.1;
 }
-.section-title::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:0;
-  width:72px;
-  height:3px;
-  border-radius:999px;
-  background:linear-gradient(90deg,var(--gold),var(--orange));
-}
-.section-subtle{
+.section-intro{
   color:var(--muted);
-  font-size:.92rem;
+  font-size:.96rem;
+  line-height:1.75;
+  max-width:460px;
+  justify-self:end;
+}
+.section-rule{
+  height:1px;
+  background:linear-gradient(90deg,var(--navy),rgba(12,21,70,.08));
+  margin-bottom:28px;
+  opacity:.18;
 }
 
 /* About */
-.about-hero{
-  padding:0;
-  margin-bottom:0;
+.about-layout{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:48px;
+  align-items:start;
 }
-.about-panel{
-  background:linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.96));
-  border:1px solid rgba(201,210,232,.75);
-  border-radius:var(--radius-lg);
-  box-shadow:var(--shadow-md);
-  padding:42px;
-  position:relative;
-  overflow:hidden;
-}
-.about-panel::before{
-  content:"";
-  position:absolute;
-  top:0; left:0;
-  width:100%;
-  height:6px;
-  background:linear-gradient(90deg,var(--gold),var(--orange));
-}
-.about-text{
-  max-width:840px;
-}
-.about-text p{
+.about-copy p{
   font-size:1.02rem;
   line-height:1.95;
   color:var(--text);
   margin-bottom:18px;
 }
-.about-text p:last-child{margin-bottom:0}
-
-.section-spacer{height:24px}
-
-/* Meeting Info */
-.meeting-card{
-  background:linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
-  color:var(--white);
-  border-radius:var(--radius);
-  padding:28px;
-  display:flex;
-  align-items:center;
-  gap:24px;
-  flex-wrap:wrap;
-  box-shadow:var(--shadow-md);
-  border:1px solid rgba(255,255,255,.06);
+.about-copy p:last-child{margin-bottom:0}
+.about-aside{
+  padding-top:6px;
 }
-.meeting-icon{
-  width:68px;height:68px;
-  background:linear-gradient(135deg,var(--gold) 0%, #ffd861 100%);
-  color:var(--navy);
-  border-radius:16px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:1.8rem;
-  flex-shrink:0;
-  box-shadow:0 10px 22px rgba(255,194,0,.22);
+.about-stat{
+  padding:22px 0;
+  border-top:1px solid var(--line-soft);
 }
-.meeting-content h4{
+.about-stat:first-child{padding-top:0;border-top:none}
+.about-stat-label{
+  font-size:.78rem;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  color:var(--muted);
+  margin-bottom:8px;
+  font-weight:700;
+}
+.about-stat-value{
   font-family:'Baskervville',serif;
-  font-size:1.25rem;
-  color:var(--gold-soft);
-  margin-bottom:6px;
+  font-size:1.55rem;
+  color:var(--navy);
+  line-height:1.2;
 }
-.meeting-content p{
-  font-size:.94rem;
-  opacity:.9;
+.about-stat-text{
+  margin-top:8px;
+  color:var(--muted);
+  font-size:.92rem;
   line-height:1.7;
 }
 
-/* CTA Cards */
-.cta-grid{
+/* Events */
+.events-wrap{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:22px;
+  gap:0;
+  border-top:1px solid var(--line);
 }
-.cta-grid.triple{grid-template-columns:repeat(3,1fr)}
-
-.cta-card{
-  background:var(--card);
-  border-radius:var(--radius);
-  padding:24px;
-  box-shadow:var(--shadow-sm);
-  border:1px solid rgba(210,217,235,.9);
-  display:flex;
-  align-items:center;
-  gap:20px;
-  text-decoration:none;
-  transition:transform .35s ease, box-shadow .35s ease, border-color .25s ease;
-  position:relative;
-  overflow:hidden;
+.event-row{
+  display:grid;
+  grid-template-columns:120px 1fr auto;
+  gap:26px;
+  padding:24px 0;
+  border-bottom:1px solid var(--line);
+  align-items:start;
+  transition:background .2s ease;
 }
-.cta-card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(135deg, rgba(255,255,255,.28), transparent 55%);
-  pointer-events:none;
+.event-row:hover{
+  background:rgba(255,255,255,.45);
 }
-.cta-card:hover{
-  transform:translateY(-6px);
-  box-shadow:var(--shadow-md);
-  border-color:rgba(255,194,0,.5);
+.event-date{
+  padding-top:2px;
 }
-.cta-card.instagram{
-  background:linear-gradient(135deg,#f09433 0%,#e6683c 24%,#dc2743 52%,#cc2366 76%,#bc1888 100%);
-  color:white;
-  border-color:rgba(255,255,255,.15);
-}
-.cta-card.instagram .cta-card-icon{
-  background:rgba(255,255,255,.18);
-  border:1px solid rgba(255,255,255,.18);
-}
-.cta-card.donate{
-  background:linear-gradient(180deg, #fff 0%, #fbfcff 100%);
-}
-
-.cta-card-icon{
-  width:58px;height:58px;
-  border-radius:16px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
-  font-size:1.6rem;
-  background:#eff2f9;
-  color:var(--navy);
-  box-shadow:inset 0 0 0 1px rgba(12,21,70,.06);
-}
-.cta-card-qr{flex-shrink:0}
-.cta-card-qr img{
-  width:84px;height:84px;
-  border-radius:12px;
-  border:2px solid rgba(255,194,0,.75);
-  box-shadow:0 10px 24px rgba(12,21,70,.08);
-  background:white;
-}
-.cta-card.donate .cta-card-icon{
-  background:linear-gradient(135deg,var(--gold),#ffe07a);
-  font-size:1.8rem;
-}
-.cta-card-content{flex:1}
-.cta-card h4{
-  font-family:'Baskervville',serif;
-  font-size:1.14rem;
-  margin-bottom:6px;
-}
-.cta-card.donate h4,
-.cta-card:not(.instagram) h4{color:var(--navy)}
-.cta-card p{
-  font-size:.86rem;
-  opacity:.88;
-  line-height:1.6;
-  margin-bottom:10px;
-}
-.cta-card .btn{
-  display:inline-block;
-  padding:10px 16px;
-  border-radius:10px;
-  font-size:.8rem;
+.event-date-month{
+  display:block;
+  font-size:.78rem;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  color:var(--orange);
   font-weight:700;
-  text-decoration:none;
-  transition:transform .2s ease, opacity .15s ease, background .2s ease;
+  margin-bottom:4px;
 }
-.cta-card .btn:hover{transform:translateY(-1px)}
-.cta-card.instagram .btn{
-  background:rgba(255,255,255,.96);
-  color:#c32663;
-}
-.cta-card.donate .btn{
-  background:var(--navy);
-  color:var(--white);
-}
-.cta-card:not(.instagram):not(.donate) .btn{
-  background:var(--navy);
-  color:var(--white);
-}
-
-/* Share Box */
-.share-box{
-  background:rgba(255,255,255,.94);
-  border:1px solid rgba(210,217,235,.92);
-  border-radius:var(--radius-lg);
-  padding:28px;
-  box-shadow:var(--shadow-sm);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:24px;
-  flex-wrap:wrap;
-  max-width:720px;
-  margin:0 auto;
-}
-.share-qr{flex-shrink:0}
-.share-qr img{
-  width:110px;height:110px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  box-shadow:0 10px 24px rgba(12,21,70,.08);
-  background:white;
-}
-.share-content{flex:1;min-width:240px}
-.share-content h4{
+.event-date-day{
+  display:block;
   font-family:'Baskervville',serif;
-  font-size:1.12rem;
+  font-size:2.2rem;
+  color:var(--navy);
+  line-height:1;
+}
+.event-date-weekday{
+  display:block;
+  margin-top:6px;
+  font-size:.82rem;
+  color:var(--muted);
+}
+.event-main h3{
+  font-family:'Baskervville',serif;
+  font-size:1.3rem;
   color:var(--navy);
   margin-bottom:8px;
 }
-.share-content p{
+.event-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-bottom:10px;
   font-size:.88rem;
   color:var(--muted);
-  line-height:1.6;
-  margin-bottom:14px;
+}
+.event-desc{
+  font-size:.93rem;
+  line-height:1.75;
+  color:var(--text);
+  max-width:760px;
+}
+.event-side{
+  text-align:right;
+  min-width:120px;
+}
+.event-badge{
+  display:inline-block;
+  padding:8px 12px;
+  border-radius:999px;
+  background:rgba(12,21,70,.06);
+  color:var(--navy);
+  font-size:.75rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.events-loading,
+.events-empty{
+  padding:38px 0;
+  color:var(--muted);
+  font-size:.96rem;
+  line-height:1.7;
+}
+.events-note{
+  margin-top:16px;
+  color:var(--muted);
+  font-size:.9rem;
+}
+
+/* Connect */
+.connect-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+.connect-item{
+  padding:26px 0;
+  border-top:1px solid var(--line);
+}
+.connect-item h3{
+  font-family:'Baskervville',serif;
+  font-size:1.28rem;
+  color:var(--navy);
+  margin-bottom:10px;
+}
+.connect-item p{
+  color:var(--muted);
+  font-size:.93rem;
+  line-height:1.75;
+  margin-bottom:16px;
+}
+.text-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  text-decoration:none;
+  color:var(--navy);
+  font-weight:600;
+  font-size:.92rem;
+}
+.text-link:hover{opacity:.75}
+.qr-inline{
+  margin-top:16px;
+}
+.qr-inline img{
+  width:88px;
+  height:88px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:#fff;
+}
+
+/* Share */
+.share-row{
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:28px;
+  align-items:center;
+  padding-top:6px;
+}
+.share-row img{
+  width:110px;
+  height:110px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:#fff;
+}
+.share-copy h3{
+  font-family:'Baskervville',serif;
+  font-size:1.28rem;
+  color:var(--navy);
+  margin-bottom:8px;
+}
+.share-copy p{
+  color:var(--muted);
+  font-size:.94rem;
+  line-height:1.75;
+  margin-bottom:16px;
 }
 .copy-wrap{
   display:flex;
   gap:10px;
-  max-width:420px;
+  max-width:480px;
 }
 .copy-wrap input{
   flex:1;
-  font-family:'Noto Sans',sans-serif;
-  font-size:.82rem;
-  padding:12px 14px;
-  border:1.5px solid var(--border);
-  border-radius:10px;
-  background:var(--bg-2);
-  color:var(--text);
   min-width:0;
+  border:1px solid var(--line);
+  background:var(--white);
+  border-radius:999px;
+  padding:14px 16px;
+  font-size:.88rem;
+  color:var(--text);
   outline:none;
-  transition:border-color .2s ease, box-shadow .2s ease;
 }
 .copy-wrap input:focus{
   border-color:rgba(255,194,0,.8);
-  box-shadow:0 0 0 4px rgba(255,194,0,.14);
 }
 .copy-wrap button{
+  border:none;
+  border-radius:999px;
+  padding:14px 18px;
   background:var(--navy);
   color:var(--white);
-  border:none;
-  border-radius:10px;
-  padding:12px 18px;
-  font-family:'Noto Sans',sans-serif;
-  font-size:.82rem;
-  font-weight:700;
-  cursor:pointer;
-  white-space:nowrap;
-  transition:opacity .15s, transform .15s, background .2s;
-}
-.copy-wrap button:hover{opacity:.92;transform:translateY(-1px)}
-.copy-wrap button.copied{background:#16a34a}
-
-/* Quick Links */
-.quick-links{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:22px;
-}
-.quick-link{
-  background:rgba(255,255,255,.94);
-  border-radius:var(--radius);
-  padding:26px;
-  box-shadow:var(--shadow-sm);
-  border:1px solid rgba(210,217,235,.92);
-  transition:border-color .25s ease, transform .35s ease, box-shadow .35s ease;
-  text-decoration:none;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-  min-height:220px;
-}
-.quick-link:hover{
-  border-color:rgba(255,194,0,.7);
-  transform:translateY(-6px);
-  box-shadow:var(--shadow-md);
-}
-.quick-link-icon{
-  width:52px;height:52px;
-  background:linear-gradient(135deg,var(--navy),var(--navy-3));
-  border-radius:14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--gold);
-  font-size:1.4rem;
-  box-shadow:0 12px 22px rgba(12,21,70,.18);
-}
-.quick-link h3{
-  font-family:'Baskervville',serif;
-  font-size:1.22rem;
-  color:var(--navy);
-  margin:0;
-}
-.quick-link p{
   font-size:.88rem;
-  color:var(--muted);
-  line-height:1.65;
-  margin:0;
+  font-weight:600;
+  cursor:pointer;
+  transition:opacity .2s ease, transform .2s ease, background .2s ease;
 }
-.quick-link-arrow{
-  margin-top:auto;
-  font-size:.84rem;
-  font-weight:700;
-  color:var(--navy);
-  display:flex;
-  align-items:center;
-  gap:6px;
+.copy-wrap button:hover{
+  opacity:.92;
+  transform:translateY(-1px);
+}
+.copy-wrap button.copied{
+  background:#16a34a;
 }
 
-/* Events Calendar */
-.events-container{
-  display:flex;
-  flex-direction:column;
-  gap:18px;
+/* Resources */
+.resources-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
 }
-.events-loading,
-.events-empty{
-  background:rgba(255,255,255,.94);
-  border-radius:var(--radius);
-  padding:42px;
-  text-align:center;
+.resource-link{
+  display:block;
+  text-decoration:none;
+  padding:28px 0 22px;
+  border-top:1px solid var(--line);
+}
+.resource-label{
+  display:block;
   color:var(--muted);
-  border:1px solid rgba(210,217,235,.92);
-  box-shadow:var(--shadow-sm);
-}
-.events-empty-icon{
-  font-size:2.6rem;
-  margin-bottom:12px;
-}
-.events-empty p{
-  font-size:.92rem;
-  line-height:1.7;
-}
-.event-card{
-  background:rgba(255,255,255,.96);
-  border-radius:var(--radius);
-  box-shadow:var(--shadow-sm);
-  display:flex;
-  overflow:hidden;
-  transition:transform .35s ease, box-shadow .35s ease, border-color .25s ease;
-  border:1px solid rgba(210,217,235,.92);
-}
-.event-card:hover{
-  transform:translateY(-5px);
-  box-shadow:var(--shadow-md);
-  border-color:rgba(255,194,0,.48);
-}
-.event-date-badge{
-  background:linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%);
-  color:var(--white);
-  padding:22px 20px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  min-width:102px;
-  text-align:center;
-  position:relative;
-}
-.event-date-badge::after{
-  content:"";
-  position:absolute;
-  top:14px;
-  bottom:14px;
-  right:0;
-  width:1px;
-  background:rgba(255,255,255,.08);
-}
-.event-date-badge .month{
-  font-size:.72rem;
   text-transform:uppercase;
   letter-spacing:.14em;
-  color:var(--gold-soft);
+  font-size:.75rem;
   font-weight:700;
+  margin-bottom:10px;
 }
-.event-date-badge .day{
-  font-size:2rem;
-  font-weight:800;
-  line-height:1.1;
-}
-.event-date-badge .weekday{
-  font-size:.72rem;
-  opacity:.74;
-  margin-top:4px;
-}
-.event-content{
-  padding:22px;
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-}
-.event-content h4{
+.resource-link h3{
   font-family:'Baskervville',serif;
-  font-size:1.16rem;
+  font-size:1.4rem;
   color:var(--navy);
-  margin:0;
+  margin-bottom:10px;
 }
-.event-content .event-time{
-  font-size:.83rem;
-  color:var(--orange);
-  font-weight:700;
-}
-.event-content .event-location{
-  font-size:.84rem;
+.resource-link p{
   color:var(--muted);
-  display:flex;
-  align-items:center;
-  gap:4px;
+  font-size:.93rem;
+  line-height:1.75;
+  max-width:520px;
 }
-.event-content .event-desc{
-  font-size:.87rem;
-  color:var(--text);
-  line-height:1.62;
-  margin-top:4px;
-}
-.events-note{
-  font-size:.84rem;
-  color:var(--muted);
+.resource-link .resource-arrow{
+  display:inline-block;
   margin-top:14px;
-  text-align:center;
-  font-style:italic;
+  color:var(--navy);
+  font-weight:600;
+  font-size:.92rem;
+}
+.resource-link:hover .resource-arrow{
+  opacity:.75;
 }
 
 /* Footer */
 .site-footer{
-  background:linear-gradient(180deg, #101a4d 0%, var(--navy) 100%);
-  padding:28px 24px;
-  text-align:center;
-  border-top:1px solid rgba(255,255,255,.06);
-  box-shadow:0 -10px 30px rgba(12,21,70,.08);
+  border-top:1px solid var(--line);
+  padding:28px 0 40px;
+}
+.footer-inner{
+  width:min(var(--max), calc(100% - 40px));
+  margin:0 auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
 }
 .footer-copy{
-  font-size:.75rem;
-  color:rgba(255,255,255,.55);
-  letter-spacing:.04em;
+  color:var(--muted);
+  font-size:.8rem;
+}
+.footer-mark{
+  color:var(--navy);
+  font-size:.8rem;
+  font-weight:600;
 }
 
 /* Responsive */
-@media(max-width:900px){
-  .cta-grid.triple{grid-template-columns:1fr}
-  .hero h1{font-size:2.7rem}
-  .hero-inner{padding:30px 24px}
-}
-@media(max-width:768px){
-  .main{padding:54px 20px 70px}
-  .hero-image{height:560px}
-  .hero h1{font-size:2.2rem}
-  .hero p{font-size:.98rem}
-  .section-title{font-size:1.45rem}
-  .about-panel{padding:30px 24px}
-}
-@media(max-width:640px){
-  .top-bar{flex-direction:column;gap:8px}
-  .quick-links{grid-template-columns:1fr}
-  .cta-grid{grid-template-columns:1fr}
-  .share-box{flex-direction:column;text-align:center}
-  .share-content{text-align:center}
-  .copy-wrap{flex-direction:column}
-  .meeting-card{flex-direction:column;text-align:center}
-  .hero-image{height:460px}
-  .hero-inner{padding:26px 18px}
-  .hero-kicker{font-size:.7rem}
-  .hero h1{font-size:1.9rem}
-  .event-card{flex-direction:column}
-  .event-date-badge{
-    min-width:auto;
-    flex-direction:row;
-    gap:10px;
-    justify-content:center;
-    padding:16px;
+@media (max-width: 960px){
+  .section-head,
+  .about-layout,
+  .connect-grid,
+  .resources-grid,
+  .share-row{
+    grid-template-columns:1fr;
   }
-  .event-date-badge::after{display:none}
-  .event-date-badge .day{font-size:1.5rem}
+
+  .section-intro{
+    justify-self:start;
+    max-width:none;
+  }
+
+  .event-row{
+    grid-template-columns:100px 1fr;
+  }
+
+  .event-side{
+    grid-column:2;
+    text-align:left;
+    min-width:auto;
+  }
+}
+
+@media (max-width: 720px){
+  .top-bar-inner{
+    flex-direction:column;
+    gap:8px;
+    text-align:center;
+  }
+
+  .hero-inner{
+    min-height:520px;
+    padding:64px 0;
+  }
+
+  .hero-actions{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .event-row{
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+
+  .event-side{
+    grid-column:auto;
+  }
+
+  .copy-wrap{
+    flex-direction:column;
+    max-width:none;
+  }
+
+  .copy-wrap button{
+    width:100%;
+  }
 }
 </style>
 </head>
 <body>
 
-<div class="top-bar">
-  <img src="MES Stacked.png" alt="Moore Elementary" class="top-bar-logo" onerror="this.style.display='none'"/>
-  <div class="top-bar-text">Moore Elementary School <span>Parent Teacher Organization</span></div>
-</div>
+<header class="top-bar">
+  <div class="top-bar-inner">
+    <img src="MES Stacked.png" alt="Moore Elementary" class="top-bar-logo" onerror="this.style.display='none'"/>
+    <div class="top-bar-text">Moore Elementary School <span>Parent Teacher Organization</span></div>
+  </div>
+</header>
 
-<div class="hero">
-  <img src="mesheader.png" alt="" class="hero-image" onerror="this.style.background='linear-gradient(135deg,#0c1546 0%,#1a2654 100%)';this.style.opacity='1'"/>
-  <div class="hero-overlay">
-    <div class="hero-inner">
-      <div class="hero-kicker">Family • Community • School Spirit</div>
-      <h1>Welcome to Moore Elementary PTO</h1>
-      <p>Connecting parents, teachers, and students to build a stronger school community. Get involved, stay informed, and help make Moore Elementary the best it can be.</p>
+<section class="hero">
+  <div class="hero-media">
+    <img src="mesheader.png" alt="" onerror="this.style.display='none'"/>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="eyebrow">Moore Elementary PTO</div>
+      <h1>Building a stronger school community together.</h1>
+      <p>Connecting parents, teachers, and students through events, volunteer opportunities, and support that helps Moore Elementary thrive.</p>
+      <div class="hero-actions">
+        <a href="volunteer.html" class="btn btn-primary">Volunteer with Us</a>
+        <a href="#events" class="btn btn-secondary">View Upcoming Events</a>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
-<div class="accent-bar"></div>
+<div class="hero-divider"></div>
 
-<main class="main">
+<main>
+  <div class="container">
 
-  <section class="section about-hero">
-    <div class="about-panel">
-      <div class="section-header">
+    <section class="section" id="about">
+      <div class="section-head">
         <h2 class="section-title">About Our PTO</h2>
+        <p class="section-intro">A volunteer-led organization of parents, guardians, and teachers working together to support students, strengthen school connections, and enrich the Moore experience.</p>
       </div>
-      <div class="about-text">
-        <p>The Moore Elementary PTO is a volunteer organization of parents, guardians, and teachers working together to support our students and school. We organize events, fundraisers, and programs that enrich the educational experience for every child at Moore.</p>
-        <p>Our PTO runs entirely on the energy of our amazing volunteers. Whether you can give an hour or a whole day, every bit of help makes a difference. From Moore Miles to Teacher Appreciation Week, Book Fairs to classroom parties — there's a place for everyone to contribute.</p>
-        <p><strong>All parents and guardians of Moore Elementary students are automatically members of the PTO.</strong> We encourage everyone to get involved in whatever way works for your schedule.</p>
+      <div class="section-rule"></div>
+
+      <div class="about-layout">
+        <div class="about-copy">
+          <p>The Moore Elementary PTO organizes events, fundraisers, and programs that enhance the educational experience for every child at Moore. Our work helps build a welcoming, connected community for students, families, and staff.</p>
+          <p>Everything we do is powered by volunteers. Whether you can give an hour here and there or help more regularly throughout the year, every contribution makes a real difference. From Moore Miles to Teacher Appreciation Week, Book Fairs to classroom celebrations, there are many ways to participate.</p>
+          <p><strong>All parents and guardians of Moore Elementary students are automatically members of the PTO.</strong> We encourage everyone to get involved in whatever way fits their schedule.</p>
+        </div>
+
+        <aside class="about-aside">
+          <div class="about-stat">
+            <div class="about-stat-label">Who We Are</div>
+            <div class="about-stat-value">Parents, guardians, and teachers</div>
+            <div class="about-stat-text">Working together to support students, staff, and school-wide experiences.</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-label">How We Help</div>
+            <div class="about-stat-value">Events, fundraising, and volunteer support</div>
+            <div class="about-stat-text">Creating opportunities that enrich student life and strengthen community.</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-label">How to Join</div>
+            <div class="about-stat-value">You’re already part of it</div>
+            <div class="about-stat-text">Every Moore parent or guardian is automatically a member of the PTO.</div>
+          </div>
+        </aside>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="section-spacer"></div>
-
-  <section class="section">
-    <div class="section-header">
-      <h2 class="section-title">Upcoming Events</h2>
-      <div class="section-subtle">The next 5 upcoming PTO events</div>
-    </div>
-    <div class="events-container" id="eventsContainer">
-      <div class="events-loading">Loading events...</div>
-    </div>
-    <p class="events-note">Check back often for new events, or follow us on Instagram for the latest updates.</p>
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <h2 class="section-title">Stay Connected</h2>
-    </div>
-    <div class="cta-grid triple">
-      <a href="https://www.instagram.com/mooreelementarypto/" target="_blank" rel="noopener" class="cta-card instagram">
-        <div class="cta-card-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        </div>
-        <div class="cta-card-content">
-          <h4>@mooreelementarypto</h4>
-          <p>Follow for PTO events, family updates, and school community news.</p>
-          <span class="btn">Follow</span>
-        </div>
-      </a>
-
-      <a href="https://www.instagram.com/mesfssd/" target="_blank" rel="noopener" class="cta-card instagram">
-        <div class="cta-card-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        </div>
-        <div class="cta-card-content">
-          <h4>@mesfssd</h4>
-          <p>Follow Moore Elementary for school highlights and announcements.</p>
-          <span class="btn">Follow</span>
-        </div>
-      </a>
-
-      <div class="cta-card donate">
-        <div class="cta-card-qr">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://venmo.com/u/jetza-nunez&color=0c1546&bgcolor=ffffff" alt="Venmo QR Code"/>
-        </div>
-        <div class="cta-card-content">
-          <h4>Support the PTO</h4>
-          <p>Every donation helps fund events, classroom support, and student enrichment.</p>
-          <a href="https://venmo.com/u/jetza-nunez" target="_blank" rel="noopener" class="btn">Donate via Venmo</a>
-        </div>
+    <section class="section" id="events">
+      <div class="section-head">
+        <h2 class="section-title">Upcoming Events</h2>
+        <p class="section-intro">Stay up to date with PTO events, activities, and ways to participate throughout the school year.</p>
       </div>
-    </div>
-  </section>
+      <div class="section-rule"></div>
 
-  <section class="section">
-    <div class="section-header">
-      <h2 class="section-title">Spread the Word</h2>
-    </div>
-    <div class="share-box">
-      <div class="share-qr">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://moorevolunteers.org&color=0c1546&bgcolor=ffffff" alt="QR Code"/>
+      <div class="events-wrap" id="eventsContainer">
+        <div class="events-loading">Loading events...</div>
       </div>
-      <div class="share-content">
-        <h4>Share with Other Moore Families</h4>
-        <p>Know a Moore parent who should get involved? Send them this site and help grow our school community.</p>
-        <div class="copy-wrap">
-          <input type="text" id="shareLink" value="https://moorepto.org" readonly/>
-          <button onclick="copyLink()"><span id="copyText">Copy Link</span></button>
+      <p class="events-note">Check back often for new events, or follow us on Instagram for the latest updates.</p>
+    </section>
+
+    <section class="section" id="connect">
+      <div class="section-head">
+        <h2 class="section-title">Stay Connected</h2>
+        <p class="section-intro">Follow along, stay informed, and support the PTO through our community channels.</p>
+      </div>
+      <div class="section-rule"></div>
+
+      <div class="connect-grid">
+        <div class="connect-item">
+          <h3>@mooreelementarypto</h3>
+          <p>Follow for PTO events, reminders, volunteer opportunities, and family updates throughout the year.</p>
+          <a class="text-link" href="https://www.instagram.com/mooreelementarypto/" target="_blank" rel="noopener">Follow on Instagram →</a>
+        </div>
+
+        <div class="connect-item">
+          <h3>@mesfssd</h3>
+          <p>Follow Moore Elementary for school announcements, photos, highlights, and day-to-day school news.</p>
+          <a class="text-link" href="https://www.instagram.com/mesfssd/" target="_blank" rel="noopener">Visit school Instagram →</a>
+        </div>
+
+        <div class="connect-item">
+          <h3>Support the PTO</h3>
+          <p>Every donation helps fund student enrichment, school events, and experiences that benefit the Moore community.</p>
+          <a class="text-link" href="https://venmo.com/u/jetza-nunez" target="_blank" rel="noopener">Donate via Venmo →</a>
+          <div class="qr-inline">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=88x88&data=https://venmo.com/u/jetza-nunez&color=0c1546&bgcolor=ffffff" alt="Venmo QR Code"/>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section">
-    <div class="section-header">
-      <h2 class="section-title">PTO Resources</h2>
-    </div>
-    <div class="quick-links">
-      <a href="volunteer.html" class="quick-link">
-        <div class="quick-link-icon">🤝</div>
-        <h3>Volunteer Sign-Up</h3>
-        <p>Join our amazing team of parent volunteers. Sign up to help with events, classroom activities, and more.</p>
-        <span class="quick-link-arrow">Sign up now →</span>
-      </a>
+    <section class="section" id="share">
+      <div class="section-head">
+        <h2 class="section-title">Spread the Word</h2>
+        <p class="section-intro">Share this site with other Moore families and help more parents stay connected and involved.</p>
+      </div>
+      <div class="section-rule"></div>
 
-      <a href="admin.html" class="quick-link">
-        <div class="quick-link-icon">🔐</div>
-        <h3>Admin Dashboard</h3>
-        <p>PTO board members can view volunteer submissions and manage communications.</p>
-        <span class="quick-link-arrow">Log in →</span>
-      </a>
-    </div>
-  </section>
+      <div class="share-row">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https://moorevolunteers.org&color=0c1546&bgcolor=ffffff" alt="QR Code"/>
+        <div class="share-copy">
+          <h3>Share with other Moore families</h3>
+          <p>Know a Moore parent or guardian who should be in the loop? Send them the PTO site so they can stay informed and get involved.</p>
+          <div class="copy-wrap">
+            <input type="text" id="shareLink" value="https://moorepto.org" readonly />
+            <button onclick="copyLink()"><span id="copyText">Copy Link</span></button>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <section class="section" id="resources">
+      <div class="section-head">
+        <h2 class="section-title">PTO Resources</h2>
+        <p class="section-intro">Quick access to volunteer opportunities and PTO administration tools.</p>
+      </div>
+      <div class="section-rule"></div>
+
+      <div class="resources-grid">
+        <a href="volunteer.html" class="resource-link">
+          <span class="resource-label">Get Involved</span>
+          <h3>Volunteer Sign-Up</h3>
+          <p>Join our team of parent volunteers and help support events, classroom activities, and school initiatives throughout the year.</p>
+          <span class="resource-arrow">Sign up now →</span>
+        </a>
+
+        <a href="admin.html" class="resource-link">
+          <span class="resource-label">For PTO Leadership</span>
+          <h3>Admin Dashboard</h3>
+          <p>PTO board members can review volunteer submissions and manage communications from one place.</p>
+          <span class="resource-arrow">Log in →</span>
+        </a>
+      </div>
+    </section>
+
+  </div>
 </main>
 
 <footer class="site-footer">
-  <div class="footer-copy">Moore Elementary School · Parent Teacher Organization · 2025–2026</div>
+  <div class="footer-inner">
+    <div class="footer-copy">Moore Elementary School · Parent Teacher Organization · 2025–2026</div>
+    <div class="footer-mark">Moore PTO</div>
+  </div>
 </footer>
 
 <script>
@@ -820,57 +754,68 @@ document.addEventListener('DOMContentLoaded', function() {
 function loadEvents() {
   var container = document.getElementById('eventsContainer');
   var events = [];
-  
+
   try {
     events = JSON.parse(localStorage.getItem(EVENTS_KEY)) || [];
   } catch (e) {
     events = [];
   }
-  
+
   var now = new Date();
   now.setHours(0, 0, 0, 0);
-  
+
   var upcomingEvents = events.filter(function(e) {
     var eventDate = new Date(e.date);
     return eventDate >= now;
   }).sort(function(a, b) {
     return new Date(a.date) - new Date(b.date);
   });
-  
+
   upcomingEvents = upcomingEvents.slice(0, 5);
-  
+
   if (upcomingEvents.length === 0) {
-    container.innerHTML = '<div class="events-empty"><div class="events-empty-icon">📅</div><p>No upcoming events scheduled yet.<br>Check back soon or follow us on Instagram.</p></div>';
+    container.innerHTML = '<div class="events-empty">No upcoming events scheduled yet. Check back soon or follow us on Instagram for updates.</div>';
     return;
   }
-  
+
+  var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
   var html = '';
+
   upcomingEvents.forEach(function(event) {
     var date = new Date(event.date + 'T12:00:00');
-    var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    
-    html += '<div class="event-card">';
-    html += '<div class="event-date-badge">';
-    html += '<span class="month">' + monthNames[date.getMonth()] + '</span>';
-    html += '<span class="day">' + date.getDate() + '</span>';
-    html += '<span class="weekday">' + dayNames[date.getDay()] + '</span>';
-    html += '</div>';
-    html += '<div class="event-content">';
-    html += '<h4>' + escapeHtml(event.title) + '</h4>';
-    if (event.time) {
-      html += '<div class="event-time">🕐 ' + escapeHtml(event.time) + '</div>';
+
+    html += '<article class="event-row">';
+    html +=   '<div class="event-date">';
+    html +=     '<span class="event-date-month">' + monthNames[date.getMonth()] + '</span>';
+    html +=     '<span class="event-date-day">' + date.getDate() + '</span>';
+    html +=     '<span class="event-date-weekday">' + dayNames[date.getDay()] + '</span>';
+    html +=   '</div>';
+
+    html +=   '<div class="event-main">';
+    html +=     '<h3>' + escapeHtml(event.title) + '</h3>';
+
+    if (event.time || event.location) {
+      html += '<div class="event-meta">';
+      if (event.time) {
+        html += '<span>' + escapeHtml(event.time) + '</span>';
+      }
+      if (event.location) {
+        html += '<span>' + escapeHtml(event.location) + '</span>';
+      }
+      html += '</div>';
     }
-    if (event.location) {
-      html += '<div class="event-location">📍 ' + escapeHtml(event.location) + '</div>';
-    }
+
     if (event.description) {
       html += '<div class="event-desc">' + escapeHtml(event.description) + '</div>';
     }
-    html += '</div>';
-    html += '</div>';
+
+    html +=   '</div>';
+    html +=   '<div class="event-side"><span class="event-badge">Upcoming</span></div>';
+    html += '</article>';
   });
-  
+
   container.innerHTML = html;
 }
 
@@ -885,7 +830,7 @@ function copyLink() {
   var input = document.getElementById('shareLink');
   var btn = document.querySelector('.copy-wrap button');
   var txt = document.getElementById('copyText');
-  
+
   navigator.clipboard.writeText(input.value).then(function() {
     btn.classList.add('copied');
     txt.textContent = 'Copied!';
