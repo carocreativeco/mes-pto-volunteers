@@ -4,81 +4,221 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Moore Elementary Announcement Builder</title>
-  <link href="https://fonts.googleapis.com/css2?family=Baskervville&family=Baskervville+SC&family=Noto+Sans:wght@400;600;700&family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Baskervville&family=Baskervville+SC&family=Inter:wght@400;500;600;700&family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --gold:   #ffc200;
-      --orange: #db6d42;
-      --navy:   #0c1546;
-      --black:  #000000;
-      --white:  #ffffff;
-      --bg:     #f4f5f8;
-      --border: #dde0ea;
-      --page-w: 680px;
+      --gold:#ffc200;
+      --orange:#db6d42;
+      --navy:#0c1546;
+      --black:#000000;
+      --white:#ffffff;
+      --bg:#f6f8fc;
+      --bg-soft:#eef2f8;
+      --panel:#ffffff;
+      --border:#dde3ef;
+      --border-soft:#e8edf5;
+      --text:#172033;
+      --muted:#667085;
+      --page-w:680px;
+      --shadow:0 20px 50px rgba(12,21,70,.08);
+      --radius:20px;
+      --radius-sm:14px;
+      --max:1440px;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Noto Sans', sans-serif;
-      background: var(--bg);
-      color: var(--black);
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg,#fbfcfe 0%, #f3f6fb 100%);
+      color: var(--text);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
+    img { max-width: 100%; display: block; }
+    button, input, select, textarea { font: inherit; }
+
+    /* Modern app shell */
     .app-bar {
       background: var(--navy);
       color: var(--white);
-      padding: 14px 28px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .app-bar-inner {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 0;
+      flex-wrap: wrap;
+    }
+
+    .app-bar-left {
       display: flex;
       align-items: center;
       gap: 14px;
-      border-bottom: 4px solid var(--gold);
+      min-width: 0;
     }
 
-    .app-bar h1 {
+    .app-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .app-heading {
+      min-width: 0;
+    }
+
+    .app-heading h1 {
       font-family: 'Baskervville SC', serif;
       font-size: 1.25rem;
-      letter-spacing: .04em;
+      letter-spacing: .03em;
       color: var(--gold);
+      line-height: 1.1;
     }
 
-    .app-bar span {
+    .app-heading p {
       font-size: .8rem;
-      color: rgba(255,255,255,.55);
-      margin-left: auto;
+      color: rgba(255,255,255,.68);
+      margin-top: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .app-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .app-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.88);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: .82rem;
+      font-weight: 600;
+    }
+
+    .workspace-shell {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 26px auto 30px;
+      flex: 1;
+      display: flex;
+      min-height: 0;
     }
 
     .workspace {
       display: grid;
-      grid-template-columns: 340px 1fr;
-      flex: 1;
-      height: calc(100vh - 57px);
+      grid-template-columns: 360px minmax(0,1fr);
+      gap: 22px;
+      width: 100%;
+      min-height: calc(100vh - 150px);
     }
 
+    /* Modern control panel */
     .panel {
-      background: var(--white);
-      border-right: 1px solid var(--border);
+      background: rgba(255,255,255,.92);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    .panel-scroll {
       overflow-y: auto;
+      min-height: 0;
+      flex: 1;
+    }
+
+    .panel-head {
+      padding: 24px 24px 18px;
+      border-bottom: 1px solid var(--border-soft);
+      background: linear-gradient(180deg,#ffffff 0%, #fbfcff 100%);
+    }
+
+    .panel-kicker {
+      display: inline-block;
+      font-size: .74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--orange);
+      margin-bottom: 10px;
+    }
+
+    .panel-head h2 {
+      font-family: 'Baskervville', serif;
+      font-size: 1.6rem;
+      color: var(--navy);
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .panel-head p {
+      font-size: .9rem;
+      color: var(--muted);
+      line-height: 1.7;
     }
 
     .panel-section {
-      padding: 18px 20px;
-      border-bottom: 1px solid var(--border);
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .panel-section:last-child {
+      border-bottom: none;
     }
 
     .panel-section label {
       display: block;
-      font-size: .72rem;
+      font-size: .76rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: .08em;
+      letter-spacing: .12em;
       color: var(--navy);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+    }
+
+    .field-note {
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--muted);
+      font-size: .8rem;
     }
 
     .panel-section input[type="text"],
@@ -86,33 +226,58 @@
     .panel-section textarea,
     .panel-section select {
       width: 100%;
-      font-family: 'Noto Sans', sans-serif;
-      font-size: .875rem;
-      padding: 8px 10px;
+      font-size: .92rem;
+      padding: 13px 15px;
       border: 1px solid var(--border);
-      border-radius: 6px;
-      background: var(--bg);
-      color: var(--black);
+      border-radius: 14px;
+      background: #fff;
+      color: var(--text);
       outline: none;
-      transition: border-color .15s;
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
     }
 
     .panel-section input:focus,
     .panel-section textarea:focus,
     .panel-section select:focus {
-      border-color: var(--navy);
+      border-color: rgba(255,194,0,.85);
+      box-shadow: 0 0 0 4px rgba(255,194,0,.12);
     }
 
     .panel-section textarea {
       resize: vertical;
       min-height: 260px;
-      line-height: 1.6;
+      line-height: 1.7;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border: 1px solid var(--border-soft);
+      border-radius: 14px;
+      background: #fafbfd;
+      cursor: pointer;
+    }
+
+    .toggle-row input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--navy);
+      margin: 0;
+      flex-shrink: 0;
+    }
+
+    .toggle-row span {
+      font-size: .88rem;
+      color: var(--text);
     }
 
     .link-builder {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px;
+      gap: 10px;
       margin-bottom: 10px;
     }
 
@@ -124,48 +289,54 @@
       border: none;
       background: var(--navy);
       color: var(--white);
-      font-family: 'Noto Sans', sans-serif;
-      font-size: .78rem;
-      font-weight: 700;
-      border-radius: 6px;
-      padding: 9px 10px;
+      font-size: .82rem;
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 12px 14px;
       cursor: pointer;
+      transition: transform .2s ease, opacity .2s ease;
     }
 
     .mini-btn:hover {
-      opacity: .9;
+      opacity: .95;
+      transform: translateY(-1px);
     }
 
     .hint {
-      font-size: .73rem;
-      color: #888;
-      margin-top: 6px;
-      line-height: 1.5;
+      font-size: .8rem;
+      color: var(--muted);
+      margin-top: 8px;
+      line-height: 1.6;
     }
 
     .actions {
-      padding: 16px 20px;
+      padding: 20px 24px 24px;
       display: flex;
       flex-direction: column;
       gap: 10px;
+      background: linear-gradient(180deg,#ffffff 0%, #fafbfd 100%);
+      border-top: 1px solid var(--border-soft);
     }
 
     .btn {
-      padding: 11px 18px;
+      padding: 13px 18px;
       border: none;
-      border-radius: 8px;
-      font-family: 'Noto Sans', sans-serif;
-      font-weight: 700;
-      font-size: .875rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: .92rem;
       cursor: pointer;
-      transition: opacity .15s, transform .1s;
-      display: flex;
+      transition: opacity .2s ease, transform .2s ease, background .2s ease, color .2s ease;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
     }
 
-    .btn:hover { opacity: .88; transform: translateY(-1px); }
+    .btn:hover {
+      opacity: .95;
+      transform: translateY(-1px);
+    }
+
     .btn:active { transform: translateY(0); }
 
     .btn-primary {
@@ -178,32 +349,52 @@
       color: var(--navy);
     }
 
+    /* Preview workspace */
     .preview-wrap {
-      background: #e8e9ed;
-      overflow-y: auto;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.65), rgba(255,255,255,.35)),
+        var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      overflow: auto;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 32px 24px 48px;
+      padding: 26px 24px 42px;
+      min-width: 0;
+      min-height: 0;
+    }
+
+    .preview-topbar {
+      width: min(100%, calc(var(--page-w) + 40px));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
     }
 
     .preview-label {
-      font-size: .7rem;
+      font-size: .74rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: .1em;
-      color: #888;
-      margin-bottom: 14px;
-      align-self: flex-start;
-      margin-left: calc(50% - var(--page-w)/2);
+      letter-spacing: .14em;
+      color: var(--muted);
+    }
+
+    .preview-meta {
+      font-size: .82rem;
+      color: var(--muted);
     }
 
     #page {
       width: var(--page-w);
       min-height: 880px;
       background: var(--white);
-      box-shadow: 0 4px 32px rgba(0,0,0,.18);
-      border-radius: 4px;
+      box-shadow: 0 24px 60px rgba(12,21,70,.16);
+      border-radius: 8px;
       overflow: visible;
       display: flex;
       flex-direction: column;
@@ -211,6 +402,7 @@
       position: relative;
     }
 
+    /* KEEPING DOCUMENT BRANDING / STYLING */
     .page-header {
       background: var(--navy);
       padding: 22px 32px 18px;
@@ -281,7 +473,6 @@
       opacity: .75;
     }
 
-    /* Low-ink mode styles */
     #page.low-ink .page-header {
       background: var(--white);
       border: none;
@@ -582,12 +773,16 @@
     }
 
     .support-footer {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto 28px;
+      padding: 16px 20px;
+      font-size: .88rem;
+      color: var(--muted);
+      background: rgba(255,255,255,.85);
+      border: 1px solid var(--border);
+      border-radius: 18px;
       text-align: center;
-      padding: 12px 20px;
-      font-size: .85rem;
-      color: #666;
-      background: var(--bg);
-      border-top: 1px solid var(--border);
+      box-shadow: var(--shadow);
     }
 
     .support-footer a {
@@ -608,6 +803,73 @@
       display: none;
     }
 
+    @media (max-width: 1100px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        order: 1;
+      }
+
+      .preview-wrap {
+        order: 2;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .app-bar-inner {
+        align-items: flex-start;
+      }
+
+      .app-bar-right {
+        width: 100%;
+      }
+
+      .workspace-shell,
+      .support-footer {
+        width: min(100%, calc(100% - 24px));
+      }
+
+      .preview-wrap {
+        padding: 18px 12px 28px;
+      }
+
+      .preview-topbar {
+        width: 100%;
+      }
+
+      #page {
+        width: 100%;
+        min-height: auto;
+      }
+
+      .page-body {
+        padding: 24px 22px 28px;
+      }
+
+      .page-header {
+        padding: 18px 22px 16px;
+      }
+
+      .doc-type-row {
+        padding: 5px 22px;
+      }
+
+      .page-footer {
+        padding: 10px 22px;
+      }
+
+      .qr-code-container.bottom-right { right: 18px; bottom: 54px; }
+      .qr-code-container.bottom-left { left: 18px; bottom: 54px; }
+      .qr-code-container.top-right { right: 18px; top: 136px; }
+      .qr-code-container.top-left { left: 18px; top: 136px; }
+
+      .link-builder {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media print {
       @page {
         size: letter portrait;
@@ -620,19 +882,26 @@
 
       .app-bar,
       .panel,
-      .preview-label,
+      .preview-topbar,
       .support-footer {
         display: none !important;
       }
 
+      .workspace-shell {
+        width: auto;
+        margin: 0;
+      }
+
       .workspace {
         display: block;
-        height: auto;
+        min-height: auto;
       }
 
       .preview-wrap {
         padding: 0;
         background: white;
+        border: none;
+        box-shadow: none;
       }
 
       #page {
@@ -756,155 +1025,183 @@
 <body>
 
   <div class="app-bar">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffc200" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-      <polyline points="14 2 14 8 20 8"/>
-      <line x1="16" y1="13" x2="8" y2="13"/>
-      <line x1="16" y1="17" x2="8" y2="17"/>
-      <polyline points="10 9 9 9 8 9"/>
-    </svg>
-    <h1>Moore Elementary - Announcement Builder</h1>
-    <span>Paste - Format - Download PDF</span>
-  </div>
-
-  <div class="workspace">
-    <div class="panel">
-      <div class="panel-section">
-        <label>Announcement Title</label>
-        <input type="text" id="annTitle" placeholder="e.g. Spring Field Day 2025" />
-      </div>
-
-      <div class="panel-section">
-        <label>Document Type</label>
-        <select id="docType">
-          <option value="School Announcement">School Announcement</option>
-          <option value="Parent Newsletter">Parent Newsletter</option>
-          <option value="Event Notice">Event Notice</option>
-          <option value="Important Update">Important Update</option>
-          <option value="Classroom News">Classroom News</option>
-          <option value="PTO Communication">PTO Communication</option>
-          <option value="PTO Announcement">PTO Announcement</option>
-        </select>
-        <label style="display: flex; align-items: center; gap: 8px; margin-top: 12px; cursor: pointer; text-transform: none; letter-spacing: 0; font-weight: 400; font-size: .82rem;">
-          <input type="checkbox" id="lowInkMode" style="width: auto; margin: 0;" />
-          Low-ink header (for printing)
-        </label>
-      </div>
-
-      <div class="panel-section">
-        <label>Date</label>
-        <input type="date" id="docDate" />
-      </div>
-
-      <div class="panel-section">
-        <label>QR Code Builder</label>
-        <div class="link-builder">
-          <input type="text" id="qrURL" class="full" placeholder="URL for QR code (e.g. https://forms.google.com/...)" />
-          <select id="qrPosition">
-            <option value="bottom-right">Bottom Right</option>
-            <option value="bottom-left">Bottom Left</option>
-            <option value="top-right">Top Right</option>
-            <option value="top-left">Top Left</option>
-          </select>
-          <select id="qrSize">
-            <option value="80">Small</option>
-            <option value="100" selected>Medium</option>
-            <option value="130">Large</option>
-          </select>
-          <button type="button" class="mini-btn full" onclick="toggleQRCode()">Add QR Code</button>
+    <div class="app-bar-inner">
+      <div class="app-bar-left">
+        <div class="app-mark">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffc200" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
         </div>
-        <p class="hint">QR code will appear in your document at the selected position.</p>
+        <div class="app-heading">
+          <h1>Moore Elementary Announcement Builder</h1>
+          <p>Create, format, preview, and print polished school communications.</p>
+        </div>
       </div>
-
-      <div class="panel-section">
-        <label>Paste Your Content</label>
-        <textarea id="rawContent"></textarea>
-      </div>
-
-      <div class="panel-section">
-        <label>Signature Name</label>
-        <input type="text" id="sigName" placeholder="e.g. Mrs. Johnson" />
-      </div>
-
-      <div class="panel-section">
-        <label>Signature Title <span style="font-weight:400; text-transform:none; letter-spacing:0; color:#888;">(Optional)</span></label>
-        <input type="text" id="sigTitle" placeholder="e.g. Principal" />
-      </div>
-
-      <div class="actions">
-        <button class="btn btn-primary" onclick="downloadPDF()">Download PDF</button>
-        <button class="btn btn-secondary" onclick="clearAll()">Clear and Start Over</button>
+      <div class="app-bar-right">
+        <div class="app-chip">Live preview</div>
+        <div class="app-chip">Print-ready PDF</div>
       </div>
     </div>
+  </div>
 
-    <div class="preview-wrap">
-      <div class="preview-label">Live Preview</div>
+  <div class="workspace-shell">
+    <div class="workspace">
+      <aside class="panel">
+        <div class="panel-head">
+          <div class="panel-kicker">Builder</div>
+          <h2>Compose your announcement</h2>
+          <p>Fill in the document details, paste your content, and use the live preview to prepare a polished announcement.</p>
+        </div>
 
-      <div id="page">
-        <div class="running-header">
-          <span class="running-title" id="runningTitle">Your Announcement Title</span>
-          <span class="running-date" id="runningDate"></span>
-        </div>
-        <div class="running-footer">
-          <span class="footer-text">Moore Elementary School &nbsp;&bull;&nbsp; Official Communication</span>
-          <div class="footer-accent"></div>
-        </div>
-        <div class="page-header">
-          <div class="page-header-logo">
-            <img src="moore-tool.png" alt="Moore Elementary Logo" />
+        <div class="panel-scroll">
+          <div class="panel-section">
+            <label>Announcement Title</label>
+            <input type="text" id="annTitle" placeholder="e.g. Spring Field Day 2025" />
           </div>
-          <div class="page-header-text">
-            <div class="school-name">Moore Elementary School</div>
-            <div class="school-tagline" id="pageDocTypeTag">School Announcement</div>
+
+          <div class="panel-section">
+            <label>Document Type</label>
+            <select id="docType">
+              <option value="School Announcement">School Announcement</option>
+              <option value="Parent Newsletter">Parent Newsletter</option>
+              <option value="Event Notice">Event Notice</option>
+              <option value="Important Update">Important Update</option>
+              <option value="Classroom News">Classroom News</option>
+              <option value="PTO Communication">PTO Communication</option>
+              <option value="PTO Announcement">PTO Announcement</option>
+            </select>
+
+            <label class="toggle-row">
+              <input type="checkbox" id="lowInkMode" />
+              <span>Low-ink header for printing</span>
+            </label>
+          </div>
+
+          <div class="panel-section">
+            <label>Date</label>
+            <input type="date" id="docDate" />
+          </div>
+
+          <div class="panel-section">
+            <label>QR Code Builder</label>
+            <div class="link-builder">
+              <input type="text" id="qrURL" class="full" placeholder="URL for QR code (e.g. https://forms.google.com/...)" />
+              <select id="qrPosition">
+                <option value="bottom-right">Bottom Right</option>
+                <option value="bottom-left">Bottom Left</option>
+                <option value="top-right">Top Right</option>
+                <option value="top-left">Top Left</option>
+              </select>
+              <select id="qrSize">
+                <option value="80">Small</option>
+                <option value="100" selected>Medium</option>
+                <option value="130">Large</option>
+              </select>
+              <button type="button" class="mini-btn full" onclick="toggleQRCode()">Add QR Code</button>
+            </div>
+            <p class="hint">QR code will appear in your document at the selected position.</p>
+          </div>
+
+          <div class="panel-section">
+            <label>Paste Your Content</label>
+            <textarea id="rawContent"></textarea>
+          </div>
+
+          <div class="panel-section">
+            <label>Signature Name</label>
+            <input type="text" id="sigName" placeholder="e.g. Mrs. Johnson" />
+          </div>
+
+          <div class="panel-section">
+            <label>Signature Title <span class="field-note">(Optional)</span></label>
+            <input type="text" id="sigTitle" placeholder="e.g. Principal" />
           </div>
         </div>
 
-        <div class="accent-bar"></div>
+        <div class="actions">
+          <button class="btn btn-primary" onclick="downloadPDF()">Download PDF</button>
+          <button class="btn btn-secondary" onclick="clearAll()">Clear and Start Over</button>
+        </div>
+      </aside>
 
-        <div class="doc-type-row">
-          <span class="doc-type-label" id="pageDocTypeBadge">School Announcement</span>
-          <span class="doc-date" id="pageDocDate"></span>
+      <section class="preview-wrap">
+        <div class="preview-topbar">
+          <div class="preview-label">Live Preview</div>
+          <div class="preview-meta">Formatted automatically as you type</div>
         </div>
 
-        <div class="page-body">
-          <div class="announcement-title" id="pageTitle">Your Announcement Title</div>
-          <div class="title-rule"></div>
+        <div id="page">
+          <div class="running-header">
+            <span class="running-title" id="runningTitle">Your Announcement Title</span>
+            <span class="running-date" id="runningDate"></span>
+          </div>
+          <div class="running-footer">
+            <span class="footer-text">Moore Elementary School &nbsp;&bull;&nbsp; Official Communication</span>
+            <div class="footer-accent"></div>
+          </div>
 
-          <div class="doc-content" id="pageContent">
-            <div class="empty-state">
-              <div class="big">&#128196;</div>
-              Paste your content in the left panel<br />and it will appear here, formatted.
+          <div class="page-header">
+            <div class="page-header-logo">
+              <img src="moore-tool.png" alt="Moore Elementary Logo" />
+            </div>
+            <div class="page-header-text">
+              <div class="school-name">Moore Elementary School</div>
+              <div class="school-tagline" id="pageDocTypeTag">School Announcement</div>
             </div>
           </div>
 
-          <div class="signature-block" id="pageSignature" style="display:none">
-            <p class="sincerely">Sincerely,</p>
-            <p class="sig-name" id="sigDisplay"></p>
-            <p class="sig-title" id="sigTitleDisplay" style="display:none"></p>
+          <div class="accent-bar"></div>
+
+          <div class="doc-type-row">
+            <span class="doc-type-label" id="pageDocTypeBadge">School Announcement</span>
+            <span class="doc-date" id="pageDocDate"></span>
+          </div>
+
+          <div class="page-body">
+            <div class="announcement-title" id="pageTitle">Your Announcement Title</div>
+            <div class="title-rule"></div>
+
+            <div class="doc-content" id="pageContent">
+              <div class="empty-state">
+                <div class="big">&#128196;</div>
+                Paste your content in the left panel<br />and it will appear here, formatted.
+              </div>
+            </div>
+
+            <div class="signature-block" id="pageSignature" style="display:none">
+              <p class="sincerely">Sincerely,</p>
+              <p class="sig-name" id="sigDisplay"></p>
+              <p class="sig-title" id="sigTitleDisplay" style="display:none"></p>
+            </div>
+          </div>
+
+          <div class="qr-code-container bottom-right" id="qrCodeContainer">
+            <img id="qrCodeImage" src="" alt="QR Code" style="display:none;" />
+            <div class="qr-code-label" id="qrCodeLabel">Scan to visit</div>
+          </div>
+
+          <div class="page-footer">
+            <span class="footer-text">Moore Elementary School &nbsp;&bull;&nbsp; Official Communication</span>
+            <div class="footer-accent"></div>
           </div>
         </div>
-
-        <div class="qr-code-container bottom-right" id="qrCodeContainer">
-          <img id="qrCodeImage" src="" alt="QR Code" style="display:none;" />
-          <div class="qr-code-label" id="qrCodeLabel">Scan to visit</div>
-        </div>
-
-        <div class="page-footer">
-          <span class="footer-text">Moore Elementary School &nbsp;&bull;&nbsp; Official Communication</span>
-          <div class="footer-accent"></div>
-        </div>
-      </div>
+      </section>
     </div>
   </div>
 
   <div class="support-footer">
     Having issues with the tool?
-    <a href="/cdn-cgi/l/email-protection#aecdc6dbc9c6cbdd80ddc1cdc7cfc2eec9c3cfc7c280cdc1c391dddbccc4cbcdda93e7dddddbcb8b9c9ed9c7dac68b9c9ee3c1c1dccb8b9c9eebc2cbc3cbc0dacfdcd78b9c9eefc0c0c1dbc0cdcbc3cbc0da8b9c9eecdbc7c2cacbdc">Click here</a>.
+    <a href="/cdn-cgi/l/email-protection#aecdc6dbc9c6cbdd80ddc1cdc7cfc2eec9c3cfc7c280cdc1c391dddbccc4cbcdda93e7dddddbcb8b9c9ed9c7dac68b9c9ee3c1c1dccb8b9eebc2cbc3cbc0dacfdcd78b9c9eefc0c0c1dbc0cdcbc3cbc0da8b9c9eecdbc7c2cacbdc">Click here</a>.
     &nbsp;&bull;&nbsp;
     <a href="moore-announcement-builder-guide.pdf" target="_blank">View User Guide</a>
   </div>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script>
     document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('docDate').valueAsDate = new Date();
 
@@ -968,16 +1265,14 @@
         document.getElementById('runningDate').textContent = '';
       }
 
-      // FIXED: Build content with signature INSIDE the content area
       var contentHTML = '';
-      
+
       if (raw.trim()) {
         contentHTML = parseContent(raw);
       } else {
         contentHTML = '<div class="empty-state"><div class="big">&#128196;</div>Paste your content in the left panel<br/>and it will appear here, formatted.</div>';
       }
-      
-      // Append signature to content if sigName exists
+
       if (sigName) {
         var sigHTML = '<div class="signature-block">';
         sigHTML += '<p class="sincerely">Sincerely,</p>';
@@ -988,10 +1283,8 @@
         sigHTML += '</div>';
         contentHTML += sigHTML;
       }
-      
+
       document.getElementById('pageContent').innerHTML = contentHTML;
-      
-      // Hide the original signature block since we're now including it in content
       document.getElementById('pageSignature').style.display = 'none';
     }
 
@@ -1016,15 +1309,15 @@
       var placeholders = [];
       var escaped = escapeHTML(text);
 
-      escaped = escaped.replace(/\[\[LINK:(.*?)\|(.*?)\]\]/g, function(match, label, url) {
+      escaped = escaped.replace(/$$\[LINK:(.*?)\|(.*?)$$\]/g, function(match, label, url) {
         var token = '%%LINK' + placeholders.length + '%%';
         placeholders.push('<a href="' + escapeAttribute(url) + '" target="_blank" rel="noopener noreferrer">' + label + '</a>');
         return token;
       });
 
-      escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      escaped = escaped.replace(/\*(.*?)\*/g, '<em>$1</em>');
-      escaped = escaped.replace(/`(.*?)`/g, '<code>$1</code>');
+      escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>\$1</strong>');
+      escaped = escaped.replace(/\*(.*?)\*/g, '<em>\$1</em>');
+      escaped = escaped.replace(/`(.*?)`/g, '<code>\$1</code>');
 
       escaped = escaped.replace(/%%LINK(\d+)%%/g, function(match, i) {
         return placeholders[Number(i)];
@@ -1176,14 +1469,13 @@
       qrImage.style.height = qrSize + 'px';
 
       qrContainer.className = 'qr-code-container active ' + qrPosition;
-      
       btn.textContent = 'Remove QR Code';
     }
 
     function updateQRPosition() {
       var qrContainer = document.getElementById('qrCodeContainer');
       var qrPosition = document.getElementById('qrPosition').value;
-      
+
       if (qrContainer.classList.contains('active')) {
         qrContainer.className = 'qr-code-container active ' + qrPosition;
       }
@@ -1194,7 +1486,7 @@
       var qrImage = document.getElementById('qrCodeImage');
       var qrSize = document.getElementById('qrSize').value;
       var qrURL = document.getElementById('qrURL').value.trim();
-      
+
       if (qrContainer.classList.contains('active') && qrURL) {
         var apiURL = 'https://api.qrserver.com/v1/create-qr-code/?size=' + qrSize + 'x' + qrSize + '&color=0c1546&data=' + encodeURIComponent(qrURL);
         qrImage.src = apiURL;
@@ -1211,8 +1503,7 @@
       document.getElementById('sigName').value = '';
       document.getElementById('sigTitle').value = '';
       document.getElementById('qrURL').value = '';
-      
-      // Reset QR code
+
       var qrContainer = document.getElementById('qrCodeContainer');
       var qrImage = document.getElementById('qrCodeImage');
       var btn = document.querySelector('.panel-section button[onclick="toggleQRCode()"]');
@@ -1223,11 +1514,10 @@
       if (btn) btn.textContent = 'Add QR Code';
       document.getElementById('qrPosition').selectedIndex = 0;
       document.getElementById('qrSize').selectedIndex = 1;
-      
-      // Reset low-ink mode
+
       document.getElementById('lowInkMode').checked = false;
       document.getElementById('page').classList.remove('low-ink');
-      
+
       updatePreview();
     }
   </script>
