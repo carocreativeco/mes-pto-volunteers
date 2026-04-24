@@ -508,52 +508,101 @@ a{
 }
 
 /* CONNECT */
-.connect-grid{
+/* Connect */
+.connect-shell{
+  background:#eef2fb;
+  border-radius:32px;
+  padding:38px;
+}
+
+.modern-connect{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:22px;
+  grid-template-columns:repeat(3, 1fr);
+  gap:24px;
+  margin-top:14px;
 }
 
-.connect-item{
+.connect-card{
   background:var(--white);
-  border-radius:22px;
-  padding:28px;
-  box-shadow:var(--shadow-soft);
+  border:1px solid rgba(12,21,70,.08);
+  border-radius:28px;
+  padding:36px 36px 34px;
+  min-height:360px;
+  display:flex;
+  flex-direction:column;
+  box-shadow:none;
 }
 
-.connect-item h3{
-  font-family:'Baskervville',serif;
-  font-size:1.3rem;
+.connect-card-dark{
+  background:#243b72;
+  border:none;
+  color:var(--white);
+}
+
+.connect-icon{
+  width:64px;
+  height:64px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:22px;
+}
+
+.instagram-icon{
+  background:#f8dfe8;
+  color:#d64772;
+}
+
+.dark-icon{
+  background:rgba(255,255,255,.14);
+  color:var(--white);
+}
+
+.connect-card h3{
+  font-family:'Inter',sans-serif;
+  font-size:1.05rem;
+  line-height:1.35;
+  font-weight:700;
   color:var(--navy);
   margin-bottom:10px;
 }
 
-.connect-item p{
-  color:var(--muted);
-  font-size:.94rem;
-  line-height:1.8;
-  margin-bottom:16px;
+.connect-card-dark h3{
+  color:var(--white);
 }
 
-.text-link{
+.connect-card p{
+  color:#566180;
+  font-size:.98rem;
+  line-height:1.55;
+  max-width:260px;
+}
+
+.connect-card-dark p{
+  color:rgba(255,255,255,.76);
+}
+
+.connect-link{
+  margin-top:auto;
   display:inline-flex;
   align-items:center;
   gap:8px;
-  color:var(--navy);
+  font-size:.98rem;
   font-weight:700;
-  font-size:.92rem;
+  padding-top:26px;
 }
 
-.qr-inline{
-  margin-top:16px;
+.pink-link{
+  color:#d64772;
 }
 
-.qr-inline img{
-  width:88px;
-  height:88px;
-  border-radius:12px;
-  border:1px solid var(--line);
-  background:#fff;
+.blue-link{
+  color:#7db5ff;
+}
+
+.connect-link:hover{
+  opacity:.8;
 }
 
 /* SHARE */
@@ -956,36 +1005,54 @@ a{
   </section>
 
   <section class="section section-alt" id="connect">
-    <div class="container">
-      <div class="section-head reveal">
+  <div class="container">
+    <div class="connect-shell">
+      <div class="section-head">
         <h2 class="section-title">Stay Connected</h2>
-        <p class="section-copy">Follow along, stay informed, and support the PTO through our community channels.</p>
+        <p class="section-copy">Follow along and support the PTO through our community channels.</p>
       </div>
 
-      <div class="connect-grid">
-        <div class="connect-item reveal">
-          <h3>@mooreelementarypto</h3>
-          <p>Follow for PTO events, reminders, volunteer opportunities, and family updates throughout the year.</p>
-          <a class="text-link" href="https://www.instagram.com/mooreelementarypto/" target="_blank" rel="noopener">Follow on Instagram →</a>
-        </div>
-
-        <div class="connect-item reveal">
-          <h3>@mesfssd</h3>
-          <p>Follow Moore Elementary for school announcements, photos, highlights, and day-to-day school news.</p>
-          <a class="text-link" href="https://www.instagram.com/mesfssd/" target="_blank" rel="noopener">Visit school Instagram →</a>
-        </div>
-
-        <div class="connect-item reveal">
-          <h3>Support the PTO</h3>
-          <p>Every donation helps fund student enrichment, school events, and experiences that benefit the Moore community.</p>
-          <a class="text-link" href="https://venmo.com/u/jetza-nunez" target="_blank" rel="noopener">Donate via Venmo →</a>
-          <div class="qr-inline">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=88x88&data=https://venmo.com/u/jetza-nunez&color=0c1546&bgcolor=ffffff" alt="Venmo QR Code"/>
+      <div class="connect-grid modern-connect">
+        <div class="connect-card">
+          <div class="connect-icon instagram-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
           </div>
+          <h3>@mooreelementarypto</h3>
+          <p>PTO events, volunteer calls, and family updates.</p>
+          <a class="connect-link pink-link" href="https://www.instagram.com/mooreelementarypto/" target="_blank" rel="noopener">Follow on Instagram →</a>
+        </div>
+
+        <div class="connect-card">
+          <div class="connect-icon instagram-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+          </div>
+          <h3>@mesfssd</h3>
+          <p>School news, photos, and day-to-day highlights.</p>
+          <a class="connect-link pink-link" href="https://www.instagram.com/mesfssd/" target="_blank" rel="noopener">Visit school Instagram →</a>
+        </div>
+
+        <div class="connect-card connect-card-dark">
+          <div class="connect-icon dark-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 21s-6.716-4.35-9.193-8.154C.77 9.72 2.347 5.5 6.314 5.5c2.04 0 3.18 1.07 3.886 2.103C10.906 6.57 12.046 5.5 14.086 5.5c3.967 0 5.544 4.22 3.507 7.346C18.716 16.65 12 21 12 21z"/>
+            </svg>
+          </div>
+          <h3>Support the PTO</h3>
+          <p>Every donation funds enrichment, events, and experiences for Moore kids.</p>
+          <a class="connect-link blue-link" href="https://venmo.com/u/jetza-nunez" target="_blank" rel="noopener">Donate via Venmo →</a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <section class="section" id="share">
     <div class="container">
