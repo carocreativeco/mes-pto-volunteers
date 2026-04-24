@@ -4,244 +4,1122 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>PTO Volunteer Interest Form — Moore Elementary</title>
-<link href="https://fonts.googleapis.com/css2?family=Baskervville&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Baskervville:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-:root{--gold:#ffc200;--orange:#db6d42;--navy:#0c1546;--black:#000;--white:#fff;--bg:#f0f2f7;--card:#fff;--border:#dde1ee;--text:#1a1a2e;--muted:#6b7280}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Noto Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-.site-header{background:var(--navy);border-bottom:5px solid var(--gold);padding:28px 24px 20px;text-align:center}
-.header-logo-wrap{margin:0 auto 12px;display:flex;align-items:center;justify-content:center;min-height:80px}
-.header-logo-wrap img{max-height:100px;max-width:220px;object-fit:contain}
-.header-logo-wrap .initials{font-family:'Baskervville',serif;font-size:2rem;color:var(--gold)}
-.header-school{font-family:'Noto Sans',sans-serif;font-weight:700;font-size:1.3rem;color:var(--white);line-height:1.2}
-.header-sub{font-size:.78rem;color:var(--gold);text-transform:uppercase;letter-spacing:.12em;margin-top:4px;opacity:.9}
-.accent-bar{height:5px;background:linear-gradient(90deg,var(--gold),var(--orange))}
-.hero-band{background:var(--gold);padding:14px 24px;text-align:center}
-.hero-band h1{font-family:'Baskervville',serif;font-size:1.5rem;color:var(--navy)}
-.hero-band p{font-size:.82rem;color:var(--navy);opacity:.75;margin-top:3px;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
-.main{max-width:860px;margin:0 auto;padding:32px 24px 60px}
-.intro-card{background:var(--navy);color:var(--white);border-radius:10px;padding:20px 24px;margin-bottom:28px;display:flex;gap:14px;align-items:flex-start}
-.intro-card .icon{font-size:1.6rem;flex-shrink:0;margin-top:2px}
-.intro-card h2{font-family:'Baskervville',serif;font-size:1.1rem;color:var(--gold);margin-bottom:4px}
-.intro-card p{font-size:.85rem;line-height:1.7;opacity:.88}
-.form-card{background:var(--card);border-radius:12px;box-shadow:0 2px 16px rgba(12,21,70,.09);overflow:hidden}
-.form-section{padding:24px 28px;border-bottom:1px solid var(--border)}
-.section-label{display:flex;align-items:center;gap:10px;margin-bottom:18px}
-.section-num{width:26px;height:26px;background:var(--navy);color:var(--gold);border-radius:50%;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.section-title{font-family:'Baskervville',serif;font-size:1.05rem;color:var(--navy)}
-.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.field-full{grid-column:1/-1}
-.field{display:flex;flex-direction:column;gap:5px}
-.field label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--navy)}
-.field label .req{color:var(--orange);margin-left:2px}
-.field input,.field select,.field textarea{font-family:'Noto Sans',sans-serif;font-size:.875rem;padding:9px 12px;border:1.5px solid var(--border);border-radius:7px;background:var(--bg);color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(12,21,70,.08)}
-.field textarea{resize:vertical;min-height:80px;line-height:1.6}
-.child-row{display:grid;grid-template-columns:1fr 140px 160px 36px;gap:10px;align-items:end;margin-bottom:10px}
-.btn-remove{width:36px;height:36px;background:#fff0ee;border:1.5px solid #f5c4bb;border-radius:7px;color:var(--orange);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background .15s}
-.btn-remove:hover{background:#ffe0d9}
-.btn-add-child{margin-top:10px;background:none;border:1.5px dashed var(--border);border-radius:7px;padding:8px 14px;font-family:'Noto Sans',sans-serif;font-size:.82rem;color:var(--muted);cursor:pointer;width:100%;transition:border-color .15s,color .15s}
-.btn-add-child:hover{border-color:var(--navy);color:var(--navy)}
-.check-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
-.check-item{display:flex;align-items:center;gap:10px;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;cursor:pointer;transition:border-color .15s,background .15s;user-select:none}
-.check-item:hover{border-color:var(--gold);background:#fffdf0}
-.check-item input[type="checkbox"]{display:none}
-.check-item.checked{border-color:var(--navy);background:#eef0f8}
-.check-box{width:18px;height:18px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--white);transition:background .15s,border-color .15s}
-.check-item.checked .check-box{background:var(--navy);border-color:var(--navy)}
-.check-box svg{display:none}
-.check-item.checked .check-box svg{display:block}
-.check-label{font-size:.84rem;font-weight:500;line-height:1.3}
-.submit-section{padding:24px 28px;background:var(--bg);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.submit-note{font-size:.78rem;color:var(--muted);line-height:1.5}
-.btn-submit{background:var(--navy);color:var(--white);border:none;border-radius:8px;padding:13px 32px;font-family:'Noto Sans',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;display:flex;align-items:center;gap:8px;transition:opacity .15s,transform .1s;white-space:nowrap}
-.btn-submit:hover{opacity:.88;transform:translateY(-1px)}
-.btn-submit:disabled{opacity:.5;cursor:not-allowed;transform:none}
-#confirmScreen{display:none;text-align:center;padding:48px 28px 36px}
-.confirm-icon{font-size:3rem;margin-bottom:12px}
-.confirm-title{font-family:'Baskervville',serif;font-size:1.8rem;color:var(--navy);margin-bottom:10px}
-.confirm-msg{color:var(--muted);font-size:.9rem;line-height:1.7;margin-bottom:28px}
-.confirm-ctas{display:flex;flex-direction:column;align-items:center;gap:16px;margin-bottom:28px}
-.insta-cta{background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);border-radius:12px;padding:16px 24px;display:flex;align-items:center;gap:14px;color:white;text-decoration:none;width:100%;max-width:400px;transition:opacity .15s,transform .1s}
-.insta-cta:hover{opacity:.9;transform:translateY(-2px)}
-.insta-cta-text{text-align:left}
-.insta-cta-text strong{display:block;font-size:.95rem;font-weight:700}
-.insta-cta-text span{font-size:.78rem;opacity:.9}
-.donate-cta{background:var(--white);border:2px solid var(--border);border-radius:12px;padding:20px 24px;display:flex;align-items:center;gap:20px;width:100%;max-width:400px}
-.donate-text{text-align:left}
-.donate-text strong{display:block;font-family:'Baskervville',serif;font-size:1.05rem;color:var(--navy);margin-bottom:4px}
-.donate-text p{font-size:.78rem;color:var(--muted);line-height:1.5;margin-bottom:8px}
-.donate-link{display:inline-block;background:var(--navy);color:var(--white);font-size:.78rem;font-weight:700;padding:6px 14px;border-radius:6px;text-decoration:none}
-.share-cta{background:var(--white);border:2px solid var(--border);border-radius:12px;padding:20px 24px;display:flex;align-items:center;gap:20px;width:100%;max-width:400px}
-.share-qr img{width:100px;height:100px;border-radius:6px;border:1px solid var(--border)}
-.share-text{text-align:left;flex:1}
-.share-text strong{display:block;font-family:'Baskervville',serif;font-size:1.05rem;color:var(--navy);margin-bottom:4px}
-.share-text p{font-size:.78rem;color:var(--muted);line-height:1.5;margin-bottom:10px}
-.copy-link-wrap{display:flex;gap:6px}
-.copy-link-wrap input{flex:1;font-family:'Noto Sans',sans-serif;font-size:.72rem;padding:7px 10px;border:1.5px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text);min-width:0}
-.copy-link-btn{background:var(--navy);color:var(--white);border:none;border-radius:6px;padding:7px 14px;font-family:'Noto Sans',sans-serif;font-size:.75rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .15s}
-.copy-link-btn:hover{opacity:.85}
-.copy-link-btn.copied{background:#22c55e}
-.btn-another{background:var(--gold);color:var(--navy);border:none;border-radius:8px;padding:11px 24px;font-family:'Noto Sans',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer}
-.site-footer{background:var(--navy);padding:18px 24px;display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:48px}
-.footer-ig{display:flex;gap:20px;flex-wrap:wrap;justify-content:center}
-.footer-ig a{color:var(--gold);text-decoration:none;font-size:.8rem;font-weight:600;display:flex;align-items:center;gap:6px;opacity:.9;transition:opacity .15s}
-.footer-ig a:hover{opacity:1}
-.footer-copy{font-size:.68rem;color:rgba(255,255,255,.35);text-align:center}
-.footer-admin a{color:rgba(255,255,255,.25);font-size:.7rem;text-decoration:none}
-.footer-admin a:hover{color:var(--gold)}
-.error-msg{background:#fef2f2;border:1px solid #fecaca;color:#dc2626;padding:12px 16px;border-radius:8px;margin-bottom:16px;font-size:.875rem;display:none}
+:root{
+  --gold:#ffc200;
+  --orange:#db6d42;
+  --navy:#0c1546;
+  --navy-2:#18245a;
+  --white:#ffffff;
+  --bg:#f4f7fb;
+  --bg-alt:#eef2f8;
+  --card:#ffffff;
+  --border:#dde3ef;
+  --border-soft:#e7ebf4;
+  --text:#172033;
+  --muted:#667085;
+  --success:#16a34a;
+  --danger:#dc2626;
+  --danger-bg:#fef2f2;
+  --danger-border:#fecaca;
+  --shadow:0 24px 70px rgba(12,21,70,.10);
+  --shadow-soft:0 12px 34px rgba(12,21,70,.07);
+  --radius:24px;
+  --radius-sm:16px;
+  --max:1120px;
+}
+
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(255,194,0,.08), transparent 22%),
+    linear-gradient(180deg,#fbfcfe 0%, #f3f6fb 100%);
+  color:var(--text);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+
+.container{
+  width:min(var(--max), calc(100% - 40px));
+  margin:0 auto;
+}
+
+/* Top Nav */
+.site-nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:rgba(12,21,70,.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.nav-inner{
+  width:min(var(--max), calc(100% - 40px));
+  margin:0 auto;
+  min-height:78px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+.nav-brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:var(--white);
+  font-weight:700;
+}
+.nav-brand img{
+  height:38px;
+  width:auto;
+}
+.nav-brand-text{
+  line-height:1.1;
+}
+.nav-brand-text strong{
+  display:block;
+  font-size:1rem;
+  font-weight:700;
+}
+.nav-brand-text span{
+  display:block;
+  font-size:.72rem;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:rgba(255,255,255,.72);
+}
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.nav-link{
+  color:rgba(255,255,255,.88);
+  font-size:.93rem;
+  font-weight:500;
+}
+.nav-link:hover{opacity:.78}
+.nav-cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:11px 16px;
+  border-radius:999px;
+  background:var(--gold);
+  color:var(--navy);
+  font-size:.88rem;
+  font-weight:700;
+}
+
+/* Header Hero */
+.page-hero{
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
+  color:var(--white);
+}
+.page-hero::before{
+  content:"";
+  position:absolute;
+  right:-100px;
+  top:-60px;
+  width:340px;
+  height:340px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(255,194,0,.18), transparent 68%);
+}
+.page-hero::after{
+  content:"";
+  position:absolute;
+  left:-80px;
+  bottom:-100px;
+  width:320px;
+  height:320px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(219,109,66,.14), transparent 70%);
+}
+.hero-inner{
+  position:relative;
+  z-index:2;
+  width:min(var(--max), calc(100% - 40px));
+  margin:0 auto;
+  padding:62px 0 56px;
+}
+.hero-eyebrow{
+  display:inline-block;
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:.76rem;
+  font-weight:700;
+  margin-bottom:14px;
+}
+.hero-title{
+  font-family:'Baskervville',serif;
+  font-size:clamp(2.3rem, 5vw, 4rem);
+  line-height:1.02;
+  margin-bottom:14px;
+  letter-spacing:-.02em;
+}
+.hero-copy{
+  max-width:700px;
+  color:rgba(255,255,255,.9);
+  font-size:1rem;
+  line-height:1.85;
+}
+.hero-meta{
+  margin-top:24px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+.hero-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);
+  color:rgba(255,255,255,.94);
+  font-size:.84rem;
+  font-weight:600;
+  backdrop-filter:blur(6px);
+}
+.hero-divider{
+  height:5px;
+  background:linear-gradient(90deg,var(--gold),var(--orange),var(--gold));
+}
+
+/* Main */
+.main{
+  padding:42px 0 72px;
+}
+
+/* Intro strip */
+.intro-shell{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:24px;
+  align-items:stretch;
+  margin-bottom:28px;
+}
+.intro-card{
+  background:linear-gradient(180deg, rgba(12,21,70,.98), rgba(24,36,90,.96));
+  color:var(--white);
+  border-radius:var(--radius);
+  padding:28px;
+  box-shadow:var(--shadow);
+}
+.intro-card-kicker{
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:.72rem;
+  font-weight:700;
+  margin-bottom:10px;
+}
+.intro-card h2{
+  font-family:'Baskervville',serif;
+  font-size:1.9rem;
+  line-height:1.1;
+  margin-bottom:12px;
+}
+.intro-card p{
+  color:rgba(255,255,255,.88);
+  line-height:1.85;
+  font-size:.96rem;
+}
+.info-card{
+  background:var(--card);
+  border:1px solid var(--border-soft);
+  border-radius:var(--radius);
+  padding:24px;
+  box-shadow:var(--shadow-soft);
+  display:grid;
+  align-content:center;
+}
+.info-card h3{
+  font-family:'Baskervville',serif;
+  color:var(--navy);
+  font-size:1.45rem;
+  margin-bottom:8px;
+}
+.info-card p{
+  color:var(--muted);
+  line-height:1.8;
+  font-size:.94rem;
+}
+.info-list{
+  margin-top:16px;
+  display:grid;
+  gap:10px;
+}
+.info-item{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  color:var(--text);
+  font-size:.92rem;
+  line-height:1.65;
+}
+.info-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--gold);
+  margin-top:7px;
+  flex-shrink:0;
+}
+
+/* Form shell */
+.form-wrap{
+  background:rgba(255,255,255,.74);
+  border:1px solid rgba(12,21,70,.06);
+  border-radius:32px;
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(10px);
+  overflow:hidden;
+}
+
+.form-card{
+  padding:26px;
+}
+
+.error-msg{
+  display:none;
+  margin-bottom:20px;
+  background:var(--danger-bg);
+  border:1px solid var(--danger-border);
+  color:var(--danger);
+  border-radius:16px;
+  padding:14px 16px;
+  font-size:.92rem;
+  line-height:1.6;
+}
 .error-msg.show{display:block}
-@media(max-width:640px){
-  .field-grid{grid-template-columns:1fr}
-  .child-row{grid-template-columns:1fr 1fr;gap:8px}
-  .child-row>div:last-child{display:none}
-  .submit-section{flex-direction:column;align-items:stretch}
-  .btn-submit{justify-content:center}
-  .donate-cta{flex-direction:column;align-items:center;text-align:center}
-  .share-cta{flex-direction:column;align-items:center;text-align:center}
-  .share-text{text-align:center}
-  .copy-link-wrap{flex-direction:column}
-  .copy-link-wrap input{text-align:center}
+
+/* Sections */
+.form-section{
+  background:var(--card);
+  border:1px solid var(--border-soft);
+  border-radius:24px;
+  padding:24px;
+  margin-bottom:18px;
+  box-shadow:var(--shadow-soft);
+}
+.form-section:last-of-type{
+  margin-bottom:0;
+}
+.section-label{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:18px;
+}
+.section-num{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--navy),var(--navy-2));
+  color:var(--gold);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:.8rem;
+  font-weight:700;
+  flex-shrink:0;
+  box-shadow:0 10px 24px rgba(12,21,70,.18);
+}
+.section-title{
+  font-family:'Baskervville',serif;
+  color:var(--navy);
+  font-size:1.22rem;
+  line-height:1.2;
+}
+.section-sub{
+  color:var(--muted);
+  font-family:'Inter',sans-serif;
+  font-size:.86rem;
+  font-weight:500;
+  margin-left:6px;
+}
+
+/* Fields */
+.field-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.field-full{
+  grid-column:1/-1;
+}
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.field label{
+  font-size:.76rem;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-weight:700;
+  color:var(--navy);
+}
+.req{
+  color:var(--orange);
+}
+.field input,
+.field select,
+.field textarea{
+  width:100%;
+  border:1.5px solid var(--border);
+  background:#f8faff;
+  color:var(--text);
+  border-radius:16px;
+  padding:14px 16px;
+  font-family:'Inter',sans-serif;
+  font-size:.94rem;
+  outline:none;
+  transition:border-color .18s ease, box-shadow .18s ease, background .18s ease, transform .18s ease;
+}
+.field input::placeholder,
+.field textarea::placeholder{
+  color:#98a2b3;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color:rgba(12,21,70,.34);
+  background:var(--white);
+  box-shadow:0 0 0 4px rgba(255,194,0,.16);
+}
+.field textarea{
+  resize:vertical;
+  min-height:110px;
+  line-height:1.7;
+}
+.helper{
+  color:var(--muted);
+  font-size:.88rem;
+  line-height:1.65;
+  margin-bottom:4px;
+}
+
+/* Children rows */
+.children-list{
+  display:grid;
+  gap:12px;
+}
+.child-row{
+  display:grid;
+  grid-template-columns:1fr 170px 180px 44px;
+  gap:12px;
+  align-items:end;
+  padding:14px;
+  border:1px solid var(--border-soft);
+  border-radius:18px;
+  background:linear-gradient(180deg,#fff 0%,#fafcff 100%);
+}
+.btn-remove{
+  width:44px;
+  height:44px;
+  border:none;
+  border-radius:14px;
+  background:#fff1ee;
+  color:var(--orange);
+  cursor:pointer;
+  font-size:1rem;
+  font-weight:700;
+  transition:transform .18s ease, background .18s ease;
+}
+.btn-remove:hover{
+  transform:translateY(-1px);
+  background:#ffe3dc;
+}
+.btn-add-child{
+  margin-top:14px;
+  width:100%;
+  border:1.5px dashed rgba(12,21,70,.18);
+  background:#f9fbff;
+  color:var(--navy);
+  border-radius:18px;
+  padding:14px 16px;
+  font-family:'Inter',sans-serif;
+  font-size:.92rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:border-color .18s ease, background .18s ease, transform .18s ease;
+}
+.btn-add-child:hover{
+  border-color:rgba(12,21,70,.42);
+  background:#fff;
+  transform:translateY(-1px);
+}
+
+/* Check grid */
+.check-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:12px;
+}
+.check-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px;
+  border-radius:18px;
+  border:1.5px solid var(--border);
+  background:#f8faff;
+  cursor:pointer;
+  user-select:none;
+  transition:border-color .18s ease, background .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+.check-item:hover{
+  border-color:rgba(255,194,0,.72);
+  background:#fffdf3;
+  transform:translateY(-1px);
+}
+.check-item input[type="checkbox"]{
+  display:none;
+}
+.check-item.checked{
+  border-color:rgba(12,21,70,.22);
+  background:linear-gradient(180deg, rgba(12,21,70,.05), rgba(255,194,0,.08));
+  box-shadow:0 10px 26px rgba(12,21,70,.06);
+}
+.check-box{
+  width:20px;
+  height:20px;
+  border-radius:6px;
+  border:2px solid var(--border);
+  background:var(--white);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  transition:border-color .18s ease, background .18s ease;
+}
+.check-item.checked .check-box{
+  background:var(--navy);
+  border-color:var(--navy);
+}
+.check-box svg{
+  display:none;
+}
+.check-item.checked .check-box svg{
+  display:block;
+}
+.check-label{
+  font-size:.9rem;
+  line-height:1.35;
+  color:var(--text);
+  font-weight:500;
+}
+
+/* Submit area */
+.submit-section{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  flex-wrap:wrap;
+  padding:22px 26px 26px;
+}
+.submit-note{
+  color:var(--muted);
+  font-size:.86rem;
+  line-height:1.7;
+  max-width:680px;
+}
+.btn-submit{
+  border:none;
+  border-radius:999px;
+  background:var(--navy);
+  color:var(--white);
+  padding:15px 24px;
+  font-family:'Inter',sans-serif;
+  font-size:.94rem;
+  font-weight:700;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+  transition:transform .18s ease, opacity .18s ease, background .18s ease;
+  box-shadow:0 14px 28px rgba(12,21,70,.18);
+}
+.btn-submit:hover{
+  transform:translateY(-2px);
+  opacity:.95;
+}
+.btn-submit:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+  transform:none;
+}
+
+/* Confirm */
+#confirmScreen{
+  display:none;
+  padding:40px 26px 32px;
+}
+.confirm-shell{
+  max-width:760px;
+  margin:0 auto;
+  text-align:center;
+}
+.confirm-badge{
+  width:72px;
+  height:72px;
+  margin:0 auto 18px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg, rgba(255,194,0,.18), rgba(219,109,66,.18));
+  color:var(--navy);
+  font-size:2rem;
+}
+.confirm-title{
+  font-family:'Baskervville',serif;
+  font-size:2.25rem;
+  line-height:1.06;
+  color:var(--navy);
+  margin-bottom:10px;
+}
+.confirm-msg{
+  color:var(--muted);
+  font-size:.98rem;
+  line-height:1.85;
+  margin-bottom:28px;
+}
+.confirm-grid{
+  display:grid;
+  gap:16px;
+  margin-bottom:26px;
+}
+.confirm-card{
+  background:var(--white);
+  border:1px solid var(--border-soft);
+  border-radius:22px;
+  padding:20px;
+  box-shadow:var(--shadow-soft);
+}
+.confirm-card h3{
+  font-family:'Baskervville',serif;
+  color:var(--navy);
+  font-size:1.3rem;
+  margin-bottom:8px;
+}
+.confirm-card p{
+  color:var(--muted);
+  font-size:.9rem;
+  line-height:1.7;
+  margin-bottom:14px;
+}
+.insta-cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  width:100%;
+  padding:14px 16px;
+  border-radius:16px;
+  color:#fff;
+  background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+  font-weight:700;
+}
+.donate-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px 16px;
+  border-radius:999px;
+  background:var(--navy);
+  color:var(--white);
+  font-size:.88rem;
+  font-weight:700;
+}
+.share-row{
+  display:grid;
+  grid-template-columns:100px 1fr;
+  gap:16px;
+  align-items:center;
+}
+.share-qr img{
+  width:100px;
+  height:100px;
+  border-radius:12px;
+  border:1px solid var(--border);
+}
+.share-copy{
+  text-align:left;
+}
+.copy-link-wrap{
+  display:flex;
+  gap:8px;
+}
+.copy-link-wrap input{
+  flex:1;
+  min-width:0;
+  border:1.5px solid var(--border);
+  border-radius:999px;
+  padding:12px 14px;
+  font-size:.84rem;
+  font-family:'Inter',sans-serif;
+  background:#f8faff;
+}
+.copy-link-btn{
+  border:none;
+  border-radius:999px;
+  padding:12px 16px;
+  background:var(--navy);
+  color:var(--white);
+  font-family:'Inter',sans-serif;
+  font-size:.82rem;
+  font-weight:700;
+  cursor:pointer;
+}
+.copy-link-btn.copied{
+  background:var(--success);
+}
+.btn-another{
+  border:none;
+  border-radius:999px;
+  background:var(--gold);
+  color:var(--navy);
+  padding:14px 22px;
+  font-family:'Inter',sans-serif;
+  font-size:.92rem;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* Footer */
+.site-footer{
+  border-top:1px solid rgba(12,21,70,.07);
+  background:rgba(255,255,255,.65);
+  backdrop-filter:blur(8px);
+  margin-top:40px;
+}
+.footer-inner{
+  width:min(var(--max), calc(100% - 40px));
+  margin:0 auto;
+  padding:26px 0 34px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  flex-wrap:wrap;
+}
+.footer-links{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+}
+.footer-links a{
+  color:var(--navy);
+  font-size:.86rem;
+  font-weight:600;
+}
+.footer-copy{
+  color:var(--muted);
+  font-size:.8rem;
+}
+.footer-admin a{
+  color:var(--muted);
+  font-size:.78rem;
+}
+.footer-admin a:hover{
+  color:var(--navy);
+}
+
+/* Responsive */
+@media (max-width: 960px){
+  .intro-shell,
+  .field-grid,
+  .share-row{
+    grid-template-columns:1fr;
+  }
+
+  .child-row{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .child-row .field:nth-child(3){
+    grid-column:1 / -1;
+  }
+
+  .child-row > div:last-child{
+    justify-self:start;
+  }
+}
+
+@media (max-width: 760px){
+  .nav-inner{
+    min-height:70px;
+  }
+
+  .nav-links{
+    display:none;
+  }
+
+  .hero-inner{
+    padding:48px 0 42px;
+  }
+
+  .main{
+    padding:28px 0 60px;
+  }
+
+  .form-card{
+    padding:18px;
+  }
+
+  .form-section{
+    padding:20px;
+  }
+
+  .submit-section{
+    padding:20px 20px 24px;
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .btn-submit{
+    justify-content:center;
+  }
+
+  .share-row{
+    text-align:center;
+  }
+
+  .share-copy{
+    text-align:center;
+  }
+
+  .copy-link-wrap{
+    flex-direction:column;
+  }
+
+  .copy-link-btn{
+    width:100%;
+  }
+
+  .footer-inner{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}
+
+@media (max-width: 560px){
+  .container,
+  .hero-inner,
+  .nav-inner,
+  .footer-inner{
+    width:min(var(--max), calc(100% - 24px));
+  }
+
+  .child-row{
+    grid-template-columns:1fr;
+  }
+
+  .child-row > div:last-child{
+    justify-self:stretch;
+  }
+
+  .btn-remove{
+    width:100%;
+  }
 }
 </style>
 </head>
 <body>
 <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
-<header class="site-header">
-  <div class="header-logo-wrap">
-    <img src="MES Stacked.png" alt="Moore Elementary School" onerror="this.style.display='none';document.getElementById('headerInitials').style.display='block'"/>
-    <span class="initials" id="headerInitials" style="display:none">ME</span>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <img src="MES Stacked.png" alt="Moore Elementary" onerror="this.style.display='none'"/>
+      <div class="nav-brand-text">
+        <strong>Moore Elementary PTO</strong>
+        <span>Volunteer Interest Form</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="index.html#about">About</a>
+      <a class="nav-link" href="index.html#events">Events</a>
+      <a class="nav-link" href="index.html#resources">Resources</a>
+      <a class="nav-cta" href="admin.html">Admin</a>
+    </div>
   </div>
-  <div class="header-school">Moore Elementary School</div>
-  <div class="header-sub">Parent Teacher Organization</div>
+</nav>
+
+<header class="page-hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Moore Elementary PTO</div>
+    <h1 class="hero-title">Volunteer Interest Form</h1>
+    <p class="hero-copy">Our PTO runs on the time, generosity, and energy of Moore families. Whether you can help once in a while or throughout the school year, we’d love to learn how you’d like to get involved.</p>
+    <div class="hero-meta">
+      <div class="hero-pill">2026–2027 School Year</div>
+      <div class="hero-pill">Parents & guardians welcome</div>
+      <div class="hero-pill">Flexible ways to help</div>
+    </div>
+  </div>
+  <div class="hero-divider"></div>
 </header>
 
-<div class="accent-bar"></div>
+<main class="main">
+  <div class="container">
 
-<div class="hero-band">
-  <h1>Volunteer Interest Form</h1>
-  <p>2026 – 2027 School Year</p>
-</div>
+    <div class="intro-shell">
+      <section class="intro-card">
+        <div class="intro-card-kicker">Get Involved</div>
+        <h2>Every bit of help makes a difference.</h2>
+        <p>Our PTO runs entirely on the energy of our amazing parent and guardian volunteers. Whether you can give an hour or a whole day, your time helps create meaningful experiences for Moore students, staff, and families. Fill out the form below and we’ll reach out when opportunities match your interests and availability.</p>
+      </section>
 
-<div class="main">
-  <div class="intro-card">
-    <div class="icon">🤝</div>
-    <div>
-      <h2>We need YOU!</h2>
-      <p>Our PTO runs entirely on the energy of our amazing parent and guardian volunteers. Whether you can give an hour or a whole day, every bit of help makes a difference for our Moore Elementary students. Fill out this form and we'll reach out when opportunities match your interests and availability.</p>
-    </div>
-  </div>
-
-  <div class="form-card">
-    <div id="errorMsg" class="error-msg"></div>
-    
-    <div class="form-section">
-      <div class="section-label">
-        <div class="section-num">1</div>
-        <div class="section-title">Your Contact Information</div>
-      </div>
-      <div class="field-grid">
-        <div class="field"><label>First Name <span class="req">*</span></label><input type="text" id="firstName" placeholder="First name" autocomplete="given-name"/></div>
-        <div class="field"><label>Last Name <span class="req">*</span></label><input type="text" id="lastName" placeholder="Last name" autocomplete="family-name"/></div>
-        <div class="field"><label>Email Address <span class="req">*</span></label><input type="email" id="email" placeholder="you@email.com" autocomplete="email"/></div>
-        <div class="field"><label>Phone Number</label><input type="tel" id="phone" placeholder="(615) 555-0000" autocomplete="tel"/></div>
-        <div class="field field-full"><label>Preferred Contact Method</label><select id="contactPref"><option value="">No preference</option><option>Email</option><option>Phone call</option><option>Text message</option></select></div>
-      </div>
-    </div>
-
-    <div class="form-section">
-      <div class="section-label">
-        <div class="section-num">2</div>
-        <div class="section-title">Your Child(ren) at Moore Elementary</div>
-      </div>
-      <div id="childrenList">
-        <div class="child-row">
-          <div class="field"><label>Child's Name <span class="req">*</span></label><input type="text" class="childName" placeholder="First Last"/></div>
-          <div class="field"><label>Grade <span class="req">*</span></label><select class="childGrade"><option value="">Select</option><option>Kindergarten</option><option>1st Grade</option><option>2nd Grade</option><option>3rd Grade</option><option>4th Grade</option><option>5th Grade</option></select></div>
-          <div class="field"><label>Teacher's Name <span class="req">*</span></label><input type="text" class="childTeacher" placeholder="e.g. Ms. Smith"/></div>
-          <div style="display:flex;align-items:flex-end;padding-bottom:1px;"><button type="button" class="btn-remove" onclick="removeChild(this)">✕</button></div>
+      <aside class="info-card">
+        <h3>What to expect</h3>
+        <p>Submitting this form lets us know how you’d like to help. We’ll use your responses to connect you with PTO opportunities that fit your interests and schedule.</p>
+        <div class="info-list">
+          <div class="info-item"><span class="info-dot"></span><span>You can volunteer once or throughout the year.</span></div>
+          <div class="info-item"><span class="info-dot"></span><span>You’re not committing to every opportunity.</span></div>
+          <div class="info-item"><span class="info-dot"></span><span>We’re grateful for any level of involvement.</span></div>
         </div>
-      </div>
-      <button type="button" class="btn-add-child" onclick="addChild()">+ Add another child</button>
+      </aside>
     </div>
 
-    <div class="form-section">
-      <div class="section-label">
-        <div class="section-num">3</div>
-        <div class="section-title">Areas of Interest <span class="req">*</span> <span style="font-size:.8rem;font-family:'Noto Sans',sans-serif;color:var(--muted);font-weight:400;">(select at least one)</span></div>
-      </div>
-      <div class="check-grid" id="volunteerAreas"></div>
-      <div class="field" style="margin-top:14px;"><label>Other / Additional Skills or Interests</label><input type="text" id="otherSkills" placeholder="e.g. Photography, Bilingual Spanish, Carpentry…"/></div>
-    </div>
+    <div class="form-wrap">
+      <div class="form-card">
+        <div id="errorMsg" class="error-msg"></div>
 
-    <div class="form-section">
-      <div class="section-label">
-        <div class="section-num">4</div>
-        <div class="section-title">Availability</div>
-      </div>
+        <div class="form-section">
+          <div class="section-label">
+            <div class="section-num">1</div>
+            <div class="section-title">Your Contact Information</div>
+          </div>
 
-      <div class="field" style="margin-bottom:14px;">
-        <p style="font-size:.88rem;line-height:1.6;color:var(--muted);">
-          We appreciate any time you're able to give, whether it's during the school day, after school, or only once in a while — we're happy to work with your schedule.
-        </p>
-      </div>
-
-      <div class="field">
-        <label>When are you most likely to be available?</label>
-        <div class="check-grid" id="availabilityOptions"></div>
-      </div>
-
-      <div class="field" style="margin-top:16px;">
-        <label>Anything you'd like us to know about your schedule?</label>
-        <input type="text" id="availNotes" placeholder="Optional — for example: I work full-time, but can sometimes volunteer with advance notice."/>
-      </div>
-    </div>
-
-    <div class="form-section">
-      <div class="section-label">
-        <div class="section-num">5</div>
-        <div class="section-title">Anything else you'd like us to know?</div>
-      </div>
-      <div class="field"><label>Additional Comments</label><textarea id="comments" placeholder="Special skills, questions, limitations, or just a hello!"></textarea></div>
-      <div class="field" style="margin-top:14px;"><label>How did you hear about volunteering?</label><select id="hearAbout"><option value="">Select an option</option><option>School newsletter</option><option>Another parent</option><option>Teacher</option><option>Social media</option><option>PTO meeting</option><option>Other</option></select></div>
-    </div>
-
-    <div class="submit-section" id="submitSection">
-      <p class="submit-note">By submitting, you agree to be contacted by Moore Elementary PTO regarding volunteer opportunities for the 2026–2027 school year.</p>
-      <button type="button" class="btn-submit" id="submitBtn" onclick="submitForm()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Submit My Interest</button>
-    </div>
-
-    <div id="confirmScreen">
-      <div class="confirm-icon">🎉</div>
-      <div class="confirm-title">Thank you for volunteering!</div>
-      <p class="confirm-msg">We've received your interest form and will be in touch when opportunities match your schedule and interests. Moore Elementary is so lucky to have such a wonderful community of supporters!</p>
-      <div class="confirm-ctas">
-        <a class="insta-cta" href="https://www.instagram.com/mooreelementarypto/following/" target="_blank" rel="noopener" style="justify-content:center;text-align:center;">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          <div class="insta-cta-text"><strong>Follow us on Instagram</strong><span>@mooreelementarypto — Stay up to date on all PTO news!</span></div>
-        </a>
-
-        <div class="share-cta">
-          <div class="share-qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://carocreativeco.github.io/mes-pto-volunteers/&color=0c1546&bgcolor=ffffff" alt="Form QR Code"/></div>
-          <div class="share-text"><strong>Share this with another MES parent!</strong><p>Help us spread the word — the more volunteers, the better!</p><div class="copy-link-wrap"><input type="text" id="shareLinkInput" value="https://carocreativeco.github.io/mes-pto-volunteers/" readonly/><button type="button" class="copy-link-btn" onclick="copyShareLink()"><span id="copyBtnText">Copy</span></button></div></div>
+          <div class="field-grid">
+            <div class="field">
+              <label>First Name <span class="req">*</span></label>
+              <input type="text" id="firstName" placeholder="First name" autocomplete="given-name"/>
+            </div>
+            <div class="field">
+              <label>Last Name <span class="req">*</span></label>
+              <input type="text" id="lastName" placeholder="Last name" autocomplete="family-name"/>
+            </div>
+            <div class="field">
+              <label>Email Address <span class="req">*</span></label>
+              <input type="email" id="email" placeholder="you@email.com" autocomplete="email"/>
+            </div>
+            <div class="field">
+              <label>Phone Number</label>
+              <input type="tel" id="phone" placeholder="(615) 555-0000" autocomplete="tel"/>
+            </div>
+            <div class="field field-full">
+              <label>Preferred Contact Method</label>
+              <select id="contactPref">
+                <option value="">No preference</option>
+                <option>Email</option>
+                <option>Phone call</option>
+                <option>Text message</option>
+              </select>
+            </div>
+          </div>
         </div>
 
-        <div class="donate-cta" style="justify-content:center;text-align:center;padding:16px 24px;"><div class="donate-text" style="text-align:center;"><strong>Support the PTO</strong><p>Every donation helps fund events, supplies, and enrichment for our students.</p><a class="donate-link" href="https://venmo.com/u/jetza-nunez" target="_blank" rel="noopener">Donate via Venmo →</a></div></div>
+        <div class="form-section">
+          <div class="section-label">
+            <div class="section-num">2</div>
+            <div class="section-title">Your Child(ren) at Moore Elementary</div>
+          </div>
+
+          <div id="childrenList" class="children-list">
+            <div class="child-row">
+              <div class="field">
+                <label>Child's Name <span class="req">*</span></label>
+                <input type="text" class="childName" placeholder="First Last"/>
+              </div>
+              <div class="field">
+                <label>Grade <span class="req">*</span></label>
+                <select class="childGrade">
+                  <option value="">Select</option>
+                  <option>Kindergarten</option>
+                  <option>1st Grade</option>
+                  <option>2nd Grade</option>
+                  <option>3rd Grade</option>
+                  <option>4th Grade</option>
+                  <option>5th Grade</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Teacher's Name <span class="req">*</span></label>
+                <input type="text" class="childTeacher" placeholder="e.g. Ms. Smith"/>
+              </div>
+              <div style="display:flex;align-items:flex-end;">
+                <button type="button" class="btn-remove" onclick="removeChild(this)">✕</button>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="btn-add-child" onclick="addChild()">+ Add another child</button>
+        </div>
+
+        <div class="form-section">
+          <div class="section-label">
+            <div class="section-num">3</div>
+            <div class="section-title">
+              Areas of Interest <span class="req">*</span>
+              <span class="section-sub">(select at least one)</span>
+            </div>
+          </div>
+
+          <div class="check-grid" id="volunteerAreas"></div>
+
+          <div class="field" style="margin-top:16px;">
+            <label>Other / Additional Skills or Interests</label>
+            <input type="text" id="otherSkills" placeholder="Photography, bilingual support, design, carpentry, event help…"/>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-label">
+            <div class="section-num">4</div>
+            <div class="section-title">Availability</div>
+          </div>
+
+          <p class="helper">We appreciate any time you're able to give, whether it's during the school day, after school, or once in a while. We’re happy to work with your schedule.</p>
+
+          <div class="field">
+            <label>When are you most likely to be available?</label>
+            <div class="check-grid" id="availabilityOptions"></div>
+          </div>
+
+          <div class="field" style="margin-top:16px;">
+            <label>Anything you'd like us to know about your schedule?</label>
+            <input type="text" id="availNotes" placeholder="Optional — for example: I work full-time, but can help with advance notice."/>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-label">
+            <div class="section-num">5</div>
+            <div class="section-title">Anything else you'd like us to know?</div>
+          </div>
+
+          <div class="field">
+            <label>Additional Comments</label>
+            <textarea id="comments" placeholder="Special skills, questions, limitations, or just a hello!"></textarea>
+          </div>
+
+          <div class="field" style="margin-top:16px;">
+            <label>How did you hear about volunteering?</label>
+            <select id="hearAbout">
+              <option value="">Select an option</option>
+              <option>School newsletter</option>
+              <option>Another parent</option>
+              <option>Teacher</option>
+              <option>Social media</option>
+              <option>PTO meeting</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="submit-section" id="submitSection">
+          <p class="submit-note">By submitting, you agree to be contacted by Moore Elementary PTO regarding volunteer opportunities for the 2026–2027 school year.</p>
+          <button type="button" class="btn-submit" id="submitBtn" onclick="submitForm()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+            Submit My Interest
+          </button>
+        </div>
+
+        <div id="confirmScreen">
+          <div class="confirm-shell">
+            <div class="confirm-badge">🎉</div>
+            <div class="confirm-title">Thank you for volunteering!</div>
+            <p class="confirm-msg">We’ve received your interest form and will be in touch when opportunities match your schedule and interests. Moore Elementary is lucky to have such a supportive community.</p>
+
+            <div class="confirm-grid">
+              <div class="confirm-card">
+                <h3>Stay connected</h3>
+                <p>Follow the PTO on Instagram for updates, reminders, and volunteer opportunities throughout the year.</p>
+                <a class="insta-cta" href="https://www.instagram.com/mooreelementarypto/following/" target="_blank" rel="noopener">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                  </svg>
+                  Follow @mooreelementarypto
+                </a>
+              </div>
+
+              <div class="confirm-card">
+                <h3>Share with another MES parent</h3>
+                <p>The more volunteers we have, the more we can do for Moore students, teachers, and families.</p>
+                <div class="share-row">
+                  <div class="share-qr">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://carocreativeco.github.io/mes-pto-volunteers/&color=0c1546&bgcolor=ffffff" alt="Form QR Code"/>
+                  </div>
+                  <div class="share-copy">
+                    <div class="copy-link-wrap">
+                      <input type="text" id="shareLinkInput" value="https://carocreativeco.github.io/mes-pto-volunteers/" readonly/>
+                      <button type="button" class="copy-link-btn" onclick="copyShareLink()"><span id="copyBtnText">Copy Link</span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="confirm-card">
+                <h3>Support the PTO</h3>
+                <p>Every donation helps fund events, supplies, enrichment, and experiences that benefit Moore students.</p>
+                <a class="donate-link" href="https://venmo.com/u/jetza-nunez" target="_blank" rel="noopener">Donate via Venmo →</a>
+              </div>
+            </div>
+
+            <button type="button" class="btn-another" onclick="resetForm()">Submit another response</button>
+          </div>
+        </div>
+
       </div>
-      <button type="button" class="btn-another" onclick="resetForm()">Submit another response</button>
     </div>
+
   </div>
-</div>
+</main>
 
 <footer class="site-footer">
-  <div class="footer-ig">
-    <a href="https://www.instagram.com/mesfssd/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg> @mesfssd</a>
-    <a href="https://www.instagram.com/mooreelementarypto/following/" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg> @mooreelementarypto</a>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="https://www.instagram.com/mesfssd/" target="_blank" rel="noopener">@mesfssd</a>
+      <a href="https://www.instagram.com/mooreelementarypto/following/" target="_blank" rel="noopener">@mooreelementarypto</a>
+      <a href="index.html">Back to PTO site</a>
+    </div>
+    <div class="footer-copy">Moore Elementary School · Parent Teacher Organization · 2026–2027</div>
+    <div class="footer-admin"><a href="admin.html">Admin</a></div>
   </div>
-  <div class="footer-copy">Moore Elementary School · Parent Teacher Organization · 2026–2027</div>
-  <div class="footer-admin"><a href="admin.html">Admin</a></div>
 </footer>
 
 <script>
@@ -313,10 +1191,7 @@ function buildCheckItem(value) {
 
 function buildVolunteerAreas() {
   var container = document.getElementById('volunteerAreas');
-  if (!container) {
-    console.error('volunteerAreas container not found');
-    return;
-  }
+  if (!container) return;
   VOLUNTEER_AREAS.forEach(function(area) {
     container.appendChild(buildCheckItem(area));
   });
@@ -324,10 +1199,7 @@ function buildVolunteerAreas() {
 
 function buildAvailabilityOptions() {
   var container = document.getElementById('availabilityOptions');
-  if (!container) {
-    console.error('availabilityOptions container not found');
-    return;
-  }
+  if (!container) return;
   AVAILABILITY_OPTIONS.forEach(function(option) {
     container.appendChild(buildCheckItem(option));
   });
@@ -348,10 +1220,11 @@ function addChild() {
   var list = document.getElementById('childrenList');
   var row = document.createElement('div');
   row.className = 'child-row';
-  row.innerHTML = '<div class="field"><label>Child\'s Name <span class="req">*</span></label><input type="text" class="childName" placeholder="First Last"/></div>' +
+  row.innerHTML =
+    '<div class="field"><label>Child\\'s Name <span class="req">*</span></label><input type="text" class="childName" placeholder="First Last"/></div>' +
     '<div class="field"><label>Grade <span class="req">*</span></label><select class="childGrade"><option value="">Select</option><option>Kindergarten</option><option>1st Grade</option><option>2nd Grade</option><option>3rd Grade</option><option>4th Grade</option><option>5th Grade</option></select></div>' +
-    '<div class="field"><label>Teacher\'s Name <span class="req">*</span></label><input type="text" class="childTeacher" placeholder="e.g. Ms. Smith"/></div>' +
-    '<div style="display:flex;align-items:flex-end;padding-bottom:1px;"><button type="button" class="btn-remove" onclick="removeChild(this)">✕</button></div>';
+    '<div class="field"><label>Teacher\\'s Name <span class="req">*</span></label><input type="text" class="childTeacher" placeholder="e.g. Ms. Smith"/></div>' +
+    '<div style="display:flex;align-items:flex-end;"><button type="button" class="btn-remove" onclick="removeChild(this)">✕</button></div>';
   list.appendChild(row);
 }
 
@@ -414,7 +1287,7 @@ function hideError() {
 function validate(d) {
   if (!d.firstName) return 'Please enter your first name.';
   if (!d.lastName) return 'Please enter your last name.';
-  if (!d.email || !/\S+@\S+\.\S+/.test(d.email)) return 'Please enter a valid email address.';
+  if (!d.email || !/\\S+@\\S+\\.\\S+/.test(d.email)) return 'Please enter a valid email address.';
   if (!d.children.length || !d.children[0].name) return "Please enter at least one child's name.";
   if (!d.children[0].grade) return "Please select your child's grade.";
   if (!d.children[0].teacher) return "Please enter your child's teacher's name.";
@@ -440,44 +1313,41 @@ function getStatuses() {
 
 function submitForm() {
   hideError();
-  
+
   var data = collectFormData();
   var err = validate(data);
-  
+
   if (err) {
     showError(err);
     return;
   }
-  
+
   var btn = document.getElementById('submitBtn');
   btn.disabled = true;
   btn.textContent = 'Submitting…';
-  
-  // Send to Google Sheet
+
   sendToSheet(data);
-  
-  // Save locally
+
   var subs = getSubmissions();
   subs.push(data);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(subs));
-  
+
   var st = getStatuses();
   st[data.submittedAt + data.email] = 'New';
   localStorage.setItem(STATUS_KEY, JSON.stringify(st));
-  
-  // Show confirmation after a brief delay
+
   setTimeout(function() {
     document.querySelectorAll('.form-section').forEach(function(s) {
       s.style.display = 'none';
     });
-    document.querySelector('.intro-card').style.display = 'none';
+    document.querySelector('.intro-shell').style.display = 'none';
     document.getElementById('submitSection').style.display = 'none';
     document.getElementById('errorMsg').style.display = 'none';
     document.getElementById('confirmScreen').style.display = 'block';
-    
+
     btn.disabled = false;
     btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Submit My Interest';
-    
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, 500);
 }
@@ -486,7 +1356,7 @@ function resetForm() {
   document.querySelectorAll('.form-section').forEach(function(s) {
     s.style.display = '';
   });
-  document.querySelector('.intro-card').style.display = '';
+  document.querySelector('.intro-shell').style.display = '';
   document.getElementById('submitSection').style.display = '';
   document.getElementById('confirmScreen').style.display = 'none';
   hideError();
@@ -518,13 +1388,13 @@ function copyShareLink() {
   var inp = document.getElementById('shareLinkInput');
   var btn = document.querySelector('.copy-link-btn');
   var txt = document.getElementById('copyBtnText');
-  
+
   navigator.clipboard.writeText(inp.value).then(function() {
     btn.classList.add('copied');
     txt.textContent = 'Copied!';
     setTimeout(function() {
       btn.classList.remove('copied');
-      txt.textContent = 'Copy';
+      txt.textContent = 'Copy Link';
     }, 2000);
   }).catch(function() {
     inp.select();
@@ -533,7 +1403,7 @@ function copyShareLink() {
     txt.textContent = 'Copied!';
     setTimeout(function() {
       btn.classList.remove('copied');
-      txt.textContent = 'Copy';
+      txt.textContent = 'Copy Link';
     }, 2000);
   });
 }
