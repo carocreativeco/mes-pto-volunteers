@@ -26,7 +26,6 @@
   --shadow:0 24px 70px rgba(12,21,70,.10);
   --shadow-soft:0 12px 34px rgba(12,21,70,.07);
   --radius:24px;
-  --radius-sm:16px;
   --max:1120px;
 }
 
@@ -38,9 +37,7 @@
   padding:0;
 }
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
   font-family:'Inter',sans-serif;
@@ -61,7 +58,7 @@ a{text-decoration:none;color:inherit}
   margin:0 auto;
 }
 
-/* Top Nav */
+/* Nav */
 .site-nav{
   position:sticky;
   top:0;
@@ -96,7 +93,6 @@ a{text-decoration:none;color:inherit}
 .nav-brand-text strong{
   display:block;
   font-size:1rem;
-  font-weight:700;
 }
 .nav-brand-text span{
   display:block;
@@ -128,12 +124,11 @@ a{text-decoration:none;color:inherit}
   font-weight:700;
 }
 
-/* Header Hero */
+/* Hero */
 .page-hero{
   position:relative;
   overflow:hidden;
-  background:
-    linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
+  background:linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
   color:var(--white);
 }
 .page-hero::before{
@@ -214,7 +209,7 @@ a{text-decoration:none;color:inherit}
   padding:42px 0 72px;
 }
 
-/* Intro strip */
+/* Intro */
 .intro-shell{
   display:grid;
   grid-template-columns:1.1fr .9fr;
@@ -299,7 +294,6 @@ a{text-decoration:none;color:inherit}
   backdrop-filter:blur(10px);
   overflow:hidden;
 }
-
 .form-card{
   padding:26px;
 }
@@ -325,9 +319,6 @@ a{text-decoration:none;color:inherit}
   padding:24px;
   margin-bottom:18px;
   box-shadow:var(--shadow-soft);
-}
-.form-section:last-of-type{
-  margin-bottom:0;
 }
 .section-label{
   display:flex;
@@ -369,9 +360,7 @@ a{text-decoration:none;color:inherit}
   grid-template-columns:1fr 1fr;
   gap:16px;
 }
-.field-full{
-  grid-column:1/-1;
-}
+.field-full{grid-column:1/-1}
 .field{
   display:flex;
   flex-direction:column;
@@ -384,9 +373,7 @@ a{text-decoration:none;color:inherit}
   font-weight:700;
   color:var(--navy);
 }
-.req{
-  color:var(--orange);
-}
+.req{color:var(--orange)}
 .field input,
 .field select,
 .field textarea{
@@ -399,7 +386,7 @@ a{text-decoration:none;color:inherit}
   font-family:'Inter',sans-serif;
   font-size:.94rem;
   outline:none;
-  transition:border-color .18s ease, box-shadow .18s ease, background .18s ease, transform .18s ease;
+  transition:border-color .18s ease, box-shadow .18s ease, background .18s ease;
 }
 .field input::placeholder,
 .field textarea::placeholder{
@@ -421,10 +408,10 @@ a{text-decoration:none;color:inherit}
   color:var(--muted);
   font-size:.88rem;
   line-height:1.65;
-  margin-bottom:4px;
+  margin-bottom:8px;
 }
 
-/* Children rows */
+/* Children */
 .children-list{
   display:grid;
   gap:12px;
@@ -475,7 +462,7 @@ a{text-decoration:none;color:inherit}
   transform:translateY(-1px);
 }
 
-/* Check grid */
+/* Check items */
 .check-grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
@@ -516,7 +503,6 @@ a{text-decoration:none;color:inherit}
   align-items:center;
   justify-content:center;
   flex-shrink:0;
-  transition:border-color .18s ease, background .18s ease;
 }
 .check-item.checked .check-box{
   background:var(--navy);
@@ -535,7 +521,7 @@ a{text-decoration:none;color:inherit}
   font-weight:500;
 }
 
-/* Submit area */
+/* Submit */
 .submit-section{
   display:flex;
   align-items:center;
@@ -563,7 +549,7 @@ a{text-decoration:none;color:inherit}
   align-items:center;
   gap:10px;
   cursor:pointer;
-  transition:transform .18s ease, opacity .18s ease, background .18s ease;
+  transition:transform .18s ease, opacity .18s ease;
   box-shadow:0 14px 28px rgba(12,21,70,.18);
 }
 .btn-submit:hover{
@@ -748,9 +734,6 @@ a{text-decoration:none;color:inherit}
   color:var(--muted);
   font-size:.78rem;
 }
-.footer-admin a:hover{
-  color:var(--navy);
-}
 
 /* Responsive */
 @media (max-width: 960px){
@@ -774,56 +757,20 @@ a{text-decoration:none;color:inherit}
 }
 
 @media (max-width: 760px){
-  .nav-inner{
-    min-height:70px;
-  }
-
-  .nav-links{
-    display:none;
-  }
-
-  .hero-inner{
-    padding:48px 0 42px;
-  }
-
-  .main{
-    padding:28px 0 60px;
-  }
-
-  .form-card{
-    padding:18px;
-  }
-
-  .form-section{
-    padding:20px;
-  }
-
+  .nav-links{display:none}
+  .hero-inner{padding:48px 0 42px}
+  .main{padding:28px 0 60px}
+  .form-card{padding:18px}
+  .form-section{padding:20px}
   .submit-section{
     padding:20px 20px 24px;
     flex-direction:column;
     align-items:stretch;
   }
-
-  .btn-submit{
-    justify-content:center;
-  }
-
-  .share-row{
-    text-align:center;
-  }
-
-  .share-copy{
-    text-align:center;
-  }
-
-  .copy-link-wrap{
-    flex-direction:column;
-  }
-
-  .copy-link-btn{
-    width:100%;
-  }
-
+  .btn-submit{justify-content:center}
+  .share-copy{text-align:center}
+  .copy-link-wrap{flex-direction:column}
+  .copy-link-btn{width:100%}
   .footer-inner{
     flex-direction:column;
     align-items:flex-start;
@@ -998,7 +945,7 @@ a{text-decoration:none;color:inherit}
 
           <div class="field" style="margin-top:16px;">
             <label>Other / Additional Skills or Interests</label>
-            <input type="text" id="otherSkills" placeholder="Photography, bilingual support, design, carpentry, event help…"/>
+            <input type="text" id="otherSkills" placeholder="Photography, bilingual support, design, carpentry, event help..."/>
           </div>
         </div>
 
@@ -1050,8 +997,8 @@ a{text-decoration:none;color:inherit}
           <p class="submit-note">By submitting, you agree to be contacted by Moore Elementary PTO regarding volunteer opportunities for the 2026–2027 school year.</p>
           <button type="button" class="btn-submit" id="submitBtn" onclick="submitForm()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="22" y1="2" x2="11" y2="13"/>
-              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
             </svg>
             Submit My Interest
           </button>
@@ -1069,9 +1016,9 @@ a{text-decoration:none;color:inherit}
                 <p>Follow the PTO on Instagram for updates, reminders, and volunteer opportunities throughout the year.</p>
                 <a class="insta-cta" href="https://www.instagram.com/mooreelementarypto/following/" target="_blank" rel="noopener">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                   </svg>
                   Follow @mooreelementarypto
                 </a>
@@ -1156,10 +1103,12 @@ function sendToSheet(payload) {
     f.action = GOOGLE_SHEET_URL;
     f.target = 'hidden_iframe';
     f.style.display = 'none';
+
     var inp = document.createElement('input');
     inp.type = 'hidden';
     inp.name = 'data';
     inp.value = JSON.stringify(payload);
+
     f.appendChild(inp);
     document.body.appendChild(f);
     f.submit();
@@ -1173,25 +1122,27 @@ function sendToSheet(payload) {
 document.addEventListener('DOMContentLoaded', function() {
   buildVolunteerAreas();
   buildAvailabilityOptions();
-  setupCheckItems();
 });
 
 function buildCheckItem(value) {
   var it = document.createElement('label');
   it.className = 'check-item';
-  it.innerHTML = '<input type="checkbox" value="' + value + '"/>' +
+  it.innerHTML =
+    '<input type="checkbox" value="' + escapeHtml(value) + '">' +
     '<div class="check-box">' +
-    '<svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
-    '<polyline points="2 6 5 9 10 3"/>' +
-    '</svg>' +
+      '<svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
+        '<polyline points="2 6 5 9 10 3"></polyline>' +
+      '</svg>' +
     '</div>' +
-    '<span class="check-label">' + value + '</span>';
+    '<span class="check-label">' + escapeHtml(value) + '</span>';
   return it;
 }
 
 function buildVolunteerAreas() {
   var container = document.getElementById('volunteerAreas');
   if (!container) return;
+
+  container.innerHTML = '';
   VOLUNTEER_AREAS.forEach(function(area) {
     container.appendChild(buildCheckItem(area));
   });
@@ -1200,31 +1151,54 @@ function buildVolunteerAreas() {
 function buildAvailabilityOptions() {
   var container = document.getElementById('availabilityOptions');
   if (!container) return;
+
+  container.innerHTML = '';
   AVAILABILITY_OPTIONS.forEach(function(option) {
     container.appendChild(buildCheckItem(option));
   });
 }
 
-function setupCheckItems() {
-  document.querySelectorAll('.check-item').forEach(function(it) {
-    it.addEventListener('click', function(e) {
-      e.preventDefault();
-      var cb = it.querySelector('input');
-      cb.checked = !cb.checked;
-      it.classList.toggle('checked', cb.checked);
-    });
-  });
-}
+document.addEventListener('click', function(e) {
+  var item = e.target.closest('.check-item');
+  if (!item) return;
+
+  e.preventDefault();
+  var cb = item.querySelector('input[type="checkbox"]');
+  if (!cb) return;
+
+  cb.checked = !cb.checked;
+  item.classList.toggle('checked', cb.checked);
+});
 
 function addChild() {
   var list = document.getElementById('childrenList');
   var row = document.createElement('div');
   row.className = 'child-row';
-  row.innerHTML =
-    '<div class="field"><label>Child\\'s Name <span class="req">*</span></label><input type="text" class="childName" placeholder="First Last"/></div>' +
-    '<div class="field"><label>Grade <span class="req">*</span></label><select class="childGrade"><option value="">Select</option><option>Kindergarten</option><option>1st Grade</option><option>2nd Grade</option><option>3rd Grade</option><option>4th Grade</option><option>5th Grade</option></select></div>' +
-    '<div class="field"><label>Teacher\\'s Name <span class="req">*</span></label><input type="text" class="childTeacher" placeholder="e.g. Ms. Smith"/></div>' +
-    '<div style="display:flex;align-items:flex-end;"><button type="button" class="btn-remove" onclick="removeChild(this)">✕</button></div>';
+  row.innerHTML = `
+    <div class="field">
+      <label>Child's Name <span class="req">*</span></label>
+      <input type="text" class="childName" placeholder="First Last"/>
+    </div>
+    <div class="field">
+      <label>Grade <span class="req">*</span></label>
+      <select class="childGrade">
+        <option value="">Select</option>
+        <option>Kindergarten</option>
+        <option>1st Grade</option>
+        <option>2nd Grade</option>
+        <option>3rd Grade</option>
+        <option>4th Grade</option>
+        <option>5th Grade</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Teacher's Name <span class="req">*</span></label>
+      <input type="text" class="childTeacher" placeholder="e.g. Ms. Smith"/>
+    </div>
+    <div style="display:flex;align-items:flex-end;">
+      <button type="button" class="btn-remove" onclick="removeChild(this)">✕</button>
+    </div>
+  `;
   list.appendChild(row);
 }
 
@@ -1240,8 +1214,13 @@ function collectFormData() {
     var n = row.querySelector('.childName').value.trim();
     var gr = row.querySelector('.childGrade').value;
     var t = row.querySelector('.childTeacher').value.trim();
+
     if (n || gr || t) {
-      children.push({ name: n, grade: gr, teacher: t });
+      children.push({
+        name: n,
+        grade: gr,
+        teacher: t
+      });
     }
   });
 
@@ -1276,18 +1255,20 @@ function showError(msg) {
   var errorEl = document.getElementById('errorMsg');
   errorEl.textContent = msg;
   errorEl.classList.add('show');
+  errorEl.style.display = 'block';
   errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 function hideError() {
   var errorEl = document.getElementById('errorMsg');
   errorEl.classList.remove('show');
+  errorEl.style.display = '';
 }
 
 function validate(d) {
   if (!d.firstName) return 'Please enter your first name.';
   if (!d.lastName) return 'Please enter your last name.';
-  if (!d.email || !/\\S+@\\S+\\.\\S+/.test(d.email)) return 'Please enter a valid email address.';
+  if (!d.email || !/\S+@\S+\.\S+/.test(d.email)) return 'Please enter a valid email address.';
   if (!d.children.length || !d.children[0].name) return "Please enter at least one child's name.";
   if (!d.children[0].grade) return "Please select your child's grade.";
   if (!d.children[0].teacher) return "Please enter your child's teacher's name.";
@@ -1324,7 +1305,7 @@ function submitForm() {
 
   var btn = document.getElementById('submitBtn');
   btn.disabled = true;
-  btn.textContent = 'Submitting…';
+  btn.innerHTML = 'Submitting…';
 
   sendToSheet(data);
 
@@ -1346,7 +1327,11 @@ function submitForm() {
     document.getElementById('confirmScreen').style.display = 'block';
 
     btn.disabled = false;
-    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Submit My Interest';
+    btn.innerHTML =
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
+      '<line x1="22" y1="2" x2="11" y2="13"></line>' +
+      '<polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>' +
+      '</svg> Submit My Interest';
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, 500);
@@ -1361,22 +1346,25 @@ function resetForm() {
   document.getElementById('confirmScreen').style.display = 'none';
   hideError();
 
-  document.querySelectorAll('input[type=text],input[type=email],input[type=tel],textarea').forEach(function(el) {
+  document.querySelectorAll('input[type=text], input[type=email], input[type=tel], textarea').forEach(function(el) {
     el.value = '';
   });
+
   document.querySelectorAll('select').forEach(function(el) {
     el.selectedIndex = 0;
   });
 
   document.querySelectorAll('.check-item').forEach(function(el) {
     el.classList.remove('checked');
-    el.querySelector('input').checked = false;
+    var input = el.querySelector('input');
+    if (input) input.checked = false;
   });
 
   var list = document.getElementById('childrenList');
   while (list.children.length > 1) {
     list.removeChild(list.lastChild);
   }
+
   list.querySelector('.childName').value = '';
   list.querySelector('.childGrade').selectedIndex = 0;
   list.querySelector('.childTeacher').value = '';
@@ -1406,6 +1394,12 @@ function copyShareLink() {
       txt.textContent = 'Copy Link';
     }, 2000);
   });
+}
+
+function escapeHtml(text) {
+  var div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
 }
 </script>
 </body>
