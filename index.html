@@ -723,29 +723,57 @@ a{
 .site-footer{
   background:#eef2f8;
   border-top:1px solid rgba(12,21,70,.06);
-  padding:64px 0;
+  padding:32px 0;
 }
 
 .footer-grid{
   width:min(var(--max), calc(100% - 40px));
   margin:0 auto;
   display:grid;
-  grid-template-columns:1.2fr .8fr .8fr;
-  gap:40px;
+  grid-template-columns:repeat(2, auto);
+  justify-content:center;
+  gap:48px;
 }
 
-.footer-title{
-  font-family:'Baskervville',serif;
-  font-size:2rem;
-  color:var(--navy);
-  margin-bottom:20px;
+.footer-grid-small{
+  align-items:start;
 }
 
 .footer-heading{
   font-family:'Baskervville',serif;
-  font-size:1.7rem;
   color:var(--navy);
-  margin-bottom:18px;
+  font-size:1.15rem;
+  margin-bottom:10px;
+}
+
+.footer-list{
+  display:grid;
+  gap:6px;
+}
+
+.footer-list a,
+.footer-note{
+  color:var(--text);
+  opacity:.82;
+  line-height:1.6;
+  font-size:.82rem;
+}
+
+.footer-list a:hover{
+  opacity:1;
+}
+
+@media (max-width: 700px){
+  .footer-grid{
+    grid-template-columns:1fr;
+    justify-content:start;
+    gap:22px;
+    width:min(var(--max), calc(100% - 24px));
+  }
+
+  .site-footer{
+    padding:24px 0;
+  }
 }
 
 .footer-copy,
@@ -1103,14 +1131,7 @@ a{
 </main>
 
 <footer class="site-footer">
-  <div class="footer-grid">
-    <div>
-      <div class="footer-title">Moore Elementary PTO</div>
-      <div class="footer-copy">
-        Supporting students, families, and staff through community, volunteerism, and school-wide engagement.
-      </div>
-    </div>
-
+  <div class="footer-grid footer-grid-small">
     <div>
       <div class="footer-heading">Info</div>
       <div class="footer-list">
