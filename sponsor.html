@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Become a Sponsor | Moore Elementary PTO</title>
+<link href="https://fonts.googleapis.com/css2?family=Baskervville:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --gold:#ffc200;
+  --orange:#db6d42;
+  --navy:#0c1546;
+  --navy-2:#1d2a66;
+  --blue-card:#1b469f;
+  --text:#172033;
+  --muted:#667085;
+  --line:#dde3ef;
+  --line-soft:#e9edf5;
+  --bg:#f5f7fb;
+  --bg-alt:#eef2f8;
+  --cream:#fcfbf7;
+  --white:#ffffff;
+  --max:1200px;
+  --radius:24px;
+  --shadow:0 20px 60px rgba(12,21,70,.10);
+  --shadow-soft:0 10px 30px rgba(12,21,70,.07);
+}
+
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+img{
+  max-width:100%;
+  display:block;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.container{
+  width:min(var(--max), calc(100% - 40px));
+  margin:0 auto;
+}
+
+/* NAV */
+.site-nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:rgba(12,21,70,.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.nav-inner{
+  width:min(var(--max), calc(100% - 40px));
+  margin:0 auto;
+  min-height:78px;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:20px;
+}
+
+.nav-left,
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:26px;
+}
+
+.nav-right{
+  justify-content:flex-end;
+}
+
+.nav-brand{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.nav-brand img{
+  width:80px;
+  height:auto;
+  max-height:52px;
+  object-fit:contain;
+}
+
+.nav-link{
+  color:rgba(255,255,255,.9);
+  font-size:.95rem;
+}
+
+.nav-link:hover{
+  opacity:.75;
+}
+
+.nav-cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px 18px;
+  border-radius:999px;
+  background:var(--gold);
+  color:var(--navy);
+  font-weight:700;
+  font-size:.9rem;
+}
+
+.nav-toggle{
+  display:none;
+  border:none;
+  background:none;
+  color:var(--white);
+  font-size:1.5rem;
+  cursor:pointer;
+}
+
+.nav-mobile{
+  display:none;
+  width:min(var(--max), calc(100% - 40px));
+  margin:0 auto;
+  padding:0 0 18px;
+}
+
+.nav-mobile.open{
+  display:grid;
+  gap:12px;
+}
+
+.nav-mobile a{
+  color:rgba(255,255,255,.92);
+  font-size:.96rem;
+}
+
+/* HERO */
+.hero{
+  position:relative;
+  min-height:88vh;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  background:var(--navy);
+}
+
+.hero-media{
+  position:absolute;
+  inset:0;
+}
+
+.hero-media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:.52;
+}
+
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg, rgba(12,21,70,.30) 0%, rgba(12,21,70,.80) 100%),
+    radial-gradient(circle at 20% 20%, rgba(255,194,0,.12), transparent 30%);
+}
+
+.hero-inner{
+  position:relative;
+  z-index:2;
+  width:min(var(--max), calc(100% - 40px));
+  margin:0 auto;
+  padding:90px 0 80px;
+}
+
+.hero-copy{
+  max-width:860px;
+  color:var(--white);
+}
+
+.eyebrow{
+  display:inline-block;
+  margin-bottom:18px;
+  color:var(--gold);
+  font-size:.8rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  font-weight:700;
+}
+
+.hero h1{
+  font-family:'Baskervville',serif;
+  font-size:clamp(3rem, 7vw, 5.4rem);
+  line-height:1;
+  letter-spacing:-.03em;
+  margin-bottom:20px;
+}
+
+.hero p{
+  max-width:740px;
+  font-size:1.08rem;
+  line-height:1.9;
+  color:rgba(255,255,255,.92);
+}
+
+.hero-bottom-bar{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:5px;
+  background:linear-gradient(90deg,var(--gold),var(--orange),var(--gold));
+}
+
+/* GENERAL SECTIONS */
+.section{
+  padding:90px 0;
+}
+
+.section-alt{
+  background:var(--bg-alt);
+}
+
+.section-head{
+  margin-bottom:34px;
+}
+
+.section-title{
+  font-family:'Baskervville',serif;
+  font-size:clamp(2rem, 4vw, 3rem);
+  line-height:1.05;
+  color:var(--navy);
+  margin-bottom:10px;
+}
+
+.section-copy{
+  max-width:760px;
+  color:var(--muted);
+  font-size:1rem;
+  line-height:1.8;
+}
+
+/* ICON VALUE SECTION */
+.value-section{
+  background:var(--white);
+}
+
+.value-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:36px;
+  align-items:start;
+}
+
+.value-card{
+  text-align:center;
+  padding:10px 14px;
+}
+
+.value-icon{
+  width:72px;
+  height:72px;
+  margin:0 auto 26px;
+  object-fit:contain;
+}
+
+.value-card h3{
+  font-family:'Baskervville',serif;
+  font-size:clamp(2rem, 3vw, 2.5rem);
+  line-height:1.1;
+  color:#111111;
+  margin-bottom:20px;
+}
+
+.value-card p{
+  color:#222;
+  font-size:1rem;
+  line-height:2;
+  max-width:360px;
+  margin:0 auto;
+}
+
+/* IMPACT STATS */
+.impact-band{
+  background:var(--navy);
+  color:var(--white);
+}
+
+.impact-intro{
+  text-align:center;
+  max-width:860px;
+  margin:0 auto 42px;
+  color:rgba(255,255,255,.94);
+  font-size:clamp(1.25rem, 2vw, 1.55rem);
+  line-height:1.5;
+}
+
+.impact-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:36px;
+}
+
+.impact-card{
+  background:#2b378c;
+  padding:28px 20px 22px;
+  text-align:center;
+}
+
+.impact-number{
+  display:block;
+  font-family:'Baskervville',serif;
+  color:var(--gold);
+  font-size:clamp(3.2rem, 6vw, 5rem);
+  line-height:1;
+}
+
+.impact-label{
+  display:block;
+  margin-top:10px;
+  color:var(--gold);
+  text-transform:uppercase;
+  font-size:.95rem;
+  letter-spacing:.04em;
+}
+
+/* WHAT IS MOORE MILES */
+.miles-panel{
+  background:var(--cream);
+  border-radius:0;
+  overflow:hidden;
+  box-shadow:var(--shadow-soft);
+}
+
+.miles-top{
+  background:var(--navy);
+  color:var(--white);
+  padding:52px 34px 46px;
+}
+
+.miles-top h2{
+  font-family:'Baskervville',serif;
+  font-size:clamp(2.8rem, 6vw, 4.8rem);
+  line-height:1.05;
+  text-align:center;
+}
+
+.miles-divider{
+  height:10px;
+  background:var(--gold);
+}
+
+.miles-copy{
+  text-align:center;
+  max-width:1120px;
+  margin:0 auto;
+  padding:28px 20px 14px;
+  font-size:clamp(1.2rem, 2vw, 1.5rem);
+  line-height:1.55;
+}
+
+.miles-grid{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:24px;
+  padding:34px;
+}
+
+.miles-card{
+  background:var(--navy);
+  color:var(--white);
+  text-align:center;
+  padding:28px 22px 30px;
+  position:relative;
+  min-height:300px;
+  box-shadow:var(--shadow-soft);
+}
+
+.miles-icon-wrap{
+  width:132px;
+  height:132px;
+  background:#144aa8;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:-72px auto 20px;
+  box-shadow:0 12px 30px rgba(12,21,70,.24);
+}
+
+.miles-icon-wrap img{
+  width:68px;
+  height:68px;
+  object-fit:contain;
+}
+
+.miles-card h3{
+  font-family:'Baskervville',serif;
+  color:var(--gold);
+  font-size:clamp(1.8rem, 3vw, 2.3rem);
+  margin-bottom:18px;
+}
+
+.miles-card p{
+  font-size:1rem;
+  line-height:1.6;
+  color:rgba(255,255,255,.95);
+}
+
+/* WHY SPONSOR */
+.why-sponsor{
+  background:var(--cream);
+  box-shadow:var(--shadow-soft);
+}
+
+.why-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+}
+
+.why-left{
+  background:var(--navy);
+  color:var(--white);
+  padding:60px 56px;
+  border-right:10px solid var(--gold);
+}
+
+.why-logo{
+  width:170px;
+  height:170px;
+  margin:0 auto 34px;
+  border-radius:50%;
+  background:var(--white);
+  border:4px solid var(--gold);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.why-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.why-left h2{
+  font-family:'Baskervville',serif;
+  font-size:clamp(3rem, 6vw, 5rem);
+  line-height:1.02;
+  text-align:center;
+  margin-bottom:24px;
+}
+
+.why-left p{
+  font-size:1.1rem;
+  line-height:1.7;
+  text-align:center;
+  max-width:520px;
+  margin:0 auto 34px;
+  color:rgba(255,255,255,.95);
+}
+
+.why-points{
+  display:grid;
+  gap:16px;
+  text-align:center;
+}
+
+.why-points div{
+  font-family:'Baskervville',serif;
+  color:var(--gold);
+  font-size:clamp(1.8rem, 3vw, 2.5rem);
+  line-height:1.2;
+}
+
+.why-right{
+  background:var(--cream);
+  padding:60px 56px;
+}
+
+.why-right h3{
+  color:var(--navy);
+  font-size:clamp(2.4rem, 4vw, 3.2rem);
+  line-height:1.1;
+  font-weight:800;
+  text-transform:uppercase;
+  text-align:center;
+  margin-bottom:34px;
+}
+
+.support-list{
+  display:grid;
+  gap:26px;
+}
+
+.support-item{
+  display:grid;
+  grid-template-columns:72px 1fr;
+  gap:20px;
+  align-items:start;
+}
+
+.support-check{
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  border:5px solid var(--gold);
+  position:relative;
+}
+
+.support-check::after{
+  content:"";
+  position:absolute;
+  left:17px;
+  top:18px;
+  width:28px;
+  height:14px;
+  border-left:7px solid var(--gold);
+  border-bottom:7px solid var(--gold);
+  transform:rotate(-45deg);
+}
+
+.support-item p{
+  color:var(--navy);
+  font-size:1.05rem;
+  line-height:1.45;
+  padding-top:10px;
+}
+
+/* HOW TO SPONSOR */
+.how-wrap{
+  background:var(--cream);
+  box-shadow:var(--shadow-soft);
+}
+
+.how-grid{
+  display:grid;
+  grid-template-columns:1fr 1.15fr;
+}
+
+.how-left{
+  padding:70px 56px;
+  border-right:10px solid var(--gold);
+}
+
+.how-left h2{
+  font-family:'Baskervville',serif;
+  color:var(--navy);
+  font-size:clamp(3.4rem, 8vw, 6rem);
+  line-height:.98;
+  margin-bottom:32px;
+}
+
+.how-left p{
+  color:var(--navy);
+  font-size:1.1rem;
+  line-height:1.6;
+  max-width:480px;
+}
+
+.how-left strong{
+  font-weight:800;
+}
+
+.how-right{
+  padding:70px 56px;
+}
+
+.how-right h3{
+  color:var(--navy);
+  font-size:clamp(2.3rem, 4vw, 3.1rem);
+  font-weight:800;
+  text-transform:uppercase;
+  line-height:1.1;
+  margin-bottom:34px;
+  text-align:center;
+}
+
+.steps{
+  display:grid;
+  gap:26px;
+}
+
+.step{
+  display:grid;
+  grid-template-columns:88px 1fr;
+  gap:22px;
+  align-items:start;
+}
+
+.step-num{
+  width:88px;
+  height:88px;
+  border-radius:50%;
+  background:var(--navy);
+  color:var(--white);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2rem;
+  font-weight:800;
+}
+
+.step-content h4{
+  color:var(--navy);
+  font-size:1.25rem;
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.step-content p{
+  color:var(--navy);
+  font-size:1rem;
+  line-height:1.5;
+  font-style:italic;
+}
+
+.mailing-box{
+  margin-top:30px;
+  background:var(--gold);
+  color:var(--navy);
+  padding:16px 20px;
+  font-size:1rem;
+  line-height:1.5;
+}
+
+/* LOGO MARQUEE */
+.logo-strip{
+  overflow:hidden;
+  background:var(--white);
+  border-top:1px solid rgba(12,21,70,.06);
+  border-bottom:1px solid rgba(12,21,70,.06);
+  padding:22px 0;
+}
+
+.logo-track{
+  display:flex;
+  width:max-content;
+  animation:scrollLogos 28s linear infinite;
+}
+
+.logo-group{
+  display:flex;
+  align-items:center;
+  gap:28px;
+  padding-right:28px;
+}
+
+.logo-item{
+  width:180px;
+  height:72px;
+  background:#f3f6fc;
+  border:1px solid var(--line);
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--muted);
+  font-weight:700;
+  font-size:.95rem;
+  white-space:nowrap;
+  padding:0 14px;
+}
+
+@keyframes scrollLogos{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(-50%); }
+}
+
+/* FOOTER */
+.site-footer{
+  background:#eef2f8;
+  border-top:1px solid rgba(12,21,70,.06);
+  padding:20px 0;
+  text-align:center;
+}
+
+.footer-copy{
+  color:var(--text);
+  line-height:1.6;
+  font-size:.96rem;
+  opacity:.9;
+}
+
+/* REVEAL */
+.reveal{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.js .reveal{
+  opacity:0;
+  transform:translateY(34px);
+  transition:opacity .75s ease, transform .75s ease;
+}
+
+.js .reveal.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px){
+  .value-grid,
+  .impact-grid,
+  .miles-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .why-grid,
+  .how-grid{
+    grid-template-columns:1fr;
+  }
+
+  .why-left,
+  .how-left{
+    border-right:none;
+    border-bottom:10px solid var(--gold);
+  }
+}
+
+@media (max-width: 860px){
+  .nav-left,
+  .nav-right{
+    display:none;
+  }
+
+  .nav-toggle{
+    display:block;
+  }
+
+  .nav-inner{
+    grid-template-columns:1fr auto;
+  }
+
+  .nav-brand{
+    justify-content:flex-start;
+  }
+
+  .nav-brand img{
+    width:72px;
+    max-height:48px;
+  }
+
+  .value-grid,
+  .impact-grid,
+  .miles-grid{
+    grid-template-columns:1fr;
+  }
+
+  .support-item,
+  .step{
+    grid-template-columns:64px 1fr;
+  }
+
+  .support-check,
+  .step-num{
+    width:64px;
+    height:64px;
+  }
+
+  .step-num{
+    font-size:1.5rem;
+  }
+}
+
+@media (max-width: 640px){
+  .container,
+  .nav-inner,
+  .hero-inner,
+  .nav-mobile{
+    width:min(var(--max), calc(100% - 24px));
+  }
+
+  .section{
+    padding:70px 0;
+  }
+
+  .hero{
+    min-height:78vh;
+  }
+
+  .hero-inner{
+    padding:72px 0 60px;
+  }
+
+  .hero h1{
+    font-size:clamp(2.5rem, 12vw, 4rem);
+  }
+
+  .miles-grid,
+  .miles-top,
+  .why-left,
+  .why-right,
+  .how-left,
+  .how-right{
+    padding-left:20px;
+    padding-right:20px;
+  }
+
+  .miles-card{
+    min-height:auto;
+  }
+
+  .logo-item{
+    width:150px;
+    height:64px;
+    font-size:.88rem;
+  }
+
+  .nav-brand img{
+    width:64px;
+    max-height:42px;
+  }
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a href="index.html#about" class="nav-link">About</a>
+      <a href="index.html#events" class="nav-link">Events</a>
+      <a href="index.html#connect" class="nav-link">Connect</a>
+    </div>
+
+    <div class="nav-brand">
+      <a href="index.html">
+        <img src="ptohome.png" alt="Moore Elementary PTO logo" onerror="this.style.display='none'" />
+      </a>
+    </div>
+
+    <div class="nav-right">
+      <a href="index.html#resources" class="nav-link">Resources</a>
+      <a href="sponsor.html" class="nav-link">Become a sponsor</a>
+      <a href="volunteer.html" class="nav-cta">Volunteer</a>
+    </div>
+
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleMenu()">☰</button>
+  </div>
+
+  <div class="nav-mobile" id="mobileMenu">
+    <a href="index.html#about">About</a>
+    <a href="index.html#events">Events</a>
+    <a href="index.html#connect">Connect</a>
+    <a href="index.html#share">Share</a>
+    <a href="index.html#resources">Resources</a>
+    <a href="sponsor.html">Become a sponsor</a>
+    <a href="volunteer.html">Volunteer</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-media">
+    <img src="sponsor.png" alt="Become a sponsor" onerror="this.style.display='none'"/>
+  </div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-inner">
+    <div class="hero-copy reveal visible">
+      <div class="eyebrow">Become a Sponsor</div>
+      <h1>Support teachers, inspire students, and invest in the Moore community.</h1>
+      <p>Partner with Moore Elementary PTO through our Moore Miles fundraiser and help create meaningful experiences for students, families, and staff all year long.</p>
+    </div>
+  </div>
+
+  <div class="hero-bottom-bar"></div>
+</section>
+
+<main>
+
+  <section class="section value-section">
+    <div class="container">
+      <div class="value-grid">
+        <div class="value-card reveal">
+          <img src="icon1.png" alt="Students icon" class="value-icon" onerror="this.style.display='none'">
+          <h3>500+ Students</h3>
+          <p>Your sponsorship helps support a vibrant school community of more than 500 Moore Elementary students through programs, events, and school-wide enrichment.</p>
+        </div>
+
+        <div class="value-card reveal">
+          <img src="icon2.png" alt="Sponsor tiers icon" class="value-icon" onerror="this.style.display='none'">
+          <h3>3 Sponsor Tiers</h3>
+          <p>We offer three sponsorship levels so businesses and community partners can choose the level of support that best fits their goals and visibility preferences.</p>
+        </div>
+
+        <div class="value-card reveal">
+          <img src="icon3.png" alt="Goal icon" class="value-icon" onerror="this.style.display='none'">
+          <h3>\$50k Goal</h3>
+          <p>Our fundraising goal helps provide classroom resources, teacher support, student experiences, field trips, and programs that directly benefit Moore kids.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section impact-band">
+    <div class="container">
+      <p class="impact-intro reveal">
+        Partner with Moore Elementary School to support teachers, inspire students, and invest in your community.
+      </p>
+
+      <div class="impact-grid">
+        <div class="impact-card reveal">
+          <span class="impact-number">500+</span>
+          <span class="impact-label">Students</span>
+        </div>
+
+        <div class="impact-card reveal">
+          <span class="impact-number">3</span>
+          <span class="impact-label">Sponsor Tiers</span>
+        </div>
+
+        <div class="impact-card reveal">
+          <span class="impact-number">\$50k</span>
+          <span class="impact-label">Goal</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="miles-panel reveal">
+        <div class="miles-top">
+          <h2>What is Moore Miles?</h2>
+        </div>
+        <div class="miles-divider"></div>
+        <div class="miles-copy">
+          Moore Miles is Moore Elementary's signature annual fundraiser — a week-long celebration of community, fitness, and school spirit culminating in a Fun Run on campus.
+        </div>
+
+        <div class="miles-grid">
+          <div class="miles-card">
+            <div class="miles-icon-wrap">
+              <img src="icon1.png" alt="Fun Run icon" onerror="this.style.display='none'">
+            </div>
+            <h3>Fun Run</h3>
+            <p>Every student participates in a 1-mile run on campus.</p>
+          </div>
+
+          <div class="miles-card">
+            <div class="miles-icon-wrap">
+              <img src="icon2.png" alt="School Spirit icon" onerror="this.style.display='none'">
+            </div>
+            <h3>School Spirit</h3>
+            <p>5 themed spirit days build excitement and community.</p>
+          </div>
+
+          <div class="miles-card">
+            <div class="miles-icon-wrap">
+              <img src="icon3.png" alt="Goal icon" onerror="this.style.display='none'">
+            </div>
+            <h3>\$50k Goal</h3>
+            <p>Funds classroom enrichment, field trips, and school supplies.</p>
+          </div>
+
+          <div class="miles-card">
+            <div class="miles-icon-wrap">
+              <img src="icon1.png" alt="Auction icon" onerror="this.style.display='none'">
+            </div>
+            <h3>Auction</h3>
+            <p>Family bake sale and a school-wide auction add to the fun.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="why-sponsor reveal">
+        <div class="why-grid">
+          <div class="why-left">
+            <div class="why-logo">
+              <img src="ptohome.png" alt="Moore Elementary logo" onerror="this.style.display='none'">
+            </div>
+            <h2>Why Sponsor?</h2>
+            <p>Your investment reaches an entire school community and leaves a lasting impression.</p>
+
+            <div class="why-points">
+              <div>500+ Moore Students</div>
+              <div>5 Spirit Days of Visibility</div>
+              <div>1,000+ People Impressions</div>
+            </div>
+          </div>
+
+          <div class="why-right">
+            <h3>What Your Sponsorship Supports:</h3>
+
+            <div class="support-list">
+              <div class="support-item">
+                <div class="support-check"></div>
+                <p>Classroom supplies and learning materials</p>
+              </div>
+
+              <div class="support-item">
+                <div class="support-check"></div>
+                <p>Student field trips and enrichment programs</p>
+              </div>
+
+              <div class="support-item">
+                <div class="support-check"></div>
+                <p>Interactive technology and classroom tools</p>
+              </div>
+
+              <div class="support-item">
+                <div class="support-check"></div>
+                <p>Teacher support and appreciation events</p>
+              </div>
+
+              <div class="support-item">
+                <div class="support-check"></div>
+                <p>School community-building activities</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="how-wrap reveal">
+        <div class="how-grid">
+          <div class="how-left">
+            <h2>Ready to partner with us?</h2>
+            <p>We'd be honored to have your business as a <strong>Moore Miles sponsor</strong>. Join us in celebrating our amazing students and teachers!</p>
+          </div>
+
+          <div class="how-right">
+            <h3>How to Sponsor:</h3>
+
+            <div class="steps">
+              <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <h4>Choose your tier.</h4>
+                  <p>Presenting Sponsor (\$1,000) · Community Champion (\$600) · Community Builder (\$300)</p>
+                </div>
+              </div>
+
+              <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <h4>Complete the form.</h4>
+                  <p>Fill in the enclosed sponsorship form with your business details.</p>
+                </div>
+              </div>
+
+              <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                  <h4>Submit your logo.</h4>
+                  <p>Gold &amp; Silver sponsors: email your logo in vector or PNG format.</p>
+                </div>
+              </div>
+
+              <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                  <h4>Send your donation.</h4>
+                  <p>Make checks payable to Moore Elementary School.</p>
+                </div>
+              </div>
+
+              <div class="step">
+                <div class="step-num">5</div>
+                <div class="step-content">
+                  <h4>Receive confirmation.</h4>
+                  <p>We’ll confirm receipt and send your tax-deductible letter.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mailing-box">
+              Mailing Address: 1061 Lewisburg Pike, Franklin, TN 37064
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="logo-strip">
+    <div class="logo-track">
+      <div class="logo-group">
+        <div class="logo-item">Sponsor Logo 1</div>
+        <div class="logo-item">Sponsor Logo 2</div>
+        <div class="logo-item">Sponsor Logo 3</div>
+        <div class="logo-item">Sponsor Logo 4</div>
+        <div class="logo-item">Sponsor Logo 5</div>
+        <div class="logo-item">Sponsor Logo 6</div>
+      </div>
+
+      <div class="logo-group">
+        <div class="logo-item">Sponsor Logo 1</div>
+        <div class="logo-item">Sponsor Logo 2</div>
+        <div class="logo-item">Sponsor Logo 3</div>
+        <div class="logo-item">Sponsor Logo 4</div>
+        <div class="logo-item">Sponsor Logo 5</div>
+        <div class="logo-item">Sponsor Logo 6</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-copy">© Moore Elementary PTO 2026</div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+
+document.addEventListener('DOMContentLoaded', function() {
+  initReveal();
+});
+
+function toggleMenu() {
+  var menu = document.getElementById('mobileMenu');
+  menu.classList.toggle('open');
+}
+
+function initReveal() {
+  var items = document.querySelectorAll('.reveal');
+
+  if (!('IntersectionObserver' in window)) {
+    items.forEach(function(item) {
+      item.classList.add('visible');
+    });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      } else {
+        entry.target.classList.remove('visible');
+      }
+    });
+  }, {
+    threshold: 0.14
+  });
+
+  items.forEach(function(item) {
+    item.classList.add('visible');
+    observer.observe(item);
+  });
+}
+</script>
+
+</body>
+</html>
