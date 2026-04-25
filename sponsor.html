@@ -271,7 +271,11 @@ a{
 
 .value-card{
   text-align:center;
-  padding:10px 14px;
+  padding:30px 24px;
+  background:var(--white);
+  border:1px solid rgba(12,21,70,.06);
+  border-radius:26px;
+  box-shadow:var(--shadow-soft);
 }
 
 .value-icon{
@@ -645,10 +649,8 @@ a{
 /* LOGO MARQUEE */
 .logo-strip{
   overflow:hidden;
-  background:var(--white);
-  border-top:1px solid rgba(12,21,70,.06);
-  border-bottom:1px solid rgba(12,21,70,.06);
-  padding:22px 0;
+  background:transparent;
+  padding:8px 0 0;
 }
 
 .logo-track{
@@ -660,16 +662,16 @@ a{
 .logo-group{
   display:flex;
   align-items:center;
-  gap:28px;
-  padding-right:28px;
+  gap:22px;
+  padding-right:22px;
 }
 
 .logo-item{
-  width:180px;
-  height:72px;
-  background:#f3f6fc;
-  border:1px solid var(--line);
-  border-radius:16px;
+  width:190px;
+  height:84px;
+  background:rgba(255,255,255,.78);
+  border:1px solid rgba(12,21,70,.08);
+  border-radius:22px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -677,7 +679,9 @@ a{
   font-weight:700;
   font-size:.95rem;
   white-space:nowrap;
-  padding:0 14px;
+  padding:0 18px;
+  box-shadow:var(--shadow-soft);
+  backdrop-filter:blur(10px);
 }
 
 @keyframes scrollLogos{
@@ -820,11 +824,11 @@ a{
     min-height:auto;
   }
 
-  .logo-item{
-    width:150px;
-    height:64px;
-    font-size:.88rem;
-  }
+.logo-item{
+  width:150px;
+  height:70px;
+  font-size:.88rem;
+}
 
   .nav-brand img{
     width:64px;
@@ -878,8 +882,8 @@ a{
   <div class="hero-inner">
     <div class="hero-copy reveal visible">
       <div class="eyebrow">Become a Sponsor</div>
-      <h1>Support teachers, inspire students, and invest in the Moore community.</h1>
-      <p>Partner with Moore Elementary PTO through our Moore Miles fundraiser and help create meaningful experiences for students, families, and staff all year long.</p>
+      <h1>Fuel Moore Miles.</h1>
+      <p>Partner with Moore Elementary PTO to help fund student experiences, classroom support, and the events that bring our school community together.</p>
     </div>
   </div>
 
@@ -907,31 +911,6 @@ a{
           <img src="icon3.png" alt="Goal icon" class="value-icon" onerror="this.style.display='none'">
           <h3>\$50k Goal</h3>
           <p>Our fundraising goal helps provide classroom resources, teacher support, student experiences, field trips, and programs that directly benefit Moore kids.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section impact-band">
-    <div class="container">
-      <p class="impact-intro reveal">
-        Partner with Moore Elementary School to support teachers, inspire students, and invest in your community.
-      </p>
-
-      <div class="impact-grid">
-        <div class="impact-card reveal">
-          <span class="impact-number">500+</span>
-          <span class="impact-label">Students</span>
-        </div>
-
-        <div class="impact-card reveal">
-          <span class="impact-number">3</span>
-          <span class="impact-label">Sponsor Tiers</span>
-        </div>
-
-        <div class="impact-card reveal">
-          <span class="impact-number">\$50k</span>
-          <span class="impact-label">Goal</span>
         </div>
       </div>
     </div>
@@ -1101,7 +1080,17 @@ a{
     </div>
   </section>
 
-  <section class="logo-strip">
+  <section class="section section-alt">
+  <div class="container">
+    <div class="section-head" style="text-align:center; margin-bottom:24px;">
+      <h2 class="section-title">Join Our Sponsors</h2>
+      <p class="section-copy" style="margin:0 auto;">
+        Local businesses and community partners help make Moore Miles possible.
+      </p>
+    </div>
+  </div>
+
+  <div class="logo-strip">
     <div class="logo-track">
       <div class="logo-group">
         <div class="logo-item">Sponsor Logo 1</div>
@@ -1121,7 +1110,8 @@ a{
         <div class="logo-item">Sponsor Logo 6</div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
 </main>
 
