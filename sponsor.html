@@ -265,45 +265,6 @@ a{
   margin-bottom:12px;
 }
 
-/* OVERVIEW */
-.value-grid{
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:24px;
-}
-
-.value-card{
-  text-align:center;
-  padding:30px 24px;
-  background:var(--white);
-  border:1px solid rgba(12,21,70,.06);
-  border-radius:26px;
-  box-shadow:var(--shadow-soft);
-}
-
-.value-icon{
-  width:72px;
-  height:72px;
-  margin:0 auto 22px;
-  object-fit:contain;
-}
-
-.value-card h3{
-  font-family:'Baskervville',serif;
-  font-size:clamp(2rem, 3vw, 2.5rem);
-  line-height:1.1;
-  color:var(--navy);
-  margin-bottom:16px;
-}
-
-.value-card p{
-  color:var(--muted);
-  font-size:1rem;
-  line-height:1.9;
-  max-width:340px;
-  margin:0 auto;
-}
-
 /* WHAT IS MOORE MILES */
 .miles-modern-grid{
   display:grid;
@@ -348,6 +309,45 @@ a{
   color:var(--muted);
   line-height:1.75;
   font-size:.98rem;
+}
+
+/* OVERVIEW */
+.value-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:24px;
+}
+
+.value-card{
+  text-align:center;
+  padding:30px 24px;
+  background:var(--white);
+  border:1px solid rgba(12,21,70,.06);
+  border-radius:26px;
+  box-shadow:var(--shadow-soft);
+}
+
+.value-icon{
+  width:72px;
+  height:72px;
+  margin:0 auto 22px;
+  object-fit:contain;
+}
+
+.value-card h3{
+  font-family:'Baskervville',serif;
+  font-size:clamp(2rem, 3vw, 2.5rem);
+  line-height:1.1;
+  color:var(--navy);
+  margin-bottom:16px;
+}
+
+.value-card p{
+  color:var(--muted);
+  font-size:1rem;
+  line-height:1.9;
+  max-width:340px;
+  margin:0 auto;
 }
 
 /* WHY SPONSOR */
@@ -410,27 +410,30 @@ a{
 
 .support-modern-item{
   display:grid;
-  grid-template-columns:54px 1fr;
-  gap:14px;
+  grid-template-columns:56px 1fr;
+  gap:16px;
   align-items:start;
-  background:#f8faff;
+  background:linear-gradient(180deg, #fbfcff 0%, #f6f8fd 100%);
   border:1px solid rgba(12,21,70,.06);
-  border-radius:22px;
-  padding:18px;
+  border-radius:24px;
+  padding:20px 22px;
+  box-shadow:0 8px 24px rgba(12,21,70,.04);
 }
 
 .support-modern-check{
-  width:54px;
-  height:54px;
+  width:56px;
+  height:56px;
   border-radius:50%;
   border:4px solid var(--gold);
   position:relative;
+  flex-shrink:0;
+  margin-top:2px;
 }
 
 .support-modern-check::after{
   content:"";
   position:absolute;
-  left:12px;
+  left:13px;
   top:14px;
   width:20px;
   height:10px;
@@ -441,14 +444,51 @@ a{
 
 .support-modern-item p{
   color:var(--navy);
-  font-size:1rem;
-  line-height:1.5;
+  font-size:1.04rem;
+  line-height:1.55;
+  align-self:start;
   padding-top:10px;
 }
 
 /* HOW TO SPONSOR */
+.partner-layout{
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  gap:24px;
+  align-items:start;
+}
+
+.partner-intro{
+  background:var(--white);
+  border:1px solid rgba(12,21,70,.06);
+  border-radius:30px;
+  padding:34px;
+  box-shadow:var(--shadow-soft);
+  position:sticky;
+  top:110px;
+}
+
+.partner-intro h2{
+  font-family:'Baskervville',serif;
+  color:var(--navy);
+  font-size:clamp(2.5rem, 5vw, 4.6rem);
+  line-height:.98;
+  margin-bottom:22px;
+}
+
+.partner-intro p{
+  color:var(--muted);
+  font-size:1.05rem;
+  line-height:1.8;
+}
+
+.partner-intro strong{
+  color:var(--navy);
+}
+
 .steps-modern{
   display:grid;
+  grid-template-columns:repeat(2, 1fr);
   gap:18px;
 }
 
@@ -490,38 +530,53 @@ a{
   line-height:1.6;
 }
 
-.mailing-modern{
-  margin-top:20px;
-  background:rgba(255,194,0,.14);
-  border:1px solid rgba(255,194,0,.32);
-  color:var(--navy);
-  border-radius:20px;
-  padding:18px 20px;
-  font-size:1rem;
-  line-height:1.6;
+/* LOGO MARQUEE */
+.logo-marquee-wrap{
+  position:relative;
 }
 
-/* LOGO MARQUEE */
+.logo-marquee-wrap::before,
+.logo-marquee-wrap::after{
+  content:"";
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:120px;
+  z-index:2;
+  pointer-events:none;
+}
+
+.logo-marquee-wrap::before{
+  left:0;
+  background:linear-gradient(90deg, var(--bg) 0%, rgba(245,247,251,0) 100%);
+}
+
+.logo-marquee-wrap::after{
+  right:0;
+  background:linear-gradient(270deg, var(--bg) 0%, rgba(245,247,251,0) 100%);
+}
+
 .logo-marquee{
   overflow:hidden;
   position:relative;
   width:100%;
-  padding:12px 0 4px;
+  padding:16px 0 8px;
 }
 
 .logo-marquee-track{
   display:flex;
+  align-items:center;
   width:max-content;
-  animation:marqueeScroll 28s linear infinite;
+  animation:marqueeScroll 24s linear infinite;
   will-change:transform;
 }
 
 .logo-set{
   display:flex;
   align-items:center;
-  gap:56px;
-  padding-right:56px;
+  gap:52px;
   flex-shrink:0;
+  padding-right:52px;
 }
 
 .sponsor-logo{
@@ -535,10 +590,10 @@ a{
 
 @keyframes marqueeScroll{
   from{
-    transform:translateX(0);
+    transform:translate3d(0,0,0);
   }
   to{
-    transform:translateX(-50%);
+    transform:translate3d(calc(-50% - 26px),0,0);
   }
 }
 
@@ -576,12 +631,12 @@ a{
 
 /* RESPONSIVE */
 @media (max-width: 1024px){
-  .value-grid{
-    grid-template-columns:1fr;
-  }
-
   .miles-modern-grid{
     grid-template-columns:repeat(2,1fr);
+  }
+
+  .value-grid{
+    grid-template-columns:1fr;
   }
 
   .support-modern-grid{
@@ -595,6 +650,18 @@ a{
 
   .why-stat-row{
     justify-content:center;
+  }
+
+  .partner-layout{
+    grid-template-columns:1fr;
+  }
+
+  .partner-intro{
+    position:static;
+  }
+
+  .steps-modern{
+    grid-template-columns:1fr;
   }
 }
 
@@ -649,7 +716,8 @@ a{
   .why-modern,
   .value-card,
   .miles-modern-card,
-  .step-modern{
+  .step-modern,
+  .partner-intro{
     padding:20px;
   }
 
@@ -668,19 +736,30 @@ a{
   }
 
   .support-modern-item{
-    grid-template-columns:46px 1fr;
+    grid-template-columns:48px 1fr;
+    padding:18px;
   }
 
   .support-modern-check{
-    width:46px;
-    height:46px;
+    width:48px;
+    height:48px;
   }
 
   .support-modern-check::after{
-    left:10px;
-    top:11px;
+    left:11px;
+    top:12px;
     width:16px;
     height:8px;
+  }
+
+  .support-modern-item p{
+    padding-top:6px;
+    font-size:1rem;
+  }
+
+  .logo-marquee-wrap::before,
+  .logo-marquee-wrap::after{
+    width:56px;
   }
 
   .logo-set{
@@ -755,30 +834,6 @@ a{
 
 <main>
 
-  <section class="section">
-    <div class="container">
-      <div class="value-grid">
-        <div class="value-card reveal">
-          <img src="icon1.png" alt="Students icon" class="value-icon" onerror="this.style.display='none'">
-          <h3>500+ Students</h3>
-          <p>Your sponsorship helps support a vibrant school community of more than 500 Moore Elementary students through programs, events, and school-wide enrichment.</p>
-        </div>
-
-        <div class="value-card reveal">
-          <img src="icon2.png" alt="Sponsor tiers icon" class="value-icon" onerror="this.style.display='none'">
-          <h3>3 Sponsor Tiers</h3>
-          <p>We offer three sponsorship levels so businesses and community partners can choose the level of support that best fits their goals and visibility preferences.</p>
-        </div>
-
-        <div class="value-card reveal">
-          <img src="icon3.png" alt="Goal icon" class="value-icon" onerror="this.style.display='none'">
-          <h3>$50k Goal</h3>
-          <p>Our fundraising goal helps provide classroom resources, teacher support, student experiences, field trips, and programs that directly benefit Moore kids.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="section section-alt">
     <div class="container">
       <div class="section-head reveal">
@@ -809,7 +864,7 @@ a{
           <div class="miles-modern-icon">
             <img src="icon3.png" alt="Goal icon" onerror="this.style.display='none'">
           </div>
-          <h3>$50k Goal</h3>
+          <h3>\$50k Goal</h3>
           <p>Funds classroom enrichment, field trips, and school supplies.</p>
         </article>
 
@@ -826,10 +881,34 @@ a{
 
   <section class="section">
     <div class="container">
+      <div class="value-grid">
+        <div class="value-card reveal">
+          <img src="icon1.png" alt="Students icon" class="value-icon" onerror="this.style.display='none'">
+          <h3>500+ Students</h3>
+          <p>Your sponsorship helps support a vibrant school community of more than 500 Moore Elementary students through programs, events, and school-wide enrichment.</p>
+        </div>
+
+        <div class="value-card reveal">
+          <img src="icon2.png" alt="Sponsor tiers icon" class="value-icon" onerror="this.style.display='none'">
+          <h3>3 Sponsor Tiers</h3>
+          <p>We offer three sponsorship levels so businesses and community partners can choose the level of support that best fits their goals and visibility preferences.</p>
+        </div>
+
+        <div class="value-card reveal">
+          <img src="icon3.png" alt="Goal icon" class="value-icon" onerror="this.style.display='none'">
+          <h3>\$50k Goal</h3>
+          <p>Our fundraising goal helps provide classroom resources, teacher support, student experiences, field trips, and programs that directly benefit Moore kids.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
       <div class="why-modern reveal">
         <div class="why-modern-intro">
           <div class="why-modern-badge">
-            <img src="ptohome.png" alt="Moore Elementary PTO logo" onerror="this.style.display='none'">
+            <img src="meseagle.png" alt="Moore Elementary eagle" onerror="this.style.display='none'">
           </div>
 
           <div class="why-modern-copy">
@@ -887,50 +966,53 @@ a{
         </p>
       </div>
 
-      <div class="steps-modern">
-        <div class="step-modern reveal">
-          <div class="step-modern-num">1</div>
-          <div class="step-modern-content">
-            <h3>Choose your tier</h3>
-            <p>Presenting Sponsor (\$1,000) · Community Champion (\$600) · Community Builder (\$300)</p>
-          </div>
+      <div class="partner-layout">
+        <div class="partner-intro reveal">
+          <h2>Let’s build something meaningful together.</h2>
+          <p>Join us in celebrating Moore students and teachers while giving your business meaningful visibility in a strong, connected school community.</p>
         </div>
 
-        <div class="step-modern reveal">
-          <div class="step-modern-num">2</div>
-          <div class="step-modern-content">
-            <h3>Complete the form</h3>
-            <p>Fill in the sponsorship form with your business details.</p>
+        <div class="steps-modern">
+          <div class="step-modern reveal">
+            <div class="step-modern-num">1</div>
+            <div class="step-modern-content">
+              <h3>Choose your tier</h3>
+              <p>Presenting Sponsor · Community Champion · Community Builder</p>
+            </div>
+          </div>
+
+          <div class="step-modern reveal">
+            <div class="step-modern-num">2</div>
+            <div class="step-modern-content">
+              <h3>Complete the form</h3>
+              <p>Fill in the sponsorship form with your business details.</p>
+            </div>
+          </div>
+
+          <div class="step-modern reveal">
+            <div class="step-modern-num">3</div>
+            <div class="step-modern-content">
+              <h3>Submit your logo</h3>
+              <p>Gold and Silver sponsors can email a vector file or transparent PNG.</p>
+            </div>
+          </div>
+
+          <div class="step-modern reveal">
+            <div class="step-modern-num">4</div>
+            <div class="step-modern-content">
+              <h3>Send your donation</h3>
+              <p>Make checks payable to Moore Elementary School.</p>
+            </div>
+          </div>
+
+          <div class="step-modern reveal">
+            <div class="step-modern-num">5</div>
+            <div class="step-modern-content">
+              <h3>Receive confirmation</h3>
+              <p>We’ll confirm receipt and send your tax-deductible letter.</p>
+            </div>
           </div>
         </div>
-
-        <div class="step-modern reveal">
-          <div class="step-modern-num">3</div>
-          <div class="step-modern-content">
-            <h3>Submit your logo</h3>
-            <p>Gold and Silver sponsors can email a vector file or transparent PNG.</p>
-          </div>
-        </div>
-
-        <div class="step-modern reveal">
-          <div class="step-modern-num">4</div>
-          <div class="step-modern-content">
-            <h3>Send your donation</h3>
-            <p>Make checks payable to Moore Elementary School.</p>
-          </div>
-        </div>
-
-        <div class="step-modern reveal">
-          <div class="step-modern-num">5</div>
-          <div class="step-modern-content">
-            <h3>Receive confirmation</h3>
-            <p>We’ll confirm receipt and send your tax-deductible letter.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="mailing-modern reveal">
-        <strong>Mailing Address:</strong> 1061 Lewisburg Pike, Franklin, TN 37064
       </div>
     </div>
   </section>
@@ -945,24 +1027,35 @@ a{
       </div>
     </div>
 
-    <div class="logo-marquee">
-      <div class="logo-marquee-track">
-        <div class="logo-set">
-          <img src="logo1.png" alt="Sponsor 1" class="sponsor-logo">
-          <img src="logo2.png" alt="Sponsor 2" class="sponsor-logo">
-          <img src="logo3.png" alt="Sponsor 3" class="sponsor-logo">
-          <img src="logo4.png" alt="Sponsor 4" class="sponsor-logo">
-          <img src="logo5.png" alt="Sponsor 5" class="sponsor-logo">
-          <img src="logo6.png" alt="Sponsor 6" class="sponsor-logo">
-        </div>
+    <div class="logo-marquee-wrap">
+      <div class="logo-marquee">
+        <div class="logo-marquee-track">
+          <div class="logo-set">
+            <img src="logo1.png" alt="Sponsor 1" class="sponsor-logo">
+            <img src="logo2.png" alt="Sponsor 2" class="sponsor-logo">
+            <img src="logo3.png" alt="Sponsor 3" class="sponsor-logo">
+            <img src="logo4.png" alt="Sponsor 4" class="sponsor-logo">
+            <img src="logo5.png" alt="Sponsor 5" class="sponsor-logo">
+            <img src="logo6.png" alt="Sponsor 6" class="sponsor-logo">
+          </div>
 
-        <div class="logo-set">
-          <img src="logo1.png" alt="Sponsor 1" class="sponsor-logo">
-          <img src="logo2.png" alt="Sponsor 2" class="sponsor-logo">
-          <img src="logo3.png" alt="Sponsor 3" class="sponsor-logo">
-          <img src="logo4.png" alt="Sponsor 4" class="sponsor-logo">
-          <img src="logo5.png" alt="Sponsor 5" class="sponsor-logo">
-          <img src="logo6.png" alt="Sponsor 6" class="sponsor-logo">
+          <div class="logo-set">
+            <img src="logo1.png" alt="Sponsor 1" class="sponsor-logo">
+            <img src="logo2.png" alt="Sponsor 2" class="sponsor-logo">
+            <img src="logo3.png" alt="Sponsor 3" class="sponsor-logo">
+            <img src="logo4.png" alt="Sponsor 4" class="sponsor-logo">
+            <img src="logo5.png" alt="Sponsor 5" class="sponsor-logo">
+            <img src="logo6.png" alt="Sponsor 6" class="sponsor-logo">
+          </div>
+
+          <div class="logo-set">
+            <img src="logo1.png" alt="Sponsor 1" class="sponsor-logo">
+            <img src="logo2.png" alt="Sponsor 2" class="sponsor-logo">
+            <img src="logo3.png" alt="Sponsor 3" class="sponsor-logo">
+            <img src="logo4.png" alt="Sponsor 4" class="sponsor-logo">
+            <img src="logo5.png" alt="Sponsor 5" class="sponsor-logo">
+            <img src="logo6.png" alt="Sponsor 6" class="sponsor-logo">
+          </div>
         </div>
       </div>
     </div>
