@@ -283,7 +283,7 @@
       display:grid;
       grid-template-columns:1.3fr .9fr;
       gap:28px;
-      align-items:start;
+      align-items:stretch;
       margin-top:38px;
     }
 
@@ -313,7 +313,8 @@
     .about-side{
       display:grid;
       gap:20px;
-      align-self:start;
+      align-self:stretch;
+      grid-template-rows:repeat(3, 1fr);
     }
 
     .about-mini{
@@ -322,6 +323,9 @@
       padding:28px 30px 24px;
       box-shadow:var(--shadow-soft);
       border:1px solid rgba(12,21,70,.05);
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
     }
 
     .about-mini h3{
@@ -378,7 +382,38 @@
       max-width:560px;
     }
 
-    /* EVENTS */
+    /* HELP CARDS */
+    .help-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:26px;
+      margin-top:34px;
+    }
+
+    .help-card{
+      background:var(--white);
+      border-radius:30px;
+      padding:32px;
+      box-shadow:var(--shadow-soft);
+      border:1px solid rgba(12,21,70,.05);
+    }
+
+    .help-card h3{
+      font-family:'Baskervville',serif;
+      font-size:clamp(1.7rem, 2.5vw, 2.2rem);
+      line-height:1.08;
+      color:var(--navy);
+      margin-bottom:14px;
+    }
+
+    .help-card p{
+      color:var(--muted);
+      line-height:1.8;
+      font-size:1rem;
+    }
+
+    /* INFO / EVENTS */
+    .info-box,
     .event-box{
       margin-top:28px;
       background:var(--white);
@@ -388,7 +423,15 @@
       border:1px solid rgba(12,21,70,.05);
       color:var(--muted);
       font-size:1rem;
-      line-height:1.7;
+      line-height:1.8;
+    }
+
+    .info-box h3{
+      font-family:'Baskervville',serif;
+      color:var(--navy);
+      font-size:clamp(1.8rem, 3vw, 2.5rem);
+      line-height:1.1;
+      margin-bottom:14px;
     }
 
     /* CONNECT */
@@ -426,14 +469,14 @@
       overflow:hidden;
     }
 
-    .connect-icon img{
-      width:42px;
-      height:42px;
-      object-fit:contain;
-    }
-
     .connect-card.dark .connect-icon{
       background:rgba(255,255,255,.14);
+    }
+
+    .connect-icon svg{
+      width:42px;
+      height:42px;
+      display:block;
     }
 
     .connect-card h3{
@@ -486,10 +529,25 @@
       border:1px solid rgba(12,21,70,.05);
     }
 
-    .qr-box img{
+    .qr-box{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    #qrcode{
       width:160px;
       height:160px;
-      object-fit:contain;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    #qrcode canvas,
+    #qrcode img{
+      width:160px !important;
+      height:160px !important;
+      display:block;
     }
 
     .share-box h3{
@@ -593,8 +651,13 @@
       .about-grid,
       .feature-row,
       .connect-grid,
-      .resource-grid{
+      .resource-grid,
+      .help-grid{
         grid-template-columns:1fr;
+      }
+
+      .about-side{
+        grid-template-rows:auto;
       }
 
       .share-box{
@@ -658,10 +721,12 @@
       .about-main,
       .about-mini,
       .feature-panel,
+      .help-card,
       .connect-card,
       .resource-card,
       .share-box,
-      .event-box{
+      .event-box,
+      .info-box{
         padding:24px;
       }
 
@@ -687,7 +752,7 @@
   <nav class="site-nav">
     <div class="nav-inner">
       <div class="nav-left">
-        <a href="#about" class="nav-link">About</a>
+        <a href="/about" class="nav-link">About</a>
         <a href="#events" class="nav-link">Events</a>
         <a href="#connect" class="nav-link">Connect</a>
       </div>
@@ -708,7 +773,7 @@
     </div>
 
     <div class="nav-mobile" id="mobileMenu">
-      <a href="#about">About</a>
+      <a href="/about">About</a>
       <a href="#events">Events</a>
       <a href="#connect">Connect</a>
       <a href="#share">Share</a>
@@ -788,36 +853,45 @@
 
     <section class="section section-alt">
       <div class="container">
-        <div class="feature-row">
-          <div class="feature-media">
-            <img src="/community.png" alt="Moore school community" onerror="this.style.display='none'">
+        <h2 class="section-title">How We Help</h2>
+        <p class="section-copy">
+          We support Moore through fundraising, teacher appreciation, volunteer efforts, and community events that make school more connected, welcoming, and fun.
+        </p>
+
+        <div class="help-grid">
+          <div class="help-card">
+            <div class="feature-kicker">How We Help</div>
+            <h3>Fund school needs</h3>
+            <p>Helping provide resources, supplies, and enrichment opportunities for students.</p>
           </div>
 
-          <div class="feature-panel">
+          <div class="help-card">
             <div class="feature-kicker">How We Help</div>
-            <h2>Funding needs, supporting teachers, and building community at Moore.</h2>
-            <p>
-              We support Moore through fundraising, teacher appreciation, volunteer efforts, and community events that make school more connected, welcoming, and fun.
-            </p>
+            <h3>Support teachers</h3>
+            <p>Showing appreciation and helping teachers with classroom and school-wide needs.</p>
+          </div>
+
+          <div class="help-card">
+            <div class="feature-kicker">How We Help</div>
+            <h3>Build community</h3>
+            <p>Creating events and experiences that connect students, families, and staff.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section section-alt">
+    <section class="section" id="volunteer-impact">
       <div class="container">
-        <div class="feature-row">
-          <div class="feature-panel">
-            <div class="feature-kicker">Volunteer Impact</div>
-            <h2>Every hour of help makes a real difference.</h2>
-            <p>
-              Whether you’re helping at Book Fair, supporting a fundraiser, assisting teachers, or showing up for a single event, your time directly supports students and strengthens the Moore community.
-            </p>
-          </div>
+        <h2 class="section-title">Volunteer Impact</h2>
+        <p class="section-copy">
+          Every hour of help makes a real difference for Moore students, teachers, and families.
+        </p>
 
-          <div class="feature-media">
-            <img src="/volunteer.png" alt="Volunteer supporting students" onerror="this.style.display='none'">
-          </div>
+        <div class="info-box">
+          <h3>Every hour of help makes a real difference.</h3>
+          <p>
+            Whether you’re helping at Book Fair, supporting a fundraiser, assisting teachers, or showing up for a single event, your time directly supports students and strengthens the Moore community.
+          </p>
         </div>
       </div>
     </section>
@@ -844,24 +918,34 @@
 
         <div class="connect-grid">
           <div class="connect-card">
-            <div class="connect-icon">
-              <img src="/instagram.png" alt="Instagram logo" onerror="this.style.display='none'">
+            <div class="connect-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="3" width="18" height="18" rx="5" stroke="#0c1546" stroke-width="1.8"></rect>
+                <circle cx="12" cy="12" r="4.2" stroke="#0c1546" stroke-width="1.8"></circle>
+                <circle cx="17.4" cy="6.6" r="1.2" fill="#0c1546"></circle>
+              </svg>
             </div>
             <h3>@mooreelementarypto</h3>
             <p>PTO events, volunteer opportunities, family updates, and community news.</p>
           </div>
 
           <div class="connect-card">
-            <div class="connect-icon">
-              <img src="/instagram.png" alt="Instagram logo" onerror="this.style.display='none'">
+            <div class="connect-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="3" width="18" height="18" rx="5" stroke="#0c1546" stroke-width="1.8"></rect>
+                <circle cx="12" cy="12" r="4.2" stroke="#0c1546" stroke-width="1.8"></circle>
+                <circle cx="17.4" cy="6.6" r="1.2" fill="#0c1546"></circle>
+              </svg>
             </div>
             <h3>@mesfssd</h3>
             <p>School news, classroom highlights, and day-to-day moments from Moore.</p>
           </div>
 
           <div class="connect-card dark">
-            <div class="connect-icon">
-              <img src="/hearticon.png" alt="Support icon" onerror="this.style.display='none'">
+            <div class="connect-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 20.5c-.3 0-.6-.1-.8-.3C6.1 15.8 3 13 3 8.8 3 5.9 5.2 4 7.8 4c1.7 0 3.2.8 4.2 2.1C13 4.8 14.5 4 16.2 4 18.8 4 21 5.9 21 8.8c0 4.2-3.1 7-8.2 11.4-.2.2-.5.3-.8.3z" fill="#ffffff"></path>
+              </svg>
             </div>
             <h3>Support the PTO</h3>
             <p>Every donation helps fund programs, enrichment, events, and experiences for Moore students.</p>
@@ -880,7 +964,7 @@
 
         <div class="share-box">
           <div class="qr-box">
-            <img src="/qr.png" alt="QR code for Moore PTO site" onerror="this.style.display='none'">
+            <div id="qrcode" aria-label="QR code for Moore PTO site"></div>
           </div>
 
           <div>
@@ -933,6 +1017,7 @@
     <div class="footer-copy">© Moore Elementary PTO 2026</div>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
     function toggleMenu() {
       var menu = document.getElementById('mobileMenu');
@@ -941,16 +1026,28 @@
 
     function copyLink() {
       var input = document.getElementById('shareLink');
-      input.select();
-      input.setSelectionRange(0, 99999);
 
       navigator.clipboard.writeText(input.value).then(function() {
         alert('Link copied!');
       }).catch(function() {
+        input.select();
+        input.setSelectionRange(0, 99999);
         document.execCommand('copy');
         alert('Link copied!');
       });
     }
+
+    window.addEventListener('DOMContentLoaded', function () {
+      var shareUrl = document.getElementById('shareLink').value;
+      new QRCode(document.getElementById('qrcode'), {
+        text: shareUrl,
+        width: 160,
+        height: 160,
+        colorDark: "#0c1546",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    });
   </script>
 
 </body>
