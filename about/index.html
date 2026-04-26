@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Our PTO | Moore Elementary PTO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baskervville:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --gold:#ffc200;
+      --orange:#db6d42;
+      --navy:#0c1546;
+      --navy-2:#1d2a66;
+      --text:#172033;
+      --muted:#667085;
+      --bg:#f5f7fb;
+      --bg-alt:#eef2f8;
+      --white:#ffffff;
+      --max:1200px;
+      --shadow:0 20px 60px rgba(12,21,70,.10);
+      --shadow-soft:0 10px 30px rgba(12,21,70,.07);
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    .container{
+      width:min(var(--max), calc(100% - 40px));
+      margin:0 auto;
+    }
+
+    .section{
+      padding:90px 0;
+    }
+
+    .section-alt{
+      background:var(--bg-alt);
+    }
+
+    .feature-kicker{
+      display:inline-block;
+      color:var(--orange);
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      font-size:.76rem;
+      font-weight:700;
+      margin-bottom:12px;
+    }
+
+    .section-title{
+      font-family:'Baskervville',serif;
+      font-size:clamp(2rem, 4vw, 3rem);
+      line-height:1.05;
+      color:var(--navy);
+      margin-bottom:10px;
+    }
+
+    .section-copy{
+      max-width:780px;
+      color:var(--muted);
+      font-size:1rem;
+      line-height:1.8;
+    }
+
+    /* NAV */
+    .site-nav{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(12,21,70,.92);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .nav-inner{
+      width:min(var(--max), calc(100% - 40px));
+      margin:0 auto;
+      min-height:78px;
+      display:grid;
+      grid-template-columns:1fr auto 1fr;
+      align-items:center;
+      gap:20px;
+    }
+
+    .nav-left,
+    .nav-right{
+      display:flex;
+      align-items:center;
+      gap:26px;
+    }
+
+    .nav-right{
+      justify-content:flex-end;
+    }
+
+    .nav-brand{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .nav-brand img{
+      width:80px;
+      height:auto;
+      max-height:52px;
+      object-fit:contain;
+    }
+
+    .nav-link{
+      color:rgba(255,255,255,.9);
+      font-size:.95rem;
+    }
+
+    .nav-link:hover{
+      opacity:.78;
+    }
+
+    .nav-cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 18px;
+      border-radius:999px;
+      background:var(--gold);
+      color:var(--navy);
+      font-weight:700;
+      font-size:.9rem;
+    }
+
+    .nav-toggle{
+      display:none;
+      border:none;
+      background:none;
+      color:var(--white);
+      font-size:1.5rem;
+      cursor:pointer;
+    }
+
+    .nav-mobile{
+      display:none;
+      width:min(var(--max), calc(100% - 40px));
+      margin:0 auto;
+      padding:0 0 18px;
+    }
+
+    .nav-mobile.open{
+      display:grid;
+      gap:12px;
+    }
+
+    .nav-mobile a{
+      color:rgba(255,255,255,.92);
+      font-size:.96rem;
+    }
+
+    /* HERO */
+    .hero{
+      position:relative;
+      min-height:62vh;
+      display:flex;
+      align-items:center;
+      overflow:hidden;
+      background:var(--navy);
+    }
+
+    .hero-media{
+      position:absolute;
+      inset:0;
+    }
+
+    .hero-media img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      opacity:.38;
+    }
+
+    .hero-overlay{
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(12,21,70,.36) 0%, rgba(12,21,70,.82) 100%),
+        radial-gradient(circle at 20% 20%, rgba(255,194,0,.10), transparent 30%);
+    }
+
+    .hero-inner{
+      position:relative;
+      z-index:2;
+      width:min(var(--max), calc(100% - 40px));
+      margin:0 auto;
+      padding:88px 0 72px;
+    }
+
+    .hero-copy{
+      max-width:780px;
+      color:var(--white);
+    }
+
+    .eyebrow{
+      display:inline-block;
+      margin-bottom:18px;
+      color:var(--gold);
+      font-size:.8rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-weight:700;
+    }
+
+    .hero h1{
+      font-family:'Baskervville',serif;
+      font-size:clamp(2.8rem, 6vw, 4.8rem);
+      line-height:1;
+      letter-spacing:-.03em;
+      margin-bottom:20px;
+    }
+
+    .hero p{
+      max-width:720px;
+      font-size:1.08rem;
+      line-height:1.9;
+      color:rgba(255,255,255,.92);
+    }
+
+    /* INTRO */
+    .intro-grid{
+      display:grid;
+      grid-template-columns:1.2fr .9fr;
+      gap:28px;
+      align-items:start;
+      margin-top:36px;
+    }
+
+    .intro-main,
+    .intro-side-card{
+      background:var(--white);
+      border-radius:32px;
+      box-shadow:var(--shadow-soft);
+      border:1px solid rgba(12,21,70,.05);
+    }
+
+    .intro-main{
+      padding:40px 38px;
+    }
+
+    .intro-main p{
+      font-size:1.04rem;
+      line-height:1.9;
+      color:#27324b;
+      margin-bottom:24px;
+    }
+
+    .intro-main p:last-child{
+      margin-bottom:0;
+    }
+
+    .intro-main strong{
+      color:var(--navy);
+    }
+
+    .intro-side{
+      display:grid;
+      gap:20px;
+    }
+
+    .intro-side-card{
+      padding:28px 30px 26px;
+    }
+
+    .intro-side-card h3{
+      font-family:'Baskervville',serif;
+      color:var(--navy);
+      font-size:clamp(1.35rem, 2vw, 2rem);
+      line-height:1.12;
+      margin-bottom:10px;
+    }
+
+    .intro-side-card p{
+      color:var(--muted);
+      line-height:1.7;
+      font-size:1rem;
+    }
+
+    /* PROGRAMS */
+    .program-grid{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:24px;
+      margin-top:34px;
+    }
+
+    .program-card{
+      background:var(--white);
+      border-radius:28px;
+      padding:30px 28px;
+      box-shadow:var(--shadow-soft);
+      border:1px solid rgba(12,21,70,.05);
+    }
+
+    .program-card h3{
+      font-family:'Baskervville',serif;
+      color:var(--navy);
+      font-size:clamp(1.6rem, 2.5vw, 2.1rem);
+      line-height:1.12;
+      margin-bottom:10px;
+    }
+
+    .program-card p{
+      color:var(--muted);
+      line-height:1.75;
+      font-size:1rem;
+    }
+
+    /* VALUES / SUPPORT */
+    .support-grid{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:18px;
+      margin-top:30px;
+    }
+
+    .support-item{
+      display:grid;
+      grid-template-columns:56px 1fr;
+      gap:16px;
+      align-items:center;
+      background:var(--white);
+      border:1px solid rgba(12,21,70,.05);
+      border-radius:24px;
+      padding:20px 22px;
+      box-shadow:var(--shadow-soft);
+    }
+
+    .support-icon{
+      width:56px;
+      height:56px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+    }
+
+    .support-icon img{
+      width:56px;
+      height:56px;
+      object-fit:contain;
+    }
+
+    .support-item p{
+      color:var(--navy);
+      font-size:1.08rem;
+      line-height:1.45;
+      font-weight:700;
+      margin:0;
+    }
+
+    /* CTA */
+    .cta-box{
+      background:var(--white);
+      border-radius:32px;
+      padding:38px 36px;
+      box-shadow:var(--shadow-soft);
+      border:1px solid rgba(12,21,70,.05);
+      margin-top:34px;
+    }
+
+    .cta-box h2{
+      font-family:'Baskervville',serif;
+      color:var(--navy);
+      font-size:clamp(2rem, 4vw, 3rem);
+      line-height:1.05;
+      margin-bottom:14px;
+    }
+
+    .cta-box p{
+      color:var(--muted);
+      line-height:1.85;
+      font-size:1rem;
+      max-width:860px;
+    }
+
+    .cta-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:24px;
+    }
+
+    .btn-primary,
+    .btn-secondary{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:50px;
+      padding:0 20px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:.95rem;
+    }
+
+    .btn-primary{
+      background:var(--gold);
+      color:var(--navy);
+    }
+
+    .btn-secondary{
+      background:var(--navy);
+      color:var(--white);
+    }
+
+    /* FOOTER */
+    .site-footer{
+      background:#eef2f8;
+      border-top:1px solid rgba(12,21,70,.06);
+      padding:22px 0;
+      text-align:center;
+    }
+
+    .footer-copy{
+      color:var(--text);
+      line-height:1.6;
+      font-size:.96rem;
+      opacity:.9;
+    }
+
+    @media (max-width: 1100px){
+      .intro-grid,
+      .program-grid,
+      .support-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 860px){
+      .nav-left,
+      .nav-right{
+        display:none;
+      }
+
+      .nav-toggle{
+        display:block;
+      }
+
+      .nav-inner{
+        grid-template-columns:1fr auto;
+      }
+
+      .nav-brand{
+        justify-content:flex-start;
+      }
+
+      .nav-brand img{
+        width:72px;
+        max-height:48px;
+      }
+    }
+
+    @media (max-width: 640px){
+      .container,
+      .nav-inner,
+      .hero-inner,
+      .nav-mobile{
+        width:min(var(--max), calc(100% - 24px));
+      }
+
+      .section{
+        padding:70px 0;
+      }
+
+      .hero-inner{
+        padding:74px 0 60px;
+      }
+
+      .hero h1{
+        font-size:clamp(2.4rem, 11vw, 3.8rem);
+      }
+
+      .intro-main,
+      .intro-side-card,
+      .program-card,
+      .support-item,
+      .cta-box{
+        padding:24px;
+      }
+
+      .section-title,
+      .cta-box h2{
+        font-size:clamp(2rem, 8vw, 2.6rem);
+      }
+
+      .support-item{
+        grid-template-columns:48px 1fr;
+      }
+
+      .support-icon,
+      .support-icon img{
+        width:48px;
+        height:48px;
+      }
+
+      .nav-brand img{
+        width:64px;
+        max-height:42px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <a href="/#about" class="nav-link">About</a>
+        <a href="/#events" class="nav-link">Events</a>
+        <a href="/#connect" class="nav-link">Connect</a>
+      </div>
+
+      <div class="nav-brand">
+        <a href="/">
+          <img src="/ptohome.png" alt="Moore Elementary PTO logo" onerror="this.style.display='none'">
+        </a>
+      </div>
+
+      <div class="nav-right">
+        <a href="/#resources" class="nav-link">Resources</a>
+        <a href="/sponsor/" class="nav-link">Become a sponsor</a>
+        <a href="/volunteer/" class="nav-cta">Volunteer</a>
+      </div>
+
+      <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleMenu()">☰</button>
+    </div>
+
+    <div class="nav-mobile" id="mobileMenu">
+      <a href="/#about">About</a>
+      <a href="/#events">Events</a>
+      <a href="/#connect">Connect</a>
+      <a href="/#share">Share</a>
+      <a href="/#resources">Resources</a>
+      <a href="/sponsor/">Become a sponsor</a>
+      <a href="/volunteer/">Volunteer</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-media">
+      <img src="/mesheader.png" alt="Moore Elementary PTO community" onerror="this.style.display='none'">
+    </div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <div class="eyebrow">About Our PTO</div>
+        <h1>Supporting Moore through fundraising, service, and community.</h1>
+        <p>
+          Moore Elementary PTO exists to support students, teachers, and families by funding school needs, strengthening school connections, and helping create meaningful experiences throughout the year.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <main>
+
+    <section class="section section-alt">
+      <div class="container">
+        <h2 class="section-title">Who We Are</h2>
+        <p class="section-copy">
+          We are parents, guardians, teachers, and staff partners working together to support Moore Elementary and help every child feel encouraged, connected, and celebrated.
+        </p>
+
+        <div class="intro-grid">
+          <div class="intro-main">
+            <p>
+              The Moore Elementary PTO exists to serve our school by providing learning and enrichment opportunities for students, supporting teachers and staff, and helping fund the needs of the school through community-driven fundraising.
+            </p>
+
+            <p>
+              Everything we do is powered by volunteers. Whether a family can help with one event, contribute behind the scenes, or stay involved throughout the year, every effort helps strengthen the Moore community.
+            </p>
+
+            <p>
+              <strong>All parents and guardians of Moore Elementary students are automatically members of the PTO, and every family is welcome to get involved in whatever way fits their schedule.</strong>
+            </p>
+          </div>
+
+          <div class="intro-side">
+            <div class="intro-side-card">
+              <div class="feature-kicker">Who We Are</div>
+              <h3>Parents, guardians, and teachers</h3>
+              <p>Working together to support students, staff, and school-wide experiences.</p>
+            </div>
+
+            <div class="intro-side-card">
+              <div class="feature-kicker">How We Help</div>
+              <h3>Fundraising, teacher support, and community-building</h3>
+              <p>Creating opportunities that enrich student life and strengthen the Moore community.</p>
+            </div>
+
+            <div class="intro-side-card">
+              <div class="feature-kicker">How to Join</div>
+              <h3>You’re already part of it</h3>
+              <p>Every Moore parent or guardian is automatically a member of the PTO.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">How the PTO Gives Back</h2>
+        <p class="section-copy">
+          Our work reaches students, teachers, and families in many ways throughout the school year. Here are some of the programs, events, and efforts the PTO helps support.
+        </p>
+
+        <div class="program-grid">
+          <article class="program-card">
+            <h3>Fill the Nest</h3>
+            <p>Our direct donation campaign helps fund academic needs, school support, and enrichment opportunities that benefit Moore students and staff.</p>
+          </article>
+
+          <article class="program-card">
+            <h3>Moore Miles</h3>
+            <p>A school-wide fundraiser that brings together school spirit, movement, and community while raising support for Moore’s needs.</p>
+          </article>
+
+          <article class="program-card">
+            <h3>Teacher & Staff Appreciation</h3>
+            <p>Celebrating the teachers and staff who care for Moore students through appreciation events and meaningful support throughout the year.</p>
+          </article>
+
+          <article class="program-card">
+            <h3>Book Fair</h3>
+            <p>Promoting reading while helping provide additional resources and books that support the school library and student learning.</p>
+          </article>
+
+          <article class="program-card">
+            <h3>Hospitality</h3>
+            <p>Helping create welcoming experiences for staff and families through events such as welcome-back gatherings, appreciation weeks, and community celebrations.</p>
+          </article>
+
+          <article class="program-card">
+            <h3>NOOK</h3>
+            <p>Supporting children in need by helping provide clothing, hygiene products, and other necessities to school-aged children across the community.</p>
+          </article>
+
+          <article class="program-card">
+            <h3>Room Parents</h3>
+            <p>Giving parents opportunities to stay active in their child’s classroom and support teachers, students, and classroom celebrations.</p>
+          </article>
+
+          <article class="program-card">
+            <h3>Spirit Nights</h3>
+            <p>Building relationships with local businesses that give back to Moore while creating fun ways for families to gather and support the school.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <h2 class="section-title">What Your Support Makes Possible</h2>
+        <p class="section-copy">
+          PTO fundraising, volunteer service, and community support help strengthen school life in practical and meaningful ways.
+        </p>
+
+        <div class="support-grid">
+          <div class="support-item">
+            <div class="support-icon">
+              <img src="/checkmark.png" alt="Checkmark" onerror="this.style.display='none'">
+            </div>
+            <p>Classroom supplies and learning materials</p>
+          </div>
+
+          <div class="support-item">
+            <div class="support-icon">
+              <img src="/checkmark.png" alt="Checkmark" onerror="this.style.display='none'">
+            </div>
+            <p>Teacher appreciation and staff support</p>
+          </div>
+
+          <div class="support-item">
+            <div class="support-icon">
+              <img src="/checkmark.png" alt="Checkmark" onerror="this.style.display='none'">
+            </div>
+            <p>Student enrichment and school-wide experiences</p>
+          </div>
+
+          <div class="support-item">
+            <div class="support-icon">
+              <img src="/checkmark.png" alt="Checkmark" onerror="this.style.display='none'">
+            </div>
+            <p>Family events and community-building opportunities</p>
+          </div>
+
+          <div class="support-item">
+            <div class="support-icon">
+              <img src="/checkmark.png" alt="Checkmark" onerror="this.style.display='none'">
+            </div>
+            <p>Fundraising that meets real school needs</p>
+          </div>
+
+          <div class="support-item">
+            <div class="support-icon">
+              <img src="/checkmark.png" alt="Checkmark" onerror="this.style.display='none'">
+            </div>
+            <p>Volunteer opportunities for families to get involved</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-box">
+          <h2>Want to get involved?</h2>
+          <p>
+            Whether you want to volunteer, support fundraising, sponsor an event, or simply stay connected, there is a place for every Moore family in the PTO. We’d love to have you join us.
+          </p>
+
+          <div class="cta-actions">
+            <a href="/volunteer/" class="btn-primary">Volunteer</a>
+            <a href="/sponsor/" class="btn-secondary">Become a Sponsor</a>
+          </div>
+
+          <p style="margin-top:22px;">
+            You can always reach us at <a href="mailto:mooreelementaryschool@gmail.com" style="color:var(--navy); font-weight:700;">mooreelementaryschool@gmail.com</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-copy">© Moore Elementary PTO 2026</div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      var menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('open');
+    }
+  </script>
+
+</body>
+</html>
