@@ -11,6 +11,7 @@
       --orange:#db6d42;
       --navy:#0c1546;
       --navy-2:#1d2a66;
+      --blue-card:#3f5799;
       --text:#172033;
       --muted:#667085;
       --line:#dde3ef;
@@ -75,10 +76,10 @@
 
     .section-title{
       font-family:'Baskervville',serif;
-      font-size:clamp(2rem, 4vw, 4rem);
+      font-size:clamp(2rem, 4vw, 3rem);
       line-height:1.05;
       color:var(--navy);
-      margin-bottom:14px;
+      margin-bottom:10px;
     }
 
     .section-copy{
@@ -282,7 +283,7 @@
       display:grid;
       grid-template-columns:1.3fr .9fr;
       gap:28px;
-      align-items:stretch;
+      align-items:start;
       margin-top:38px;
     }
 
@@ -312,27 +313,28 @@
     .about-side{
       display:grid;
       gap:20px;
+      align-self:start;
     }
 
     .about-mini{
       background:var(--white);
       border-radius:28px;
-      padding:34px 34px 30px;
+      padding:28px 30px 24px;
       box-shadow:var(--shadow-soft);
       border:1px solid rgba(12,21,70,.05);
     }
 
     .about-mini h3{
       font-family:'Baskervville',serif;
-      font-size:clamp(1.7rem, 2.5vw, 2.3rem);
+      font-size:clamp(1.35rem, 2vw, 2rem);
       color:var(--navy);
-      line-height:1.15;
-      margin-bottom:12px;
+      line-height:1.12;
+      margin-bottom:10px;
     }
 
     .about-mini p{
       color:var(--muted);
-      line-height:1.7;
+      line-height:1.65;
       font-size:1rem;
     }
 
@@ -342,10 +344,6 @@
       grid-template-columns:1fr 1fr;
       gap:34px;
       align-items:center;
-    }
-
-    .feature-row.reverse{
-      grid-template-columns:1fr 1fr;
     }
 
     .feature-media img{
@@ -359,18 +357,18 @@
     .feature-panel{
       background:var(--white);
       border-radius:34px;
-      padding:54px 56px;
+      padding:42px 42px;
       box-shadow:var(--shadow-soft);
       border:1px solid rgba(12,21,70,.05);
     }
 
     .feature-panel h2{
       font-family:'Baskervville',serif;
-      font-size:clamp(2.4rem, 5vw, 4.7rem);
-      line-height:.98;
-      letter-spacing:-.03em;
+      font-size:clamp(2rem, 4vw, 3rem);
+      line-height:1.05;
+      letter-spacing:-.02em;
       color:var(--navy);
-      margin-bottom:24px;
+      margin-bottom:14px;
     }
 
     .feature-panel p{
@@ -403,15 +401,15 @@
 
     .connect-card{
       border-radius:30px;
-      padding:34px 32px;
+      padding:26px 26px 28px;
       box-shadow:var(--shadow-soft);
       border:1px solid rgba(12,21,70,.05);
       background:var(--white);
-      min-height:260px;
+      min-height:0;
     }
 
     .connect-card.dark{
-      background:#314a89;
+      background:var(--blue-card);
       color:var(--white);
       border:none;
     }
@@ -424,13 +422,18 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      margin-bottom:26px;
-      font-size:2rem;
+      margin-bottom:22px;
+      overflow:hidden;
+    }
+
+    .connect-icon img{
+      width:42px;
+      height:42px;
+      object-fit:contain;
     }
 
     .connect-card.dark .connect-icon{
       background:rgba(255,255,255,.14);
-      color:var(--white);
     }
 
     .connect-card h3{
@@ -449,10 +452,24 @@
       color:var(--muted);
       line-height:1.75;
       font-size:1rem;
+      margin-bottom:16px;
     }
 
     .connect-card.dark p{
       color:rgba(255,255,255,.86);
+    }
+
+    .connect-link{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-weight:800;
+      font-size:1rem;
+      color:var(--navy);
+    }
+
+    .connect-card.dark .connect-link{
+      color:var(--white);
     }
 
     /* SHARE */
@@ -478,7 +495,7 @@
     .share-box h3{
       font-family:'Baskervville',serif;
       color:var(--navy);
-      font-size:clamp(2rem, 3vw, 2.8rem);
+      font-size:clamp(1.8rem, 3vw, 2.4rem);
       line-height:1.1;
       margin-bottom:14px;
     }
@@ -530,14 +547,14 @@
     .resource-card{
       background:var(--white);
       border-radius:30px;
-      padding:34px 36px;
+      padding:32px 32px;
       box-shadow:var(--shadow-soft);
       border:1px solid rgba(12,21,70,.05);
     }
 
     .resource-card h3{
       font-family:'Baskervville',serif;
-      font-size:clamp(2rem, 3vw, 2.8rem);
+      font-size:clamp(1.9rem, 3vw, 2.5rem);
       line-height:1.08;
       color:var(--navy);
       margin-bottom:14px;
@@ -650,7 +667,7 @@
 
       .feature-panel h2,
       .section-title{
-        font-size:clamp(2.2rem, 10vw, 3.4rem);
+        font-size:clamp(2rem, 8vw, 2.6rem);
       }
 
       .share-input,
@@ -789,7 +806,7 @@
 
     <section class="section section-alt">
       <div class="container">
-        <div class="feature-row reverse">
+        <div class="feature-row">
           <div class="feature-panel">
             <div class="feature-kicker">Volunteer Impact</div>
             <h2>Every hour of help makes a real difference.</h2>
@@ -827,21 +844,28 @@
 
         <div class="connect-grid">
           <div class="connect-card">
-            <div class="connect-icon">📷</div>
+            <div class="connect-icon">
+              <img src="/instagram.png" alt="Instagram logo" onerror="this.style.display='none'">
+            </div>
             <h3>@mooreelementarypto</h3>
             <p>PTO events, volunteer opportunities, family updates, and community news.</p>
           </div>
 
           <div class="connect-card">
-            <div class="connect-icon">📷</div>
+            <div class="connect-icon">
+              <img src="/instagram.png" alt="Instagram logo" onerror="this.style.display='none'">
+            </div>
             <h3>@mesfssd</h3>
             <p>School news, classroom highlights, and day-to-day moments from Moore.</p>
           </div>
 
           <div class="connect-card dark">
-            <div class="connect-icon">♥</div>
+            <div class="connect-icon">
+              <img src="/hearticon.png" alt="Support icon" onerror="this.style.display='none'">
+            </div>
             <h3>Support the PTO</h3>
             <p>Every donation helps fund programs, enrichment, events, and experiences for Moore students.</p>
+            <a href="https://venmo.com/" target="_blank" rel="noopener noreferrer" class="connect-link">Donate with Venmo →</a>
           </div>
         </div>
       </div>
