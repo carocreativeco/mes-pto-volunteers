@@ -398,8 +398,17 @@
     .feature-row{
       display:grid;
       grid-template-columns:1fr 1fr;
-      gap:60px;
+      gap:80px;
       align-items:center;
+    }
+
+    .feature-media{
+      max-width:480px;
+      width:100%;
+    }
+
+    .feature-row.reverse .feature-media{
+      justify-self:end;
     }
 
     .feature-media img{
@@ -524,8 +533,8 @@
 
     .connect-item{
       display:grid;
-      grid-template-columns:80px 1fr 1.2fr auto;
-      gap:40px;
+      grid-template-columns:56px 1fr 1.2fr auto;
+      gap:32px;
       padding:36px 0;
       border-bottom:1px solid rgba(12,21,70,.18);
       align-items:center;
@@ -536,19 +545,27 @@
       background:rgba(255,194,0,.08);
     }
 
-    .connect-num{
-      font-family:'Baskervville',serif;
-      font-size:1.3rem;
-      color:var(--orange);
-      font-weight:700;
+    .connect-icon{
+      width:44px;
+      height:44px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+    }
+
+    .connect-icon svg{
+      width:100%;
+      height:100%;
+      display:block;
     }
 
     .connect-name{
       font-family:'Baskervville',serif;
-      font-size:clamp(1.5rem, 2.2vw, 2rem);
-      line-height:1.1;
+      font-size:clamp(1.15rem, 1.6vw, 1.4rem);
+      line-height:1.15;
       color:var(--navy);
-      letter-spacing:-.01em;
+      letter-spacing:-.005em;
     }
 
     .connect-desc{
@@ -823,7 +840,13 @@
       }
 
       .connect-item{
-        grid-template-columns:60px 1fr;
+        grid-template-columns:48px 1fr;
+        gap:20px;
+      }
+
+      .connect-icon{
+        width:40px;
+        height:40px;
       }
 
       .connect-desc{
@@ -913,14 +936,32 @@
       }
 
       .connect-item{
-        grid-template-columns:1fr;
-        gap:8px;
+        grid-template-columns:44px 1fr;
+        gap:16px;
         padding:28px 0;
+        align-items:start;
       }
 
-      .connect-desc,
-      .connect-action{
+      .connect-icon{
         grid-column:1;
+        grid-row:1 / span 3;
+        width:36px;
+        height:36px;
+      }
+
+      .connect-name{
+        grid-column:2;
+        grid-row:1;
+      }
+
+      .connect-desc{
+        grid-column:2;
+        grid-row:2;
+      }
+
+      .connect-action{
+        grid-column:2;
+        grid-row:3;
       }
 
       .share-input,
@@ -1043,7 +1084,7 @@
       <div class="container">
         <div class="feature-row">
           <div class="feature-media">
-            <img src="/community.png" alt="Students and families at Moore Elementary" onerror="this.style.display='none'">
+            <img src="/needs.png" alt="Students at Moore Elementary" onerror="this.style.display='none'">
           </div>
 
           <div class="feature-panel">
@@ -1134,21 +1175,37 @@
 
         <div class="connect-list">
           <a href="https://instagram.com/mooreelementarypto" target="_blank" rel="noopener noreferrer" class="connect-item">
-            <div class="connect-num">No. 01</div>
+            <div class="connect-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="3" width="18" height="18" rx="5" stroke="#0c1546" stroke-width="1.6"></rect>
+                <circle cx="12" cy="12" r="4.2" stroke="#0c1546" stroke-width="1.6"></circle>
+                <circle cx="17.4" cy="6.6" r="1.2" fill="#0c1546"></circle>
+              </svg>
+            </div>
             <h3 class="connect-name">@mooreelementarypto</h3>
             <p class="connect-desc">PTO events, volunteer opportunities, family updates, and community news.</p>
             <span class="connect-action">Follow on Instagram →</span>
           </a>
 
           <a href="https://instagram.com/mesfssd" target="_blank" rel="noopener noreferrer" class="connect-item">
-            <div class="connect-num">No. 02</div>
+            <div class="connect-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="3" width="18" height="18" rx="5" stroke="#0c1546" stroke-width="1.6"></rect>
+                <circle cx="12" cy="12" r="4.2" stroke="#0c1546" stroke-width="1.6"></circle>
+                <circle cx="17.4" cy="6.6" r="1.2" fill="#0c1546"></circle>
+              </svg>
+            </div>
             <h3 class="connect-name">@mesfssd</h3>
             <p class="connect-desc">School news, classroom highlights, and day-to-day moments from Moore.</p>
             <span class="connect-action">Follow on Instagram →</span>
           </a>
 
           <a href="https://venmo.com/u/jetza-nunez" target="_blank" rel="noopener noreferrer" class="connect-item">
-            <div class="connect-num">No. 03</div>
+            <div class="connect-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="#3f5799" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 20.5c-.3 0-.6-.1-.8-.3C6.1 15.8 3 13 3 8.8 3 5.9 5.2 4 7.8 4c1.7 0 3.2.8 4.2 2.1C13 4.8 14.5 4 16.2 4 18.8 4 21 5.9 21 8.8c0 4.2-3.1 7-8.2 11.4-.2.2-.5.3-.8.3z"></path>
+              </svg>
+            </div>
             <h3 class="connect-name">Support the PTO</h3>
             <p class="connect-desc">Every donation helps fund programs, enrichment, events, and experiences for Moore students.</p>
             <span class="connect-action">Donate with Venmo →</span>
