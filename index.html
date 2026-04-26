@@ -279,15 +279,8 @@
     }
 
     /* ABOUT */
-    .about-grid{
-      display:grid;
-      grid-template-columns:1.3fr .9fr;
-      gap:28px;
-      align-items:stretch;
-      margin-top:38px;
-    }
-
     .about-main{
+      margin-top:38px;
       background:var(--white);
       border-radius:34px;
       padding:42px 38px;
@@ -310,11 +303,11 @@
       color:var(--navy);
     }
 
-    .about-side{
+    .about-row{
       display:grid;
+      grid-template-columns:repeat(3, 1fr);
       gap:20px;
-      align-self:stretch;
-      grid-template-rows:repeat(3, 1fr);
+      margin-top:24px;
     }
 
     .about-mini{
@@ -323,9 +316,6 @@
       padding:28px 30px 24px;
       box-shadow:var(--shadow-soft);
       border:1px solid rgba(12,21,70,.05);
-      display:flex;
-      flex-direction:column;
-      justify-content:flex-start;
     }
 
     .about-mini h3{
@@ -380,36 +370,6 @@
       font-size:1.02rem;
       line-height:1.9;
       max-width:560px;
-    }
-
-    /* HELP CARDS */
-    .help-grid{
-      display:grid;
-      grid-template-columns:repeat(3, 1fr);
-      gap:26px;
-      margin-top:34px;
-    }
-
-    .help-card{
-      background:var(--white);
-      border-radius:30px;
-      padding:32px;
-      box-shadow:var(--shadow-soft);
-      border:1px solid rgba(12,21,70,.05);
-    }
-
-    .help-card h3{
-      font-family:'Baskervville',serif;
-      font-size:clamp(1.7rem, 2.5vw, 2.2rem);
-      line-height:1.08;
-      color:var(--navy);
-      margin-bottom:14px;
-    }
-
-    .help-card p{
-      color:var(--muted);
-      line-height:1.8;
-      font-size:1rem;
     }
 
     /* INFO / EVENTS */
@@ -648,16 +608,11 @@
     }
 
     @media (max-width: 1100px){
-      .about-grid,
+      .about-row,
       .feature-row,
       .connect-grid,
-      .resource-grid,
-      .help-grid{
+      .resource-grid{
         grid-template-columns:1fr;
-      }
-
-      .about-side{
-        grid-template-rows:auto;
       }
 
       .share-box{
@@ -721,7 +676,6 @@
       .about-main,
       .about-mini,
       .feature-panel,
-      .help-card,
       .connect-card,
       .resource-card,
       .share-box,
@@ -813,39 +767,37 @@
           We bring families, teachers, and staff together to support Moore Elementary through fundraising, volunteer efforts, and community-building throughout the school year.
         </p>
 
-        <div class="about-grid">
-          <div class="about-main">
-            <p>
-              The Moore Elementary PTO supports students and staff by organizing events, funding school needs, and helping create a welcoming, connected school community.
-            </p>
+        <div class="about-main">
+          <p>
+            The Moore Elementary PTO supports students and staff by organizing events, funding school needs, and helping create a welcoming, connected school community.
+          </p>
 
-            <p>
-              Everything we do is powered by volunteers and community support. From Moore Miles and Book Fair to teacher appreciation and classroom celebrations, every contribution helps make a real difference.
-            </p>
+          <p>
+            Everything we do is powered by volunteers and community support. From Moore Miles and Book Fair to teacher appreciation and classroom celebrations, every contribution helps make a real difference.
+          </p>
 
-            <p>
-              <strong>All parents and guardians of Moore Elementary students are automatically members of the PTO, and every family is welcome to get involved.</strong>
-            </p>
+          <p>
+            <strong>All parents and guardians of Moore Elementary students are automatically members of the PTO, and every family is welcome to get involved.</strong>
+          </p>
+        </div>
+
+        <div class="about-row">
+          <div class="about-mini">
+            <div class="feature-kicker">Who We Are</div>
+            <h3>Parents, guardians, and teachers</h3>
+            <p>Working together to support students, staff, and school-wide experiences.</p>
           </div>
 
-          <div class="about-side">
-            <div class="about-mini">
-              <div class="feature-kicker">Who We Are</div>
-              <h3>Parents, guardians, and teachers</h3>
-              <p>Working together to support students, staff, and school-wide experiences.</p>
-            </div>
+          <div class="about-mini">
+            <div class="feature-kicker">How We Help</div>
+            <h3>Fundraising, teacher support, and community-building</h3>
+            <p>Creating opportunities that enrich student life and strengthen the Moore community.</p>
+          </div>
 
-            <div class="about-mini">
-              <div class="feature-kicker">How We Help</div>
-              <h3>Fundraising, teacher support, and community-building</h3>
-              <p>Creating opportunities that enrich student life and strengthen the Moore community.</p>
-            </div>
-
-            <div class="about-mini">
-              <div class="feature-kicker">How to Join</div>
-              <h3>You’re already part of it</h3>
-              <p>Every Moore parent or guardian is automatically a member of the PTO.</p>
-            </div>
+          <div class="about-mini">
+            <div class="feature-kicker">How to Join</div>
+            <h3>You’re already part of it</h3>
+            <p>Every Moore parent or guardian is automatically a member of the PTO.</p>
           </div>
         </div>
       </div>
@@ -853,45 +805,90 @@
 
     <section class="section section-alt">
       <div class="container">
-        <h2 class="section-title">How We Help</h2>
-        <p class="section-copy">
-          We support Moore through fundraising, teacher appreciation, volunteer efforts, and community events that make school more connected, welcoming, and fun.
-        </p>
-
-        <div class="help-grid">
-          <div class="help-card">
-            <div class="feature-kicker">How We Help</div>
-            <h3>Fund school needs</h3>
-            <p>Helping provide resources, supplies, and enrichment opportunities for students.</p>
+        <div class="feature-row">
+          <div class="feature-media">
+            <img src="/community.png" alt="Moore school community" onerror="this.style.display='none'">
           </div>
 
-          <div class="help-card">
+          <div class="feature-panel">
             <div class="feature-kicker">How We Help</div>
-            <h3>Support teachers</h3>
-            <p>Showing appreciation and helping teachers with classroom and school-wide needs.</p>
-          </div>
-
-          <div class="help-card">
-            <div class="feature-kicker">How We Help</div>
-            <h3>Build community</h3>
-            <p>Creating events and experiences that connect students, families, and staff.</p>
+            <h2>Funding needs, supporting teachers, and building community at Moore.</h2>
+            <p>
+              We support Moore through fundraising, teacher appreciation, volunteer efforts, and community events that make school more connected, welcoming, and fun.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="volunteer-impact">
+    <section class="section section-alt">
       <div class="container">
-        <h2 class="section-title">Volunteer Impact</h2>
-        <p class="section-copy">
-          Every hour of help makes a real difference for Moore students, teachers, and families.
-        </p>
+        <div class="feature-row">
+          <div class="feature-media">
+            <img src="/community.png" alt="Students and families at Moore Elementary" onerror="this.style.display='none'">
+          </div>
 
-        <div class="info-box">
-          <h3>Every hour of help makes a real difference.</h3>
-          <p>
-            Whether you’re helping at Book Fair, supporting a fundraiser, assisting teachers, or showing up for a single event, your time directly supports students and strengthens the Moore community.
-          </p>
+          <div class="feature-panel">
+            <div class="feature-kicker">How We Help</div>
+            <h2>Fund school needs</h2>
+            <p>
+              Helping provide resources, supplies, and enrichment opportunities for students.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="feature-row">
+          <div class="feature-panel">
+            <div class="feature-kicker">How We Help</div>
+            <h2>Support teachers</h2>
+            <p>
+              Showing appreciation and helping teachers with classroom and school-wide needs.
+            </p>
+          </div>
+
+          <div class="feature-media">
+            <img src="/volunteer.png" alt="Teacher and student in classroom" onerror="this.style.display='none'">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="volunteer-impact">
+      <div class="container">
+        <div class="feature-row">
+          <div class="feature-panel">
+            <div class="feature-kicker">Volunteer Impact</div>
+            <h2>Every hour of help makes a real difference.</h2>
+            <p>
+              Whether you’re helping at Book Fair, supporting a fundraiser, assisting teachers, or showing up for a single event, your time directly supports students and strengthens the Moore community.
+            </p>
+          </div>
+
+          <div class="feature-media">
+            <img src="/volunteer.png" alt="Volunteer supporting Moore students" onerror="this.style.display='none'">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="feature-row">
+          <div class="feature-media">
+            <img src="/community.png" alt="Moore community event" onerror="this.style.display='none'">
+          </div>
+
+          <div class="feature-panel">
+            <div class="feature-kicker">How We Help</div>
+            <h2>Build community</h2>
+            <p>
+              Creating events and experiences that connect students, families, and staff.
+            </p>
+          </div>
         </div>
       </div>
     </section>
