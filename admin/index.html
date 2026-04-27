@@ -9,6 +9,17 @@
 :root{
   --gold:#ffc200;
   --orange:#db6d42;
+  --navy:#0c1546;<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin Dashboard — Moore Elementary PTO</title>
+<link href="https://fonts.googleapis.com/css2?family=Baskervville:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --gold:#ffc200;
+  --orange:#db6d42;
   --navy:#0c1546;
   --navy-2:#18245a;
   --text:#172033;
@@ -815,6 +826,1604 @@ button,input,select,textarea{font:inherit}
       <a href="/announcement-builder" class="header-link header-link-solid">Announcement Builder</a>
       <a href="index.html" class="header-link header-link-outline">Back to Site</a>
     </div>
+  </div>
+</header>
+
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-eyebrow">Moore Elementary PTO</div>
+    <h2>Admin Login</h2>
+    <p>Enter the admin password to access volunteer submissions, manage events, and export PTO data.</p>
+    <div class="login-error" id="loginError">Incorrect password. Please try again.</div>
+    <div class="login-field">
+      <label>Password</label>
+      <input type="password" id="loginPassword" placeholder="Enter password" onkeypress="if(event.key==='Enter')attemptLogin()"/>
+    </div>
+    <button class="btn-login" onclick="attemptLogin()">Log In</button>
+  </div>
+</div>
+
+<div class="dashboard" id="dashboard">
+  <div class="dashboard-shell">
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="overview">Overview</button>
+      <button class="tab" data-tab="volunteers">Volunteers</button>
+      <button class="tab" data-tab="events">Events</button>
+    </nav>
+
+    <!-- Overview -->
+    <div class="tab-content active" id="tab-overview">
+      <div class="section-head">
+        <h2 class="section-title">Dashboard Overview</h2>
+        <p class="section-intro">A quick snapshot of volunteer activity, event planning, and PTO participation across the school year.</p>
+      </div>
+      <div class="section-rule"></div>
+
+      <div class="stats-row">
+        <div class="stat-card highlight">
+          <div class="stat-card-label">Total Submissions</div>
+          <div class="stat-card-value" id="statTotalVolunteers">0</div>
+        </div>
+        <div class="stat-card highlight">
+          <div class="stat-card-label">Unique Emails</div>
+          <div class="stat-card-value" id="statUniqueEmails">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">New This Week</div>
+          <div class="stat-card-value" id="statNewVolunteers">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">Upcoming / Planned Events</div>
+          <div class="stat-card-value" id="statUpcomingEvents">0</div>
+        </div>
+      </div>
+
+      <div class="summary-grid">
+        <div class="summary-card">
+          <div class="summary-head">
+            <h4>Volunteers by Area</h4>
+            <p>Interest across common PTO support categories.</p>
+          </div>
+          <div class="summary-table" id="summaryByArea"></div>
+        </div>
+
+        <div class="summary-card">
+          <div class="summary-head">
+            <h4>Availability Overview</h4>
+            <p>When volunteers are most available to help.</p>
+          </div>
+          <div class="summary-table" id="summaryByAvailability"></div>
+        </div>
+
+        <div class="summary-card">
+          <div class="summary-head">
+            <h4>Children by Grade</h4>
+            <p>Participation snapshot by grade level.</p>
+          </div>
+          <div class="summary-table" id="summaryByGrade"></div>
+        </div>
+      </div>
+
+      <div class="action-bar" style="margin-top:8px">
+        <h3>Quick Actions</h3>
+      </div>
+
+      <div class="quick-actions-grid">
+        <div class="action-card" onclick="switchTab('volunteers')">
+          <span class="action-label">Volunteers</span>
+          <strong>View Sign-Ups</strong>
+          <span>Browse submissions, filter by area, and update outreach status.</span>
+        </div>
+        <div class="action-card" onclick="switchTab('events')">
+          <span class="action-label">Events</span>
+          <strong>Manage Events</strong>
+          <span>Add, edit, and organize PTO events for the school year.</span>
+        </div>
+        <div class="action-card" onclick="exportVolunteers()">
+          <span class="action-label">Export</span>
+          <strong>Download Volunteer Data</strong>
+          <span>Export all submissions as a CSV file for planning and outreach.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Volunteers -->
+    <div class="tab-content" id="tab-volunteers">
+      <div class="section-head">
+        <h2 class="section-title">Volunteer Sign-Ups</h2>
+        <p class="section-intro">Review submissions, search by contact info, and track volunteer follow-up status.</p>
+      </div>
+      <div class="section-rule"></div>
+
+      <div class="filter-bar">
+        <input type="text" class="search-input" id="volunteerSearch" placeholder="Search by name or email..." oninput="filterVolunteers()"/>
+        <select class="filter-select" id="volunteerStatusFilter" onchange="filterVolunteers()">
+          <option value="">All Statuses</option>
+          <option value="New">New</option>
+          <option value="Contacted">Contacted</option>
+          <option value="Confirmed">Confirmed</option>
+        </select>
+        <select class="filter-select" id="volunteerAreaFilter" onchange="filterVolunteers()">
+          <option value="">All Areas</option>
+        </select>
+      </div>
+
+      <div class="action-bar">
+        <h3>All Volunteers</h3>
+        <div class="action-buttons">
+          <button class="btn btn-secondary" onclick="exportVolunteers()">Export CSV</button>
+        </div>
+      </div>
+
+      <div class="volunteer-list" id="volunteerList"></div>
+    </div>
+
+    <!-- Events -->
+    <div class="tab-content" id="tab-events">
+      <div class="section-head">
+        <h2 class="section-title">PTO Events</h2>
+        <p class="section-intro">Manage year-round event planning, including placeholder items with dates and volunteer counts to be determined.</p>
+      </div>
+      <div class="section-rule"></div>
+
+      <div class="action-bar">
+        <h3>Events List</h3>
+        <div class="action-buttons">
+          <button class="btn btn-primary" onclick="openEventModal()">Add Event</button>
+        </div>
+      </div>
+
+      <div class="events-list" id="eventsList"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Event Modal -->
+<div class="modal-overlay" id="eventModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="eventModalTitle">Add Event</h3>
+      <button class="modal-close" onclick="closeEventModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="eventEditId"/>
+
+      <div class="form-field">
+        <label>Event Title *</label>
+        <input type="text" id="eventTitle" placeholder="e.g. Fall Festival"/>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label>Date</label>
+          <input type="date" id="eventDate"/>
+        </div>
+        <div class="form-field">
+          <label>Time</label>
+          <input type="text" id="eventTime" placeholder="e.g. 5:00 PM - 8:00 PM or TBD"/>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label>Location</label>
+          <input type="text" id="eventLocation" placeholder="e.g. School Gymnasium"/>
+        </div>
+        <div class="form-field">
+          <label>Volunteers Needed</label>
+          <input type="text" id="eventVolunteers" placeholder="e.g. 12 or TBD"/>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label>Description</label>
+        <textarea id="eventDescription" placeholder="Brief description of the event..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeEventModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEvent()">Save Event</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var ADMIN_PASSWORD = 'moorePTO2026';
+var STORAGE_KEY = 'moore_pto_v3';
+var STATUS_KEY = 'moore_pto_status';
+var EVENTS_KEY = 'moore_pto_events';
+
+var VOLUNTEER_AREAS = [
+  'Moore Miles','Bake Sale','Book Fair','Teacher Appreciation Week',
+  'Decorations Committee','Classroom Parties','Field Trip Chaperone',
+  'School Events Setup / Cleanup','Photography / Videography',
+  'Graphic Design','Arts & Crafts','Fundraising & Sponsorships'
+];
+
+var DEFAULT_EVENTS = [
+  'Teacher Meet & Greet',
+  '1st Half Day, Grades 1-4',
+  'Kindergarten Parent Meeting',
+  'First Full day for Kindergarten, Butterfly Breakfast for Kinder Parents',
+  '1st PTO Meeting with Room Parents',
+  'Parent Orientation',
+  'PTO Teacher Support Drive',
+  'Color Run',
+  'Early Dismissal',
+  'Labor Day: No School',
+  'Fill The Nest Donation Campaign',
+  'Moore Miles Spirit Week',
+  'Moore Miles!',
+  'Fall Break: No School',
+  'Fall Parties',
+  'Cranium Carnival',
+  'Book Fair',
+  'Virtual PTO Meeting',
+  'Loaves Of Thanks for Teachers',
+  'Thanksgiving Lunch',
+  'Thanksgiving Break: No School',
+  'Can Caroling, Holiday Class Parties: Abbreviated Day',
+  'Winter Break: No School',
+  'Students Return to School',
+  'MLK Holiday: No School',
+  'Valentine’s Day Parties',
+  'Presidents Day: No School',
+  'Teacher Appreciation Week',
+  'Eagle Extravaganza',
+  'Early Dismissal Day',
+  'Spring Break: No School',
+  'PTO Meeting with FIS Principal',
+  'Spring Holiday: No School',
+  'Fine Arts Night',
+  'Kindergarten Kick Off',
+  '4th Grade Walk',
+  'Field Day',
+  'Abbreviated Last Day of School'
+];
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+  ensureDefaultEvents();
+
+  if (sessionStorage.getItem('pto_admin_logged_in') === 'true') {
+    showDashboard();
+  }
+
+  document.querySelectorAll('.tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      switchTab(this.dataset.tab);
+    });
+  });
+
+  var areaFilter = document.getElementById('volunteerAreaFilter');
+  VOLUNTEER_AREAS.forEach(function(area) {
+    var opt = document.createElement('option');
+    opt.value = area;
+    opt.textContent = area;
+    areaFilter.appendChild(opt);
+  });
+});
+
+function ensureDefaultEvents() {
+  var existing = getEvents();
+  if (existing && existing.length > 0) return;
+
+  var seeded = DEFAULT_EVENTS.map(function(title, index) {
+    return {
+      id: 'seed_evt_' + (index + 1),
+      title: title,
+      date: '',
+      dateLabel: 'TBD',
+      time: 'TBD',
+      location: '',
+      description: '',
+      volunteersNeeded: 'TBD',
+      sortOrder: index
+    };
+  });
+
+  setEvents(seeded);
+}
+
+function attemptLogin() {
+  var password = document.getElementById('loginPassword').value;
+  if (password === ADMIN_PASSWORD) {
+    sessionStorage.setItem('pto_admin_logged_in', 'true');
+    showDashboard();
+  } else {
+    document.getElementById('loginError').classList.add('show');
+  }
+}
+
+function showDashboard() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('dashboard').classList.add('active');
+  loadDashboardData();
+}
+
+function switchTab(tabId) {
+  document.querySelectorAll('.tab').forEach(function(t) {
+    t.classList.toggle('active', t.dataset.tab === tabId);
+  });
+  document.querySelectorAll('.tab-content').forEach(function(c) {
+    c.classList.toggle('active', c.id === 'tab-' + tabId);
+  });
+}
+
+function loadDashboardData() {
+  loadStats();
+  loadVolunteers();
+  loadEvents();
+}
+
+function getVolunteers() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+  catch (e) { return []; }
+}
+
+function getStatuses() {
+  try { return JSON.parse(localStorage.getItem(STATUS_KEY)) || {}; }
+  catch (e) { return {}; }
+}
+
+function setStatuses(statuses) {
+  localStorage.setItem(STATUS_KEY, JSON.stringify(statuses));
+}
+
+function getEvents() {
+  try { return JSON.parse(localStorage.getItem(EVENTS_KEY)) || []; }
+  catch (e) { return []; }
+}
+
+function setEvents(events) {
+  localStorage.setItem(EVENTS_KEY, JSON.stringify(events));
+}
+
+function eventHasRealDate(e) {
+  return !!(e.date && String(e.date).trim());
+}
+
+function getEventDateLabel(e) {
+  if (eventHasRealDate(e)) {
+    var date = new Date(e.date + 'T12:00:00');
+    var monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    return {
+      label: 'Scheduled Date',
+      value: monthNames[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() + ' · ' + dayNames[date.getDay()]
+    };
+  }
+  return {
+    label: 'Scheduled Date',
+    value: e.dateLabel || 'TBD'
+  };
+}
+
+function sortEventsForAdmin(events) {
+  return events.slice().sort(function(a, b) {
+    var aHasDate = eventHasRealDate(a);
+    var bHasDate = eventHasRealDate(b);
+
+    if (aHasDate && bHasDate) {
+      return new Date(a.date) - new Date(b.date);
+    }
+    if (aHasDate && !bHasDate) return -1;
+    if (!aHasDate && bHasDate) return 1;
+
+    var aOrder = typeof a.sortOrder === 'number' ? a.sortOrder : 9999;
+    var bOrder = typeof b.sortOrder === 'number' ? b.sortOrder : 9999;
+    return aOrder - bOrder;
+  });
+}
+
+function loadStats() {
+  var volunteers = getVolunteers();
+  var statuses = getStatuses();
+  var events = getEvents();
+
+  document.getElementById('statTotalVolunteers').textContent = volunteers.length;
+
+  var uniqueEmails = new Set();
+  volunteers.forEach(function(v) {
+    if (v.email) uniqueEmails.add(v.email.toLowerCase());
+  });
+  document.getElementById('statUniqueEmails').textContent = uniqueEmails.size;
+
+  var weekAgo = new Date();
+  weekAgo.setDate(weekAgo.getDate() - 7);
+  var newCount = volunteers.filter(function(v) {
+    return new Date(v.submittedAt) >= weekAgo;
+  }).length;
+  document.getElementById('statNewVolunteers').textContent = newCount;
+
+  var upcomingCount = events.length;
+  document.getElementById('statUpcomingEvents').textContent = upcomingCount;
+
+  var areaCounts = {};
+  VOLUNTEER_AREAS.forEach(function(area) {
+    areaCounts[area] = 0;
+  });
+  volunteers.forEach(function(v) {
+    (v.volunteerAreas || []).forEach(function(a) {
+      if (areaCounts.hasOwnProperty(a)) areaCounts[a]++;
+    });
+  });
+
+  var areaHtml = '';
+  VOLUNTEER_AREAS.forEach(function(area) {
+    areaHtml += '<div class="summary-row"><span class="summary-row-label">' + area + '</span><span class="summary-row-value">' + areaCounts[area] + '</span></div>';
+  });
+  document.getElementById('summaryByArea').innerHTML = areaHtml;
+
+  var availabilityOptions = ['Weekday Mornings', 'Weekday Afternoons', 'Evenings', 'Weekends'];
+  var availCounts = {};
+  availabilityOptions.forEach(function(opt) {
+    availCounts[opt] = 0;
+  });
+  volunteers.forEach(function(v) {
+    (v.availability || []).forEach(function(a) {
+      if (availCounts.hasOwnProperty(a)) availCounts[a]++;
+    });
+  });
+
+  var availHtml = '';
+  availabilityOptions.forEach(function(opt) {
+    availHtml += '<div class="summary-row"><span class="summary-row-label">' + opt + '</span><span class="summary-row-value">' + availCounts[opt] + '</span></div>';
+  });
+  document.getElementById('summaryByAvailability').innerHTML = availHtml;
+
+  var grades = ['Kindergarten', '1st Grade', '2nd Grade', '3rd Grade', '4th Grade', '5th Grade'];
+  var gradeCounts = {};
+  grades.forEach(function(g) {
+    gradeCounts[g] = 0;
+  });
+  volunteers.forEach(function(v) {
+    (v.children || []).forEach(function(c) {
+      if (c.grade && gradeCounts.hasOwnProperty(c.grade)) gradeCounts[c.grade]++;
+    });
+  });
+
+  var gradeHtml = '';
+  grades.forEach(function(g) {
+    gradeHtml += '<div class="summary-row"><span class="summary-row-label">' + g + '</span><span class="summary-row-value">' + gradeCounts[g] + '</span></div>';
+  });
+  document.getElementById('summaryByGrade').innerHTML = gradeHtml;
+}
+
+function loadVolunteers() {
+  filterVolunteers();
+}
+
+function filterVolunteers() {
+  var volunteers = getVolunteers();
+  var statuses = getStatuses();
+  var search = document.getElementById('volunteerSearch').value.toLowerCase();
+  var statusFilter = document.getElementById('volunteerStatusFilter').value;
+  var areaFilter = document.getElementById('volunteerAreaFilter').value;
+
+  var filtered = volunteers.filter(function(v) {
+    var key = v.submittedAt + v.email;
+    var status = statuses[key] || 'New';
+
+    var matchesSearch = !search ||
+      ((v.firstName + ' ' + v.lastName).toLowerCase().includes(search)) ||
+      ((v.email || '').toLowerCase().includes(search));
+
+    var matchesStatus = !statusFilter || status === statusFilter;
+    var matchesArea = !areaFilter || (v.volunteerAreas || []).includes(areaFilter);
+
+    return matchesSearch && matchesStatus && matchesArea;
+  });
+
+  filtered.sort(function(a, b) {
+    return new Date(b.submittedAt) - new Date(a.submittedAt);
+  });
+
+  renderVolunteers(filtered, statuses);
+}
+
+function renderVolunteers(volunteers, statuses) {
+  var container = document.getElementById('volunteerList');
+
+  if (volunteers.length === 0) {
+    container.innerHTML = '<div class="empty-state"><h4>No volunteers found</h4><p>No volunteer sign-ups match your current filters.</p></div>';
+    return;
+  }
+
+  var html = '';
+  volunteers.forEach(function(v) {
+    var key = v.submittedAt + v.email;
+    var status = statuses[key] || 'New';
+    var badgeClass = status === 'New' ? 'badge-new' : (status === 'Contacted' ? 'badge-contacted' : 'badge-confirmed');
+    var date = new Date(v.submittedAt);
+    var dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+    html += '<div class="volunteer-card">';
+    html +=   '<div class="volunteer-card-header">';
+    html +=     '<div class="volunteer-info">';
+    html +=       '<h4>' + escapeHtml(v.firstName + ' ' + v.lastName) + '</h4>';
+    html +=       '<p><a href="mailto:' + escapeHtml(v.email) + '">' + escapeHtml(v.email) + '</a>';
+    if (v.phone) html += ' · ' + escapeHtml(v.phone);
+    html +=       '</p>';
+    html +=     '</div>';
+    html +=     '<div class="volunteer-meta">';
+    html +=       '<span class="badge ' + badgeClass + '">' + status + '</span>';
+    html +=     '</div>';
+    html +=   '</div>';
+
+    html +=   '<div class="volunteer-card-body">';
+
+    if (v.children && v.children.length > 0) {
+      html += '<div class="volunteer-detail">';
+      html +=   '<div class="volunteer-detail-label">Children</div>';
+      html +=   '<div class="volunteer-detail-value">';
+      html += v.children.map(function(c) {
+        return escapeHtml(c.name) + ' (' + escapeHtml(c.grade) + ', ' + escapeHtml(c.teacher) + ')';
+      }).join('<br>');
+      html +=   '</div>';
+      html += '</div>';
+    }
+
+    if (v.volunteerAreas && v.volunteerAreas.length > 0) {
+      html += '<div class="volunteer-detail">';
+      html +=   '<div class="volunteer-detail-label">Areas of Interest</div>';
+      html +=   '<div class="volunteer-tags">';
+      v.volunteerAreas.forEach(function(a) {
+        html += '<span class="tag">' + escapeHtml(a) + '</span>';
+      });
+      html +=   '</div>';
+      html += '</div>';
+    }
+
+    if (v.availability && v.availability.length > 0) {
+      html += '<div class="volunteer-detail">';
+      html +=   '<div class="volunteer-detail-label">Availability</div>';
+      html +=   '<div class="volunteer-detail-value">' + v.availability.map(escapeHtml).join(', ') + '</div>';
+      html += '</div>';
+    }
+
+    html += '<div class="volunteer-detail">';
+    html +=   '<div class="volunteer-detail-label">Submitted</div>';
+    html +=   '<div class="volunteer-detail-value">' + dateStr + '</div>';
+    html += '</div>';
+
+    html +=   '</div>';
+
+    html +=   '<div class="volunteer-card-actions">';
+    html +=     '<button class="btn btn-sm btn-secondary" onclick="updateStatus(\'' + key.replace(/'/g, "\\'") + '\', \'New\')">Mark New</button>';
+    html +=     '<button class="btn btn-sm btn-secondary" onclick="updateStatus(\'' + key.replace(/'/g, "\\'") + '\', \'Contacted\')">Mark Contacted</button>';
+    html +=     '<button class="btn btn-sm btn-success" onclick="updateStatus(\'' + key.replace(/'/g, "\\'") + '\', \'Confirmed\')">Mark Confirmed</button>';
+    html +=   '</div>';
+
+    html += '</div>';
+  });
+
+  container.innerHTML = html;
+}
+
+function updateStatus(key, status) {
+  var statuses = getStatuses();
+  statuses[key] = status;
+  setStatuses(statuses);
+  loadDashboardData();
+}
+
+function loadEvents() {
+  var events = sortEventsForAdmin(getEvents());
+  var container = document.getElementById('eventsList');
+
+  if (events.length === 0) {
+    container.innerHTML = '<div class="empty-state"><h4>No events yet</h4><p>Add your first PTO event to get started.</p><button class="btn btn-primary" onclick="openEventModal()">Add Event</button></div>';
+    return;
+  }
+
+  var html = '';
+
+  events.forEach(function(e) {
+    var dateInfo = getEventDateLabel(e);
+    html += '<div class="event-item">';
+    html +=   '<div class="event-date-block">';
+    html +=     '<span class="event-date-label">' + dateInfo.label + '</span>';
+    html +=     '<span class="event-date-value">' + escapeHtml(dateInfo.value) + '</span>';
+    html +=   '</div>';
+    html +=   '<div class="event-item-content">';
+    html +=     '<h4>' + escapeHtml(e.title) + '</h4>';
+    html +=     '<div class="event-item-meta">';
+    html +=       '<span class="event-pill">Time: ' + escapeHtml(e.time || 'TBD') + '</span>';
+    html +=       '<span class="event-pill">Volunteers: ' + escapeHtml(e.volunteersNeeded || 'TBD') + '</span>';
+    if (e.location) {
+      html +=   '<span class="event-pill">Location: ' + escapeHtml(e.location) + '</span>';
+    }
+    html +=     '</div>';
+    if (e.description) {
+      html +=   '<div class="event-item-desc">' + escapeHtml(e.description) + '</div>';
+    }
+    html +=   '</div>';
+    html +=   '<div class="event-item-actions">';
+    html +=     '<button class="btn btn-sm btn-secondary btn-icon" onclick="editEvent(\'' + e.id + '\')">Edit</button>';
+    html +=     '<button class="btn btn-sm btn-secondary btn-icon" onclick="deleteEvent(\'' + e.id + '\')" style="color:var(--danger)">Delete</button>';
+    html +=   '</div>';
+    html += '</div>';
+  });
+
+  container.innerHTML = html;
+}
+
+function openEventModal(eventId) {
+  document.getElementById('eventModalTitle').textContent = eventId ? 'Edit Event' : 'Add Event';
+  document.getElementById('eventEditId').value = eventId || '';
+  document.getElementById('eventTitle').value = '';
+  document.getElementById('eventDate').value = '';
+  document.getElementById('eventTime').value = '';
+  document.getElementById('eventLocation').value = '';
+  document.getElementById('eventDescription').value = '';
+  document.getElementById('eventVolunteers').value = '';
+
+  if (eventId) {
+    var events = getEvents();
+    var event = events.find(function(e) { return e.id === eventId; });
+    if (event) {
+      document.getElementById('eventTitle').value = event.title || '';
+      document.getElementById('eventDate').value = event.date || '';
+      document.getElementById('eventTime').value = event.time || '';
+      document.getElementById('eventLocation').value = event.location || '';
+      document.getElementById('eventDescription').value = event.description || '';
+      document.getElementById('eventVolunteers').value = event.volunteersNeeded || '';
+    }
+  }
+
+  document.getElementById('eventModal').classList.add('active');
+}
+
+function closeEventModal() {
+  document.getElementById('eventModal').classList.remove('active');
+}
+
+function editEvent(eventId) {
+  openEventModal(eventId);
+}
+
+function saveEvent() {
+  var title = document.getElementById('eventTitle').value.trim();
+  var date = document.getElementById('eventDate').value.trim();
+  var time = document.getElementById('eventTime').value.trim();
+  var location = document.getElementById('eventLocation').value.trim();
+  var description = document.getElementById('eventDescription').value.trim();
+  var volunteersNeeded = document.getElementById('eventVolunteers').value.trim();
+  var editId = document.getElementById('eventEditId').value;
+
+  if (!title) {
+    alert('Please enter an event title.');
+    return;
+  }
+
+  var events = getEvents();
+
+  if (editId) {
+    events = events.map(function(e) {
+      if (e.id === editId) {
+        return {
+          id: e.id,
+          title: title,
+          date: date,
+          dateLabel: date ? '' : 'TBD',
+          time: time || 'TBD',
+          location: location,
+          description: description,
+          volunteersNeeded: volunteersNeeded || 'TBD',
+          sortOrder: typeof e.sortOrder === 'number' ? e.sortOrder : 9999
+        };
+      }
+      return e;
+    });
+  } else {
+    var maxSort = events.reduce(function(max, e) {
+      return Math.max(max, typeof e.sortOrder === 'number' ? e.sortOrder : 0);
+    }, 0);
+
+    events.push({
+      id: 'evt_' + Date.now(),
+      title: title,
+      date: date,
+      dateLabel: date ? '' : 'TBD',
+      time: time || 'TBD',
+      location: location,
+      description: description,
+      volunteersNeeded: volunteersNeeded || 'TBD',
+      sortOrder: maxSort + 1
+    });
+  }
+
+  setEvents(events);
+  closeEventModal();
+  loadDashboardData();
+}
+
+function deleteEvent(eventId) {
+  if (!confirm('Are you sure you want to delete this event?')) return;
+
+  var events = getEvents().filter(function(e) {
+    return e.id !== eventId;
+  });
+
+  setEvents(events);
+  loadDashboardData();
+}
+
+function exportVolunteers() {
+  var volunteers = getVolunteers();
+  var statuses = getStatuses();
+
+  if (volunteers.length === 0) {
+    alert('No volunteer data to export.');
+    return;
+  }
+
+  var headers = ['First Name','Last Name','Email','Phone','Contact Preference','Children','Volunteer Areas','Other Skills','Availability','Availability Notes','Comments','How Heard','Status','Submitted'];
+  var rows = [headers.join(',')];
+
+  volunteers.forEach(function(v) {
+    var key = v.submittedAt + v.email;
+    var status = statuses[key] || 'New';
+    var children = (v.children || []).map(function(c) {
+      return c.name + ' (' + c.grade + ', ' + c.teacher + ')';
+    }).join('; ');
+
+    var row = [
+      csvEscape(v.firstName),
+      csvEscape(v.lastName),
+      csvEscape(v.email),
+      csvEscape(v.phone),
+      csvEscape(v.contactPref),
+      csvEscape(children),
+      csvEscape((v.volunteerAreas || []).join('; ')),
+      csvEscape(v.otherSkills),
+      csvEscape((v.availability || []).join('; ')),
+      csvEscape(v.availNotes),
+      csvEscape(v.comments),
+      csvEscape(v.hearAbout),
+      csvEscape(status),
+      csvEscape(new Date(v.submittedAt).toLocaleDateString())
+    ];
+    rows.push(row.join(','));
+  });
+
+  var csv = rows.join('\n');
+  var blob = new Blob([csv], { type: 'text/csv' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'pto-volunteers-' + new Date().toISOString().slice(0, 10) + '.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function csvEscape(val) {
+  if (!val) return '';
+  val = String(val);
+  if (val.includes(',') || val.includes('"') || val.includes('\n')) {
+    return '"' + val.replace(/"/g, '""') + '"';
+  }
+  return val;
+}
+
+function escapeHtml(text) {
+  if (!text) return '';
+  var div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+</script>
+
+</body>
+</html>
+  --navy-2:#18245a;
+  --text:#172033;
+  --muted:#667085;
+  --line:#dde3ef;
+  --line-soft:#e9edf5;
+  --bg:#f7f8fb;
+  --white:#ffffff;
+  --success:#16a34a;
+  --danger:#dc2626;
+  --warning:#b45309;
+  --shadow:0 20px 50px rgba(12,21,70,.08);
+  --radius:18px;
+  --radius-sm:12px;
+  --max:1180px;
+}
+
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:linear-gradient(180deg,#fbfcfe 0%, #f3f6fb 100%);
+  color:var(--text);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+img{max-width:100%;display:block}
+button,input,select,textarea{font:inherit}
+
+.container{
+  width:min(var(--max), calc(100% - 40px));
+  margin:0 auto;
+}
+
+/* Header */
+.admin-header{
+  background:var(--navy);
+  color:var(--white);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.admin-header-inner{
+  width:min(var(--max), calc(100% - 40px));
+  margin:0 auto;
+  min-height:74px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:16px 0;
+  flex-wrap:wrap;
+}
+.admin-header-left{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.admin-header-left img{
+  height:36px;
+  width:auto;
+}
+.admin-header h1{
+  font-family:'Baskervville',serif;
+  font-size:1.3rem;
+  color:var(--gold);
+}
+.admin-header-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.header-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  padding:11px 16px;
+  border-radius:999px;
+  font-size:.86rem;
+  font-weight:600;
+  transition:transform .2s ease, opacity .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+}
+.header-link:hover{transform:translateY(-1px)}
+.header-link-outline{
+  color:var(--gold);
+  border:1px solid rgba(255,194,0,.6);
+  background:transparent;
+}
+.header-link-outline:hover{
+  background:rgba(255,194,0,.1);
+}
+.header-link-solid{
+  background:var(--gold);
+  color:var(--navy);
+}
+
+/* Login */
+.login-screen{
+  min-height:calc(100vh - 74px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:50px 20px;
+}
+.login-card{
+  width:100%;
+  max-width:430px;
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:34px;
+  box-shadow:var(--shadow);
+}
+.login-eyebrow{
+  color:var(--orange);
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-size:.76rem;
+  font-weight:700;
+  margin-bottom:12px;
+}
+.login-card h2{
+  font-family:'Baskervville',serif;
+  color:var(--navy);
+  font-size:2rem;
+  line-height:1.1;
+  margin-bottom:10px;
+}
+.login-card p{
+  font-size:.94rem;
+  color:var(--muted);
+  line-height:1.75;
+  margin-bottom:22px;
+}
+.login-error{
+  background:#fef2f2;
+  border:1px solid #fecaca;
+  color:var(--danger);
+  padding:12px 14px;
+  border-radius:14px;
+  font-size:.88rem;
+  margin-bottom:16px;
+  display:none;
+}
+.login-error.show{display:block}
+.login-field{margin-bottom:16px}
+.login-field label{
+  display:block;
+  font-size:.78rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--navy);
+  margin-bottom:8px;
+}
+.login-field input{
+  width:100%;
+  padding:14px 16px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  font-size:.95rem;
+  outline:none;
+  background:var(--white);
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+.login-field input:focus{
+  border-color:rgba(255,194,0,.85);
+  box-shadow:0 0 0 4px rgba(255,194,0,.14);
+}
+.btn-login{
+  width:100%;
+  padding:14px 18px;
+  background:var(--navy);
+  color:var(--white);
+  border:none;
+  border-radius:999px;
+  font-size:.95rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:transform .2s ease, opacity .2s ease;
+}
+.btn-login:hover{
+  transform:translateY(-1px);
+  opacity:.94;
+}
+
+/* Dashboard */
+.dashboard{display:none}
+.dashboard.active{display:block}
+
+.dashboard-shell{
+  width:min(var(--max), calc(100% - 40px));
+  margin:30px auto 50px;
+}
+
+/* Tabs */
+.tabs{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:28px;
+}
+.tab{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.8);
+  color:var(--muted);
+  border-radius:999px;
+  padding:12px 16px;
+  font-size:.9rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:all .2s ease;
+}
+.tab:hover{
+  color:var(--navy);
+  border-color:#cfd8eb;
+}
+.tab.active{
+  background:var(--navy);
+  color:var(--white);
+  border-color:var(--navy);
+}
+
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* Section header */
+.section-head{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:24px;
+  align-items:end;
+  margin-bottom:22px;
+}
+.section-title{
+  font-family:'Baskervville',serif;
+  font-size:2rem;
+  color:var(--navy);
+  line-height:1.1;
+}
+.section-intro{
+  color:var(--muted);
+  font-size:.94rem;
+  line-height:1.75;
+  justify-self:end;
+  max-width:480px;
+}
+.section-rule{
+  height:1px;
+  background:linear-gradient(90deg,var(--navy),rgba(12,21,70,.08));
+  opacity:.18;
+  margin-bottom:28px;
+}
+
+/* Stats */
+.stats-row{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-bottom:30px;
+}
+.stat-card{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:22px;
+}
+.stat-card.highlight{
+  background:var(--navy);
+  border-color:var(--navy);
+}
+.stat-card-label{
+  font-size:.76rem;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  color:var(--muted);
+  margin-bottom:10px;
+  font-weight:700;
+}
+.stat-card.highlight .stat-card-label{color:rgba(255,194,0,.95)}
+.stat-card-value{
+  font-family:'Baskervville',serif;
+  font-size:2.2rem;
+  color:var(--navy);
+  line-height:1;
+}
+.stat-card.highlight .stat-card-value{color:var(--white)}
+.stat-card-sub{
+  margin-top:8px;
+  color:var(--muted);
+  font-size:.84rem;
+}
+
+/* Summary */
+.summary-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-bottom:30px;
+}
+.summary-card{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:22px;
+  overflow:hidden;
+}
+.summary-head{
+  padding:18px 20px 14px;
+}
+.summary-head h4{
+  font-family:'Baskervville',serif;
+  font-size:1.2rem;
+  color:var(--navy);
+  margin-bottom:4px;
+}
+.summary-head p{
+  color:var(--muted);
+  font-size:.84rem;
+}
+.summary-table{
+  border-top:1px solid var(--line-soft);
+}
+.summary-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:13px 20px;
+  border-bottom:1px solid var(--line-soft);
+}
+.summary-row:last-child{border-bottom:none}
+.summary-row-label{
+  font-size:.9rem;
+  color:var(--text);
+}
+.summary-row-value{
+  font-size:.92rem;
+  color:var(--navy);
+  font-weight:700;
+}
+
+/* Quick Actions */
+.quick-actions-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+.action-card{
+  border:1px solid var(--line);
+  background:var(--white);
+  border-radius:22px;
+  padding:22px;
+  cursor:pointer;
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.action-card:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow);
+  border-color:#cfd8eb;
+}
+.action-label{
+  display:block;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-size:.74rem;
+  font-weight:700;
+  margin-bottom:10px;
+}
+.action-card strong{
+  display:block;
+  color:var(--navy);
+  font-family:'Baskervville',serif;
+  font-size:1.25rem;
+  margin-bottom:8px;
+}
+.action-card span{
+  color:var(--muted);
+  font-size:.9rem;
+  line-height:1.6;
+}
+
+/* Action bar */
+.action-bar{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:20px;
+  flex-wrap:wrap;
+}
+.action-bar h3{
+  font-family:'Baskervville',serif;
+  font-size:1.5rem;
+  color:var(--navy);
+}
+.action-buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.btn{
+  border:none;
+  border-radius:999px;
+  padding:12px 16px;
+  font-size:.88rem;
+  font-weight:600;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transition:transform .2s ease, opacity .2s ease, background .2s ease, border-color .2s ease, color .2s ease;
+}
+.btn:hover{
+  transform:translateY(-1px);
+  opacity:.96;
+}
+.btn-primary{
+  background:var(--navy);
+  color:var(--white);
+}
+.btn-secondary{
+  background:var(--white);
+  color:var(--navy);
+  border:1px solid var(--line);
+}
+.btn-success{
+  background:var(--success);
+  color:var(--white);
+}
+.btn-danger{
+  background:var(--danger);
+  color:var(--white);
+}
+.btn-sm{
+  padding:9px 13px;
+  font-size:.8rem;
+}
+
+/* Filters */
+.filter-bar{
+  display:flex;
+  gap:12px;
+  margin-bottom:18px;
+  flex-wrap:wrap;
+}
+.search-input,
+.filter-select,
+.form-field input,
+.form-field textarea,
+.form-field select{
+  width:100%;
+  border:1px solid var(--line);
+  background:var(--white);
+  border-radius:14px;
+  padding:13px 15px;
+  font-size:.92rem;
+  color:var(--text);
+  outline:none;
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+.search-input:focus,
+.filter-select:focus,
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus{
+  border-color:rgba(255,194,0,.85);
+  box-shadow:0 0 0 4px rgba(255,194,0,.12);
+}
+.search-input{flex:1;min-width:240px}
+.filter-select{
+  min-width:190px;
+  cursor:pointer;
+}
+.form-field textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+/* Volunteers */
+.volunteer-list{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+.volunteer-card{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:22px;
+  overflow:hidden;
+}
+.volunteer-card-header{
+  padding:22px 22px 18px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:18px;
+  border-bottom:1px solid var(--line-soft);
+}
+.volunteer-info h4{
+  font-family:'Baskervville',serif;
+  font-size:1.25rem;
+  color:var(--navy);
+  margin-bottom:6px;
+}
+.volunteer-info p{
+  font-size:.9rem;
+  color:var(--muted);
+  line-height:1.6;
+}
+.volunteer-info a{
+  color:var(--navy);
+  text-decoration:none;
+}
+.volunteer-meta{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.badge{
+  padding:7px 11px;
+  border-radius:999px;
+  font-size:.72rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.badge-new{background:#dbeafe;color:#1d4ed8}
+.badge-contacted{background:#fef3c7;color:#b45309}
+.badge-confirmed{background:#dcfce7;color:#15803d}
+
+.volunteer-card-body{
+  padding:20px 22px;
+}
+.volunteer-detail{
+  margin-bottom:16px;
+}
+.volunteer-detail:last-child{margin-bottom:0}
+.volunteer-detail-label{
+  font-size:.74rem;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  color:var(--muted);
+  margin-bottom:7px;
+  font-weight:700;
+}
+.volunteer-detail-value{
+  font-size:.92rem;
+  color:var(--text);
+  line-height:1.7;
+}
+.volunteer-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.tag{
+  background:#f3f6fb;
+  padding:7px 10px;
+  border-radius:999px;
+  font-size:.8rem;
+  color:var(--navy);
+  border:1px solid var(--line-soft);
+}
+.volunteer-card-actions{
+  padding:16px 22px;
+  background:#fafbfe;
+  border-top:1px solid var(--line-soft);
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+/* Events */
+.events-list{
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  border-top:1px solid var(--line);
+}
+.event-item{
+  display:grid;
+  grid-template-columns:160px 1fr auto;
+  gap:22px;
+  align-items:start;
+  padding:22px 0;
+  border-bottom:1px solid var(--line);
+}
+.event-date-block{
+  padding-top:2px;
+}
+.event-date-label{
+  display:block;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-size:.72rem;
+  color:var(--orange);
+  font-weight:700;
+  margin-bottom:6px;
+}
+.event-date-value{
+  font-family:'Baskervville',serif;
+  font-size:1.7rem;
+  color:var(--navy);
+  line-height:1.1;
+}
+.event-item-content h4{
+  font-family:'Baskervville',serif;
+  font-size:1.24rem;
+  color:var(--navy);
+  margin-bottom:8px;
+}
+.event-item-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-bottom:10px;
+  color:var(--muted);
+  font-size:.88rem;
+}
+.event-item-desc{
+  color:var(--text);
+  font-size:.92rem;
+  line-height:1.7;
+}
+.event-item-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.btn-icon{
+  min-width:44px;
+  height:44px;
+  padding:0 14px;
+}
+.event-pill{
+  display:inline-block;
+  padding:7px 10px;
+  border-radius:999px;
+  background:#f4f6fb;
+  border:1px solid var(--line-soft);
+  color:var(--navy);
+  font-size:.74rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+/* Modal */
+.modal-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(12,21,70,.52);
+  z-index:1000;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+.modal-overlay.active{display:flex}
+.modal{
+  width:100%;
+  max-width:620px;
+  max-height:90vh;
+  overflow-y:auto;
+  background:var(--white);
+  border-radius:26px;
+  border:1px solid var(--line);
+  box-shadow:0 24px 70px rgba(12,21,70,.2);
+}
+.modal-header{
+  padding:22px 24px 18px;
+  border-bottom:1px solid var(--line-soft);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+.modal-header h3{
+  font-family:'Baskervville',serif;
+  font-size:1.4rem;
+  color:var(--navy);
+}
+.modal-close{
+  width:40px;
+  height:40px;
+  border:none;
+  border-radius:999px;
+  background:#f4f6fb;
+  color:var(--muted);
+  cursor:pointer;
+  font-size:1.3rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.modal-body{padding:22px 24px}
+.modal-footer{
+  padding:16px 24px 24px;
+  border-top:1px solid var(--line-soft);
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.form-field{margin-bottom:16px}
+.form-field label{
+  display:block;
+  font-size:.78rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--navy);
+  margin-bottom:8px;
+}
+.form-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+/* Empty state */
+.empty-state{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:44px 28px;
+  text-align:center;
+}
+.empty-state h4{
+  font-family:'Baskervville',serif;
+  font-size:1.5rem;
+  color:var(--navy);
+  margin-bottom:8px;
+}
+.empty-state p{
+  color:var(--muted);
+  font-size:.94rem;
+  line-height:1.7;
+  margin-bottom:18px;
+}
+
+/* Responsive */
+@media(max-width:1024px){
+  .summary-grid,
+  .quick-actions-grid,
+  .stats-row{
+    grid-template-columns:1fr 1fr;
+  }
+}
+@media(max-width:900px){
+  .section-head{
+    grid-template-columns:1fr;
+  }
+  .section-intro{
+    justify-self:start;
+    max-width:none;
+  }
+  .event-item{
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+}
+@media(max-width:720px){
+  .admin-header-inner{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .summary-grid,
+  .quick-actions-grid,
+  .stats-row,
+  .form-row{
+    grid-template-columns:1fr;
+  }
+  .volunteer-card-header{
+    flex-direction:column;
+  }
+  .event-item-actions{
+    justify-content:flex-start;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="admin-header">
+  <div class="admin-header-inner">
+    <div class="admin-header-left">
+      <img src="MES Stacked.png" alt="Moore Elementary" onerror="this.style.display='none'"/>
+      <h1>PTO Admin Dashboard</h1>
+    </div>
+    <div class="admin-header-right">
+  <a href="/announcement-builder/" class="header-link header-link-solid">Announcement Builder</a>
+  <a href="/" class="header-link header-link-outline">Back to Site</a>
+</div>
   </div>
 </header>
 
