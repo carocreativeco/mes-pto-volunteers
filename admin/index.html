@@ -733,7 +733,19 @@ function openEventModal(eventId) {
 function closeEventModal() { document.getElementById('eventModal').classList.remove('active'); }
 function editEvent(eventId) { openEventModal(eventId); }
 
-function saveEvent() {
+async function postToSheet(payload) {
+  const formData = new FormData();
+  formData.append('data', JSON.stringify(payload));
+
+  const response = await fetch('https://script.google.com/macros/s/AKfycbwJPRmjcgGJuBWFq9dEE2ii7cchowgvByQD51YyVUg-XL5fY-vJSs6xpG3-DVeEbONE/exec', {
+    method: 'POST',
+    body: formData
+  });
+
+  return await response.json();
+}
+  
+async function saveEvent() {
   var title = document.getElementById('eventTitle').value.trim();
   var date = document.getElementById('eventDate').value.trim();
   var time = document.getElementById('eventTime').value.trim();
@@ -741,27 +753,64 @@ function saveEvent() {
   var description = document.getElementById('eventDescription').value.trim();
   var volunteersNeeded = document.getElementById('eventVolunteers').value.trim();
   var editId = document.getElementById('eventEditId').value;
-  if (!title) { alert('Please enter an event title.'); return; }
-  var events = getEvents();
-  if (editId) {
-    events = events.map(function(e) {
-      if (e.id === editId) {
-        return {id:e.id,title:title,date:date,dateLabel:date?'':'TBD',time:time||'TBD',location:location,description:description,volunteersNeeded:volunteersNeeded||'TBD',sortOrder:typeof e.sortOrder==='number'?e.sortOrder:9999};
-      }
-      return e;
-    });
-  } else {
-    var maxSort = events.reduce(function(max,e) { return Math.max(max, typeof e.sortOrder==='number'?e.sortOrder:0); }, 0);
-    events.push({id:'evt_'+Date.now(),title:title,date:date,dateLabel:date?'':'TBD',time:time||'TBD',location:location,description:description,volunteersNeeded:volunteersNeeded||'TBD',sortOrder:maxSort+1});
+
+  if (!title) {
+    alert('Please enter an event title.');
+    return;
   }
-  setEvents(events);
+
+  var events = getEvents();
+  var existingEvent = editId ? events.find(function(e) { return e.id === editId; }) : null;
+  var sortOrder;
+
+  if (existingEvent && typeof existingEvent.sortOrder === 'number') {
+    sortOrder = existingEvent.sortOrder;
+  } else {
+    sortOrder = events.reduce(function(max, e) {
+      return Math.max(max, typeof e.sortOrder === 'number' ? e.sortOrder : 0);
+    }, 0) + 1;
+  }
+
+  var payload = {
+    type: 'event-save',
+    id: editId || ('evt_' + Date.now()),
+    title: title,
+    date: date,
+    dateLabel: date ? '' : 'TBD',
+    time: time || 'TBD',
+    location: location,
+    description: description,
+    volunteersNeeded: volunteersNeeded || 'TBD',
+    areasOfInterest: [],
+    sortOrder: sortOrder
+  };
+
+  var result = await postToSheet(payload);
+
+  if (!result || result.result !== 'success') {
+    alert('There was a problem saving the event.');
+    return;
+  }
+
+  await loadEventsFromSheet();
   closeEventModal();
   loadDashboardData();
 }
 
-function deleteEvent(eventId) {
+async function deleteEvent(eventId) {
   if (!confirm('Are you sure you want to delete this event?')) return;
-  setEvents(getEvents().filter(function(e) { return e.id !== eventId; }));
+
+  var result = await postToSheet({
+    type: 'event-delete',
+    id: eventId
+  });
+
+  if (!result || result.result !== 'success') {
+    alert('There was a problem deleting the event.');
+    return;
+  }
+
+  await loadEventsFromSheet();
   loadDashboardData();
 }
 
