@@ -1288,6 +1288,7 @@ function submitForm() {
   hideError();
 
   var data = collectFormData();
+  console.log('FORM DATA PAYLOAD', data);
   var err = validate(data);
 
   if (err) {
