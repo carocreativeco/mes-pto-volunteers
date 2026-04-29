@@ -444,10 +444,10 @@ function attemptLogin() {
   }
 }
 
-function showDashboard() {
+async function showDashboard() {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('dashboard').classList.add('active');
-  loadDashboardData();
+  await loadDashboardData();
 }
 
 function switchTab(tabId) {
