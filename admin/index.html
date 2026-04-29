@@ -396,6 +396,15 @@ var VOLUNTEER_AREAS = [
   'Graphic Design','Arts & Crafts','Fundraising & Sponsorships'
 ];
 
+  var VOLUNTEER_AREAS = [
+  'Moore Miles','Bake Sale','Book Fair','Teacher Appreciation Week',
+  'Decorations Committee','Classroom Parties','Field Trip Chaperone',
+  'School Events Setup / Cleanup','Photography / Videography',
+  'Graphic Design','Arts & Crafts','Fundraising & Sponsorships'
+];
+
+var EVENT_AREAS_OF_INTEREST = VOLUNTEER_AREAS.slice();
+
 var DEFAULT_EVENTS = [
   'Teacher Meet & Greet','1st Half Day, Grades 1-4','Kindergarten Parent Meeting',
   'First Full day for Kindergarten, Butterfly Breakfast for Kinder Parents',
@@ -414,6 +423,7 @@ var DEFAULT_EVENTS = [
 
 document.addEventListener('DOMContentLoaded', function() {
   ensureDefaultEvents();
+  buildEventAreasOfInterest();
   if (sessionStorage.getItem('pto_admin_logged_in') === 'true') showDashboard();
   document.querySelectorAll('.tab').forEach(function(tab) {
     tab.addEventListener('click', function() { switchTab(this.dataset.tab); });
@@ -424,6 +434,40 @@ document.addEventListener('DOMContentLoaded', function() {
     opt.value = area; opt.textContent = area;
     areaFilter.appendChild(opt);
   });
+});
+
+function buildCheckItem(value) {
+  var item = document.createElement('label');
+  item.className = 'check-item';
+  item.innerHTML =
+    '<input type="checkbox" value="' + escapeHtml(value) + '">' +
+    '<div class="check-box"></div>' +
+    '<span class="check-label">' + escapeHtml(value) + '</span>';
+  return item;
+}
+
+function buildEventAreasOfInterest() {
+  var container = document.getElementById('eventAreasOfInterest');
+  if (!container) return;
+
+  container.innerHTML = '';
+
+  EVENT_AREAS_OF_INTEREST.forEach(function(area) {
+    container.appendChild(buildCheckItem(area));
+  });
+}
+
+  document.addEventListener('click', function(e) {
+  var item = e.target.closest('.check-item');
+  if (!item) return;
+
+  e.preventDefault();
+
+  var checkbox = item.querySelector('input[type="checkbox"]');
+  if (!checkbox) return;
+
+  checkbox.checked = !checkbox.checked;
+  item.classList.toggle('checked', checkbox.checked);
 });
 
 function toggleMenu() {
@@ -720,7 +764,12 @@ function openEventModal(eventId) {
   document.getElementById('eventLocation').value = '';
   document.getElementById('eventDescription').value = '';
   document.getElementById('eventVolunteers').value = '';
-  document.getElementById('eventAreasOfInterest').value = '';
+
+  document.querySelectorAll('#eventAreasOfInterest .check-item').forEach(function(item) {
+    item.classList.remove('checked');
+    var checkbox = item.querySelector('input[type="checkbox"]');
+    if (checkbox) checkbox.checked = false;
+  });
 
   if (eventId) {
     var event = getEvents().find(function(e) { return e.id === eventId; });
@@ -731,7 +780,15 @@ function openEventModal(eventId) {
       document.getElementById('eventLocation').value = event.location || '';
       document.getElementById('eventDescription').value = event.description || '';
       document.getElementById('eventVolunteers').value = event.volunteersNeeded || '';
-      document.getElementById('eventAreasOfInterest').value = (event.areasOfInterest || []).join('; ');
+
+      document.querySelectorAll('#eventAreasOfInterest .check-item').forEach(function(item) {
+        var checkbox = item.querySelector('input[type="checkbox"]');
+        if (!checkbox) return;
+
+        var isSelected = (event.areasOfInterest || []).includes(checkbox.value);
+        checkbox.checked = isSelected;
+        item.classList.toggle('checked', isSelected);
+      });
     }
   }
 
@@ -760,13 +817,17 @@ async function saveEvent() {
   var location = document.getElementById('eventLocation').value.trim();
   var description = document.getElementById('eventDescription').value.trim();
   var volunteersNeeded = document.getElementById('eventVolunteers').value.trim();
-  var areasOfInterestRaw = document.getElementById('eventAreasOfInterest').value.trim();
   var editId = document.getElementById('eventEditId').value;
 
   if (!title) {
     alert('Please enter an event title.');
     return;
   }
+
+  var selectedAreas = [];
+  document.querySelectorAll('#eventAreasOfInterest .check-item input[type="checkbox"]:checked').forEach(function(checkbox) {
+    selectedAreas.push(checkbox.value);
+  });
 
   var events = getEvents();
   var existingEvent = editId ? events.find(function(e) { return e.id === editId; }) : null;
@@ -790,7 +851,7 @@ async function saveEvent() {
     location: location,
     description: description,
     volunteersNeeded: volunteersNeeded || 'TBD',
-    areasOfInterest: splitSemicolonList(areasOfInterestRaw),
+    areasOfInterest: selectedAreas,
     sortOrder: sortOrder
   };
 
