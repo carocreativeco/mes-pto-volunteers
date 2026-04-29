@@ -365,6 +365,10 @@ button,input,select,textarea{font:inherit}
         <div class="form-field"><label>Location</label><input type="text" id="eventLocation" placeholder="e.g. School Gymnasium"/></div>
         <div class="form-field"><label>Volunteers Needed</label><input type="text" id="eventVolunteers" placeholder="e.g. 12 or TBD"/></div>
       </div>
+<div class="form-field">
+  <label>Areas of Interest</label>
+  <input type="text" id="eventAreasOfInterest" placeholder="Separate multiple areas with semicolons"/>
+</div>
       <div class="form-field">
         <label>Description</label>
         <textarea id="eventDescription" placeholder="Brief description of the event..."></textarea>
@@ -716,6 +720,8 @@ function openEventModal(eventId) {
   document.getElementById('eventLocation').value = '';
   document.getElementById('eventDescription').value = '';
   document.getElementById('eventVolunteers').value = '';
+  document.getElementById('eventAreasOfInterest').value = '';
+
   if (eventId) {
     var event = getEvents().find(function(e) { return e.id === eventId; });
     if (event) {
@@ -725,8 +731,10 @@ function openEventModal(eventId) {
       document.getElementById('eventLocation').value = event.location || '';
       document.getElementById('eventDescription').value = event.description || '';
       document.getElementById('eventVolunteers').value = event.volunteersNeeded || '';
+      document.getElementById('eventAreasOfInterest').value = (event.areasOfInterest || []).join('; ');
     }
   }
+
   document.getElementById('eventModal').classList.add('active');
 }
 
@@ -752,6 +760,7 @@ async function saveEvent() {
   var location = document.getElementById('eventLocation').value.trim();
   var description = document.getElementById('eventDescription').value.trim();
   var volunteersNeeded = document.getElementById('eventVolunteers').value.trim();
+  var areasOfInterestRaw = document.getElementById('eventAreasOfInterest').value.trim();
   var editId = document.getElementById('eventEditId').value;
 
   if (!title) {
@@ -781,7 +790,7 @@ async function saveEvent() {
     location: location,
     description: description,
     volunteersNeeded: volunteersNeeded || 'TBD',
-    areasOfInterest: [],
+    areasOfInterest: splitSemicolonList(areasOfInterestRaw),
     sortOrder: sortOrder
   };
 
