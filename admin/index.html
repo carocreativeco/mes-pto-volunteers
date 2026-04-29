@@ -382,6 +382,7 @@ var ADMIN_PASSWORD = 'moorePTO2026';
 var STORAGE_KEY = 'moore_pto_v3';
 var STATUS_KEY = 'moore_pto_status';
 var EVENTS_KEY = 'moore_pto_events';
+var GOOGLE_SHEET_URL = 'https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnQ-z4eGsTce8zyKtJRB3pFpEk6P9ZLkkX2r5VDY5YcZ0XiUTD17ldD6vYVNgkVpRirSa8SYN-Xfwd2qqaI4BvRE5iUZ3BAVX29pHkghhDkO4KpqQsZRgRA-A3CdNOvt2TT-yozm6vi4kFBKOZxX2cZ8fEJ3zCwAc1vBmguUidaJyKjJQ1KyIRQy-7r1DnTuE_N0CQ9W4Hl0CEU84JrfdUBxWxBfO-Q9cuNS2PWuN4vx68QruT4nRfLnJOduDJ2AIrkOvFJPhJjQ2tNrNuBnLajhqageJA&lib=MSquWaj9vyQ89TRkZmWZq077I2IjHEufC';
 
 var VOLUNTEER_AREAS = [
   'Moore Miles','Bake Sale','Book Fair','Teacher Appreciation Week',
@@ -399,7 +400,7 @@ var DEFAULT_EVENTS = [
   'Cranium Carnival','Book Fair','Virtual PTO Meeting','Loaves Of Thanks for Teachers',
   'Thanksgiving Lunch','Thanksgiving Break: No School',
   'Can Caroling, Holiday Class Parties: Abbreviated Day','Winter Break: No School',
-  'Students Return to School','MLK Holiday: No School','Valentine\u2019s Day Parties',
+  'Students Return to School','MLK Holiday: No School','Valentine’s Day Parties',
   'Presidents Day: No School','Teacher Appreciation Week','Eagle Extravaganza',
   'Early Dismissal Day','Spring Break: No School','PTO Meeting with FIS Principal',
   'Spring Holiday: No School','Fine Arts Night','Kindergarten Kick Off',
@@ -457,7 +458,7 @@ function switchTab(tabId) {
 function loadDashboardData() { loadStats(); loadVolunteers(); loadEvents(); }
 
 function getVolunteers() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { return []; } }
-function getStatuses() { try { return JSON.parse(localStorage.getItem(STATUS_KEY)) || {}; } catch(e) { return {}; } }
+function getStatuses() { try { return JSON.parse(localStorage.getItem(STATUS_KEY)) || {}; } catch(e) { return []; } }
 function setStatuses(s) { localStorage.setItem(STATUS_KEY, JSON.stringify(s)); }
 function getEvents() { try { return JSON.parse(localStorage.getItem(EVENTS_KEY)) || []; } catch(e) { return []; } }
 function setEvents(e) { localStorage.setItem(EVENTS_KEY, JSON.stringify(e)); }
@@ -469,7 +470,7 @@ function getEventDateLabel(e) {
     var date = new Date(e.date + 'T12:00:00');
     var monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     var dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    return {label:'Scheduled Date',value:monthNames[date.getMonth()]+' '+date.getDate()+', '+date.getFullYear()+' \u00B7 '+dayNames[date.getDay()]};
+    return {label:'Scheduled Date',value:monthNames[date.getMonth()]+' '+date.getDate()+', '+date.getFullYear()+' · '+dayNames[date.getDay()]};
   }
   return {label:'Scheduled Date',value:e.dateLabel || 'TBD'};
 }
@@ -554,7 +555,7 @@ function renderVolunteers(volunteers, statuses) {
     var date = new Date(v.submittedAt);
     var dateStr = date.toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
     html += '<div class="volunteer-card"><div class="volunteer-card-header"><div class="volunteer-info"><h4>'+escapeHtml(v.firstName+' '+v.lastName)+'</h4><p><a href="mailto:'+escapeHtml(v.email)+'">'+escapeHtml(v.email)+'</a>';
-    if (v.phone) html += ' \u00B7 '+escapeHtml(v.phone);
+    if (v.phone) html += ' · '+escapeHtml(v.phone);
     html += '</p></div><div class="volunteer-meta"><span class="badge '+badgeClass+'">'+status+'</span></div></div><div class="volunteer-card-body">';
     if (v.children && v.children.length > 0) {
       html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Children</div><div class="volunteer-detail-value">';
