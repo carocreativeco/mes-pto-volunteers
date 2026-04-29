@@ -383,7 +383,8 @@ var STORAGE_KEY = 'moore_pto_v3';
 var STATUS_KEY = 'moore_pto_status';
 var EVENTS_KEY = 'moore_pto_events';
 var GOOGLE_SHEET_URL = 'https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnQ-z4eGsTce8zyKtJRB3pFpEk6P9ZLkkX2r5VDY5YcZ0XiUTD17ldD6vYVNgkVpRirSa8SYN-Xfwd2qqaI4BvRE5iUZ3BAVX29pHkghhDkO4KpqQsZRgRA-A3CdNOvt2TT-yozm6vi4kFBKOZxX2cZ8fEJ3zCwAc1vBmguUidaJyKjJQ1KyIRQy-7r1DnTuE_N0CQ9W4Hl0CEU84JrfdUBxWxBfO-Q9cuNS2PWuN4vx68QruT4nRfLnJOduDJ2AIrkOvFJPhJjQ2tNrNuBnLajhqageJA&lib=MSquWaj9vyQ89TRkZmWZq077I2IjHEufC';
-
+var EVENTS_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwJPRmjcgGJuBWFq9dEE2ii7cchowgvByQD51YyVUg-XL5fY-vJSs6xpG3-DVeEbONE/exec?sheet=Events';
+  
 var VOLUNTEER_AREAS = [
   'Moore Miles','Bake Sale','Book Fair','Teacher Appreciation Week',
   'Decorations Committee','Classroom Parties','Field Trip Chaperone',
@@ -457,6 +458,7 @@ function switchTab(tabId) {
 
 async function loadDashboardData() {
   await loadVolunteersFromSheet();
+  await loadEventsFromSheet();
   loadStats();
   loadVolunteers();
   loadEvents();
@@ -523,7 +525,37 @@ function parseChildren(value) {
 }
 function getStatuses() { try { return JSON.parse(localStorage.getItem(STATUS_KEY)) || {}; } catch(e) { return []; } }
 function setStatuses(s) { localStorage.setItem(STATUS_KEY, JSON.stringify(s)); }
-function getEvents() { try { return JSON.parse(localStorage.getItem(EVENTS_KEY)) || []; } catch(e) { return []; } }
+function getEvents() {
+  try {
+    return JSON.parse(localStorage.getItem(EVENTS_KEY)) || [];
+  } catch(e) {
+    return [];
+  }
+}
+
+async function loadEventsFromSheet() {
+  const response = await fetch(EVENTS_SHEET_URL);
+  const rows = await response.json();
+
+  if (!Array.isArray(rows) || rows.length === 0) return;
+
+  const events = rows.map(function(row, index) {
+    return {
+      id: row['ID'] || ('evt_sheet_' + index),
+      title: row['Title'] || '',
+      date: row['Date'] || '',
+      dateLabel: row['Date Label'] || (row['Date'] ? '' : 'TBD'),
+      time: row['Time'] || 'TBD',
+      location: row['Location'] || '',
+      description: row['Description'] || '',
+      volunteersNeeded: row['Volunteers Needed'] || 'TBD',
+      areasOfInterest: splitSemicolonList(row['Areas of Interest'] || ''),
+      sortOrder: row['Sort Order'] !== '' && row['Sort Order'] != null ? Number(row['Sort Order']) : index
+    };
+  });
+
+  localStorage.setItem(EVENTS_KEY, JSON.stringify(events));
+}
 function setEvents(e) { localStorage.setItem(EVENTS_KEY, JSON.stringify(e)); }
 
 function eventHasRealDate(e) { return !!(e.date && String(e.date).trim()); }
