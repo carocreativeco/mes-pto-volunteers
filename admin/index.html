@@ -455,9 +455,72 @@ function switchTab(tabId) {
   document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.toggle('active', c.id === 'tab-' + tabId); });
 }
 
-function loadDashboardData() { loadStats(); loadVolunteers(); loadEvents(); }
+async function loadDashboardData() {
+  await loadVolunteersFromSheet();
+  loadStats();
+  loadVolunteers();
+  loadEvents();
+}
 
-function getVolunteers() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { return []; } }
+function getVolunteers() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+  } catch(e) {
+    return [];
+  }
+}
+
+async function loadVolunteersFromSheet() {
+  const response = await fetch(GOOGLE_SHEET_URL);
+  const rows = await response.json();
+
+  const volunteers = rows.map(function(row) {
+    return {
+      submittedAt: row['Timestamp'] || '',
+      firstName: row['First Name'] || '',
+      lastName: row['Last Name'] || '',
+      email: row['Email'] || '',
+      phone: row['Phone'] || '',
+      contactPref: row['Contact Preference'] || '',
+      children: parseChildren(row['Children'] || ''),
+      volunteerAreas: splitSemicolonList(row['Volunteer Areas'] || ''),
+      otherSkills: row['Other Skills'] || '',
+      availability: splitSemicolonList(row['Availability'] || ''),
+      availNotes: row['Avail Notes'] || '',
+      comments: row['Comments'] || '',
+      hearAbout: row['Heard About'] || ''
+    };
+  });
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(volunteers));
+}
+
+function splitSemicolonList(value) {
+  return String(value)
+    .split(';')
+    .map(function(item) { return item.trim(); })
+    .filter(function(item) { return item; });
+}
+
+function parseChildren(value) {
+  value = String(value).trim();
+  if (!value) return [];
+
+  return value.split(';').map(function(item) {
+    item = item.trim();
+
+    var match = item.match(/^(.*?)\s*\((.*?),\s*(.*?)\)$/);
+    if (!match) {
+      return { name: item, grade: '', teacher: '' };
+    }
+
+    return {
+      name: match[1].trim(),
+      grade: match[2].trim(),
+      teacher: match[3].trim()
+    };
+  });
+}
 function getStatuses() { try { return JSON.parse(localStorage.getItem(STATUS_KEY)) || {}; } catch(e) { return []; } }
 function setStatuses(s) { localStorage.setItem(STATUS_KEY, JSON.stringify(s)); }
 function getEvents() { try { return JSON.parse(localStorage.getItem(EVENTS_KEY)) || []; } catch(e) { return []; } }
