@@ -483,7 +483,7 @@ async function loadVolunteersFromSheet() {
       phone: row['Phone'] || '',
       contactPref: row['Contact Preference'] || '',
       children: parseChildren(row['Children'] || ''),
-      volunteerAreas: splitSemicolonList(row['Volunteer Areas'] || ''),
+      volunteerAreas: splitSemicolonList(row['Volunteer Areas'] || row['Other Skills'] || ''),
       otherSkills: row['Other Skills'] || '',
       availability: splitSemicolonList(row['Availability'] || ''),
       availNotes: row['Avail Notes'] || '',
@@ -568,7 +568,7 @@ function loadStats() {
   VOLUNTEER_AREAS.forEach(function(a) { areaHtml += '<div class="summary-row"><span class="summary-row-label">'+a+'</span><span class="summary-row-value">'+areaCounts[a]+'</span></div>'; });
   document.getElementById('summaryByArea').innerHTML = areaHtml;
 
-  var availabilityOptions = ['Weekday Mornings','Weekday Afternoons','Evenings','Weekends'];
+  var availabilityOptions = ['During school hours','After school / evenings','Weekends','My availability varies'];
   var availCounts = {};
   availabilityOptions.forEach(function(o) { availCounts[o] = 0; });
   volunteers.forEach(function(v) { (v.availability || []).forEach(function(a) { if (availCounts.hasOwnProperty(a)) availCounts[a]++; }); });
