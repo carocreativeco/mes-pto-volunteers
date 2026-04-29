@@ -485,7 +485,7 @@ async function loadVolunteersFromSheet() {
       children: parseChildren(row['Children'] || ''),
       volunteerAreas: splitSemicolonList(row['Volunteer Areas'] || row['Other Skills'] || ''),
       otherSkills: row['Other Skills'] || '',
-      availability: splitSemicolonList(row['Availability'] || ''),
+      availability: splitSemicolonList(row['Availability'] || row['Other Skills'] || ''),
       availNotes: row['Avail Notes'] || '',
       comments: row['Comments'] || '',
       hearAbout: row['Heard About'] || ''
