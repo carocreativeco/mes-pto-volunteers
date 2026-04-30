@@ -1103,6 +1103,9 @@ function sendToSheet(payload) {
 
     f.appendChild(inp);
     document.body.appendChild(f);
+
+    console.log('POSTING TO URL', f.action);
+
     f.submit();
     document.body.removeChild(f);
     console.log('[Sync] sent:', payload.action || 'submission');
