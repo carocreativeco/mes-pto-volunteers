@@ -156,7 +156,7 @@
       font-size:.96rem;
     }
 
-    /* HERO — photo retained */
+    /* HERO */
     .hero{
       position:relative;
       min-height:88vh;
@@ -272,7 +272,7 @@
       background:transparent;
     }
 
-    /* ABOUT — editorial intro with drop cap and callout */
+    /* ABOUT */
     .about-section{
       background:var(--paper);
       padding:120px 0;
@@ -349,7 +349,7 @@
       letter-spacing:-.005em;
     }
 
-    /* SECTION HEADER for the photo card sequence */
+    /* SECTION HEADER */
     .section-header{
       padding:100px 0 30px;
       background:var(--paper);
@@ -385,7 +385,7 @@
       margin-top:18px;
     }
 
-    /* FEATURE PHOTO ROWS — alternating */
+    /* FEATURE PHOTO ROWS */
     .feature-section{
       padding:50px 0;
       background:var(--paper);
@@ -491,7 +491,78 @@
       max-width:820px;
     }
 
-    /* CONNECT — editorial index list */
+    .events-list-home{
+      display:grid;
+      gap:18px;
+      margin-top:10px;
+    }
+
+    .event-card-home{
+      background:var(--white);
+      border:1px solid rgba(12,21,70,.12);
+      border-radius:20px;
+      padding:22px 22px 20px;
+      box-shadow:var(--shadow-soft);
+    }
+
+    .event-card-home h3{
+      font-family:'Baskervville',serif;
+      font-size:1.5rem;
+      line-height:1.1;
+      color:var(--navy);
+      margin-bottom:10px;
+    }
+
+    .event-card-home-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-bottom:12px;
+    }
+
+    .event-chip{
+      display:inline-flex;
+      align-items:center;
+      padding:7px 11px;
+      border-radius:999px;
+      font-size:.76rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      background:rgba(12,21,70,.06);
+      color:var(--navy);
+    }
+
+    .event-chip.tbd{
+      background:rgba(219,109,66,.12);
+      color:var(--orange);
+    }
+
+    .event-card-home p{
+      color:#27324b;
+      font-size:1rem;
+      line-height:1.75;
+    }
+
+    .event-card-home-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:14px;
+    }
+
+    .event-tag-home{
+      display:inline-flex;
+      align-items:center;
+      padding:7px 10px;
+      border-radius:999px;
+      background:#f5f7fb;
+      border:1px solid rgba(12,21,70,.08);
+      color:var(--navy);
+      font-size:.8rem;
+    }
+
+    /* CONNECT */
     .connect-section{
       background:var(--bg-alt);
       padding:120px 0;
@@ -585,7 +656,7 @@
       padding-bottom:2px;
     }
 
-    /* SHARE — navy band */
+    /* SHARE */
     .share-section{
       background:var(--navy);
       color:var(--white);
@@ -708,7 +779,7 @@
       letter-spacing:.02em;
     }
 
-    /* RESOURCES — bordered grid */
+    /* RESOURCES */
     .resources-section{
       background:var(--paper);
       padding:120px 0;
@@ -830,7 +901,6 @@
         padding-top:30px;
       }
 
-      /* Mobile: image always first */
       .feature-row.reverse .feature-media{
         order:0;
       }
@@ -1012,7 +1082,6 @@
     </div>
   </nav>
 
-  <!-- HERO with photo, editorial typography -->
   <section class="hero">
     <div class="hero-media">
       <img src="/mesheader.png" alt="Moore Elementary PTO community" onerror="this.style.display='none'">
@@ -1040,7 +1109,6 @@
 
   <main>
 
-    <!-- ABOUT — editorial intro -->
     <section class="about-section" id="about">
       <div class="container">
         <div class="about-grid">
@@ -1070,7 +1138,6 @@
       </div>
     </section>
 
-    <!-- HOW WE HELP — section header + alternating photo cards -->
     <div class="section-header alt-bg">
       <div class="container">
         <div class="feature-kicker">How We Help</div>
@@ -1143,7 +1210,6 @@
       </div>
     </section>
 
-    <!-- EVENTS -->
     <section class="events-section" id="events">
       <div class="container">
         <div class="events-head">
@@ -1152,13 +1218,14 @@
           <p>Stay up to date on PTO events, family activities, volunteer opportunities, and ways to participate throughout the school year.</p>
         </div>
 
-        <div class="events-callout">
-          We’re planning more PTO events and opportunities now — check back soon for updates and ways to get involved.
+        <div id="upcomingEventsWrap">
+          <div class="events-callout">
+            We’re planning more PTO events and opportunities now — check back soon for updates and ways to get involved.
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- CONNECT — editorial index list -->
     <section class="connect-section" id="connect">
       <div class="container">
         <div class="connect-head">
@@ -1213,7 +1280,6 @@
       </div>
     </section>
 
-    <!-- SHARE — navy band with QR -->
     <section class="share-section" id="share">
       <div class="container">
         <div class="share-grid">
@@ -1240,7 +1306,6 @@
       </div>
     </section>
 
-    <!-- RESOURCES -->
     <section class="resources-section" id="resources">
       <div class="container">
         <div class="resources-head">
@@ -1275,6 +1340,8 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
+    var EVENTS_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwJPRmjcgGJuBWFq9dEE2ii7cchowgvByQD51YyVUg-XL5fY-vJSs6xpG3-DVeEbONE/exec?sheet=Events';
+
     function toggleMenu() {
       var menu = document.getElementById('mobileMenu');
       menu.classList.toggle('open');
@@ -1293,8 +1360,128 @@
       });
     }
 
+    function splitSemicolonList(value) {
+      return String(value)
+        .split(';')
+        .map(function(item) { return item.trim(); })
+        .filter(function(item) { return item; });
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      var div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    async function loadUpcomingTbdEvents() {
+      var wrap = document.getElementById('upcomingEventsWrap');
+      if (!wrap) return;
+
+      try {
+        var response = await fetch(EVENTS_SHEET_URL);
+        var rows = await response.json();
+
+        if (!Array.isArray(rows) || rows.length === 0) {
+          renderNoUpcomingEvents();
+          return;
+        }
+
+        var events = rows.map(function(row, index) {
+          return {
+            id: row['ID'] || ('evt_' + index),
+            title: row['Title'] || '',
+            date: row['Date'] || '',
+            dateLabel: row['Date Label'] || '',
+            time: row['Time'] || 'TBD',
+            location: row['Location'] || '',
+            description: row['Description'] || '',
+            volunteersNeeded: row['Volunteers Needed'] || 'TBD',
+            areasOfInterest: splitSemicolonList(row['Areas of Interest'] || ''),
+            sortOrder: row['Sort Order'] !== '' && row['Sort Order'] != null ? Number(row['Sort Order']) : index
+          };
+        });
+
+        var tbdEvents = events
+          .filter(function(event) {
+            return !event.date || !String(event.date).trim();
+          })
+          .sort(function(a, b) {
+            var aOrder = typeof a.sortOrder === 'number' ? a.sortOrder : 9999;
+            var bOrder = typeof b.sortOrder === 'number' ? b.sortOrder : 9999;
+            return aOrder - bOrder;
+          });
+
+        renderUpcomingTbdEvents(tbdEvents.slice(0, 6));
+      } catch (error) {
+        console.error('Failed to load TBD events:', error);
+        renderNoUpcomingEvents();
+      }
+    }
+
+    function renderUpcomingTbdEvents(events) {
+      var wrap = document.getElementById('upcomingEventsWrap');
+      if (!wrap) return;
+
+      if (!events || events.length === 0) {
+        renderNoUpcomingEvents();
+        return;
+      }
+
+      var html = '<div class="events-list-home">';
+
+      events.forEach(function(event) {
+        html += '<article class="event-card-home">';
+        html += '<h3>' + escapeHtml(event.title || 'Upcoming Event') + '</h3>';
+        html += '<div class="event-card-home-meta">';
+        html += '<span class="event-chip tbd">Date TBD</span>';
+        html += '<span class="event-chip">Time: ' + escapeHtml(event.time || 'TBD') + '</span>';
+
+        if (event.location) {
+          html += '<span class="event-chip">Location: ' + escapeHtml(event.location) + '</span>';
+        }
+
+        if (event.volunteersNeeded) {
+          html += '<span class="event-chip">Volunteers: ' + escapeHtml(event.volunteersNeeded) + '</span>';
+        }
+
+        html += '</div>';
+
+        if (event.description) {
+          html += '<p>' + escapeHtml(event.description) + '</p>';
+        } else {
+          html += '<p>More details coming soon. Check back for updates and volunteer opportunities related to this event.</p>';
+        }
+
+        if (event.areasOfInterest && event.areasOfInterest.length > 0) {
+          html += '<div class="event-card-home-tags">';
+          event.areasOfInterest.forEach(function(area) {
+            html += '<span class="event-tag-home">' + escapeHtml(area) + '</span>';
+          });
+          html += '</div>';
+        }
+
+        html += '</article>';
+      });
+
+      html += '</div>';
+      wrap.innerHTML = html;
+    }
+
+    function renderNoUpcomingEvents() {
+      var wrap = document.getElementById('upcomingEventsWrap');
+      if (!wrap) return;
+
+      wrap.innerHTML = `
+        <div class="events-callout">
+          We’re planning more PTO events and opportunities now — check back soon for updates and ways to get involved.
+        </div>
+      `;
+    }
+
     window.addEventListener('DOMContentLoaded', function () {
       var shareUrl = document.getElementById('shareLink').value;
+
       new QRCode(document.getElementById('qrcode'), {
         text: shareUrl,
         width: 170,
@@ -1303,6 +1490,8 @@
         colorLight: "#fbfaf6",
         correctLevel: QRCode.CorrectLevel.H
       });
+
+      loadUpcomingTbdEvents();
     });
   </script>
 
