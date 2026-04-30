@@ -319,9 +319,9 @@ button,input,select,textarea{font:inherit}
       <div class="action-bar">
         <h3>All Volunteers</h3>
         <div class="action-buttons">
-          <button class="btn btn-secondary" onclick="exportVolunteers()">Export CSV</button>
-        </div>
-      </div>
+  <button class="btn btn-secondary" onclick="exportVolunteers()">Export CSV</button>
+  <button class="btn btn-secondary" onclick="openVolunteerSheet()">Open Volunteer Sheet</button>
+</div>
 
       <div class="volunteer-list" id="volunteerList"></div>
     </div>
@@ -391,6 +391,12 @@ var EVENTS_KEY = 'moore_pto_events';
 var GOOGLE_SHEET_URL = 'https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnQ-z4eGsTce8zyKtJRB3pFpEk6P9ZLkkX2r5VDY5YcZ0XiUTD17ldD6vYVNgkVpRirSa8SYN-Xfwd2qqaI4BvRE5iUZ3BAVX29pHkghhDkO4KpqQsZRgRA-A3CdNOvt2TT-yozm6vi4kFBKOZxX2cZ8fEJ3zCwAc1vBmguUidaJyKjJQ1KyIRQy-7r1DnTuE_N0CQ9W4Hl0CEU84JrfdUBxWxBfO-Q9cuNS2PWuN4vx68QruT4nRfLnJOduDJ2AIrkOvFJPhJjQ2tNrNuBnLajhqageJA&lib=MSquWaj9vyQ89TRkZmWZq077I2IjHEufC';
 var EVENTS_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwJPRmjcgGJuBWFq9dEE2ii7cchowgvByQD51YyVUg-XL5fY-vJSs6xpG3-DVeEbONE/exec?sheet=Events';
 var POST_URL = 'https://script.google.com/macros/s/AKfycbwJPRmjcgGJuBWFq9dEE2ii7cchowgvByQD51YyVUg-XL5fY-vJSs6xpG3-DVeEbONE/exec';
+
+var VOLUNTEERS_SHEET_LINK = 'https://docs.google.com/spreadsheets/d/1jfY9e1bwgf2vQnMbj2BVBnYrNiSHDqCBSk31wmfSFmc/edit?gid=0#gid=0';
+
+  function openVolunteerSheet() {
+  window.open(VOLUNTEERS_SHEET_LINK, '_blank');
+}
 
 var VOLUNTEER_AREAS = [
   'Moore Miles','Bake Sale','Book Fair','Teacher Appreciation Week',
