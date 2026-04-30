@@ -36,6 +36,77 @@ body{
 img{max-width:100%;display:block}
 button,input,select,textarea{font:inherit}
 
+  .multi-select{
+  position:relative;
+  width:100%;
+}
+
+.multi-select-toggle{
+  width:100%;
+  border:1px solid var(--line);
+  background:var(--white);
+  border-radius:14px;
+  padding:13px 15px;
+  font-size:.92rem;
+  color:var(--text);
+  outline:none;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  cursor:pointer;
+  text-align:left;
+}
+
+.multi-select-toggle:focus{
+  border-color:rgba(255,194,0,.85);
+  box-shadow:0 0 0 4px rgba(255,194,0,.12);
+}
+
+.multi-select-menu{
+  display:none;
+  position:absolute;
+  top:calc(100% + 8px);
+  left:0;
+  right:0;
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  padding:10px;
+  max-height:260px;
+  overflow-y:auto;
+  z-index:2000;
+}
+
+.multi-select-menu.open{
+  display:block;
+}
+
+.multi-select-option{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:12px;
+  cursor:pointer;
+}
+
+.multi-select-option:hover{
+  background:#f7f8fb;
+}
+
+.multi-select-option input{
+  width:16px;
+  height:16px;
+  cursor:pointer;
+}
+
+.multi-select-option span{
+  font-size:.92rem;
+  color:var(--text);
+}
+
 /* SITE NAV */
 .site-nav{position:sticky;top:0;z-index:1000;background:rgba(12,21,70,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
 .nav-inner{width:min(var(--max), calc(100% - 40px));margin:0 auto;min-height:78px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px}
@@ -367,10 +438,21 @@ button,input,select,textarea{font:inherit}
         <div class="form-field"><label>Volunteers Needed</label><input type="text" id="eventVolunteers" placeholder="e.g. 12 or TBD"/></div>
       </div>
       <div class="form-field">
-        <label>Areas of Interest</label>
-        <select id="eventAreasOfInterest" multiple size="8"></select>
-        <div class="form-help">Hold Command (Mac) or Ctrl (Windows) to select multiple options.</div>
-      </div>
+  <label>Areas of Interest</label>
+
+  <div class="multi-select" id="areasMultiSelect">
+    <button type="button" class="multi-select-toggle" onclick="toggleAreasDropdown()">
+      <span id="areasSelectedText">Select areas of interest</span>
+      <span>▾</span>
+    </button>
+
+    <div class="multi-select-menu" id="areasDropdownMenu">
+      <div id="eventAreasOfInterest"></div>
+    </div>
+  </div>
+
+  <div class="form-help">Select one or more areas.</div>
+</div>
       <div class="form-field">
         <label>Description</label>
         <textarea id="eventDescription" placeholder="Brief description of the event..."></textarea>
@@ -439,37 +521,85 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+document.addEventListener('click', function(event) {
+  var multiSelect = document.getElementById('areasMultiSelect');
+  var menu = document.getElementById('areasDropdownMenu');
+
+  if (!multiSelect || !menu) return;
+
+  if (!multiSelect.contains(event.target)) {
+    menu.classList.remove('open');
+  }
+});
+  
+  function toggleAreasDropdown() {
+  document.getElementById('areasDropdownMenu').classList.toggle('open');
+}
+
+function updateAreasSelectedText() {
+  var selected = getSelectedMultiSelectValues('eventAreasOfInterest');
+  var text = document.getElementById('areasSelectedText');
+
+  if (!text) return;
+
+  if (selected.length === 0) {
+    text.textContent = 'Select areas of interest';
+  } else if (selected.length <= 2) {
+    text.textContent = selected.join(', ');
+  } else {
+    text.textContent = selected.length + ' areas selected';
+  }
+}
+  
 function buildEventAreasOfInterest() {
-  var select = document.getElementById('eventAreasOfInterest');
-  if (!select) return;
+  var container = document.getElementById('eventAreasOfInterest');
+  if (!container) return;
 
-  select.innerHTML = '';
+  container.innerHTML = '';
 
-  EVENT_AREAS_OF_INTEREST.forEach(function(area) {
-    var option = document.createElement('option');
-    option.value = area;
-    option.textContent = area;
-    select.appendChild(option);
+  EVENT_AREAS_OF_INTEREST.forEach(function(area, index) {
+    var id = 'eventAreaOption_' + index;
+
+    var label = document.createElement('label');
+    label.className = 'multi-select-option';
+
+    var checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.value = area;
+    checkbox.id = id;
+    checkbox.onchange = updateAreasSelectedText;
+
+    var text = document.createElement('span');
+    text.textContent = area;
+
+    label.appendChild(checkbox);
+    label.appendChild(text);
+    container.appendChild(label);
+  });
+
+  updateAreasSelectedText();
+}
+
+function getSelectedMultiSelectValues(containerId) {
+  var container = document.getElementById(containerId);
+  if (!container) return [];
+
+  return Array.from(container.querySelectorAll('input[type="checkbox"]:checked')).map(function(input) {
+    return input.value;
   });
 }
 
-function getSelectedMultiSelectValues(selectId) {
-  var select = document.getElementById(selectId);
-  if (!select) return [];
-  return Array.from(select.selectedOptions).map(function(option) {
-    return option.value;
-  });
-}
-
-function setSelectedMultiSelectValues(selectId, values) {
-  var select = document.getElementById(selectId);
-  if (!select) return;
+function setSelectedMultiSelectValues(containerId, values) {
+  var container = document.getElementById(containerId);
+  if (!container) return;
 
   var selectedValues = Array.isArray(values) ? values : [];
 
-  Array.from(select.options).forEach(function(option) {
-    option.selected = selectedValues.includes(option.value);
+  Array.from(container.querySelectorAll('input[type="checkbox"]')).forEach(function(input) {
+    input.checked = selectedValues.includes(input.value);
   });
+
+  updateAreasSelectedText();
 }
 
 function clearMultiSelect(selectId) {
