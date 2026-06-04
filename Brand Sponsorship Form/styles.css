@@ -1,0 +1,438 @@
+/* =========================================================
+   Moore Elementary PTO — Corporate Sponsor Form
+   Built on the Moore Elementary PTO design system.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700;800&display=swap');
+
+@font-face {
+  font-family: 'Libre Baskerville';
+  src: url('fonts/LibreBaskerville-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Libre Baskerville';
+  src: url('fonts/LibreBaskerville-Italic-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900; font-style: italic; font-display: swap;
+}
+@font-face { font-family: 'Roboto'; src: url('fonts/Roboto-Regular.ttf')   format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Roboto'; src: url('fonts/Roboto-SemiBold.ttf')  format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Roboto'; src: url('fonts/Roboto-ExtraBold.ttf') format('truetype'); font-weight: 800; font-style: normal; font-display: swap; }
+
+:root{
+  --gold:#ffc200;
+  --orange:#db6d42;
+  --navy:#0c1546;
+  --navy-2:#1d2a66;
+  --navy-3:#18245a;
+  --blue-card:#3f5799;
+  --text:#172033;
+  --text-2:#27324b;
+  --muted:#667085;
+  --bg:#f5f7fb;
+  --bg-alt:#eef2f8;
+  --paper:#fbfaf6;
+  --white:#ffffff;
+  --line:#dde3ef;
+  --line-soft:#e9edf5;
+  --success:#16a34a;
+  --danger:#dc2626;
+  --danger-bg:#fef2f2;
+  --danger-border:#fecaca;
+  --max:1100px;
+  --shadow-soft:0 10px 30px rgba(12,21,70,.07);
+  --shadow:0 20px 60px rgba(12,21,70,.10);
+  --shadow-deep:0 24px 70px rgba(12,21,70,.10);
+
+  /* tweakable accent — gold by default */
+  --accent:var(--gold);
+  --accent-ink:var(--navy);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'Roboto','Inter',sans-serif;
+  background:var(--paper);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none;cursor:pointer}
+button{font-family:inherit}
+
+.container{
+  width:min(var(--max), calc(100% - 40px));
+  margin:0 auto;
+}
+
+/* ===== Slim brand bar (standalone) ===== */
+.brand-bar{
+  position:sticky;top:0;z-index:1000;
+  background:rgba(12,21,70,.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.brand-bar-inner{
+  width:min(var(--max), calc(100% - 40px));
+  margin:0 auto;min-height:70px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+}
+.brand-lockup{display:flex;align-items:center;gap:13px}
+.brand-lockup img{width:42px;height:42px;object-fit:contain}
+.brand-lockup .brand-name{
+  color:var(--white);font-family:'Libre Baskerville','Baskervville',serif;
+  font-size:1.06rem;line-height:1.05;letter-spacing:-.01em;
+}
+.brand-lockup .brand-sub{
+  display:block;color:rgba(255,255,255,.62);
+  font-family:'Roboto','Inter',sans-serif;
+  font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;margin-top:3px;
+}
+.brand-back{
+  color:rgba(255,255,255,.82);font-size:.86rem;font-weight:600;
+  display:inline-flex;align-items:center;gap:7px;
+}
+.brand-back:hover{opacity:.78}
+
+/* ===== Page body / background ===== */
+.vol-body{
+  background:
+    radial-gradient(circle at top left,rgba(255,194,0,.08),transparent 22%),
+    linear-gradient(180deg,#fbfcfe 0%,#f3f6fb 100%);
+  min-height:100vh;
+}
+
+/* ===== Hero ===== */
+.vol-hero{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-3) 100%);
+  color:var(--white);
+}
+.vol-hero::before{
+  content:"";position:absolute;right:-100px;top:-60px;
+  width:340px;height:340px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,194,0,.18),transparent 68%);
+}
+.vol-hero::after{
+  content:"";position:absolute;left:-80px;bottom:-100px;
+  width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(circle,rgba(219,109,66,.14),transparent 70%);
+}
+.vol-hero-inner{
+  position:relative;z-index:2;
+  width:min(var(--max),calc(100% - 40px));margin:0 auto;
+  padding:60px 0 54px;
+}
+.vol-eyebrow{
+  display:inline-block;color:var(--gold);
+  text-transform:uppercase;letter-spacing:.16em;
+  font-size:.76rem;font-weight:700;margin-bottom:14px;
+}
+.vol-title{
+  font-family:'Libre Baskerville','Baskervville',serif;
+  font-size:clamp(2.3rem,5vw,4rem);
+  line-height:1.02;margin-bottom:16px;letter-spacing:-.02em;max-width:16ch;
+}
+.vol-title em{font-style:italic;color:var(--gold)}
+.vol-copy{max-width:660px;color:rgba(255,255,255,.9);font-size:1.02rem;line-height:1.8}
+.vol-pills{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px}
+.vol-pill{
+  display:inline-flex;align-items:center;gap:8px;padding:10px 15px;
+  border-radius:999px;background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.94);
+  font-size:.84rem;font-weight:600;backdrop-filter:blur(6px);
+}
+.vol-pill .pill-dot{width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.hero-bottom-bar{
+  position:absolute;left:0;right:0;bottom:0;height:5px;
+  background:linear-gradient(90deg,var(--gold),var(--orange),var(--gold));
+}
+
+.vol-main{padding:42px 0 72px}
+
+/* ===== Form shell ===== */
+.form-wrap{
+  background:rgba(255,255,255,.74);border:1px solid rgba(12,21,70,.06);
+  border-radius:32px;box-shadow:var(--shadow-deep);backdrop-filter:blur(10px);
+  overflow:hidden;
+}
+.form-card{padding:26px}
+.error-msg{
+  margin-bottom:20px;background:var(--danger-bg);
+  border:1px solid var(--danger-border);color:var(--danger);
+  border-radius:16px;padding:14px 16px;font-size:.92rem;line-height:1.6;
+}
+
+.form-section{
+  background:var(--white);border:1px solid var(--line-soft);
+  border-radius:24px;padding:24px;margin-bottom:18px;box-shadow:var(--shadow-soft);
+}
+.section-label{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.section-num{
+  width:34px;height:34px;border-radius:50%;
+  background:linear-gradient(135deg,var(--navy),var(--navy-2));
+  color:var(--gold);display:flex;align-items:center;justify-content:center;
+  font-size:.8rem;font-weight:700;flex-shrink:0;
+  box-shadow:0 10px 24px rgba(12,21,70,.18);
+}
+.section-title-form{font-family:'Libre Baskerville','Baskervville',serif;color:var(--navy);font-size:1.22rem;line-height:1.2}
+.section-sub{color:var(--muted);font-size:.86rem;font-weight:500;margin-left:6px}
+
+/* ===== Fields ===== */
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field-full{grid-column:1/-1}
+.field{display:flex;flex-direction:column;gap:8px}
+.field label{font-size:.76rem;text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:var(--navy)}
+.req{color:var(--orange)}
+.field input,.field select,.field textarea{
+  width:100%;border:1.5px solid var(--line);background:#f8faff;color:var(--text);
+  border-radius:16px;padding:14px 16px;font-family:'Roboto','Inter',sans-serif;
+  font-size:.94rem;outline:none;
+  transition:border-color .18s,box-shadow .18s,background .18s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:rgba(12,21,70,.34);background:var(--white);
+  box-shadow:0 0 0 4px rgba(255,194,0,.16);
+}
+.field textarea{resize:vertical;min-height:110px;line-height:1.7}
+.helper{color:var(--muted);font-size:.88rem;line-height:1.65;margin-bottom:14px}
+
+/* ===== Referral band (share the deck) ===== */
+.referral-band{
+  display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;
+  background:var(--white);border:1px solid rgba(12,21,70,.07);
+  border-radius:28px;padding:40px 42px;margin-bottom:24px;
+  box-shadow:var(--shadow-soft);position:relative;overflow:hidden;
+}
+.referral-band::before{
+  content:"";position:absolute;left:-90px;bottom:-110px;width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,194,0,.12),transparent 70%);pointer-events:none;
+}
+.referral-text{position:relative;z-index:2}
+.referral-kicker{
+  color:var(--orange);text-transform:uppercase;letter-spacing:.18em;
+  font-size:.74rem;font-weight:700;margin-bottom:14px;
+}
+.referral-headline{
+  font-family:'Libre Baskerville','Baskervville',serif;color:var(--navy);
+  font-size:clamp(1.7rem,3vw,2.3rem);line-height:1.1;letter-spacing:-.02em;margin-bottom:14px;
+}
+.referral-headline em{font-style:italic;color:var(--orange)}
+.referral-copy{color:var(--text-2);font-size:1rem;line-height:1.75;max-width:52ch;margin-bottom:24px}
+.referral-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.btn-deck{
+  border:none;border-radius:999px;background:var(--navy);color:var(--white);
+  padding:15px 26px;font-family:inherit;font-size:.95rem;font-weight:700;
+  display:inline-flex;align-items:center;gap:11px;cursor:pointer;
+  box-shadow:0 14px 28px rgba(12,21,70,.18);transition:transform .18s,opacity .18s;
+}
+.btn-deck:hover{transform:translateY(-2px);opacity:.95}
+.referral-note{color:var(--muted);font-size:.84rem;font-weight:600}
+
+/* deck cover preview */
+.referral-visual{position:relative;z-index:2;display:flex;justify-content:center}
+.deck-stack{position:relative;width:100%;max-width:380px}
+.deck-page{
+  position:absolute;inset:0;border-radius:14px;background:#fff;
+  border:1px solid rgba(12,21,70,.1);box-shadow:var(--shadow-soft);
+}
+.deck-page-2{transform:rotate(-3deg) translate(-10px,8px)}
+.deck-page-3{transform:rotate(3deg) translate(10px,14px);background:#f3f6fb}
+.deck-cover-img{
+  position:relative;width:100%;display:block;border-radius:14px;
+  border:1px solid rgba(12,21,70,.1);
+  box-shadow:0 24px 50px rgba(12,21,70,.26);
+}
+
+/* ===== Tier selection ===== */
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:start}
+.tier-card{
+  display:flex;flex-direction:column;
+  border:1.5px solid var(--line);border-radius:22px;
+  background:#f8faff;overflow:hidden;
+  transition:border-color .18s,background .18s,box-shadow .18s;
+}
+.tier-card:hover{border-color:rgba(255,194,0,.72)}
+.tier-card.selected{
+  border-color:rgba(12,21,70,.28);
+  background:linear-gradient(180deg,rgba(12,21,70,.045),rgba(255,194,0,.09));
+  box-shadow:0 14px 32px rgba(12,21,70,.10);
+}
+.tier-head{
+  padding:22px 20px 18px;cursor:pointer;text-align:left;
+  display:flex;flex-direction:column;outline:none;
+}
+.tier-head:focus-visible{box-shadow:inset 0 0 0 2px rgba(255,194,0,.6)}
+.tier-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:4px}
+.tier-name{
+  font-family:'Libre Baskerville','Baskervville',serif;
+  font-size:1.32rem;line-height:1.12;color:var(--navy);letter-spacing:-.01em;
+}
+.tier-radio{
+  width:22px;height:22px;border-radius:50%;border:2px solid var(--line);
+  background:var(--white);flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  transition:border-color .18s,background .18s;
+}
+.tier-card.selected .tier-radio{border-color:var(--navy);background:var(--navy)}
+.tier-radio svg{display:none}
+.tier-card.selected .tier-radio svg{display:block}
+.tier-amount{
+  font-family:'Libre Baskerville','Baskervville',serif;
+  font-size:2.1rem;line-height:1;color:var(--navy);margin:6px 0 12px;letter-spacing:-.02em;
+}
+.tier-badge{
+  align-self:flex-start;
+  display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;
+  font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;
+}
+.tier-badge.limited{background:rgba(219,109,66,.12);color:var(--orange)}
+.tier-badge.flagship{background:rgba(255,194,0,.18);color:var(--navy)}
+.tier-badge.open{background:rgba(12,21,70,.06);color:var(--navy)}
+.tier-badge .spot-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.tier-summary{margin-top:13px;color:var(--text-2);font-size:.9rem;line-height:1.5}
+
+.tier-expand{
+  margin:0 20px;padding:14px 0;border:none;border-top:1px solid var(--line-soft);
+  background:none;cursor:pointer;color:var(--navy);font-weight:700;font-size:.84rem;
+  letter-spacing:.02em;font-family:inherit;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+}
+.tier-expand:hover{color:var(--orange)}
+.tier-expand .chev{transition:transform .25s ease;flex-shrink:0}
+.tier-expand.open .chev{transform:rotate(180deg)}
+.tier-benefits-wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+.tier-benefits-wrap.open{grid-template-rows:1fr}
+.tier-benefits-inner{overflow:hidden}
+.tier-benefits{list-style:none;display:grid;gap:10px;padding:2px 20px 22px}
+.tier-benefits li{
+  position:relative;padding-left:24px;color:var(--text-2);
+  font-size:.88rem;line-height:1.5;
+}
+.tier-benefits li::before{
+  content:"✓";position:absolute;left:0;top:-1px;
+  color:var(--orange);font-weight:800;font-size:.92rem;
+}
+
+/* compact tier style (tweak) */
+.tier-grid.compact{grid-template-columns:1fr;gap:10px}
+.tier-grid.compact .tier-head{
+  display:grid;grid-template-columns:minmax(180px,1fr) 130px 1.4fr;
+  gap:20px;align-items:center;padding:18px 22px;
+}
+.tier-grid.compact .tier-top{margin-bottom:0}
+.tier-grid.compact .tier-amount{margin:0}
+.tier-grid.compact .tier-badge{display:none}
+.tier-grid.compact .tier-summary{margin-top:0}
+
+/* ===== Logo upload ===== */
+.logo-drop{
+  border:1.5px dashed rgba(12,21,70,.22);border-radius:20px;
+  background:#f9fbff;padding:30px 24px;text-align:center;cursor:pointer;
+  transition:border-color .18s,background .18s;
+}
+.logo-drop:hover{border-color:rgba(255,194,0,.7);background:#fffdf3}
+.logo-drop.has-file{border-style:solid;border-color:rgba(12,21,70,.16);background:#fff;cursor:default}
+.logo-drop-icon{
+  width:52px;height:52px;margin:0 auto 14px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(12,21,70,.05),rgba(255,194,0,.14));
+  display:flex;align-items:center;justify-content:center;color:var(--navy);
+}
+.logo-drop-title{font-weight:700;color:var(--navy);font-size:.98rem;margin-bottom:5px}
+.logo-drop-hint{color:var(--muted);font-size:.86rem;line-height:1.55}
+.logo-preview-row{display:flex;align-items:center;gap:16px;justify-content:center;flex-wrap:wrap}
+.logo-thumb{
+  width:64px;height:64px;border-radius:14px;border:1px solid var(--line);
+  background:#fff;object-fit:contain;padding:6px;
+}
+.logo-file-meta{text-align:left}
+.logo-file-name{font-weight:700;color:var(--navy);font-size:.95rem;word-break:break-all}
+.logo-file-size{color:var(--muted);font-size:.82rem;margin-top:2px}
+.logo-remove{
+  border:1px solid var(--line);background:#fff;color:var(--orange);
+  border-radius:999px;padding:8px 14px;font-size:.82rem;font-weight:700;cursor:pointer;
+}
+.logo-remove:hover{background:#fff1ee;border-color:rgba(219,109,66,.4)}
+
+/* ===== Submit ===== */
+.submit-section{
+  display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  padding:22px 26px 26px;
+}
+.submit-note{color:var(--muted);font-size:.86rem;line-height:1.7;max-width:560px}
+.btn-submit{
+  border:none;border-radius:999px;background:var(--navy);color:var(--white);
+  padding:16px 26px;font-family:inherit;font-size:.96rem;font-weight:700;
+  display:inline-flex;align-items:center;gap:10px;cursor:pointer;
+  transition:transform .18s,opacity .18s;
+  box-shadow:0 14px 28px rgba(12,21,70,.18);white-space:nowrap;
+}
+.btn-submit:hover{transform:translateY(-2px);opacity:.95}
+
+/* ===== Confirmation + donation prompt ===== */
+.confirm-shell{max-width:760px;margin:0 auto;text-align:center;padding:48px 30px 40px}
+.confirm-badge{
+  width:78px;height:78px;margin:0 auto 20px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,rgba(255,194,0,.2),rgba(219,109,66,.2));
+  color:var(--navy);font-size:2.1rem;
+}
+.confirm-title{font-family:'Libre Baskerville','Baskervville',serif;font-size:2.4rem;line-height:1.06;color:var(--navy);margin-bottom:12px}
+.confirm-title em{font-style:italic;color:var(--orange)}
+.confirm-msg{color:var(--text-2);font-size:1.02rem;line-height:1.8;margin-bottom:8px}
+.confirm-recap{
+  display:inline-flex;align-items:center;gap:10px;margin:18px auto 0;
+  padding:12px 20px;border-radius:999px;background:rgba(12,21,70,.05);
+  color:var(--navy);font-weight:700;font-size:.96rem;
+}
+.confirm-recap .recap-amount{color:var(--orange)}
+
+.donate-band{
+  margin-top:34px;text-align:left;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-3) 100%);
+  border-radius:28px;padding:38px 36px;color:var(--white);
+  box-shadow:var(--shadow-deep);
+}
+.donate-band::before{
+  content:"";position:absolute;top:-120px;right:-100px;width:360px;height:360px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,194,0,.18),transparent 70%);pointer-events:none;
+}
+.donate-band-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.3fr auto;gap:28px;align-items:center}
+.donate-kicker{color:var(--gold);text-transform:uppercase;letter-spacing:.16em;font-size:.72rem;font-weight:700;margin-bottom:12px}
+.donate-band h3{font-family:'Libre Baskerville','Baskervville',serif;font-size:1.85rem;line-height:1.12;margin-bottom:12px}
+.donate-band p{color:rgba(255,255,255,.86);font-size:.98rem;line-height:1.75;max-width:48ch}
+.donate-actions{display:flex;flex-direction:column;gap:12px;align-items:stretch;min-width:220px}
+.btn-donate{
+  border:none;border-radius:999px;background:var(--gold);color:var(--navy);
+  padding:18px 28px;font-family:inherit;font-size:1.05rem;font-weight:800;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  box-shadow:0 14px 28px rgba(0,0,0,.22);transition:transform .18s,opacity .18s;
+}
+.btn-donate:hover{transform:translateY(-2px);opacity:.96}
+.donate-note{color:rgba(255,255,255,.66);font-size:.82rem;line-height:1.55;text-align:center}
+.btn-text{
+  margin-top:26px;background:none;border:none;color:var(--navy);
+  font-family:'Libre Baskerville','Baskervville',serif;font-style:italic;
+  font-size:1rem;cursor:pointer;border-bottom:1px solid var(--navy);padding-bottom:2px;
+}
+.btn-text:hover{opacity:.7}
+
+/* ===== Responsive ===== */
+@media (max-width: 920px){
+  .tier-grid{grid-template-columns:1fr 1fr}
+  .field-grid{grid-template-columns:1fr}
+  .donate-band-grid{grid-template-columns:1fr}
+  .referral-band{grid-template-columns:1fr;gap:32px;padding:34px 28px}
+  .referral-visual{order:-1}
+  .deck-stack{max-width:340px}
+  .submit-section{flex-direction:column;align-items:stretch}
+  .btn-submit{justify-content:center}
+}
+@media (max-width: 560px){
+  .tier-grid{grid-template-columns:1fr}
+  .tier-grid.compact .tier-head{grid-template-columns:1fr;gap:8px;align-items:flex-start}
+  .brand-lockup .brand-name{font-size:.95rem}
+}
