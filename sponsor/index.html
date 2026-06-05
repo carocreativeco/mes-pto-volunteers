@@ -400,37 +400,35 @@ a{
 }
 
 .value-card{
+  position:relative;
+  overflow:hidden;
   text-align:center;
-  padding:30px 24px;
-  background:linear-gradient(180deg, #fbfcff 0%, #f6f8fd 100%);
-  border:1px solid rgba(12,21,70,.06);
+  padding:36px 26px;
+  border:1px solid rgba(12,21,70,.12);
   border-radius:26px;
-  box-shadow:0 8px 24px rgba(12,21,70,.04);
+  box-shadow:0 16px 38px rgba(12,21,70,.16);
+  background:linear-gradient(160deg, #24336f 0%, #0c1546 100%);
+  color:#fff;
 }
 
-.value-icon{
-  width:72px;
-  height:72px;
-  margin:0 auto 22px;
-  object-fit:contain;
+.value-card-bg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
-.value-card h3{
-  font-family:'Baskervville',serif;
-  font-size:clamp(2rem, 3vw, 2.5rem);
-  line-height:1.1;
-  color:var(--navy);
-  margin-bottom:16px;
+.value-card-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(160deg, rgba(20,30,80,.78) 0%, rgba(12,21,70,.92) 100%);
 }
 
-.value-card p{
-  color:var(--muted);
-  font-size:1rem;
-  line-height:1.9;
-  max-width:340px;
-  margin:0 auto;
+.value-card-content{
+  position:relative;
+  z-index:1;
 }
-
 .support-modern-grid{
   display:grid;
   grid-template-columns:repeat(2, 1fr);
@@ -997,19 +995,29 @@ a{
         </div>
 
         <div class="value-grid">
-          <div class="value-card reveal">
-            <img src="icon5.png" alt="Students icon" class="value-icon" onerror="this.style.display='none'">
-            <h3>450+ Students</h3>
-            <p>Your sponsorship helps support a vibrant school community of more than 500 Moore Elementary students through programs, events, and school-wide enrichment.</p>
+        <div class="value-card reveal">
+            <img class="value-card-bg" src="/why-sponsor-1.png" alt="" onerror="this.style.display='none'">
+            <div class="value-card-overlay"></div>
+            <div class="value-card-content">
+              <img src="icon5.png" alt="Students icon" class="value-icon" onerror="this.style.display='none'">
+              <h3>450+ Students</h3>
+              <p>Your sponsorship helps support a vibrant school community of more than 500 Moore Elementary students through programs, events, and school-wide enrichment.</p>
+            </div>
           </div>
 
           <div class="value-card reveal">
+            <img class="value-card-bg" src="/why-sponsor-2.png" alt="" onerror="this.style.display='none'">
+            <div class="value-card-overlay"></div>
+            <div class="value-card-content">
             <img src="icon6.png" alt="Sponsor tiers icon" class="value-icon" onerror="this.style.display='none'">
             <h3>5 Sponsor Tiers</h3>
             <p>We offer five sponsorship levels so businesses and community partners can choose the level of support that best fits their goals and visibility preferences.</p>
           </div>
 
           <div class="value-card reveal">
+            <img class="value-card-bg" src="/why-sponsor-3.png" alt="" onerror="this.style.display='none'">
+            <div class="value-card-overlay"></div>
+            <div class="value-card-content">
             <img src="icon7.png" alt="Goal icon" class="value-icon" onerror="this.style.display='none'">
             <h3>$50k Goal</h3>
             <p>Our fundraising goal helps provide classroom resources, teacher support, student experiences, field trips, and programs that directly benefit Moore kids.</p>
