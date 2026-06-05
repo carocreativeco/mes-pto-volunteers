@@ -262,7 +262,7 @@ function SponsorForm({ t }) {
               <span className="brand-sub">Home of the Eagles</span>
             </div>
           </div>
-          <a className="brand-back" href="#">
+          <a className="brand-back" href="https://moorevolunteers.org">>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
             Back to site
           </a>
