@@ -160,34 +160,6 @@ a{
   background:var(--navy);
 }
 
-  .hero-cta-row{
-  margin-top:30px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:14px;
-}
-
-.hero-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:16px 30px;
-  border-radius:999px;
-  background:var(--gold);
-  color:var(--navy);
-  font-weight:700;
-  font-size:1rem;
-  box-shadow:0 10px 30px rgba(255,194,0,.28);
-  transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
-}
-
-.hero-btn:hover{
-  transform:translateY(-2px);
-  background:var(--orange);
-  color:#fff;
-  box-shadow:0 14px 34px rgba(219,109,66,.34);
-}
-  
 .hero-media{
   position:absolute;
   inset:0;
@@ -244,6 +216,35 @@ a{
   font-size:1.06rem;
   line-height:1.9;
   color:rgba(255,255,255,.92);
+}
+
+/* HERO CTA BUTTON */
+.hero-cta-row{
+  margin-top:30px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+}
+
+.hero-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px 30px;
+  border-radius:999px;
+  background:var(--gold);
+  color:var(--navy);
+  font-weight:700;
+  font-size:1rem;
+  box-shadow:0 10px 30px rgba(255,194,0,.28);
+  transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.hero-btn:hover{
+  transform:translateY(-2px);
+  background:var(--orange);
+  color:#fff;
+  box-shadow:0 14px 34px rgba(219,109,66,.34);
 }
 
 .hero-bottom-bar{
@@ -458,6 +459,118 @@ a{
   margin:0;
 }
 
+/* SPONSORSHIP TIERS */
+.tier-badge{
+  width:92px;
+  margin:0 auto 4px;
+}
+
+.tier-badge svg{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+.tier-podium{
+  display:grid;
+  grid-template-columns:1fr 1.12fr 1fr;
+  align-items:end;
+  gap:22px;
+}
+
+.tier-base-row{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:22px;
+  max-width:760px;
+  margin:26px auto 0;
+}
+
+.tier-card{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  background:var(--white);
+  border:1px solid rgba(12,21,70,.06);
+  border-radius:26px;
+  padding:28px 24px 30px;
+  box-shadow:var(--shadow-soft);
+}
+
+.tier-card.featured{
+  border:1px solid rgba(255,194,0,.6);
+  box-shadow:0 22px 50px rgba(12,21,70,.16);
+}
+
+.tier-podium .pos-1{
+  order:2;
+  transform:translateY(-22px);
+  padding:34px 26px 36px;
+}
+
+.tier-podium .pos-2{
+  order:1;
+}
+
+.tier-podium .pos-3{
+  order:3;
+}
+
+.tier-eyebrow{
+  font-size:.66rem;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  font-weight:700;
+  color:var(--orange);
+  background:rgba(255,194,0,.14);
+  padding:6px 12px;
+  border-radius:999px;
+  margin-bottom:14px;
+}
+
+.tier-name{
+  font-family:'Baskervville',serif;
+  color:var(--navy);
+  font-size:1.7rem;
+  line-height:1.1;
+  margin-bottom:10px;
+}
+
+.tier-tagline{
+  color:var(--muted);
+  font-size:.95rem;
+  line-height:1.7;
+  margin-bottom:16px;
+  max-width:340px;
+}
+
+.tier-divider{
+  width:46px;
+  height:3px;
+  border-radius:2px;
+  background:var(--gold);
+  margin:0 0 14px;
+}
+
+.tier-list{
+  list-style:none;
+  width:100%;
+  margin-top:auto;
+}
+
+.tier-list li{
+  color:var(--text);
+  font-size:.93rem;
+  line-height:1.5;
+  padding:11px 4px;
+  border-top:1px solid var(--line-soft);
+}
+
+.tier-list li:first-child{
+  border-top:none;
+}
+
 /* HOW TO SPONSOR */
 .steps-modern{
   display:grid;
@@ -614,6 +727,24 @@ a{
     grid-template-columns:1fr;
   }
 
+  .tier-podium{
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+
+  .tier-podium .pos-1,
+  .tier-podium .pos-2,
+  .tier-podium .pos-3{
+    order:0;
+    transform:none;
+    padding:28px 24px 30px;
+  }
+
+  .tier-base-row{
+    grid-template-columns:1fr;
+    max-width:480px;
+  }
+
   .why-modern-intro{
     grid-template-columns:1fr;
     text-align:center;
@@ -676,7 +807,8 @@ a{
   .value-card,
   .miles-modern-card,
   .step-modern,
-  .support-modern-item{
+  .support-modern-item,
+  .tier-card{
     padding:20px;
   }
 
@@ -761,7 +893,7 @@ a{
       <a href="/volunteer/" class="nav-cta">Volunteer</a>
     </div>
 
-    <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleMenu()">☰</button>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleMenu()">&#9776;</button>
   </div>
 
   <div class="nav-mobile" id="mobileMenu">
@@ -784,11 +916,12 @@ a{
     <div class="hero-copy reveal visible">
       <div class="eyebrow">Become a Sponsor</div>
       <h1>Fuel Moore Miles.</h1>
-     <p>Partner with Moore Elementary PTO to help fund student experiences, classroom support, and the events that bring our school community together.</p>
+      <p>Partner with Moore Elementary PTO to help fund student experiences, classroom support, and the events that bring our school community together.</p>
       <div class="hero-cta-row">
         <a href="/sponsor-form/" class="hero-btn">Become a Sponsor</a>
       </div>
     </div>
+  </div>
 
   <div class="hero-bottom-bar"></div>
 </section>
@@ -800,7 +933,7 @@ a{
       <div class="section-head reveal">
         <h2 class="section-title">What is Moore Miles?</h2>
         <p class="section-copy">
-          Moore Miles is Moore Elementary’s signature annual fundraiser — a week-long celebration of community, fitness, and school spirit that ends with a Fun Run on campus.
+          Moore Miles is Moore Elementary&rsquo;s signature annual fundraiser &mdash; a week-long celebration of community, fitness, and school spirit that ends with a Fun Run on campus.
         </p>
       </div>
 
@@ -872,8 +1005,8 @@ a{
 
           <div class="value-card reveal">
             <img src="icon6.png" alt="Sponsor tiers icon" class="value-icon" onerror="this.style.display='none'">
-            <h3>3 Sponsor Tiers</h3>
-            <p>We offer three sponsorship levels so businesses and community partners can choose the level of support that best fits their goals and visibility preferences.</p>
+            <h3>5 Sponsor Tiers</h3>
+            <p>We offer five sponsorship levels so businesses and community partners can choose the level of support that best fits their goals and visibility preferences.</p>
           </div>
 
           <div class="value-card reveal">
@@ -925,11 +1058,158 @@ a{
 
   <section class="section section-alt">
     <div class="container">
+      <div class="section-head reveal" style="text-align:center;">
+        <span class="feature-kicker">Sponsorship Tiers</span>
+        <h2 class="section-title">Find the right fit for your business.</h2>
+        <p class="section-copy" style="margin:0 auto;">
+          Every tier helps fund Moore Miles and comes with recognition across our campaign. Choose the level of visibility that works best for you.
+        </p>
+      </div>
+
+      <div class="tier-podium">
+
+        <article class="tier-card featured pos-1 reveal">
+          <div class="tier-badge">
+            <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Title Sponsor rank one badge">
+              <defs><radialGradient id="tb1" cx="50%" cy="36%" r="68%"><stop offset="0" stop-color="#ffe7a0"/><stop offset="1" stop-color="#ffc200"/></radialGradient></defs>
+              <path d="M37 72 L28 114 L50 102 L50 72 Z" fill="#d9a300"/>
+              <path d="M63 72 L72 114 L50 102 L50 72 Z" fill="#b98700"/>
+              <circle cx="50" cy="46" r="41" fill="#fff6da"/>
+              <circle cx="50" cy="46" r="41" fill="none" stroke="#e9b400" stroke-width="2.5" stroke-dasharray="2 4" stroke-linecap="round"/>
+              <circle cx="50" cy="46" r="33" fill="url(#tb1)" stroke="#ffffff" stroke-width="2.5"/>
+              <text x="50" y="47" text-anchor="middle" dominant-baseline="central" font-family="Georgia,'Times New Roman',serif" font-size="36" font-weight="700" fill="#0c1546">1</text>
+            </svg>
+          </div>
+          <span class="tier-eyebrow">Highest Visibility &middot; Limit 1</span>
+          <h3 class="tier-name">Title Sponsor</h3>
+          <p class="tier-tagline">The highest visibility of any tier &mdash; premium exposure and a meaningful connection to Moore families.</p>
+          <div class="tier-divider"></div>
+          <ul class="tier-list">
+            <li>Naming rights: &ldquo;Moore Miles presented by [Your Business]&rdquo;</li>
+            <li>Speaking opportunity and premium pop-up tent at the event</li>
+            <li>Largest logo placement + featured signage / car rider line banners</li>
+            <li>6 complimentary event shirts</li>
+            <li>Dedicated social media and newsletter spotlight</li>
+            <li>Logo across print/digital materials and the campus banner</li>
+            <li>Digital Title Sponsor badge</li>
+          </ul>
+        </article>
+
+        <article class="tier-card pos-2 reveal">
+          <div class="tier-badge">
+            <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Platinum Event Sponsor rank two badge">
+              <defs><radialGradient id="tb2" cx="50%" cy="34%" r="70%"><stop offset="0" stop-color="#34468f"/><stop offset="1" stop-color="#0c1546"/></radialGradient></defs>
+              <path d="M37 72 L28 114 L50 102 L50 72 Z" fill="#1d2a66"/>
+              <path d="M63 72 L72 114 L50 102 L50 72 Z" fill="#0c1546"/>
+              <circle cx="50" cy="46" r="41" fill="#eef2fb"/>
+              <circle cx="50" cy="46" r="41" fill="none" stroke="#1d2a66" stroke-width="2.5" stroke-dasharray="2 4" stroke-linecap="round"/>
+              <circle cx="50" cy="46" r="33" fill="url(#tb2)" stroke="#ffc200" stroke-width="2.5"/>
+              <text x="50" y="47" text-anchor="middle" dominant-baseline="central" font-family="Georgia,'Times New Roman',serif" font-size="36" font-weight="700" fill="#ffc200">2</text>
+            </svg>
+          </div>
+          <span class="tier-eyebrow">Named Event Asset &middot; Limit 4</span>
+          <h3 class="tier-name">Platinum Event Sponsor</h3>
+          <p class="tier-tagline">Large-scale visibility through one named event asset &mdash; Cheer Zone, Finish Line, Lap Tracker, or Spirit Week.</p>
+          <div class="tier-divider"></div>
+          <ul class="tier-list">
+            <li>Branded track sign with QR code at your named asset</li>
+            <li>Large logo on event shirts + 4 complimentary shirts</li>
+            <li>Logo on the campus banner and year-round fence banners</li>
+            <li>Featured signage and newsletter sponsor spotlight</li>
+            <li>Social media and newsletter recognition</li>
+            <li>Digital Platinum Sponsor badge</li>
+          </ul>
+        </article>
+
+        <article class="tier-card pos-3 reveal">
+          <div class="tier-badge">
+            <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gold Sponsor rank three badge">
+              <defs><radialGradient id="tb3" cx="50%" cy="36%" r="68%"><stop offset="0" stop-color="#ec9468"/><stop offset="1" stop-color="#db6d42"/></radialGradient></defs>
+              <path d="M37 72 L28 114 L50 102 L50 72 Z" fill="#c25a32"/>
+              <path d="M63 72 L72 114 L50 102 L50 72 Z" fill="#a64c29"/>
+              <circle cx="50" cy="46" r="41" fill="#fdeee7"/>
+              <circle cx="50" cy="46" r="41" fill="none" stroke="#db6d42" stroke-width="2.5" stroke-dasharray="2 4" stroke-linecap="round"/>
+              <circle cx="50" cy="46" r="33" fill="url(#tb3)" stroke="#ffffff" stroke-width="2.5"/>
+              <text x="50" y="47" text-anchor="middle" dominant-baseline="central" font-family="Georgia,'Times New Roman',serif" font-size="36" font-weight="700" fill="#ffffff">3</text>
+            </svg>
+          </div>
+          <span class="tier-eyebrow">Strong Visibility</span>
+          <h3 class="tier-name">Gold Sponsor</h3>
+          <p class="tier-tagline">Meaningful recognition across apparel, school signage, digital materials, and sponsor communications.</p>
+          <div class="tier-divider"></div>
+          <ul class="tier-list">
+            <li>Medium logo on event shirts + 2 complimentary shirts</li>
+            <li>Logo on the campus banner and year-round fence banners</li>
+            <li>Business name in group Instagram post + newsletter recognition</li>
+            <li>Logo on the digital and print event flyer</li>
+            <li>Digital Gold Sponsor badge</li>
+          </ul>
+        </article>
+
+      </div>
+
+      <div class="tier-base-row">
+
+        <article class="tier-card reveal">
+          <div class="tier-badge">
+            <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Community Champion badge">
+              <defs><radialGradient id="tb4" cx="50%" cy="36%" r="68%"><stop offset="0" stop-color="#ffe7a0"/><stop offset="1" stop-color="#ffc200"/></radialGradient></defs>
+              <path d="M37 72 L28 114 L50 102 L50 72 Z" fill="#d9a300"/>
+              <path d="M63 72 L72 114 L50 102 L50 72 Z" fill="#b98700"/>
+              <circle cx="50" cy="46" r="41" fill="#fff6da"/>
+              <circle cx="50" cy="46" r="41" fill="none" stroke="#e9b400" stroke-width="2.5" stroke-dasharray="2 4" stroke-linecap="round"/>
+              <circle cx="50" cy="46" r="33" fill="url(#tb4)" stroke="#ffffff" stroke-width="2.5"/>
+              <path d="M50 30 L53.76 40.82 L65.2 41.05 L56.09 47.98 L59.4 58.9 L50 52.4 L40.6 58.9 L43.91 47.98 L34.8 41.05 L46.24 40.82 Z" fill="#0c1546"/>
+            </svg>
+          </div>
+          <span class="tier-eyebrow">Community Recognition</span>
+          <h3 class="tier-name">Community Champion</h3>
+          <p class="tier-tagline">Help power the campaign while earning school and community recognition.</p>
+          <div class="tier-divider"></div>
+          <ul class="tier-list">
+            <li>Small logo on 450 event shirts</li>
+            <li>Small logo on the main campus sponsorship banner</li>
+            <li>Business name in a group social media post</li>
+            <li>Group social media and newsletter recognition</li>
+            <li>Digital Community Champion badge</li>
+          </ul>
+        </article>
+
+        <article class="tier-card reveal">
+          <div class="tier-badge">
+            <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Community Builder badge">
+              <defs><radialGradient id="tb5" cx="50%" cy="34%" r="70%"><stop offset="0" stop-color="#34468f"/><stop offset="1" stop-color="#0c1546"/></radialGradient></defs>
+              <path d="M37 72 L28 114 L50 102 L50 72 Z" fill="#1d2a66"/>
+              <path d="M63 72 L72 114 L50 102 L50 72 Z" fill="#0c1546"/>
+              <circle cx="50" cy="46" r="41" fill="#eef2fb"/>
+              <circle cx="50" cy="46" r="41" fill="none" stroke="#1d2a66" stroke-width="2.5" stroke-dasharray="2 4" stroke-linecap="round"/>
+              <circle cx="50" cy="46" r="33" fill="url(#tb5)" stroke="#ffc200" stroke-width="2.5"/>
+              <path d="M50 30 L53.76 40.82 L65.2 41.05 L56.09 47.98 L59.4 58.9 L50 52.4 L40.6 58.9 L43.91 47.98 L34.8 41.05 L46.24 40.82 Z" fill="#ffc200"/>
+            </svg>
+          </div>
+          <span class="tier-eyebrow">Entry Level</span>
+          <h3 class="tier-name">Community Builder</h3>
+          <p class="tier-tagline">A simple way for local businesses to support Moore with recognition across campaign channels.</p>
+          <div class="tier-divider"></div>
+          <ul class="tier-list">
+            <li>Text placement on 450 event shirts</li>
+            <li>Small logo on the main campus sponsorship banner</li>
+            <li>Business name in a group social media post</li>
+            <li>Digital Community Builder badge</li>
+          </ul>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
       <div class="section-head reveal">
         <span class="feature-kicker">How to Sponsor</span>
         <h2 class="section-title">Ready to partner with us?</h2>
         <p class="section-copy">
-          We’d be honored to have your business as a Moore Miles sponsor. Here’s how to get started.
+          We&rsquo;d be honored to have your business as a Moore Miles sponsor. Here&rsquo;s how to get started.
         </p>
       </div>
 
@@ -938,7 +1218,7 @@ a{
           <div class="step-modern-num">1</div>
           <div class="step-modern-content">
             <h3>Choose your tier</h3>
-            <p>Presenting Sponsor · Community Champion · Community Builder</p>
+            <p>Title &middot; Platinum &middot; Gold &middot; Community Champion &middot; Community Builder</p>
           </div>
         </div>
 
@@ -954,7 +1234,7 @@ a{
           <div class="step-modern-num">3</div>
           <div class="step-modern-content">
             <h3>Submit your logo</h3>
-            <p>Gold and Silver sponsors can email a vector file or transparent PNG.</p>
+            <p>Logo-eligible sponsors can email a vector file or transparent PNG.</p>
           </div>
         </div>
 
@@ -970,7 +1250,7 @@ a{
           <div class="step-modern-num">5</div>
           <div class="step-modern-content">
             <h3>Receive confirmation</h3>
-            <p>We’ll confirm receipt and send your tax-deductible letter.</p>
+            <p>We&rsquo;ll confirm receipt and send your tax-deductible letter.</p>
           </div>
         </div>
 
@@ -1032,7 +1312,7 @@ a{
 </main>
 
 <footer class="site-footer">
-  <div class="footer-copy">© Moore Elementary PTO 2026</div>
+  <div class="footer-copy">&copy; Moore Elementary PTO 2026</div>
 </footer>
 
 <script>
