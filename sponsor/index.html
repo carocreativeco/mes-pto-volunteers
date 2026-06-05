@@ -429,6 +429,33 @@ a{
   position:relative;
   z-index:1;
 }
+
+.value-icon{
+  width:84px;
+  height:84px;
+  margin:0 auto 22px;
+  object-fit:cover;
+  border-radius:50%;
+  border:3px solid rgba(255,194,0,.9);
+  background:rgba(255,255,255,.08);
+}
+
+.value-card h3{
+  font-family:'Baskervville',serif;
+  font-size:clamp(2rem, 3vw, 2.5rem);
+  line-height:1.1;
+  color:#ffffff;
+  margin-bottom:16px;
+}
+
+.value-card p{
+  color:rgba(255,255,255,.84);
+  font-size:1rem;
+  line-height:1.9;
+  max-width:340px;
+  margin:0 auto;
+}
+
 .support-modern-grid{
   display:grid;
   grid-template-columns:repeat(2, 1fr);
@@ -882,7 +909,7 @@ a{
 
     <div class="nav-brand">
       <a href="/">
-        <img src="/ptohome.png" alt="Moore Elementary PTO logo" onerror="this.style.display='none'" />
+        <img src="ptohome.png" alt="Moore Elementary PTO logo" onerror="this.style.display='none'" />
       </a>
     </div>
 
@@ -906,7 +933,7 @@ a{
 
 <section class="hero">
   <div class="hero-media">
-    <img src="/sponsor.png" alt="Fuel Moore Miles" onerror="this.style.display='none'"/>
+    <img src="sponsor.png" alt="Fuel Moore Miles" onerror="this.style.display='none'"/>
   </div>
   <div class="hero-overlay"></div>
 
@@ -938,7 +965,7 @@ a{
       <div class="miles-modern-grid">
         <article class="miles-modern-card reveal">
           <div class="miles-modern-icon">
-            <img src="/icon1.png" alt="Fun Run icon" onerror="this.style.display='none'">
+            <img src="icon1.png" alt="Fun Run icon" onerror="this.style.display='none'">
           </div>
           <h3>Fun Run</h3>
           <p>Every student participates in a 1-mile run on campus.</p>
@@ -946,7 +973,7 @@ a{
 
         <article class="miles-modern-card reveal">
           <div class="miles-modern-icon">
-            <img src="/icon2.png" alt="School Spirit icon" onerror="this.style.display='none'">
+            <img src="icon2.png" alt="School Spirit icon" onerror="this.style.display='none'">
           </div>
           <h3>School Spirit</h3>
           <p>Five themed spirit days build excitement and strengthen community.</p>
@@ -954,7 +981,7 @@ a{
 
         <article class="miles-modern-card reveal">
           <div class="miles-modern-icon">
-            <img src="/icon3.png" alt="Goal icon" onerror="this.style.display='none'">
+            <img src="icon3.png" alt="Goal icon" onerror="this.style.display='none'">
           </div>
           <h3>$50k Goal</h3>
           <p>Funds classroom enrichment, field trips, and school supplies.</p>
@@ -976,7 +1003,7 @@ a{
       <div class="why-modern reveal">
         <div class="why-modern-intro">
           <div class="why-modern-badge">
-            <img src="/meseagle.png" alt="Moore Elementary eagle" onerror="this.style.display='none'">
+            <img src="meseagle.png" alt="Moore Elementary eagle" onerror="this.style.display='none'">
           </div>
 
           <div class="why-modern-copy">
@@ -995,8 +1022,8 @@ a{
         </div>
 
         <div class="value-grid">
-        <div class="value-card reveal">
-            <img class="value-card-bg" src="/why-sponsor-1.png" alt="" onerror="this.style.display='none'">
+          <div class="value-card reveal">
+            <img class="value-card-bg" src="why-sponsor-1.png" alt="" onerror="this.style.display='none'">
             <div class="value-card-overlay"></div>
             <div class="value-card-content">
               <img src="icon5.png" alt="Students icon" class="value-icon" onerror="this.style.display='none'">
@@ -1006,21 +1033,23 @@ a{
           </div>
 
           <div class="value-card reveal">
-            <img class="value-card-bg" src="/why-sponsor-2.png" alt="" onerror="this.style.display='none'">
+            <img class="value-card-bg" src="why-sponsor-2.png" alt="" onerror="this.style.display='none'">
             <div class="value-card-overlay"></div>
             <div class="value-card-content">
-            <img src="icon6.png" alt="Sponsor tiers icon" class="value-icon" onerror="this.style.display='none'">
-            <h3>5 Sponsor Tiers</h3>
-            <p>We offer five sponsorship levels so businesses and community partners can choose the level of support that best fits their goals and visibility preferences.</p>
+              <img src="icon6.png" alt="Sponsor tiers icon" class="value-icon" onerror="this.style.display='none'">
+              <h3>5 Sponsor Tiers</h3>
+              <p>We offer five sponsorship levels so businesses and community partners can choose the level of support that best fits their goals and visibility preferences.</p>
+            </div>
           </div>
 
           <div class="value-card reveal">
-            <img class="value-card-bg" src="/why-sponsor-3.png" alt="" onerror="this.style.display='none'">
+            <img class="value-card-bg" src="why-sponsor-3.png" alt="" onerror="this.style.display='none'">
             <div class="value-card-overlay"></div>
             <div class="value-card-content">
-            <img src="icon7.png" alt="Goal icon" class="value-icon" onerror="this.style.display='none'">
-            <h3>$50k Goal</h3>
-            <p>Our fundraising goal helps provide classroom resources, teacher support, student experiences, field trips, and programs that directly benefit Moore kids.</p>
+              <img src="icon7.png" alt="Goal icon" class="value-icon" onerror="this.style.display='none'">
+              <h3>$50k Goal</h3>
+              <p>Our fundraising goal helps provide classroom resources, teacher support, student experiences, field trips, and programs that directly benefit Moore kids.</p>
+            </div>
           </div>
         </div>
 
@@ -1287,39 +1316,39 @@ a{
       <div class="logo-marquee">
         <div class="logo-marquee-track">
           <div class="logo-set">
-            <img src="/sponsor/logo1.png" alt="Sponsor 1" class="sponsor-logo">
-            <img src="/logo2.png" alt="Sponsor 2" class="sponsor-logo">
-            <img src="/logo3.png" alt="Sponsor 3" class="sponsor-logo">
-            <img src="/logo4.png" alt="Sponsor 4" class="sponsor-logo">
-            <img src="/logo5.png" alt="Sponsor 5" class="sponsor-logo">
-            <img src="/logo6.png" alt="Sponsor 6" class="sponsor-logo">
-            <img src="/logo7.png" alt="Sponsor 7" class="sponsor-logo">
-            <img src="/logo8.png" alt="Sponsor 8" class="sponsor-logo">
-            <img src="/logo9.png" alt="Sponsor 9" class="sponsor-logo">
+            <img src="logo1.png" alt="Sponsor 1" class="sponsor-logo">
+            <img src="logo2.png" alt="Sponsor 2" class="sponsor-logo">
+            <img src="logo3.png" alt="Sponsor 3" class="sponsor-logo">
+            <img src="logo4.png" alt="Sponsor 4" class="sponsor-logo">
+            <img src="logo5.png" alt="Sponsor 5" class="sponsor-logo">
+            <img src="logo6.png" alt="Sponsor 6" class="sponsor-logo">
+            <img src="logo7.png" alt="Sponsor 7" class="sponsor-logo">
+            <img src="logo8.png" alt="Sponsor 8" class="sponsor-logo">
+            <img src="logo9.png" alt="Sponsor 9" class="sponsor-logo">
           </div>
 
           <div class="logo-set">
-            <img src="/logo1.png" alt="Sponsor 1" class="sponsor-logo">
-            <img src="/logo2.png" alt="Sponsor 2" class="sponsor-logo">
-            <img src="/logo3.png" alt="Sponsor 3" class="sponsor-logo">
-            <img src="/logo4.png" alt="Sponsor 4" class="sponsor-logo">
-            <img src="/logo5.png" alt="Sponsor 5" class="sponsor-logo">
-            <img src="/logo6.png" alt="Sponsor 6" class="sponsor-logo">
-            <img src="/logo7.png" alt="Sponsor 7" class="sponsor-logo">
-            <img src="/logo8.png" alt="Sponsor 8" class="sponsor-logo">
-            <img src="/logo9.png" alt="Sponsor 9" class="sponsor-logo">
+            <img src="logo1.png" alt="Sponsor 1" class="sponsor-logo">
+            <img src="logo2.png" alt="Sponsor 2" class="sponsor-logo">
+            <img src="logo3.png" alt="Sponsor 3" class="sponsor-logo">
+            <img src="logo4.png" alt="Sponsor 4" class="sponsor-logo">
+            <img src="logo5.png" alt="Sponsor 5" class="sponsor-logo">
+            <img src="logo6.png" alt="Sponsor 6" class="sponsor-logo">
+            <img src="logo7.png" alt="Sponsor 7" class="sponsor-logo">
+            <img src="logo8.png" alt="Sponsor 8" class="sponsor-logo">
+            <img src="logo9.png" alt="Sponsor 9" class="sponsor-logo">
           </div>
 
           <div class="logo-set">
-            <img src="/logo1.png" alt="Sponsor 1" class="sponsor-logo">
-            <img src="/logo2.png" alt="Sponsor 2" class="sponsor-logo">
-            <img src="/logo3.png" alt="Sponsor 3" class="sponsor-logo">
-            <img src="/logo4.png" alt="Sponsor 4" class="sponsor-logo">
-            <img src="/logo5.png" alt="Sponsor 5" class="sponsor-logo">
-            <img src="/logo6.png" alt="Sponsor 6" class="sponsor-logo">
-            <img src="/logo7.png" alt="Sponsor 7" class="sponsor-logo">
-            <img src="/logo8.png" alt="Sponsor 8" class="sponsor-logo">
-            <img src="/logo9.png" alt="Sponsor 9" class="sponsor-logo">
+            <img src="logo1.png" alt="Sponsor 1" class="sponsor-logo">
+            <img src="logo2.png" alt="Sponsor 2" class="sponsor-logo">
+            <img src="logo3.png" alt="Sponsor 3" class="sponsor-logo">
+            <img src="logo4.png" alt="Sponsor 4" class="sponsor-logo">
+            <img src="logo5.png" alt="Sponsor 5" class="sponsor-logo">
+            <img src="logo6.png" alt="Sponsor 6" class="sponsor-logo">
+            <img src="logo7.png" alt="Sponsor 7" class="sponsor-logo">
+            <img src="logo8.png" alt="Sponsor 8" class="sponsor-logo">
+            <img src="logo9.png" alt="Sponsor 9" class="sponsor-logo">
           </div>
         </div>
       </div>
