@@ -58,6 +58,28 @@
       flex-wrap: wrap;
     }
 
+    .builder-header {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 26px auto 2px;
+      text-align: center;
+    }
+
+    .builder-header h1 {
+      font-family: 'Baskervville', serif;
+      font-size: clamp(2.2rem, 4vw, 3.1rem);
+      color: var(--navy);
+      line-height: 1.02;
+      margin-bottom: 14px;
+    }
+
+    .builder-header p {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 60ch;
+      margin: 0 auto;
+    }
+
     .top-links-group {
       display: flex;
       gap: 10px;
@@ -985,19 +1007,20 @@
 
   <div class="top-links">
     <div class="top-links-group">
-      <a href="/admin/" class="back-link primary">← Back to Admin Portal</a>
+      <a href="/admin/" class="back-link primary">Admin Portal Login</a>
       <a href="/" class="back-link secondary">View Main Site</a>
     </div>
   </div>
 
+  <header class="builder-header">
+    <div class="panel-kicker">Builder</div>
+    <h1>Compose your announcement</h1>
+    <p>Fill in the document details, paste your content, and use the live preview to prepare a polished announcement.</p>
+  </header>
+
   <div class="workspace-shell">
     <div class="workspace">
       <aside class="panel">
-        <div class="panel-head">
-          <div class="panel-kicker">Builder</div>
-          <h2>Compose your announcement</h2>
-          <p>Fill in the document details, paste your content, and use the live preview to prepare a polished announcement.</p>
-        </div>
 
         <div class="panel-scroll">
           <div class="panel-section">
