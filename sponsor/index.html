@@ -349,6 +349,14 @@ a{
   box-shadow:var(--shadow-soft);
 }
 
+.why-modern-intro{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:28px;
+  align-items:center;
+  margin-bottom:30px;
+}
+
 .why-modern-badge{
   width:160px;
   height:160px;
@@ -387,7 +395,7 @@ a{
 .value-grid{
   display:grid;
   grid-template-columns:repeat(3, 1fr);
-  gap:24px;
+  gap:16px;
   margin-top:30px;
 }
 
@@ -424,6 +432,16 @@ a{
 .value-card-content{
   position:relative;
   z-index:1;
+}
+
+.value-icon{
+  width:84px;
+  height:84px;
+  margin:0 auto 22px;
+  object-fit:cover;
+  border-radius:50%;
+  border:3px solid rgba(255,194,0,.9);
+  background:rgba(255,255,255,.08);
 }
 
 .value-card h3{
@@ -677,9 +695,9 @@ a{
 }
 
 .sponsor-logo{
-  height:115px;
+  height:56px;
   width:auto;
-  max-width:285px;
+  max-width:180px;
   object-fit:contain;
   flex-shrink:0;
   opacity:.95;
@@ -942,45 +960,47 @@ a{
   <section class="section section-alt">
     <div class="container">
       <div class="section-head reveal">
-        <h2 class="section-title">What is Moore Miles?</h2>
+        <h2 class="section-title">A beloved tradition.</h2>
         <p class="section-copy">
-          Moore Miles is Moore Elementary&rsquo;s signature annual fundraiser &mdash; a week-long celebration of community, fitness, and school spirit that ends with a Fun Run on campus.
+          Moore Miles is Moore Elementary&rsquo;s signature annual fundraiser &mdash; a week-long celebration of community, fitness, and school spirit. Over one spirited week, every student takes part in a 1-mile Fun Run on campus while five themed spirit days build excitement across the school. The campaign rallies the community toward a $50,000 goal that funds classroom enrichment, field trips, and school supplies &mdash; capped off by a family bake sale and a school-wide auction.
         </p>
       </div>
 
-      <div class="section-head reveal" style="margin-top:8px;">
-        <h3 class="section-title" style="font-size:clamp(1.5rem, 3vw, 2rem);">A beloved tradition.</h3>
-        <p class="section-copy">
-          Over one spirited week, every student takes part in a 1-mile Fun Run on campus while five themed spirit days build excitement across the school. The campaign rallies the community toward a $50,000 goal that funds classroom enrichment, field trips, and school supplies &mdash; capped off by a family bake sale and a school-wide auction.
-        </p>
-      </div>
-          <h3>Fun Run</h3>
-          <p>Every student participates in a 1-mile run on campus.</p>
-        </article>
-
-        <article class="miles-modern-card reveal">
-          <div class="miles-modern-icon">
-            <img src="icon2.png" alt="School Spirit icon" onerror="this.style.display='none'">
+      <div class="support-modern-grid">
+        <div class="support-modern-item">
+          <div class="support-modern-check">
+            <img src="checkmark.png" alt="Checkmark" onerror="this.style.display='none'">
           </div>
-          <h3>School Spirit</h3>
-          <p>Five themed spirit days build excitement and strengthen community.</p>
-        </article>
+          <p>Classroom supplies and learning materials</p>
+        </div>
 
-        <article class="miles-modern-card reveal">
-          <div class="miles-modern-icon">
-            <img src="icon3.png" alt="Goal icon" onerror="this.style.display='none'">
+        <div class="support-modern-item">
+          <div class="support-modern-check">
+            <img src="checkmark.png" alt="Checkmark" onerror="this.style.display='none'">
           </div>
-          <h3>$50k Goal</h3>
-          <p>Funds classroom enrichment, field trips, and school supplies.</p>
-        </article>
+          <p>Student field trips and enrichment programs</p>
+        </div>
 
-        <article class="miles-modern-card reveal">
-          <div class="miles-modern-icon">
-            <img src="icon4.png" alt="Auction icon" onerror="this.style.display='none'">
+        <div class="support-modern-item">
+          <div class="support-modern-check">
+            <img src="checkmark.png" alt="Checkmark" onerror="this.style.display='none'">
           </div>
-          <h3>Auction</h3>
-          <p>Family bake sale and a school-wide auction add to the fun.</p>
-        </article>
+          <p>Interactive technology and classroom tools</p>
+        </div>
+
+        <div class="support-modern-item">
+          <div class="support-modern-check">
+            <img src="checkmark.png" alt="Checkmark" onerror="this.style.display='none'">
+          </div>
+          <p>Teacher support and appreciation events</p>
+        </div>
+
+        <div class="support-modern-item">
+          <div class="support-modern-check">
+            <img src="checkmark.png" alt="Checkmark" onerror="this.style.display='none'">
+          </div>
+          <p>School community-building activities</p>
+        </div>
       </div>
     </div>
   </section>
@@ -989,13 +1009,14 @@ a{
     <div class="container">
       <div class="why-modern reveal">
         <div class="why-modern-intro">
-
           <div class="why-modern-copy">
             <span class="feature-kicker">Why Sponsor</span>
             <h2 class="section-title">Make a visible impact in the Moore community.</h2>
             <p class="section-copy">
               Your sponsorship reaches an entire school community and helps create meaningful experiences for students, families, and teachers throughout the year.
             </p>
+          </div>
+        </div>
 
         <div class="value-grid">
           <div class="value-card reveal">
@@ -1023,43 +1044,6 @@ a{
               <h3>$50k Goal</h3>
               <p>Our fundraising goal helps provide classroom resources, teacher support, student experiences, field trips, and programs that directly benefit Moore kids.</p>
             </div>
-          </div>
-        </div>
-
-        <div class="support-modern-grid">
-          <div class="support-modern-item">
-            <div class="support-modern-check">
-              <img src="checkmark.png" alt="Checkmark" onerror="this.style.display='none'">
-            </div>
-            <p>Classroom supplies and learning materials</p>
-          </div>
-
-          <div class="support-modern-item">
-            <div class="support-modern-check">
-              <img src="checkmark.png" alt="Checkmark" onerror="this.style.display='none'">
-            </div>
-            <p>Student field trips and enrichment programs</p>
-          </div>
-
-          <div class="support-modern-item">
-            <div class="support-modern-check">
-              <img src="checkmark.png" alt="Checkmark" onerror="this.style.display='none'">
-            </div>
-            <p>Interactive technology and classroom tools</p>
-          </div>
-
-          <div class="support-modern-item">
-            <div class="support-modern-check">
-              <img src="checkmark.png" alt="Checkmark" onerror="this.style.display='none'">
-            </div>
-            <p>Teacher support and appreciation events</p>
-          </div>
-
-          <div class="support-modern-item">
-            <div class="support-modern-check">
-              <img src="checkmark.png" alt="Checkmark" onerror="this.style.display='none'">
-            </div>
-            <p>School community-building activities</p>
           </div>
         </div>
       </div>
