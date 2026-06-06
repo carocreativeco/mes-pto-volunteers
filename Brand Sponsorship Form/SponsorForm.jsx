@@ -213,15 +213,35 @@ function SponsorForm({ t }) {
   const [tier, setTier]         = useState("");
   const [business, setBusiness] = useState("");
   const [website, setWebsite]   = useState("");
+  const [noWebsite, setNoWebsite] = useState(false);
+  const [social, setSocial]     = useState("");
+  const [linkedin, setLinkedin] = useState("");
+  const [addressType, setAddressType] = useState("");
   const [address, setAddress]   = useState("");
   const [contact, setContact]   = useState("");
   const [email, setEmail]       = useState("");
   const [phone, setPhone]       = useState("");
-  const [connection, setConn]   = useState("");
+  const [hearAbout, setHearAbout]   = useState("");
+  const [hearName, setHearName]     = useState("");
+  const [hearTeacher, setHearTeacher] = useState("");
+  const [hearOther, setHearOther]   = useState("");
   const [logo, setLogo]         = useState(null);
   const [message, setMessage]   = useState("");
   const [error, setError]       = useState("");
   const [confirmed, setConfirmed] = useState(false);
+
+  /* Inline styles so these new controls look right without extra CSS */
+  const selectStyle = {
+    width: "100%", fontSize: ".95rem", padding: "14px 16px",
+    border: "1px solid #dde3ef", borderRadius: "12px", background: "#fff",
+    color: "#172033", outline: "none", appearance: "auto",
+  };
+  const optionRow = {
+    display: "flex", alignItems: "center", gap: "9px",
+    fontWeight: 500, textTransform: "none", letterSpacing: 0,
+    fontSize: ".95rem", color: "#172033", cursor: "pointer",
+  };
+  const optionGroup = { display: "flex", flexWrap: "wrap", gap: "18px", marginTop: "4px" };
 
   const pickLogo = (f) => {
     if (logo && logo.url) URL.revokeObjectURL(logo.url);
@@ -236,20 +256,32 @@ function SponsorForm({ t }) {
     setError("");
     if (!tier) return setError("Please choose a sponsorship tier.");
     if (!business.trim()) return setError("Please enter your business or organization name.");
+    if (!noWebsite && !website.trim()) return setError("Please enter your website, or check that you don't have one.");
+    if (!addressType) return setError("Please select an address type — Residential or Business.");
+    if (!address.trim()) return setError("Please enter your address.");
     if (!contact.trim()) return setError("Please enter a primary contact name.");
     if (!/\S+@\S+\.\S+/.test(email)) return setError("Please enter a valid email address.");
+    if (!phone.trim()) return setError("Please enter a phone number.");
+    if (!hearAbout) return setError("Please tell us how you heard about Moore Elementary.");
+    if ((hearAbout === "Parent" || hearAbout === "Student") && !hearName.trim())
+      return setError("Please enter the " + hearAbout.toLowerCase() + "'s name.");
+    if (hearAbout === "Other" && !hearOther.trim())
+      return setError("Please tell us how you heard about us.");
     setConfirmed(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const reset = () => {
-    setTier(""); setBusiness(""); setWebsite(""); setAddress("");
-    setContact(""); setEmail(""); setPhone(""); setConn("");
+    setTier(""); setBusiness(""); setWebsite(""); setNoWebsite(false);
+    setSocial(""); setLinkedin(""); setAddressType(""); setAddress("");
+    setContact(""); setEmail(""); setPhone("");
+    setHearAbout(""); setHearName(""); setHearTeacher(""); setHearOther("");
     clearLogo(); setMessage(""); setError(""); setConfirmed(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const selectedTier = TIERS.find((x) => x.id === tier);
+  const showNameTeacher = hearAbout === "Parent" || hearAbout === "Student";
 
   return (
     <div className="vol-body" data-screen-label="Corporate Sponsor Form">
@@ -262,7 +294,7 @@ function SponsorForm({ t }) {
               <span className="brand-sub">Home of the Eagles</span>
             </div>
           </div>
-          <a className="brand-back" href="https://moorevolunteers.org">>
+          <a className="brand-back" href="https://moorevolunteers.org">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
             Back to site
           </a>
@@ -311,14 +343,50 @@ function SponsorForm({ t }) {
                       <label>Business / Organization Name <span className="req">*</span></label>
                       <input type="text" value={business} onChange={(e) => setBusiness(e.target.value)} placeholder="e.g. Eagle Builders LLC" />
                     </div>
+
                     <div className="field field-full">
-                      <label>Website or Social</label>
-                      <input type="text" value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https:// or @yourbusiness" />
+                      <label>Website <span className="req">*</span></label>
+                      <input type="text" value={website} disabled={noWebsite}
+                        onChange={(e) => setWebsite(e.target.value)}
+                        placeholder="https://yourbusiness.com"
+                        style={noWebsite ? { background: "#f1f3f8", color: "#9aa3b2" } : undefined} />
+                      <label style={{ ...optionRow, marginTop: "10px" }}>
+                        <input type="checkbox" checked={noWebsite}
+                          onChange={(e) => { setNoWebsite(e.target.checked); if (e.target.checked) setWebsite(""); }} />
+                        <span>We don't have a website</span>
+                      </label>
                     </div>
+
                     <div className="field field-full">
-                      <label>Business Address</label>
-                      <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Street, City, State ZIP" />
+                      <label>Social Media</label>
+                      <input type="text" value={social} onChange={(e) => setSocial(e.target.value)} placeholder="@yourbusiness" />
                     </div>
+
+                    <div className="field field-full">
+                      <label>LinkedIn</label>
+                      <input type="text" value={linkedin} onChange={(e) => setLinkedin(e.target.value)} placeholder="linkedin.com/company/yourbusiness" />
+                    </div>
+
+                    <div className="field field-full">
+                      <label>Address Type <span className="req">*</span></label>
+                      <div style={optionGroup}>
+                        <label style={optionRow}>
+                          <input type="radio" name="addrType" checked={addressType === "Residential"} onChange={() => setAddressType("Residential")} />
+                          <span>Residential</span>
+                        </label>
+                        <label style={optionRow}>
+                          <input type="radio" name="addrType" checked={addressType === "Business"} onChange={() => setAddressType("Business")} />
+                          <span>Business</span>
+                        </label>
+                      </div>
+                    </div>
+
+                    {addressType && (
+                      <div className="field field-full">
+                        <label>{addressType} Address <span className="req">*</span></label>
+                        <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Street, City, State ZIP" />
+                      </div>
+                    )}
                   </div>
                 </FormSection>
 
@@ -333,13 +401,40 @@ function SponsorForm({ t }) {
                       <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@business.com" />
                     </div>
                     <div className="field">
-                      <label>Phone Number</label>
+                      <label>Phone Number <span className="req">*</span></label>
                       <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="(615) 555-0000" />
                     </div>
                     <div className="field">
-                      <label>Connection to Moore</label>
-                      <input type="text" value={connection} onChange={(e) => setConn(e.target.value)} placeholder="e.g. Parent of a 3rd grader, alum, neighbor" />
+                      <label>How did you hear about Moore Elementary? <span className="req">*</span></label>
+                      <select value={hearAbout} onChange={(e) => setHearAbout(e.target.value)} style={selectStyle}>
+                        <option value="">Select one…</option>
+                        <option value="Parent">Parent</option>
+                        <option value="Student">Student</option>
+                        <option value="Social Media">Social Media</option>
+                        <option value="School Outreach">School Outreach</option>
+                        <option value="Other">Other</option>
+                      </select>
                     </div>
+
+                    {showNameTeacher && (
+                      <>
+                        <div className="field">
+                          <label>{hearAbout} Name <span className="req">*</span></label>
+                          <input type="text" value={hearName} onChange={(e) => setHearName(e.target.value)} placeholder="First Last" />
+                        </div>
+                        <div className="field">
+                          <label>Teacher</label>
+                          <input type="text" value={hearTeacher} onChange={(e) => setHearTeacher(e.target.value)} placeholder="Teacher's name" />
+                        </div>
+                      </>
+                    )}
+
+                    {hearAbout === "Other" && (
+                      <div className="field field-full">
+                        <label>Tell us how <span className="req">*</span></label>
+                        <textarea value={hearOther} onChange={(e) => setHearOther(e.target.value)} placeholder="How did you hear about Moore Elementary?"></textarea>
+                      </div>
+                    )}
                   </div>
                 </FormSection>
 
