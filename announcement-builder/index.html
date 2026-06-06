@@ -1437,5 +1437,61 @@
       updatePreview();
     }
   </script>
+
+<div id="builderGate">
+  <div class="gate-card">
+    <h2>MES Document Builder</h2>
+    <p>Enter the password to access the builder.</p>
+    <input id="gatePass" type="password" placeholder="Password"
+           onkeydown="if(event.key==='Enter'){checkGate();}">
+    <button onclick="checkGate()">Unlock</button>
+    <p id="gateError" class="gate-error">Incorrect password. Try again.</p>
+  </div>
+</div>
+
+<style>
+  #builderGate{
+    position:fixed; inset:0; z-index:99999;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(12,21,70,.45);
+    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    font-family:'Inter',sans-serif;
+  }
+  #builderGate .gate-card{
+    background:#fff; border-radius:18px; padding:34px 30px;
+    width:min(380px, 90%); text-align:center;
+    box-shadow:0 24px 60px rgba(12,21,70,.3);
+  }
+  #builderGate h2{
+    font-family:'Baskervville',serif; color:#0c1546;
+    font-size:1.6rem; margin:0 0 8px;
+  }
+  #builderGate p{ color:#667085; font-size:.95rem; margin:0 0 20px; }
+  #builderGate input{
+    width:100%; min-height:48px; padding:0 16px; margin-bottom:12px;
+    border:1px solid #dde3ef; border-radius:999px; font-size:1rem;
+  }
+  #builderGate button{
+    width:100%; min-height:48px; border:none; border-radius:999px;
+    background:#ffc200; color:#0c1546; font-weight:700; font-size:1rem; cursor:pointer;
+  }
+  #builderGate .gate-error{ color:#db6d42; font-size:.85rem; margin:12px 0 0; display:none; }
+</style>
+
+<script>
+  (function(){
+    var PASS = 'moorePTO2026'; /* <-- change to your chosen password */
+    var gate = document.getElementById('builderGate');
+    if (sessionStorage.getItem('builderUnlocked') === 'yes') gate.style.display = 'none';
+    window.checkGate = function(){
+      if (document.getElementById('gatePass').value === PASS){
+        sessionStorage.setItem('builderUnlocked','yes');
+        gate.style.display = 'none';
+      } else {
+        document.getElementById('gateError').style.display = 'block';
+      }
+    };
+  })();
+</script>
 </body>
 </html>
