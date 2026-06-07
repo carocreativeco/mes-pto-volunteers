@@ -82,6 +82,9 @@ const HEADLINE_EM = {
   "Partner with Moore Elementary.": "Moore Elementary",
 };
 
+/* Paste your online donation page URL here when it's ready. Leave "" for now. */
+const ONLINE_DONATION_URL = "";
+
 function Headline({ text }) {
   const em = HEADLINE_EM[text];
   if (!em || !text.includes(em)) return <>{text}</>;
@@ -225,6 +228,7 @@ function SponsorForm({ t }) {
   const [hearName, setHearName]     = useState("");
   const [hearTeacher, setHearTeacher] = useState("");
   const [hearOther, setHearOther]   = useState("");
+  const [donateMethod, setDonateMethod] = useState("");
   const [logo, setLogo]         = useState(null);
   const [message, setMessage]   = useState("");
   const [error, setError]       = useState("");
@@ -236,12 +240,19 @@ function SponsorForm({ t }) {
     border: "1px solid #dde3ef", borderRadius: "12px", background: "#fff",
     color: "#172033", outline: "none", appearance: "auto",
   };
-  const optionRow = {
-    display: "flex", alignItems: "center", gap: "9px",
-    fontWeight: 500, textTransform: "none", letterSpacing: 0,
-    fontSize: ".95rem", color: "#172033", cursor: "pointer",
+  const box = { width: "16px", height: "16px", margin: 0, flex: "0 0 auto", cursor: "pointer" };
+  // inline-block + width:auto neutralizes any inherited ".field label" block/uppercase rules
+  const optLabel = {
+    display: "inline-block", width: "auto", margin: 0, fontWeight: 500,
+    textTransform: "none", letterSpacing: 0, fontSize: ".95rem", color: "#172033", cursor: "pointer",
   };
-  const optionGroup = { display: "flex", flexWrap: "wrap", gap: "18px", marginTop: "4px" };
+  const inlineRow = { display: "flex", alignItems: "center", justifyContent: "flex-start", gap: "8px" };
+  const methodCard = (active) => ({
+    display: "flex", alignItems: "center", gap: "13px", width: "100%", boxSizing: "border-box",
+    padding: "16px 18px", marginBottom: "12px", textAlign: "left", cursor: "pointer",
+    border: "1.5px solid " + (active ? "#0c1546" : "#dde3ef"), borderRadius: "14px",
+    background: active ? "#f6f8ff" : "#fff",
+  });
 
   const pickLogo = (f) => {
     if (logo && logo.url) URL.revokeObjectURL(logo.url);
@@ -267,6 +278,7 @@ function SponsorForm({ t }) {
       return setError("Please enter the " + hearAbout.toLowerCase() + "'s name.");
     if (hearAbout === "Other" && !hearOther.trim())
       return setError("Please tell us how you heard about us.");
+    if (!donateMethod) return setError("Please choose how you'd like to donate.");
     setConfirmed(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -276,6 +288,7 @@ function SponsorForm({ t }) {
     setSocial(""); setLinkedin(""); setAddressType(""); setAddress("");
     setContact(""); setEmail(""); setPhone("");
     setHearAbout(""); setHearName(""); setHearTeacher(""); setHearOther("");
+    setDonateMethod("");
     clearLogo(); setMessage(""); setError(""); setConfirmed(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -320,7 +333,7 @@ function SponsorForm({ t }) {
       <main className="vol-main">
         <div className="container">
           {confirmed ? (
-            <ConfirmScreen tier={selectedTier} onReset={reset} />
+            <ConfirmScreen tier={selectedTier} method={donateMethod} onReset={reset} />
           ) : (
             <>
               <ReferralBand />
@@ -350,11 +363,11 @@ function SponsorForm({ t }) {
                         onChange={(e) => setWebsite(e.target.value)}
                         placeholder="https://yourbusiness.com"
                         style={noWebsite ? { background: "#f1f3f8", color: "#9aa3b2" } : undefined} />
-                      <label style={{ ...optionRow, marginTop: "10px" }}>
-                        <input type="checkbox" checked={noWebsite}
+                      <div style={{ ...inlineRow, marginTop: "10px" }}>
+                        <input id="noWebsite" type="checkbox" checked={noWebsite} style={box}
                           onChange={(e) => { setNoWebsite(e.target.checked); if (e.target.checked) setWebsite(""); }} />
-                        <span>We don't have a website</span>
-                      </label>
+                        <label htmlFor="noWebsite" style={optLabel}>We don't have a website</label>
+                      </div>
                     </div>
 
                     <div className="field field-full">
@@ -369,15 +382,17 @@ function SponsorForm({ t }) {
 
                     <div className="field field-full">
                       <label>Address Type <span className="req">*</span></label>
-                      <div style={optionGroup}>
-                        <label style={optionRow}>
-                          <input type="radio" name="addrType" checked={addressType === "Residential"} onChange={() => setAddressType("Residential")} />
-                          <span>Residential</span>
-                        </label>
-                        <label style={optionRow}>
-                          <input type="radio" name="addrType" checked={addressType === "Business"} onChange={() => setAddressType("Business")} />
-                          <span>Business</span>
-                        </label>
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: "22px", marginTop: "4px", justifyContent: "flex-start" }}>
+                        <div style={inlineRow}>
+                          <input id="addrRes" type="radio" name="addrType" style={box}
+                            checked={addressType === "Residential"} onChange={() => setAddressType("Residential")} />
+                          <label htmlFor="addrRes" style={optLabel}>Residential</label>
+                        </div>
+                        <div style={inlineRow}>
+                          <input id="addrBiz" type="radio" name="addrType" style={box}
+                            checked={addressType === "Business"} onChange={() => setAddressType("Business")} />
+                          <label htmlFor="addrBiz" style={optLabel}>Business</label>
+                        </div>
                       </div>
                     </div>
 
@@ -450,6 +465,26 @@ function SponsorForm({ t }) {
                   </div>
                 </FormSection>
 
+                <FormSection num={6} title="How would you like to donate?" required>
+                  <p className="helper">Choose how you'd like to complete your tax-deductible contribution. We'll show the matching details on the confirmation page.</p>
+                  <label style={methodCard(donateMethod === "check")}>
+                    <input type="radio" name="donateMethod" style={box}
+                      checked={donateMethod === "check"} onChange={() => setDonateMethod("check")} />
+                    <span style={{ display: "block" }}>
+                      <span style={{ display: "block", fontWeight: 700, color: "#0c1546", fontSize: "1rem", textTransform: "none", letterSpacing: 0 }}>Drop off a check at the school</span>
+                      <span style={{ display: "block", fontWeight: 500, color: "#5a6477", fontSize: ".88rem", textTransform: "none", letterSpacing: 0, marginTop: "2px" }}>Make it payable to Moore Elementary School</span>
+                    </span>
+                  </label>
+                  <label style={methodCard(donateMethod === "online")}>
+                    <input type="radio" name="donateMethod" style={box}
+                      checked={donateMethod === "online"} onChange={() => setDonateMethod("online")} />
+                    <span style={{ display: "block" }}>
+                      <span style={{ display: "block", fontWeight: 700, color: "#0c1546", fontSize: "1rem", textTransform: "none", letterSpacing: 0 }}>Online donation</span>
+                      <span style={{ display: "block", fontWeight: 500, color: "#5a6477", fontSize: ".88rem", textTransform: "none", letterSpacing: 0, marginTop: "2px" }}>Pay securely on our donation page</span>
+                    </span>
+                  </label>
+                </FormSection>
+
                 <div className="submit-section">
                   <p className="submit-note">Submitting this form reserves your tier and lets the PTO follow up to confirm details. You'll complete your tax-deductible donation on the next step.</p>
                   <button type="button" className="btn-submit" onClick={submit}>
@@ -470,7 +505,7 @@ function SponsorForm({ t }) {
   );
 }
 
-function ConfirmScreen({ tier, onReset }) {
+function ConfirmScreen({ tier, method, onReset }) {
   return (
     <div className="form-wrap">
       <div className="confirm-shell">
@@ -485,20 +520,40 @@ function ConfirmScreen({ tier, onReset }) {
 
         <div className="donate-band">
           <div className="donate-band-grid">
-            <div>
-              <div className="donate-kicker">One last step</div>
-              <h3>Complete your donation</h3>
-              <p>Finish your sponsorship by sending your tax-deductible donation to the Moore Elementary PTO. You can give online, or make checks payable to Moore Elementary School.</p>
-            </div>
-            <div className="donate-actions">
-              <button type="button" className="btn-donate" onClick={() => {}}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                </svg>
-                Donate
-              </button>
-              <span className="donate-note">Secure donation page — link coming soon</span>
-            </div>
+            {method === "check" ? (
+              <>
+                <div>
+                  <div className="donate-kicker">One last step</div>
+                  <h3>Drop your check at the school</h3>
+                  <p>Make your check payable to <strong>Moore Elementary School</strong> and drop it at the front office, or mail it to the address below. Your tax-deductible donation completes your sponsorship.</p>
+                </div>
+                <div className="donate-actions">
+                  <div style={{ background: "#fff", border: "1px solid #e6e9f2", borderRadius: "14px", padding: "16px 18px", fontWeight: 600, color: "#0c1546", lineHeight: 1.5 }}>
+                    Moore Elementary School<br />
+                    <span style={{ fontWeight: 500, color: "#5a6477" }}>1061 Lewisburg Pike<br />Franklin, TN 37064</span>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div>
+                  <div className="donate-kicker">One last step</div>
+                  <h3>Complete your donation</h3>
+                  <p>Finish your sponsorship with your tax-deductible gift through our secure online donation page.</p>
+                </div>
+                <div className="donate-actions">
+                  <a className="btn-donate" href={ONLINE_DONATION_URL || undefined}
+                    target="_blank" rel="noopener noreferrer"
+                    onClick={(e) => { if (!ONLINE_DONATION_URL) e.preventDefault(); }}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                    Donate online
+                  </a>
+                  <span className="donate-note">{ONLINE_DONATION_URL ? "Opens our secure donation page" : "Secure donation page — link coming soon"}</span>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
