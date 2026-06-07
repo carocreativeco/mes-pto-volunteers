@@ -300,16 +300,12 @@ function SponsorForm({ t }) {
     <div className="vol-body" data-screen-label="Corporate Sponsor Form">
       <header className="brand-bar">
         <div className="brand-bar-inner">
-          <div className="brand-lockup">
-            <img src="assets/MES Stacked.png" alt="Moore Elementary PTO" />
-            <div>
-              <span className="brand-name">Moore Elementary PTO</span>
-              <span className="brand-sub">Home of the Eagles</span>
-            </div>
-          </div>
-          <a className="brand-back" href="https://moorevolunteers.org">
+          <a href="https://moorevolunteers.org" style={{ display: "inline-flex", alignItems: "center" }}>
+            <img src="../ptohome.png" alt="Moore Elementary PTO" style={{ height: "48px", display: "block" }} />
+          </a>
+          <a className="brand-back" href="https://moorevolunteers.org/sponsor/">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            Back to site
+            Back to Sponsor Page
           </a>
         </div>
       </header>
@@ -483,6 +479,25 @@ function SponsorForm({ t }) {
                       <span style={{ display: "block", fontWeight: 500, color: "#5a6477", fontSize: ".88rem", textTransform: "none", letterSpacing: 0, marginTop: "2px" }}>Pay securely on our donation page</span>
                     </span>
                   </label>
+
+                  {donateMethod === "online" && (
+                    <div style={{ marginTop: "4px", padding: "20px 22px", background: "#f6f8ff", border: "1px solid #d8dff5", borderRadius: "14px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "14px" }}>
+                      <span style={{ color: "#0c1546", fontWeight: 500, fontSize: ".95rem" }}>
+                        You'll be taken to our secure donation page to complete your gift.
+                      </span>
+                      {/* TODO: replace "#" with your donation page URL when it's ready */}
+                      <a href={ONLINE_DONATION_URL || "#"}
+                        target={ONLINE_DONATION_URL ? "_blank" : undefined}
+                        rel="noopener noreferrer"
+                        onClick={(e) => { if (!ONLINE_DONATION_URL) e.preventDefault(); }}
+                        style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "12px 22px", background: "#0c1546", color: "#ffc200", borderRadius: "10px", fontWeight: 700, fontSize: ".95rem", textDecoration: "none", whiteSpace: "nowrap", letterSpacing: ".01em", textTransform: "none" }}>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                        Donate online
+                      </a>
+                    </div>
+                  )}
                 </FormSection>
 
                 <div className="submit-section">
