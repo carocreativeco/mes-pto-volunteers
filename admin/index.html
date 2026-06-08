@@ -314,6 +314,7 @@ button,input,select,textarea{font:inherit}
     <nav class="tabs">
       <button class="tab active" data-tab="overview">Overview</button>
       <button class="tab" data-tab="volunteers">Volunteers</button>
+      <button class="tab" data-tab="sponsors">Sponsors</button>
       <button class="tab" data-tab="events">Events</button>
     </nav>
 
@@ -325,9 +326,9 @@ button,input,select,textarea{font:inherit}
       <div class="section-rule"></div>
 
       <div class="stats-row">
-        <div class="stat-card highlight"><div class="stat-card-label">Total Submissions</div><div class="stat-card-value" id="statTotalVolunteers">0</div></div>
-        <div class="stat-card highlight"><div class="stat-card-label">Unique Emails</div><div class="stat-card-value" id="statUniqueEmails">0</div></div>
-        <div class="stat-card"><div class="stat-card-label">New This Week</div><div class="stat-card-value" id="statNewVolunteers">0</div></div>
+        <div class="stat-card highlight"><div class="stat-card-label">Total Volunteers</div><div class="stat-card-value" id="statTotalVolunteers">0</div></div>
+        <div class="stat-card highlight"><div class="stat-card-label">Corporate Sponsors</div><div class="stat-card-value" id="statTotalSponsors">0</div></div>
+        <div class="stat-card"><div class="stat-card-label">Sponsor Dollars</div><div class="stat-card-value" id="statSponsorDollars">$0</div></div>
         <div class="stat-card"><div class="stat-card-label">Upcoming / Planned Events</div><div class="stat-card-value" id="statUpcomingEvents">0</div></div>
       </div>
 
@@ -354,6 +355,11 @@ button,input,select,textarea{font:inherit}
           <strong>View Sign-Ups</strong>
           <span>Browse submissions, filter by area, and update outreach status.</span>
         </div>
+        <div class="action-card" onclick="switchTab('sponsors')">
+          <span class="action-label">Sponsors</span>
+          <strong>View Sponsors</strong>
+          <span>Review sponsor leads, logos, tiers, and payment status.</span>
+        </div>
         <div class="action-card" onclick="switchTab('events')">
           <span class="action-label">Events</span>
           <strong>Manage Events</strong>
@@ -362,7 +368,7 @@ button,input,select,textarea{font:inherit}
         <div class="action-card" onclick="exportVolunteers()">
           <span class="action-label">Export</span>
           <strong>Download Volunteer Data</strong>
-          <span>Export all submissions as a CSV file for planning and outreach.</span>
+          <span>Export all volunteer submissions as a CSV file.</span>
         </div>
       </div>
     </div>
@@ -381,6 +387,7 @@ button,input,select,textarea{font:inherit}
           <option value="New">New</option>
           <option value="Contacted">Contacted</option>
           <option value="Confirmed">Confirmed</option>
+          <option value="Inactive">Inactive</option>
         </select>
         <select class="filter-select" id="volunteerAreaFilter" onchange="filterVolunteers()">
           <option value="">All Areas</option>
@@ -390,11 +397,58 @@ button,input,select,textarea{font:inherit}
       <div class="action-bar">
         <h3>All Volunteers</h3>
         <div class="action-buttons">
-  <button class="btn btn-secondary" onclick="exportVolunteers()">Export CSV</button>
-  <button class="btn btn-secondary" onclick="openVolunteerSheet()">Open Volunteer Sheet</button>
-</div>
+          <button class="btn btn-secondary" onclick="exportVolunteers()">Export CSV</button>
+          <button class="btn btn-secondary" onclick="openNotionVolunteers()">Open Notion Volunteers</button>
+        </div>
+      </div>
 
       <div class="volunteer-list" id="volunteerList"></div>
+    </div>
+
+    <div class="tab-content" id="tab-sponsors">
+      <div class="section-head">
+        <h2 class="section-title">Corporate Sponsors</h2>
+        <p class="section-intro">Review sponsorship submissions, filter by tier or status, and track logos and follow-up needs.</p>
+      </div>
+      <div class="section-rule"></div>
+
+      <div class="stats-row">
+        <div class="stat-card highlight"><div class="stat-card-label">Total Sponsors</div><div class="stat-card-value" id="sponsorStatTotal">0</div></div>
+        <div class="stat-card highlight"><div class="stat-card-label">Potential Total</div><div class="stat-card-value" id="sponsorStatDollars">$0</div></div>
+        <div class="stat-card"><div class="stat-card-label">Paid</div><div class="stat-card-value" id="sponsorStatPaid">0</div></div>
+        <div class="stat-card"><div class="stat-card-label">Logos Received</div><div class="stat-card-value" id="sponsorStatLogos">0</div></div>
+      </div>
+
+      <div class="filter-bar">
+        <input type="text" class="search-input" id="sponsorSearch" placeholder="Search by business, contact, or email..." oninput="filterSponsors()"/>
+        <select class="filter-select" id="sponsorStatusFilter" onchange="filterSponsors()">
+          <option value="">All Statuses</option>
+          <option value="Interested">Interested</option>
+          <option value="Contacted">Contacted</option>
+          <option value="Committed">Committed</option>
+          <option value="Paid">Paid</option>
+          <option value="Assets Received">Assets Received</option>
+          <option value="Completed">Completed</option>
+        </select>
+        <select class="filter-select" id="sponsorTierFilter" onchange="filterSponsors()">
+          <option value="">All Tiers</option>
+          <option value="Title Sponsor">Title Sponsor</option>
+          <option value="Platinum">Platinum</option>
+          <option value="Gold">Gold</option>
+          <option value="Community Champion">Community Champion</option>
+          <option value="Community Builder">Community Builder</option>
+        </select>
+      </div>
+
+      <div class="action-bar">
+        <h3>All Sponsors</h3>
+        <div class="action-buttons">
+          <button class="btn btn-secondary" onclick="exportSponsors()">Export CSV</button>
+          <button class="btn btn-secondary" onclick="openNotionSponsors()">Open Notion Sponsors</button>
+        </div>
+      </div>
+
+      <div class="volunteer-list" id="sponsorList"></div>
     </div>
 
     <div class="tab-content" id="tab-events">
@@ -468,17 +522,22 @@ button,input,select,textarea{font:inherit}
 <script>
 var ADMIN_PASSWORD = 'moorePTO2026';
 var STORAGE_KEY = 'moore_pto_v3';
+var SPONSORS_KEY = 'moore_pto_sponsors_v1';
 var STATUS_KEY = 'moore_pto_status';
+var SPONSOR_STATUS_KEY = 'moore_pto_sponsor_status';
 var EVENTS_KEY = 'moore_pto_events';
-var GOOGLE_SHEET_URL = 'https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnQ-z4eGsTce8zyKtJRB3pFpEk6P9ZLkkX2r5VDY5YcZ0XiUTD17ldD6vYVNgkVpRirSa8SYN-Xfwd2qqaI4BvRE5iUZ3BAVX29pHkghhDkO4KpqQsZRgRA-A3CdNOvt2TT-yozm6vi4kFBKOZxX2cZ8fEJ3zCwAc1vBmguUidaJyKjJQ1KyIRQy-7r1DnTuE_N0CQ9W4Hl0CEU84JrfdUBxWxBfO-Q9cuNS2PWuN4vx68QruT4nRfLnJOduDJ2AIrkOvFJPhJjQ2tNrNuBnLajhqageJA&lib=MSquWaj9vyQ89TRkZmWZq077I2IjHEufC';
+
+var VOLUNTEERS_API_URL = '/api/get-volunteers.php';
+var SPONSORS_API_URL = '/api/get-sponsors.php';
+
 var EVENTS_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwJPRmjcgGJuBWFq9dEE2ii7cchowgvByQD51YyVUg-XL5fY-vJSs6xpG3-DVeEbONE/exec?sheet=Events';
 var POST_URL = 'https://script.google.com/macros/s/AKfycbwJPRmjcgGJuBWFq9dEE2ii7cchowgvByQD51YyVUg-XL5fY-vJSs6xpG3-DVeEbONE/exec';
 
-var VOLUNTEERS_SHEET_LINK = 'https://docs.google.com/spreadsheets/d/1jfY9e1bwgf2vQnMbj2BVBnYrNiSHDqCBSk31wmfSFmc/edit?gid=0#gid=0';
+var NOTION_VOLUNTEERS_LINK = 'https://app.notion.com/p/0995bbe5b5e9410182d00381963a069c?v=aa1c111be61442c78f1e4d1f40c4845c&source=copy_link';
+var NOTION_SPONSORS_LINK = 'https://app.notion.com/p/77bf1c4779524bc283c7439475b4ebbd?v=249b9596498141d1b7664fc446a2f6e2&source=copy_link';
 
-  function openVolunteerSheet() {
-  window.open(VOLUNTEERS_SHEET_LINK, '_blank');
-}
+function openNotionVolunteers() { window.open(NOTION_VOLUNTEERS_LINK, '_blank'); }
+function openNotionSponsors() { window.open(NOTION_SPONSORS_LINK, '_blank'); }
 
 var VOLUNTEER_AREAS = [
   'Moore Miles','Bake Sale','Book Fair','Teacher Appreciation Week',
@@ -508,58 +567,52 @@ var DEFAULT_EVENTS = [
 document.addEventListener('DOMContentLoaded', function() {
   ensureDefaultEvents();
   buildEventAreasOfInterest();
+
   if (sessionStorage.getItem('pto_admin_logged_in') === 'true') showDashboard();
+
   document.querySelectorAll('.tab').forEach(function(tab) {
     tab.addEventListener('click', function() { switchTab(this.dataset.tab); });
   });
+
   var areaFilter = document.getElementById('volunteerAreaFilter');
-  VOLUNTEER_AREAS.forEach(function(area) {
-    var opt = document.createElement('option');
-    opt.value = area;
-    opt.textContent = area;
-    areaFilter.appendChild(opt);
-  });
+  if (areaFilter) {
+    VOLUNTEER_AREAS.forEach(function(area) {
+      var opt = document.createElement('option');
+      opt.value = area;
+      opt.textContent = area;
+      areaFilter.appendChild(opt);
+    });
+  }
 });
 
 document.addEventListener('click', function(event) {
   var multiSelect = document.getElementById('areasMultiSelect');
   var menu = document.getElementById('areasDropdownMenu');
-
   if (!multiSelect || !menu) return;
-
-  if (!multiSelect.contains(event.target)) {
-    menu.classList.remove('open');
-  }
+  if (!multiSelect.contains(event.target)) menu.classList.remove('open');
 });
-  
-  function toggleAreasDropdown() {
+
+function toggleAreasDropdown() {
   document.getElementById('areasDropdownMenu').classList.toggle('open');
 }
 
 function updateAreasSelectedText() {
   var selected = getSelectedMultiSelectValues('eventAreasOfInterest');
   var text = document.getElementById('areasSelectedText');
-
   if (!text) return;
 
-  if (selected.length === 0) {
-    text.textContent = 'Select areas of interest';
-  } else if (selected.length <= 2) {
-    text.textContent = selected.join(', ');
-  } else {
-    text.textContent = selected.length + ' areas selected';
-  }
+  if (selected.length === 0) text.textContent = 'Select areas of interest';
+  else if (selected.length <= 2) text.textContent = selected.join(', ');
+  else text.textContent = selected.length + ' areas selected';
 }
-  
+
 function buildEventAreasOfInterest() {
   var container = document.getElementById('eventAreasOfInterest');
   if (!container) return;
-
   container.innerHTML = '';
 
   EVENT_AREAS_OF_INTEREST.forEach(function(area, index) {
     var id = 'eventAreaOption_' + index;
-
     var label = document.createElement('label');
     label.className = 'multi-select-option';
 
@@ -583,7 +636,6 @@ function buildEventAreasOfInterest() {
 function getSelectedMultiSelectValues(containerId) {
   var container = document.getElementById(containerId);
   if (!container) return [];
-
   return Array.from(container.querySelectorAll('input[type="checkbox"]:checked')).map(function(input) {
     return input.value;
   });
@@ -594,7 +646,6 @@ function setSelectedMultiSelectValues(containerId, values) {
   if (!container) return;
 
   var selectedValues = Array.isArray(values) ? values : [];
-
   Array.from(container.querySelectorAll('input[type="checkbox"]')).forEach(function(input) {
     input.checked = selectedValues.includes(input.value);
   });
@@ -608,26 +659,6 @@ function clearMultiSelect(selectId) {
 
 function toggleMenu() {
   document.getElementById('mobileMenu').classList.toggle('open');
-}
-
-function ensureDefaultEvents() {
-  var existing = getEvents();
-  if (existing && existing.length > 0) return;
-  var seeded = DEFAULT_EVENTS.map(function(title, index) {
-    return {
-      id:'seed_evt_'+(index+1),
-      title:title,
-      date:'',
-      dateLabel:'TBD',
-      time:'TBD',
-      location:'',
-      description:'',
-      volunteersNeeded:'TBD',
-      areasOfInterest:[],
-      sortOrder:index
-    };
-  });
-  setEvents(seeded);
 }
 
 function attemptLogin() {
@@ -647,124 +678,210 @@ async function showDashboard() {
 }
 
 function switchTab(tabId) {
-  document.querySelectorAll('.tab').forEach(function(t) { t.classList.toggle('active', t.dataset.tab === tabId); });
-  document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.toggle('active', c.id === 'tab-' + tabId); });
+  document.querySelectorAll('.tab').forEach(function(t) {
+    t.classList.toggle('active', t.dataset.tab === tabId);
+  });
+  document.querySelectorAll('.tab-content').forEach(function(c) {
+    c.classList.toggle('active', c.id === 'tab-' + tabId);
+  });
 }
 
 async function loadDashboardData() {
-  await loadVolunteersFromSheet();
-  await loadEventsFromSheet();
+  await Promise.all([
+    loadVolunteersFromNotion(),
+    loadSponsorsFromNotion(),
+    loadEventsFromSheet()
+  ]);
+
   loadStats();
   loadVolunteers();
+  loadSponsors();
   loadEvents();
 }
 
-function getVolunteers() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-  } catch(e) {
-    return [];
-  }
-}
-
-async function loadVolunteersFromSheet() {
-  const response = await fetch(GOOGLE_SHEET_URL);
-  const rows = await response.json();
-
-  const volunteers = rows.map(function(row) {
-    return {
-      submittedAt: row['Timestamp'] || '',
-      firstName: row['First Name'] || '',
-      lastName: row['Last Name'] || '',
-      email: row['Email'] || '',
-      phone: row['Phone'] || '',
-      contactPref: row['Contact Preference'] || '',
-      children: parseChildren(row['Children'] || ''),
-      volunteerAreas: splitSemicolonList(row['Volunteer Areas'] || row['Other Skills'] || ''),
-      otherSkills: row['Other Skills'] || '',
-      availability: splitSemicolonList(row['Availability'] || row['Other Skills'] || ''),
-      availNotes: row['Avail Notes'] || '',
-      comments: row['Comments'] || '',
-      hearAbout: row['Heard About'] || ''
-    };
-  });
-
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(volunteers));
-}
-
 function splitSemicolonList(value) {
-  return String(value)
+  return String(value || '')
     .split(';')
     .map(function(item) { return item.trim(); })
     .filter(function(item) { return item; });
 }
 
 function parseChildren(value) {
-  value = String(value).trim();
+  value = String(value || '').trim();
   if (!value) return [];
 
-  return value.split(';').map(function(item) {
+  return value.split(/\n|;/).map(function(item) {
     item = item.trim();
-
     var match = item.match(/^(.*?)\s*\((.*?),\s*(.*?)\)$/);
-    if (!match) {
-      return { name: item, grade: '', teacher: '' };
-    }
+    if (!match) return { name: item, grade: '', teacher: '' };
 
     return {
       name: match[1].trim(),
       grade: match[2].trim(),
       teacher: match[3].trim()
     };
+  }).filter(function(c) { return c.name; });
+}
+
+function splitName(fullName) {
+  fullName = String(fullName || '').trim();
+  if (!fullName) return { firstName: '', lastName: '' };
+  var parts = fullName.split(/\s+/);
+  return {
+    firstName: parts.shift() || '',
+    lastName: parts.join(' ')
+  };
+}
+
+function getVolunteers() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+  catch(e) { return []; }
+}
+
+function getSponsors() {
+  try { return JSON.parse(localStorage.getItem(SPONSORS_KEY)) || []; }
+  catch(e) { return []; }
+}
+
+async function loadVolunteersFromNotion() {
+  const response = await fetch(VOLUNTEERS_API_URL);
+  const data = await response.json();
+
+  if (!data.success || !Array.isArray(data.volunteers)) {
+    throw new Error(data.error || 'Unable to load volunteers.');
+  }
+
+  const volunteers = data.volunteers.map(function(row) {
+    var nameParts = splitName(row.name || '');
+    return {
+      id: row.id || '',
+      submittedAt: row.submittedAt || '',
+      firstName: nameParts.firstName,
+      lastName: nameParts.lastName,
+      fullName: row.name || '',
+      email: row.email || '',
+      phone: row.phone || '',
+      contactPref: row.contactPref || '',
+      children: parseChildren(row.children || ''),
+      volunteerAreas: Array.isArray(row.volunteerAreas) ? row.volunteerAreas : [],
+      otherSkills: '',
+      availability: Array.isArray(row.availability) ? row.availability : [],
+      availNotes: row.availNotes || '',
+      comments: row.comments || '',
+      hearAbout: row.hearAbout || '',
+      notionStatus: row.status || 'New'
+    };
   });
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(volunteers));
+}
+
+async function loadSponsorsFromNotion() {
+  const response = await fetch(SPONSORS_API_URL);
+  const data = await response.json();
+
+  if (!data.success || !Array.isArray(data.sponsors)) {
+    throw new Error(data.error || 'Unable to load sponsors.');
+  }
+
+  const sponsors = data.sponsors.map(function(row) {
+    return {
+      id: row.id || '',
+      submittedAt: row.submittedAt || '',
+      businessName: row.businessName || '',
+      contactName: row.contactName || '',
+      email: row.email || '',
+      phone: row.phone || '',
+      tier: row.tier || '',
+      amount: Number(row.amount || 0),
+      notionStatus: row.status || 'Interested',
+      website: row.website || '',
+      social: row.social || '',
+      linkedin: row.linkedin || '',
+      logoUrl: row.logoUrl || '',
+      addressType: row.addressType || '',
+      address: row.address || '',
+      message: row.message || ''
+    };
+  });
+
+  localStorage.setItem(SPONSORS_KEY, JSON.stringify(sponsors));
 }
 
 function getStatuses() {
-  try {
-    return JSON.parse(localStorage.getItem(STATUS_KEY)) || {};
-  } catch(e) {
-    return {};
-  }
+  try { return JSON.parse(localStorage.getItem(STATUS_KEY)) || {}; }
+  catch(e) { return {}; }
 }
 
 function setStatuses(s) {
   localStorage.setItem(STATUS_KEY, JSON.stringify(s));
 }
 
-function getEvents() {
-  try {
-    return JSON.parse(localStorage.getItem(EVENTS_KEY)) || [];
-  } catch(e) {
-    return [];
-  }
+function getSponsorStatuses() {
+  try { return JSON.parse(localStorage.getItem(SPONSOR_STATUS_KEY)) || {}; }
+  catch(e) { return {}; }
 }
 
-async function loadEventsFromSheet() {
-  const response = await fetch(EVENTS_SHEET_URL);
-  const rows = await response.json();
+function setSponsorStatuses(s) {
+  localStorage.setItem(SPONSOR_STATUS_KEY, JSON.stringify(s));
+}
 
-  if (!Array.isArray(rows) || rows.length === 0) return;
-
-  const events = rows.map(function(row, index) {
-    return {
-      id: row['ID'] || ('evt_sheet_' + index),
-      title: row['Title'] || '',
-      date: row['Date'] || '',
-      dateLabel: row['Date Label'] || (row['Date'] ? '' : 'TBD'),
-      time: row['Time'] || 'TBD',
-      location: row['Location'] || '',
-      description: row['Description'] || '',
-      volunteersNeeded: row['Volunteers Needed'] || 'TBD',
-      areasOfInterest: splitSemicolonList(row['Areas of Interest'] || ''),
-      sortOrder: row['Sort Order'] !== '' && row['Sort Order'] != null ? Number(row['Sort Order']) : index
-    };
-  });
-
-  localStorage.setItem(EVENTS_KEY, JSON.stringify(events));
+function getEvents() {
+  try { return JSON.parse(localStorage.getItem(EVENTS_KEY)) || []; }
+  catch(e) { return []; }
 }
 
 function setEvents(e) {
   localStorage.setItem(EVENTS_KEY, JSON.stringify(e));
+}
+
+function ensureDefaultEvents() {
+  var existing = getEvents();
+  if (existing && existing.length > 0) return;
+
+  var seeded = DEFAULT_EVENTS.map(function(title, index) {
+    return {
+      id:'seed_evt_'+(index+1),
+      title:title,
+      date:'',
+      dateLabel:'TBD',
+      time:'TBD',
+      location:'',
+      description:'',
+      volunteersNeeded:'TBD',
+      areasOfInterest:[],
+      sortOrder:index
+    };
+  });
+
+  setEvents(seeded);
+}
+
+async function loadEventsFromSheet() {
+  try {
+    const response = await fetch(EVENTS_SHEET_URL);
+    const rows = await response.json();
+    if (!Array.isArray(rows) || rows.length === 0) return;
+
+    const events = rows.map(function(row, index) {
+      return {
+        id: row['ID'] || ('evt_sheet_' + index),
+        title: row['Title'] || '',
+        date: row['Date'] || '',
+        dateLabel: row['Date Label'] || (row['Date'] ? '' : 'TBD'),
+        time: row['Time'] || 'TBD',
+        location: row['Location'] || '',
+        description: row['Description'] || '',
+        volunteersNeeded: row['Volunteers Needed'] || 'TBD',
+        areasOfInterest: splitSemicolonList(row['Areas of Interest'] || ''),
+        sortOrder: row['Sort Order'] !== '' && row['Sort Order'] != null ? Number(row['Sort Order']) : index
+      };
+    });
+
+    localStorage.setItem(EVENTS_KEY, JSON.stringify(events));
+  } catch(e) {
+    console.warn('Events could not be loaded from Google Sheet. Using local events.', e);
+  }
 }
 
 function eventHasRealDate(e) {
@@ -776,8 +893,12 @@ function getEventDateLabel(e) {
     var date = new Date(e.date + 'T12:00:00');
     var monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     var dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    return {label:'Scheduled Date',value:monthNames[date.getMonth()]+' '+date.getDate()+', '+date.getFullYear()+' · '+dayNames[date.getDay()]};
+    return {
+      label:'Scheduled Date',
+      value:monthNames[date.getMonth()]+' '+date.getDate()+', '+date.getFullYear()+' · '+dayNames[date.getDay()]
+    };
   }
+
   return {label:'Scheduled Date',value:e.dateLabel || 'TBD'};
 }
 
@@ -787,28 +908,28 @@ function sortEventsForAdmin(events) {
     if (aHasDate && bHasDate) return new Date(a.date) - new Date(b.date);
     if (aHasDate && !bHasDate) return -1;
     if (!aHasDate && bHasDate) return 1;
+
     var aOrder = typeof a.sortOrder === 'number' ? a.sortOrder : 9999;
     var bOrder = typeof b.sortOrder === 'number' ? b.sortOrder : 9999;
     return aOrder - bOrder;
   });
 }
 
+function formatMoney(amount) {
+  amount = Number(amount || 0);
+  return '$' + amount.toLocaleString('en-US');
+}
+
 function loadStats() {
-  var volunteers = getVolunteers(), events = getEvents();
+  var volunteers = getVolunteers();
+  var sponsors = getSponsors();
+  var events = getEvents();
+
   document.getElementById('statTotalVolunteers').textContent = volunteers.length;
-
-  var uniqueEmails = new Set();
-  volunteers.forEach(function(v) {
-    if (v.email) uniqueEmails.add(v.email.toLowerCase());
-  });
-  document.getElementById('statUniqueEmails').textContent = uniqueEmails.size;
-
-  var weekAgo = new Date();
-  weekAgo.setDate(weekAgo.getDate() - 7);
-  var newCount = volunteers.filter(function(v) {
-    return new Date(v.submittedAt) >= weekAgo;
-  }).length;
-  document.getElementById('statNewVolunteers').textContent = newCount;
+  document.getElementById('statTotalSponsors').textContent = sponsors.length;
+  document.getElementById('statSponsorDollars').textContent = formatMoney(sponsors.reduce(function(sum, s) {
+    return sum + Number(s.amount || 0);
+  }, 0));
   document.getElementById('statUpcomingEvents').textContent = events.length;
 
   var areaCounts = {};
@@ -818,9 +939,10 @@ function loadStats() {
       if (areaCounts.hasOwnProperty(a)) areaCounts[a]++;
     });
   });
+
   var areaHtml = '';
   VOLUNTEER_AREAS.forEach(function(a) {
-    areaHtml += '<div class="summary-row"><span class="summary-row-label">'+a+'</span><span class="summary-row-value">'+areaCounts[a]+'</span></div>';
+    areaHtml += '<div class="summary-row"><span class="summary-row-label">'+escapeHtml(a)+'</span><span class="summary-row-value">'+areaCounts[a]+'</span></div>';
   });
   document.getElementById('summaryByArea').innerHTML = areaHtml;
 
@@ -832,9 +954,10 @@ function loadStats() {
       if (availCounts.hasOwnProperty(a)) availCounts[a]++;
     });
   });
+
   var availHtml = '';
   availabilityOptions.forEach(function(o) {
-    availHtml += '<div class="summary-row"><span class="summary-row-label">'+o+'</span><span class="summary-row-value">'+availCounts[o]+'</span></div>';
+    availHtml += '<div class="summary-row"><span class="summary-row-label">'+escapeHtml(o)+'</span><span class="summary-row-value">'+availCounts[o]+'</span></div>';
   });
   document.getElementById('summaryByAvailability').innerHTML = availHtml;
 
@@ -846,11 +969,34 @@ function loadStats() {
       if (c.grade && gradeCounts.hasOwnProperty(c.grade)) gradeCounts[c.grade]++;
     });
   });
+
   var gradeHtml = '';
   grades.forEach(function(g) {
-    gradeHtml += '<div class="summary-row"><span class="summary-row-label">'+g+'</span><span class="summary-row-value">'+gradeCounts[g]+'</span></div>';
+    gradeHtml += '<div class="summary-row"><span class="summary-row-label">'+escapeHtml(g)+'</span><span class="summary-row-value">'+gradeCounts[g]+'</span></div>';
   });
   document.getElementById('summaryByGrade').innerHTML = gradeHtml;
+
+  loadSponsorStats();
+}
+
+function loadSponsorStats() {
+  var sponsors = getSponsors();
+  var statuses = getSponsorStatuses();
+
+  document.getElementById('sponsorStatTotal').textContent = sponsors.length;
+  document.getElementById('sponsorStatDollars').textContent = formatMoney(sponsors.reduce(function(sum, s) {
+    return sum + Number(s.amount || 0);
+  }, 0));
+
+  var paidCount = sponsors.filter(function(s) {
+    var status = statuses[s.id] || s.notionStatus || 'Interested';
+    return status === 'Paid' || status === 'Completed';
+  }).length;
+
+  var logoCount = sponsors.filter(function(s) { return !!s.logoUrl; }).length;
+
+  document.getElementById('sponsorStatPaid').textContent = paidCount;
+  document.getElementById('sponsorStatLogos').textContent = logoCount;
 }
 
 function loadVolunteers() {
@@ -858,15 +1004,17 @@ function loadVolunteers() {
 }
 
 function filterVolunteers() {
-  var volunteers = getVolunteers(), statuses = getStatuses();
-  var search = document.getElementById('volunteerSearch').value.toLowerCase();
+  var volunteers = getVolunteers();
+  var statuses = getStatuses();
+  var search = (document.getElementById('volunteerSearch').value || '').toLowerCase();
   var statusFilter = document.getElementById('volunteerStatusFilter').value;
   var areaFilter = document.getElementById('volunteerAreaFilter').value;
 
   var filtered = volunteers.filter(function(v) {
-    var key = v.submittedAt + v.email;
-    var status = statuses[key] || 'New';
-    var matchesSearch = !search || ((v.firstName+' '+v.lastName).toLowerCase().includes(search)) || ((v.email || '').toLowerCase().includes(search));
+    var key = v.id || (v.submittedAt + v.email);
+    var status = statuses[key] || v.notionStatus || 'New';
+    var fullName = (v.fullName || (v.firstName+' '+v.lastName)).toLowerCase();
+    var matchesSearch = !search || fullName.includes(search) || ((v.email || '').toLowerCase().includes(search));
     var matchesStatus = !statusFilter || status === statusFilter;
     var matchesArea = !areaFilter || (v.volunteerAreas || []).includes(areaFilter);
     return matchesSearch && matchesStatus && matchesArea;
@@ -888,29 +1036,29 @@ function renderVolunteers(volunteers, statuses) {
 
   var html = '';
   volunteers.forEach(function(v) {
-    var key = v.submittedAt + v.email;
-    var status = statuses[key] || 'New';
+    var key = v.id || (v.submittedAt + v.email);
+    var status = statuses[key] || v.notionStatus || 'New';
     var badgeClass = status === 'New' ? 'badge-new' : (status === 'Contacted' ? 'badge-contacted' : 'badge-confirmed');
-    var date = new Date(v.submittedAt);
-    var dateStr = date.toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+    var date = v.submittedAt ? new Date(v.submittedAt) : null;
+    var dateStr = date && !isNaN(date) ? date.toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'}) : '';
+    var displayName = v.fullName || (v.firstName + ' ' + v.lastName).trim();
 
-    html += '<div class="volunteer-card"><div class="volunteer-card-header"><div class="volunteer-info"><h4>'+escapeHtml(v.firstName+' '+v.lastName)+'</h4><p><a href="mailto:'+escapeHtml(v.email)+'">'+escapeHtml(v.email)+'</a>';
+    html += '<div class="volunteer-card"><div class="volunteer-card-header"><div class="volunteer-info"><h4>'+escapeHtml(displayName)+'</h4><p><a href="mailto:'+escapeHtml(v.email)+'">'+escapeHtml(v.email)+'</a>';
     if (v.phone) html += ' · '+escapeHtml(v.phone);
-    html += '</p></div><div class="volunteer-meta"><span class="badge '+badgeClass+'">'+status+'</span></div></div><div class="volunteer-card-body">';
+    html += '</p></div><div class="volunteer-meta"><span class="badge '+badgeClass+'">'+escapeHtml(status)+'</span></div></div><div class="volunteer-card-body">';
 
     if (v.children && v.children.length > 0) {
       html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Children</div><div class="volunteer-detail-value">';
       html += v.children.map(function(c) {
-        return escapeHtml(c.name)+' ('+escapeHtml(c.grade)+', '+escapeHtml(c.teacher)+')';
+        var details = [c.grade, c.teacher].filter(Boolean).join(', ');
+        return escapeHtml(c.name) + (details ? ' (' + escapeHtml(details) + ')' : '');
       }).join('<br>');
       html += '</div></div>';
     }
 
     if (v.volunteerAreas && v.volunteerAreas.length > 0) {
       html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Areas of Interest</div><div class="volunteer-tags">';
-      v.volunteerAreas.forEach(function(a) {
-        html += '<span class="tag">'+escapeHtml(a)+'</span>';
-      });
+      v.volunteerAreas.forEach(function(a) { html += '<span class="tag">'+escapeHtml(a)+'</span>'; });
       html += '</div></div>';
     }
 
@@ -918,11 +1066,19 @@ function renderVolunteers(volunteers, statuses) {
       html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Availability</div><div class="volunteer-detail-value">'+v.availability.map(escapeHtml).join(', ')+'</div></div>';
     }
 
-    html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Submitted</div><div class="volunteer-detail-value">'+dateStr+'</div></div></div>';
+    if (v.availNotes) {
+      html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Schedule Notes</div><div class="volunteer-detail-value">'+escapeHtml(v.availNotes)+'</div></div>';
+    }
+
+    if (v.comments) {
+      html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Comments</div><div class="volunteer-detail-value">'+escapeHtml(v.comments)+'</div></div>';
+    }
+
+    html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Submitted</div><div class="volunteer-detail-value">'+escapeHtml(dateStr)+'</div></div></div>';
     html += '<div class="volunteer-card-actions">';
-    html += '<button class="btn btn-sm btn-secondary" onclick="updateStatus(\''+key.replace(/\u0027/g,"\\\u0027")+'\', \'New\')">Mark New</button>';
-    html += '<button class="btn btn-sm btn-secondary" onclick="updateStatus(\''+key.replace(/\u0027/g,"\\\u0027")+'\', \'Contacted\')">Mark Contacted</button>';
-    html += '<button class="btn btn-sm btn-success" onclick="updateStatus(\''+key.replace(/\u0027/g,"\\\u0027")+'\', \'Confirmed\')">Mark Confirmed</button>';
+    html += '<button class="btn btn-sm btn-secondary" onclick="updateStatus(\''+escapeJs(key)+'\', \'New\')">Mark New</button>';
+    html += '<button class="btn btn-sm btn-secondary" onclick="updateStatus(\''+escapeJs(key)+'\', \'Contacted\')">Mark Contacted</button>';
+    html += '<button class="btn btn-sm btn-success" onclick="updateStatus(\''+escapeJs(key)+'\', \'Confirmed\')">Mark Confirmed</button>';
     html += '</div></div>';
   });
 
@@ -933,7 +1089,101 @@ function updateStatus(key, status) {
   var statuses = getStatuses();
   statuses[key] = status;
   setStatuses(statuses);
-  loadDashboardData();
+  loadStats();
+  filterVolunteers();
+}
+
+function loadSponsors() {
+  filterSponsors();
+}
+
+function filterSponsors() {
+  var sponsors = getSponsors();
+  var statuses = getSponsorStatuses();
+  var search = (document.getElementById('sponsorSearch').value || '').toLowerCase();
+  var statusFilter = document.getElementById('sponsorStatusFilter').value;
+  var tierFilter = document.getElementById('sponsorTierFilter').value;
+
+  var filtered = sponsors.filter(function(s) {
+    var status = statuses[s.id] || s.notionStatus || 'Interested';
+    var haystack = [s.businessName, s.contactName, s.email, s.phone].join(' ').toLowerCase();
+    var matchesSearch = !search || haystack.includes(search);
+    var matchesStatus = !statusFilter || status === statusFilter;
+    var matchesTier = !tierFilter || s.tier === tierFilter;
+    return matchesSearch && matchesStatus && matchesTier;
+  });
+
+  filtered.sort(function(a,b) {
+    return new Date(b.submittedAt) - new Date(a.submittedAt);
+  });
+
+  renderSponsors(filtered, statuses);
+}
+
+function renderSponsors(sponsors, statuses) {
+  var container = document.getElementById('sponsorList');
+  if (!container) return;
+
+  if (sponsors.length === 0) {
+    container.innerHTML = '<div class="empty-state"><h4>No sponsors found</h4><p>No sponsor submissions match your current filters.</p></div>';
+    return;
+  }
+
+  var html = '';
+  sponsors.forEach(function(s) {
+    var status = statuses[s.id] || s.notionStatus || 'Interested';
+    var badgeClass = status === 'Interested' ? 'badge-new' : (status === 'Contacted' || status === 'Committed' ? 'badge-contacted' : 'badge-confirmed');
+    var date = s.submittedAt ? new Date(s.submittedAt) : null;
+    var dateStr = date && !isNaN(date) ? date.toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'}) : '';
+
+    html += '<div class="volunteer-card"><div class="volunteer-card-header"><div class="volunteer-info"><h4>'+escapeHtml(s.businessName)+'</h4><p>';
+    html += escapeHtml(s.contactName || '');
+    if (s.email) html += ' · <a href="mailto:'+escapeHtml(s.email)+'">'+escapeHtml(s.email)+'</a>';
+    if (s.phone) html += ' · '+escapeHtml(s.phone);
+    html += '</p></div><div class="volunteer-meta"><span class="badge '+badgeClass+'">'+escapeHtml(status)+'</span></div></div><div class="volunteer-card-body">';
+
+    html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Sponsorship Tier</div><div class="volunteer-detail-value">'+escapeHtml(s.tier || 'Not selected')+' · '+escapeHtml(formatMoney(s.amount))+'</div></div>';
+
+    if (s.website || s.social || s.linkedin) {
+      html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Online Presence</div><div class="volunteer-detail-value">';
+      if (s.website) html += '<a href="'+escapeHtml(s.website)+'" target="_blank" rel="noopener">'+escapeHtml(s.website)+'</a><br>';
+      if (s.social) html += escapeHtml(s.social)+'<br>';
+      if (s.linkedin) html += '<a href="'+escapeHtml(s.linkedin)+'" target="_blank" rel="noopener">'+escapeHtml(s.linkedin)+'</a>';
+      html += '</div></div>';
+    }
+
+    if (s.logoUrl) {
+      html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Logo</div><div class="volunteer-detail-value"><a href="'+escapeHtml(s.logoUrl)+'" target="_blank" rel="noopener">View uploaded logo</a></div></div>';
+    } else {
+      html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Logo</div><div class="volunteer-detail-value">No logo uploaded</div></div>';
+    }
+
+    if (s.address) {
+      html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Address</div><div class="volunteer-detail-value">'+escapeHtml(s.addressType ? s.addressType + ': ' : '')+escapeHtml(s.address)+'</div></div>';
+    }
+
+    if (s.message) {
+      html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Message</div><div class="volunteer-detail-value">'+escapeHtml(s.message)+'</div></div>';
+    }
+
+    html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Submitted</div><div class="volunteer-detail-value">'+escapeHtml(dateStr)+'</div></div></div>';
+    html += '<div class="volunteer-card-actions">';
+    ['Interested','Contacted','Committed','Paid','Assets Received','Completed'].forEach(function(nextStatus) {
+      var cls = (nextStatus === 'Paid' || nextStatus === 'Completed') ? 'btn-success' : 'btn-secondary';
+      html += '<button class="btn btn-sm '+cls+'" onclick="updateSponsorStatus(\''+escapeJs(s.id)+'\', \''+escapeJs(nextStatus)+'\')">'+escapeHtml(nextStatus)+'</button>';
+    });
+    html += '</div></div>';
+  });
+
+  container.innerHTML = html;
+}
+
+function updateSponsorStatus(id, status) {
+  var statuses = getSponsorStatuses();
+  statuses[id] = status;
+  setSponsorStatuses(statuses);
+  loadSponsorStats();
+  filterSponsors();
 }
 
 function loadEvents() {
@@ -965,8 +1215,8 @@ function loadEvents() {
 
     if (e.description) html += '<div class="event-item-desc">'+escapeHtml(e.description)+'</div>';
     html += '</div><div class="event-item-actions">';
-    html += '<button class="btn btn-sm btn-secondary btn-icon" onclick="editEvent(\''+e.id+'\')">Edit</button>';
-    html += '<button class="btn btn-sm btn-secondary btn-icon" onclick="deleteEvent(\''+e.id+'\')" style="color:var(--danger)">Delete</button>';
+    html += '<button class="btn btn-sm btn-secondary btn-icon" onclick="editEvent(\''+escapeJs(e.id)+'\')">Edit</button>';
+    html += '<button class="btn btn-sm btn-secondary btn-icon" onclick="deleteEvent(\''+escapeJs(e.id)+'\')" style="color:var(--danger)">Delete</button>';
     html += '</div></div>';
   });
 
@@ -985,10 +1235,7 @@ function openEventModal(eventId) {
   clearMultiSelect('eventAreasOfInterest');
 
   if (eventId) {
-    var event = getEvents().find(function(e) {
-      return e.id === eventId;
-    });
-
+    var event = getEvents().find(function(e) { return e.id === eventId; });
     if (event) {
       document.getElementById('eventTitle').value = event.title || '';
       document.getElementById('eventDate').value = event.date || '';
@@ -1014,12 +1261,7 @@ function editEvent(eventId) {
 async function postToSheet(payload) {
   const formData = new FormData();
   formData.append('data', JSON.stringify(payload));
-
-  const response = await fetch(POST_URL, {
-    method: 'POST',
-    body: formData
-  });
-
+  const response = await fetch(POST_URL, { method: 'POST', body: formData });
   return await response.json();
 }
 
@@ -1038,18 +1280,13 @@ async function saveEvent() {
   }
 
   var selectedAreas = getSelectedMultiSelectValues('eventAreasOfInterest');
-
   var events = getEvents();
   var existingEvent = editId ? events.find(function(e) { return e.id === editId; }) : null;
-  var sortOrder;
-
-  if (existingEvent && typeof existingEvent.sortOrder === 'number') {
-    sortOrder = existingEvent.sortOrder;
-  } else {
-    sortOrder = events.reduce(function(max, e) {
-      return Math.max(max, typeof e.sortOrder === 'number' ? e.sortOrder : 0);
-    }, 0) + 1;
-  }
+  var sortOrder = existingEvent && typeof existingEvent.sortOrder === 'number'
+    ? existingEvent.sortOrder
+    : events.reduce(function(max, e) {
+        return Math.max(max, typeof e.sortOrder === 'number' ? e.sortOrder : 0);
+      }, 0) + 1;
 
   var payload = {
     type: 'event-save',
@@ -1065,14 +1302,17 @@ async function saveEvent() {
     sortOrder: sortOrder
   };
 
-  var result = await postToSheet(payload);
-
-  if (!result || result.result !== 'success') {
-    alert('There was a problem saving the event.');
-    return;
+  try {
+    var result = await postToSheet(payload);
+    if (!result || result.result !== 'success') throw new Error('Save failed.');
+    await loadEventsFromSheet();
+  } catch(e) {
+    var current = getEvents();
+    var updated = current.filter(function(evt) { return evt.id !== payload.id; });
+    updated.push(payload);
+    setEvents(updated);
   }
 
-  await loadEventsFromSheet();
   closeEventModal();
   loadDashboardData();
 }
@@ -1080,17 +1320,14 @@ async function saveEvent() {
 async function deleteEvent(eventId) {
   if (!confirm('Are you sure you want to delete this event?')) return;
 
-  var result = await postToSheet({
-    type: 'event-delete',
-    id: eventId
-  });
-
-  if (!result || result.result !== 'success') {
-    alert('There was a problem deleting the event.');
-    return;
+  try {
+    var result = await postToSheet({ type: 'event-delete', id: eventId });
+    if (!result || result.result !== 'success') throw new Error('Delete failed.');
+    await loadEventsFromSheet();
+  } catch(e) {
+    setEvents(getEvents().filter(function(evt) { return evt.id !== eventId; }));
   }
 
-  await loadEventsFromSheet();
   loadDashboardData();
 }
 
@@ -1101,45 +1338,83 @@ function exportVolunteers() {
     return;
   }
 
-  var headers = ['First Name','Last Name','Email','Phone','Contact Preference','Children','Volunteer Areas','Other Skills','Availability','Availability Notes','Comments','How Heard','Status','Submitted'];
+  var headers = ['Name','Email','Phone','Contact Preference','Children','Volunteer Areas','Availability','Availability Notes','Comments','How Heard','Status','Submitted'];
   var rows = [headers.join(',')];
 
   volunteers.forEach(function(v) {
-    var key = v.submittedAt + v.email;
-    var status = statuses[key] || 'New';
+    var key = v.id || (v.submittedAt + v.email);
+    var status = statuses[key] || v.notionStatus || 'New';
     var children = (v.children || []).map(function(c) {
-      return c.name+' ('+c.grade+', '+c.teacher+')';
+      var details = [c.grade, c.teacher].filter(Boolean).join(', ');
+      return c.name + (details ? ' (' + details + ')' : '');
     }).join('; ');
 
     rows.push([
-      csvEscape(v.firstName),
-      csvEscape(v.lastName),
+      csvEscape(v.fullName || (v.firstName + ' ' + v.lastName).trim()),
       csvEscape(v.email),
       csvEscape(v.phone),
       csvEscape(v.contactPref),
       csvEscape(children),
       csvEscape((v.volunteerAreas||[]).join('; ')),
-      csvEscape(v.otherSkills),
       csvEscape((v.availability||[]).join('; ')),
       csvEscape(v.availNotes),
       csvEscape(v.comments),
       csvEscape(v.hearAbout),
       csvEscape(status),
-      csvEscape(new Date(v.submittedAt).toLocaleDateString())
+      csvEscape(v.submittedAt ? new Date(v.submittedAt).toLocaleDateString() : '')
     ].join(','));
   });
 
+  downloadCsv(rows, 'pto-volunteers-');
+}
+
+function exportSponsors() {
+  var sponsors = getSponsors(), statuses = getSponsorStatuses();
+  if (sponsors.length === 0) {
+    alert('No sponsor data to export.');
+    return;
+  }
+
+  var headers = ['Business Name','Contact Name','Email','Phone','Tier','Amount','Status','Website','Social Media','LinkedIn','Logo URL','Address Type','Address','Message','Submitted'];
+  var rows = [headers.join(',')];
+
+  sponsors.forEach(function(s) {
+    var status = statuses[s.id] || s.notionStatus || 'Interested';
+
+    rows.push([
+      csvEscape(s.businessName),
+      csvEscape(s.contactName),
+      csvEscape(s.email),
+      csvEscape(s.phone),
+      csvEscape(s.tier),
+      csvEscape(s.amount),
+      csvEscape(status),
+      csvEscape(s.website),
+      csvEscape(s.social),
+      csvEscape(s.linkedin),
+      csvEscape(s.logoUrl),
+      csvEscape(s.addressType),
+      csvEscape(s.address),
+      csvEscape(s.message),
+      csvEscape(s.submittedAt ? new Date(s.submittedAt).toLocaleDateString() : '')
+    ].join(','));
+  });
+
+  downloadCsv(rows, 'pto-sponsors-');
+}
+
+function downloadCsv(rows, prefix) {
   var blob = new Blob([rows.join('\n')], {type:'text/csv'});
   var url = URL.createObjectURL(blob);
   var a = document.createElement('a');
   a.href = url;
-  a.download = 'pto-volunteers-'+new Date().toISOString().slice(0,10)+'.csv';
+  a.download = prefix + new Date().toISOString().slice(0,10) + '.csv';
   a.click();
   URL.revokeObjectURL(url);
 }
 
 function csvEscape(val) {
-  if (!val) return '';
+  if (val === null || val === undefined) return '';
   val = String(val);
   if (val.indexOf(',') !== -1 || val.indexOf('"') !== -1 || val.indexOf('\n') !== -1) {
     return '"'+val.replace(/"/g,'""')+'"';
@@ -1148,10 +1423,14 @@ function csvEscape(val) {
 }
 
 function escapeHtml(text) {
-  if (!text) return '';
+  if (text === null || text === undefined) return '';
   var div = document.createElement('div');
-  div.textContent = text;
+  div.textContent = String(text);
   return div.innerHTML;
+}
+
+function escapeJs(text) {
+  return String(text || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 }
 </script>
 
