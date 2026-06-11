@@ -11,7 +11,7 @@ const TIERS = [
       "Naming rights: “Moore Miles presented by [Your Business]”",
       "Speaking opportunity at the event",
       "Largest logo placement among all sponsors on event shirts",
-      "Featured placement on Lewisburg-facing signage or car rider line banners",
+      "Logo and website placement on Lewisburg-facing signage",
       "Premium pop-up tent location at the event",
       "6 complimentary event shirts",
       "Dedicated sponsor recognition across campaign materials",
