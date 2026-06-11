@@ -567,10 +567,25 @@ function SponsorForm({ t }) {
                     <input type="radio" name="donateMethod" style={box}
                       checked={donateMethod === "check"} onChange={() => setDonateMethod("check")} />
                     <span style={{ display: "block" }}>
-                      <span style={{ display: "block", fontWeight: 700, color: "#0c1546", fontSize: "1rem", textTransform: "none", letterSpacing: 0 }}>Drop off a check at the school</span>
-                      <span style={{ display: "block", fontWeight: 500, color: "#5a6477", fontSize: ".88rem", textTransform: "none", letterSpacing: 0, marginTop: "2px" }}>Make it payable to Moore Elementary School</span>
+                      <span style={{ display: "block", fontWeight: 700, color: "#0c1546", fontSize: "1rem", textTransform: "none", letterSpacing: 0 }}>Mail or drop check to school (make payable to MES)</span>
                     </span>
                   </label>
+                  <div
+                    aria-hidden={donateMethod !== "check"}
+                    style={{
+                      maxHeight: donateMethod === "check" ? "180px" : 0,
+                      opacity: donateMethod === "check" ? 1 : 0,
+                      transform: donateMethod === "check" ? "translateY(0)" : "translateY(-8px)",
+                      overflow: "hidden",
+                      margin: donateMethod === "check" ? "0 0 12px" : 0,
+                      transition: "max-height 300ms ease, opacity 250ms ease, transform 300ms ease, margin 300ms ease",
+                    }}>
+                    <div style={{ padding: "16px 18px", background: "#f6f8ff", border: "1px solid #d8dff5", borderRadius: "14px", color: "#0c1546", lineHeight: 1.5 }}>
+                      <strong>Moore Elementary School</strong><br />
+                      1061 Lewisburg Pike<br />
+                      Franklin, TN 37064
+                    </div>
+                  </div>
                   <label style={methodCard(donateMethod === "online")}>
                     <input type="radio" name="donateMethod" style={box}
                       checked={donateMethod === "online"} onChange={() => setDonateMethod("online")} />
