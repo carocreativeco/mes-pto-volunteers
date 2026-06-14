@@ -398,17 +398,6 @@ function SponsorForm({ t }) {
 
   return (
     <div className="vol-body" data-screen-label="Corporate Sponsor Form">
-      <header className="brand-bar">
-        <div className="brand-bar-inner">
-          <a href="https://moorevolunteers.org" style={{ display: "inline-flex", alignItems: "center" }}>
-            <img src="../ptohome.png" alt="Moore Elementary PTO" style={{ height: "48px", display: "block" }} />
-          </a>
-          <a className="brand-back" href="https://moorevolunteers.org/sponsor/">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            Back to Sponsor Page
-          </a>
-        </div>
-      </header>
 
       {t.showHero && (
         <header className="vol-hero">
