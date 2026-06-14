@@ -88,6 +88,10 @@ const ONLINE_DONATION_URL = "";
 const SPONSOR_SUBMIT_ENDPOINT = "/api/submit-sponsor.php";
 const LOGO_UPLOAD_ENDPOINT = "/api/upload-logo.php";
 
+const SPONSORSHIP_DECK_DOWNLOAD = "https://drive.google.com/uc?export=download&id=1mnGF-1skbeB61SNJOUlQhVU4tVE5hl4P";
+const SPONSORSHIP_DECK_VIEW = "https://drive.google.com/file/d/1mnGF-1skbeB61SNJOUlQhVU4tVE5hl4P/view";
+const REFERRAL_EMAIL_HREF = "mailto:?subject=Moore%20Elementary%20School%20business%20sponsorship%20opportunity&body=Hi%2C%0A%0AAs%20you%20know%2C%20my%20_____%20attends%20Moore%20Elementary%20School%20in%20Franklin%2C%20TN.%20The%20Moore%20Elementary%20PTO%20is%20gearing%20up%20for%20the%202026%E2%80%932027%20school%20year%2C%20and%20they%27re%20looking%20for%20local%20business%20sponsors%20to%20help%20fund%20classroom%20support%2C%20student%20experiences%2C%20teacher%20appreciation%2C%20and%20community%20events%20throughout%20the%20year.%0A%0AThe%20PTO%20has%20put%20together%20a%20full%20sponsorship%20deck%20with%20tier%20options%20and%20benefits%20%E2%80%94%20from%20small%20community-builder%20levels%20all%20the%20way%20up%20to%20a%20title%20sponsorship%20for%20Moore%20Miles%2C%20our%20signature%20annual%20fundraiser.%20Every%20sponsorship%20reaches%20a%20school%20community%20of%20450%2B%20families%20and%20comes%20with%20year-round%20recognition.%20All%20contributions%20are%20tax-deductible.%0A%0AI%27d%20love%20for%20you%20to%20take%20a%20look%20at%20the%20deck%20and%20consider%20whether%20this%20might%20be%20a%20good%20fit%20for%20your%20business%3A%0A%0Ahttps%3A%2F%2Fdrive.google.com%2Ffile%2Fd%2F1mnGF-1skbeB61SNJOUlQhVU4tVE5hl4P%2Fview%0A%0AReady%20to%20sign%20up%3F%20You%20can%20commit%20for%20the%202026%E2%80%932027%20school%20year%20here%3A%0A%0Ahttps%3A%2F%2Fmoorevolunteers.org%2FBrand%20Sponsorship%20Form%2F%0A%0AHappy%20to%20answer%20any%20questions%20or%20connect%20you%20directly%20with%20the%20PTO.%20Thanks%20so%20much%20for%20considering%21%0A%0ABest%2C";
+
 async function uploadLogoToServer(file) {
   const formData = new FormData();
   formData.append("logo", file);
@@ -179,7 +183,7 @@ function ReferralBand() {
         <h2 className="referral-headline" id="referral-title">Know a business that should <em>sponsor</em>?</h2>
         <p className="referral-copy">You don't have to own a business to make a difference. Download our sponsorship deck and share it with a local business owner — a favorite restaurant, your family's dentist, the shop down the street. One quick introduction can help fund a whole year for Moore students.</p>
         <div className="referral-actions">
-          <a className="btn-deck" href="uploads/moore-miles-sponsorship-deck.pdf" download>
+          <a className="btn-deck" href={SPONSORSHIP_DECK_DOWNLOAD}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
               <polyline points="7 10 12 15 17 10"></polyline>
@@ -187,7 +191,14 @@ function ReferralBand() {
             </svg>
             Download sponsorship deck
           </a>
-          <span className="referral-note">PDF · ready to text or email</span>
+          <a className="btn-deck" href={REFERRAL_EMAIL_HREF} style={{ background: "transparent", color: "#0c1546", border: "1.5px solid #0c1546" }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            Send via email
+          </a>
+          <span className="referral-note">Share with a local business owner</span>
         </div>
       </div>
       <div className="referral-visual" aria-hidden="true">
@@ -406,7 +417,7 @@ function SponsorForm({ t }) {
             <h1 className="vol-title"><Headline text={t.headline} /></h1>
             <p className="vol-copy">Partner with the Moore Elementary PTO to fund a full year of classroom support, student experiences, and community events — culminating in Moore Miles, our signature Fun Run. Choose a tier below; every sponsorship reaches an entire school of families.</p>
             <div className="vol-pills">
-              <div className="vol-pill"><span className="pill-dot"></span>500+ students reached</div>
+              <div className="vol-pill"><span className="pill-dot"></span>450+ families reached</div>
               <div className="vol-pill"><span className="pill-dot"></span>Year-long recognition</div>
               <div className="vol-pill"><span className="pill-dot"></span>Tax-deductible</div>
             </div>
