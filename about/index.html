@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About Our PTO | Moore Elementary PTO</title>
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="shortcut icon" href="/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<meta name="apple-mobile-web-app-title" content="MES PTO" />
-<link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="MES PTO" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link href="https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root{
@@ -17,15 +17,15 @@
       --orange:#db6d42;
       --navy:#0c1546;
       --navy-2:#1d2a66;
-      --text:#172033;
+      --ink:#172033;
       --muted:#667085;
-      --bg:#f5f7fb;
-      --bg-alt:#eef2f8;
       --paper:#fbfaf6;
-      --rule:#0c1546;
+      --soft:#f2f5fa;
+      --soft-2:#eef2f8;
       --white:#ffffff;
+      --line:rgba(12,21,70,.14);
+      --shadow:0 22px 60px rgba(12,21,70,.12);
       --max:1200px;
-      --shadow-soft:0 10px 30px rgba(12,21,70,.07);
     }
 
     *{box-sizing:border-box;margin:0;padding:0}
@@ -33,290 +33,68 @@
     body{
       font-family:'Inter',sans-serif;
       background:var(--paper);
-      color:var(--text);
+      color:var(--ink);
       -webkit-font-smoothing:antialiased;
       text-rendering:optimizeLegibility;
     }
     img{max-width:100%;display:block}
     a{color:inherit;text-decoration:none}
     .container{width:min(var(--max), calc(100% - 40px));margin:0 auto}
-
-    .feature-kicker{
-      display:inline-block;
-      color:var(--orange);
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      font-size:.74rem;
-      font-weight:700;
-      margin-bottom:14px;
-    }
-
-    .section{padding:110px 0}
+    .kicker{display:inline-flex;align-items:center;gap:10px;color:var(--orange);text-transform:uppercase;letter-spacing:.18em;font-size:.74rem;font-weight:800;margin-bottom:16px}
+    .kicker::before{content:"";width:24px;height:2px;background:var(--orange)}
+    .section-title{font-family:'Baskervville',serif;font-size:clamp(2.35rem,4.6vw,4rem);line-height:.98;letter-spacing:-.035em;color:var(--navy)}
+    .section-title em{font-style:italic;color:var(--orange)}
+    .lede{font-size:1.08rem;line-height:1.85;color:#27324b}
 
     /* NAV */
-    .site-nav{
-      position:sticky;top:0;z-index:1000;
-      background:rgba(12,21,70,.92);
-      backdrop-filter:blur(10px);
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
-    .nav-inner{
-      width:min(var(--max), calc(100% - 40px));
-      margin:0 auto;min-height:78px;
-      display:grid;grid-template-columns:1fr auto 1fr;
-      align-items:center;gap:20px;
-    }
-    .nav-left,.nav-right{display:flex;align-items:center;gap:26px}
-    .nav-right{justify-content:flex-end}
-    .nav-brand{display:flex;justify-content:center;align-items:center}
-    .nav-brand img{width:80px;height:auto;max-height:52px;object-fit:contain}
-    .nav-link{color:rgba(255,255,255,.9);font-size:.95rem}
-    .nav-link:hover{opacity:.78}
-    .nav-cta{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:12px 18px;border-radius:999px;
-      background:var(--gold);color:var(--navy);
-      font-weight:700;font-size:.9rem;
-    }
-    .nav-toggle{display:none;border:none;background:none;color:var(--white);font-size:1.5rem;cursor:pointer}
-    .nav-mobile{display:none;width:min(var(--max), calc(100% - 40px));margin:0 auto;padding:0 0 18px}
-    .nav-mobile.open{display:grid;gap:12px}
-    .nav-mobile a{color:rgba(255,255,255,.92);font-size:.96rem}
+    .site-nav{position:sticky;top:0;z-index:1000;background:rgba(12,21,70,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.1)}
+    .nav-inner{width:min(var(--max), calc(100% - 40px));margin:0 auto;min-height:78px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px}
+    .nav-left,.nav-right{display:flex;align-items:center;gap:26px}.nav-right{justify-content:flex-end}
+    .nav-brand{display:flex;justify-content:center;align-items:center}.nav-brand img{width:80px;max-height:52px;object-fit:contain}
+    .nav-link{color:rgba(255,255,255,.9);font-size:.95rem}.nav-link:hover{opacity:.78}
+    .nav-cta{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:999px;background:var(--gold);color:var(--navy);font-weight:800;font-size:.9rem}
+    .nav-toggle{display:none;border:none;background:none;color:var(--white);font-size:1.5rem;cursor:pointer}.nav-mobile{display:none;width:min(var(--max), calc(100% - 40px));margin:0 auto;padding:0 0 18px}.nav-mobile.open{display:grid;gap:12px}.nav-mobile a{color:rgba(255,255,255,.92);font-size:.96rem}
 
-    /* EDITORIAL HERO */
-    .editorial-hero{background:var(--paper);padding:90px 0 60px;position:relative;overflow:hidden}
-    .editorial-hero::before{
-      content:"";position:absolute;top:50px;right:-120px;
-      width:420px;height:420px;border-radius:50%;
-      background:radial-gradient(circle, rgba(255,194,0,.18) 0%, rgba(255,194,0,0) 70%);
-      pointer-events:none;
-    }
-    .hero-meta{
-      display:flex;align-items:center;gap:14px;
-      font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;
-      font-weight:700;color:var(--navy);margin-bottom:38px;
-    }
-    .hero-meta .dot{width:6px;height:6px;border-radius:50%;background:var(--orange)}
-    .hero-meta .meta-pill{color:var(--orange)}
-    .editorial-hero h1{
-      font-family:'Baskervville',serif;
-      font-size:clamp(3rem, 8vw, 6.4rem);
-      line-height:.96;letter-spacing:-.035em;
-      color:var(--navy);max-width:14ch;margin-bottom:30px;
-    }
-    .editorial-hero h1 em{font-style:italic;color:var(--orange)}
-    .hero-deck{margin-top:40px;padding-top:34px;border-top:1px solid rgba(12,21,70,.15)}
-    .hero-deck p{font-size:1.18rem;line-height:1.7;color:#27324b;max-width:62ch}
+    /* HERO */
+    .hero{position:relative;overflow:hidden;padding:92px 0 80px;background:linear-gradient(135deg,var(--paper) 0%,#fff7df 48%,var(--soft-2) 100%)}
+    .hero::before{content:"";position:absolute;inset:auto -180px -220px auto;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(255,194,0,.25),rgba(255,194,0,0) 70%);pointer-events:none}
+    .hero::after{content:"";position:absolute;left:-180px;top:20px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(219,109,66,.12),rgba(219,109,66,0) 70%);pointer-events:none}
+    .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr;gap:28px;align-items:center;justify-items:center;text-align:center;max-width:940px}
+    .eyebrow{display:inline-flex;align-items:center;gap:12px;margin-bottom:28px;font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;font-weight:800;color:var(--navy)}
+    .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--orange)}
+    .hero h1{font-family:'Baskervville',serif;font-size:clamp(3.25rem,7.6vw,6.5rem);line-height:.92;letter-spacing:-.055em;color:var(--navy);max-width:12ch;margin:0 auto 28px}
+    .hero h1 em{font-style:italic;color:var(--orange)}
+    .hero p{max-width:720px;font-size:1.18rem;line-height:1.75;color:#27324b;margin:0 auto 32px}
+    .hero-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 22px;border-radius:999px;font-weight:800;font-size:.95rem}.btn-primary{background:var(--navy);color:var(--white)}.btn-secondary{background:var(--gold);color:var(--navy)}
+    .hero-card{background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.8);box-shadow:var(--shadow);border-radius:34px;padding:30px;position:relative;overflow:hidden}
+    .hero-card::before{content:"";position:absolute;inset:0 0 auto 0;height:7px;background:linear-gradient(90deg,var(--gold),var(--orange))}
+    .hero-card h2{font-family:'Baskervville',serif;color:var(--navy);font-size:2.1rem;line-height:1.05;letter-spacing:-.025em;margin:10px 0 16px}
+    .hero-card p{font-size:1rem;line-height:1.75;margin:0;color:#27324b}.hero-card-list{display:grid;gap:12px;margin-top:24px}.hero-card-list span{display:flex;align-items:center;gap:12px;color:var(--navy);font-weight:700}.hero-card-list span::before{content:"✓";display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--gold);font-size:.8rem}
 
-    /* STAT BAND */
-    .stat-band{background:var(--navy);color:var(--white);padding:70px 0;position:relative}
-    .stat-band::before{
-      content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
-      width:80px;height:4px;background:var(--gold);
-    }
-    .stat-grid{display:grid;grid-template-columns:repeat(4, 1fr);gap:40px}
-    .stat{border-left:1px solid rgba(255,255,255,.18);padding:6px 0 6px 22px}
-    .stat:first-child{border-left:none;padding-left:0}
-    .stat-num{
-      font-family:'Baskervville',serif;
-      font-size:clamp(2.4rem, 4.5vw, 3.6rem);
-      line-height:1;color:var(--gold);letter-spacing:-.02em;margin-bottom:10px;
-    }
-    .stat-label{
-      font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;
-      font-weight:700;color:rgba(255,255,255,.78);line-height:1.5;
-    }
+    /* STAT STRIP */
+    .stat-band{background:var(--navy);color:var(--white);padding:56px 0;position:relative}.stat-band::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:84px;height:4px;background:var(--gold)}
+    .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}.stat{padding:8px 22px;border-left:1px solid rgba(255,255,255,.18)}.stat:first-child{border-left:none;padding-left:0}.stat-num{font-family:'Baskervville',serif;font-size:clamp(2.2rem,4vw,3.5rem);line-height:1;color:var(--gold);letter-spacing:-.03em;margin-bottom:10px}.stat-label{font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:rgba(255,255,255,.78);line-height:1.5}
 
-    /* INTRO / FEATURE */
-    .feature-section{background:var(--paper)}
-    .feature-grid{display:grid;grid-template-columns:.9fr 1.4fr;gap:80px;align-items:start}
-    .feature-side{position:sticky;top:120px}
-    .feature-side .feature-kicker{margin-bottom:18px}
-    .feature-side h2{
-      font-family:'Baskervville',serif;
-      font-size:clamp(2.4rem, 4.4vw, 3.6rem);
-      line-height:1;letter-spacing:-.02em;color:var(--navy);
-    }
-    .feature-side h2 em{font-style:italic;color:var(--orange)}
-    .feature-body{border-left:1px solid rgba(12,21,70,.15);padding-left:50px}
-    .feature-body .lede{
-      font-family:'Baskervville',serif;
-      font-size:1.5rem;line-height:1.4;color:var(--navy);
-      margin-bottom:30px;letter-spacing:-.005em;
-    }
-    .feature-body .lede::first-letter{
-      font-size:3.6rem;float:left;line-height:.85;
-      padding:6px 12px 0 0;color:var(--orange);font-weight:700;
-    }
-    .feature-body p{font-size:1.05rem;line-height:1.85;color:#27324b;margin-bottom:22px}
-    .feature-body p:last-child{margin-bottom:0}
-
-    .callout{
-      margin:36px 0;padding:28px 0 28px 28px;
-      border-left:4px solid var(--gold);
-      background:rgba(255,194,0,.06);
-      font-family:'Baskervville',serif;
-      font-size:1.5rem;line-height:1.4;
-      color:var(--navy);letter-spacing:-.005em;
-    }
+    /* WHO */
+    .split-section{padding:112px 0;background:var(--paper)}
+    .split-grid{display:grid;grid-template-columns:.86fr 1.14fr;gap:76px;align-items:start}.split-aside{position:sticky;top:120px}.split-body{border-left:1px solid var(--line);padding-left:48px}.intro-line{font-family:'Baskervville',serif;font-size:1.55rem;line-height:1.42;color:var(--navy);letter-spacing:-.01em;margin-bottom:28px}.split-body p{font-size:1.04rem;line-height:1.85;color:#27324b;margin-bottom:20px}.quote-card{margin:34px 0;padding:28px 30px;border-radius:24px;background:var(--navy);color:var(--white);box-shadow:var(--shadow)}.quote-card p{font-family:'Baskervville',serif;font-size:1.45rem;line-height:1.42;color:var(--white);margin:0}.quote-card strong{color:var(--gold);font-weight:700}
 
     /* PROGRAMS */
-    .programs-section{background:var(--bg-alt);padding:120px 0}
-    .programs-head{
-      display:grid;grid-template-columns:.9fr 1.4fr;
-      gap:80px;align-items:end;margin-bottom:60px;
-    }
-    .programs-head h2{
-      font-family:'Baskervville',serif;
-      font-size:clamp(2.4rem, 4.4vw, 3.6rem);
-      line-height:1;letter-spacing:-.02em;color:var(--navy);
-    }
-    .programs-head h2 em{font-style:italic;color:var(--orange)}
-    .programs-intro{
-      border-left:1px solid rgba(12,21,70,.15);padding-left:50px;
-      color:#27324b;font-size:1.05rem;line-height:1.8;max-width:60ch;
-    }
-    .programs-list{border-top:2px solid var(--navy)}
-    .program-item{
-      display:grid;grid-template-columns:64px 1fr 1.2fr;
-      gap:32px;padding:36px 0;
-      border-bottom:1px solid rgba(12,21,70,.18);
-      align-items:center;transition:background .25s ease;
-    }
-    .program-item:hover{background:rgba(255,194,0,.08)}
-    .program-icon{
-      width:64px;height:64px;
-      display:flex;align-items:center;justify-content:center;flex-shrink:0;
-    }
-    .program-icon img{width:100%;height:100%;object-fit:contain}
-    .program-name{
-      font-family:'Baskervville',serif;
-      font-size:clamp(1.6rem, 2.4vw, 2.2rem);
-      line-height:1.1;color:var(--navy);letter-spacing:-.01em;
-    }
-    .program-desc{color:#27324b;font-size:1rem;line-height:1.75;max-width:54ch}
+    .programs{padding:112px 0;background:var(--soft-2)}.section-head{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:end;margin-bottom:54px}.section-head .lede{max-width:64ch;border-left:1px solid var(--line);padding-left:44px}.program-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.program-card{background:rgba(255,255,255,.72);border:1px solid rgba(12,21,70,.1);border-radius:28px;padding:28px;box-shadow:0 12px 35px rgba(12,21,70,.06);min-height:245px;transition:transform .22s ease,box-shadow .22s ease}.program-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}.program-icon{width:58px;height:58px;border-radius:18px;background:#fff4ca;display:grid;place-items:center;margin-bottom:22px;overflow:hidden}.program-icon img{width:38px;height:38px;object-fit:contain}.program-card h3{font-family:'Baskervville',serif;color:var(--navy);font-size:1.65rem;line-height:1.08;letter-spacing:-.015em;margin-bottom:12px}.program-card p{font-size:.98rem;line-height:1.72;color:#3a465d}
 
     /* IMPACT */
-    .impact-section{background:var(--paper);padding:120px 0}
-    .impact-head{max-width:780px;margin-bottom:60px}
-    .impact-head h2{
-      font-family:'Baskervville',serif;
-      font-size:clamp(2.4rem, 4.4vw, 3.6rem);
-      line-height:1;letter-spacing:-.02em;color:var(--navy);margin-bottom:18px;
-    }
-    .impact-head h2 em{font-style:italic;color:var(--orange)}
-    .impact-head p{color:var(--muted);font-size:1.05rem;line-height:1.8}
-    .impact-grid{
-      display:grid;grid-template-columns:repeat(3, 1fr);gap:0;
-      border-top:1px solid rgba(12,21,70,.15);
-      border-left:1px solid rgba(12,21,70,.15);
-    }
-    .impact-cell{
-      padding:36px 32px;
-      border-right:1px solid rgba(12,21,70,.15);
-      border-bottom:1px solid rgba(12,21,70,.15);
-      background:var(--paper);transition:background .25s ease;
-    }
-    .impact-cell:hover{background:#fff}
-    .impact-cell .marker{display:block;width:28px;height:2px;background:var(--orange);margin-bottom:18px}
-    .impact-cell p{
-      font-family:'Baskervville',serif;
-      color:var(--navy);font-size:1.25rem;line-height:1.35;letter-spacing:-.005em;
-    }
+    .impact{padding:112px 0;background:var(--paper)}.impact-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:start}.impact-copy{position:sticky;top:120px}.impact-copy .lede{margin-top:20px}.impact-list{border-top:2px solid var(--navy)}.impact-item{display:grid;grid-template-columns:54px 1fr;gap:22px;align-items:center;padding:26px 0;border-bottom:1px solid var(--line)}.impact-num{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:var(--navy);font-weight:800}.impact-item p{font-family:'Baskervville',serif;color:var(--navy);font-size:1.35rem;line-height:1.25;letter-spacing:-.01em}
 
     /* CTA */
-    .cta-band{background:var(--navy);color:var(--white);padding:120px 0;position:relative;overflow:hidden}
-    .cta-band::before{
-      content:"";position:absolute;top:-200px;right:-200px;
-      width:520px;height:520px;border-radius:50%;
-      background:radial-gradient(circle, rgba(255,194,0,.16) 0%, rgba(255,194,0,0) 70%);
-      pointer-events:none;
-    }
-    .cta-grid{
-      display:grid;grid-template-columns:1.1fr 1fr;gap:80px;
-      align-items:end;position:relative;z-index:2;
-    }
-    .cta-grid .feature-kicker{color:var(--gold);margin-bottom:20px}
-    .cta-grid h2{
-      font-family:'Baskervville',serif;
-      font-size:clamp(2.6rem, 5vw, 4.2rem);
-      line-height:.98;letter-spacing:-.025em;color:var(--white);
-    }
-    .cta-grid h2 em{font-style:italic;color:var(--gold)}
-    .cta-right p{color:rgba(255,255,255,.86);font-size:1.05rem;line-height:1.85;margin-bottom:26px}
-    .cta-actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:24px}
-    .btn-primary,.btn-secondary{
-      display:inline-flex;align-items:center;justify-content:center;
-      min-height:50px;padding:0 22px;border-radius:999px;
-      font-weight:700;font-size:.95rem;
-    }
-    .btn-primary{background:var(--gold);color:var(--navy)}
-    .btn-secondary{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.4)}
-    .cta-contact{color:rgba(255,255,255,.78);font-size:.95rem}
-    .cta-contact a{color:var(--gold);font-weight:700;border-bottom:1px solid rgba(255,194,0,.4)}
+    .cta-band{background:var(--navy);color:var(--white);padding:104px 0;position:relative;overflow:hidden}.cta-band::before{content:"";position:absolute;top:-220px;right:-220px;width:540px;height:540px;border-radius:50%;background:radial-gradient(circle,rgba(255,194,0,.18),rgba(255,194,0,0) 70%)}.cta-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:end}.cta-band .kicker{color:var(--gold)}.cta-band .kicker::before{background:var(--gold)}.cta-band h2{font-family:'Baskervville',serif;font-size:clamp(2.5rem,5vw,4.35rem);line-height:.96;letter-spacing:-.035em;color:var(--white)}.cta-band h2 em{font-style:italic;color:var(--gold)}.cta-right p{color:rgba(255,255,255,.86);font-size:1.05rem;line-height:1.85;margin-bottom:24px}.cta-actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:22px}.cta-actions .btn-primary{background:var(--gold);color:var(--navy)}.cta-actions .btn-secondary{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.38)}.cta-contact{color:rgba(255,255,255,.78);font-size:.96rem}.cta-contact a{color:var(--gold);font-weight:800;border-bottom:1px solid rgba(255,194,0,.42)}
+    .site-footer{background:var(--soft-2);border-top:1px solid rgba(12,21,70,.06);padding:22px 0;text-align:center}.footer-copy{color:var(--ink);line-height:1.6;font-size:.96rem;opacity:.9}
 
-    /* FOOTER */
-    .site-footer{
-      background:var(--bg-alt);
-      border-top:1px solid rgba(12,21,70,.06);
-      padding:22px 0;text-align:center;
-    }
-    .footer-copy{color:var(--text);line-height:1.6;font-size:.96rem;opacity:.9}
-
-    /* RESPONSIVE */
-    @media (max-width: 1100px){
-      .feature-grid,.programs-head,.cta-grid{grid-template-columns:1fr;gap:40px}
-      .feature-side{position:static}
-      .feature-body,.programs-intro{
-        border-left:none;border-top:1px solid rgba(12,21,70,.15);
-        padding-left:0;padding-top:30px;
-      }
-      .stat-grid{grid-template-columns:repeat(2, 1fr);gap:30px 24px}
-      .stat:nth-child(3){border-left:none;padding-left:0}
-      .impact-grid{grid-template-columns:repeat(2, 1fr)}
-      .program-item{grid-template-columns:56px 1fr;gap:20px}
-      .program-icon{width:56px;height:56px}
-      .program-desc{grid-column:2}
-    }
-
-    @media (max-width: 860px){
-      .nav-left,.nav-right{display:none}
-      .nav-toggle{display:block}
-      .nav-inner{grid-template-columns:1fr auto}
-      .nav-brand{justify-content:flex-start}
-      .nav-brand img{width:72px;max-height:48px}
-      .stat-grid{grid-template-columns:1fr 1fr}
-      .stat{
-        border-left:none;padding-left:0;padding-top:14px;
-        border-top:1px solid rgba(255,255,255,.18);
-      }
-      .stat:nth-child(-n+2){border-top:none;padding-top:0}
-      .impact-grid{grid-template-columns:1fr}
-    }
-
-    @media (max-width: 640px){
-      .container,.nav-inner,.nav-mobile{width:min(var(--max), calc(100% - 24px))}
-      .section,.programs-section,.impact-section,.cta-band{padding:80px 0}
-      .editorial-hero{padding:60px 0 40px}
-      .editorial-hero h1{font-size:clamp(2.6rem, 12vw, 4.2rem)}
-      .feature-body .lede{font-size:1.3rem}
-      .feature-body .lede::first-letter{font-size:2.8rem}
-      .callout{font-size:1.3rem}
-      .program-item{
-        grid-template-columns:56px 1fr;gap:18px;padding:28px 0;align-items:start;
-      }
-      .program-icon{grid-column:1;grid-row:1 / span 2;width:56px;height:56px}
-      .program-name{grid-column:2;grid-row:1}
-      .program-desc{grid-column:2;grid-row:2}
-      .programs-head h2,.impact-head h2,.feature-side h2,.cta-grid h2{
-        font-size:clamp(2.2rem, 9vw, 2.8rem);
-      }
-      .nav-brand img{width:64px;max-height:42px}
-    }
+    @media (max-width:1050px){.hero-grid,.split-grid,.section-head,.impact-layout,.cta-grid{grid-template-columns:1fr;gap:40px}.split-aside,.impact-copy{position:static}.split-body,.section-head .lede{border-left:none;border-top:1px solid var(--line);padding-left:0;padding-top:28px}.program-grid{grid-template-columns:repeat(2,1fr)}.stat-grid{grid-template-columns:repeat(2,1fr)}.stat:nth-child(3){border-left:none;padding-left:0}}
+    @media (max-width:860px){.nav-left,.nav-right{display:none}.nav-toggle{display:block}.nav-inner{grid-template-columns:1fr auto}.nav-brand{justify-content:flex-start}.nav-brand img{width:72px;max-height:48px}.hero{padding:70px 0 60px}.stat{border-left:none;border-top:1px solid rgba(255,255,255,.18);padding-left:0}.stat:nth-child(-n+2){border-top:none}.program-grid{grid-template-columns:1fr}}
+    @media (max-width:640px){.container,.nav-inner,.nav-mobile{width:min(var(--max), calc(100% - 24px))}.hero h1{font-size:clamp(2.85rem,13vw,4.2rem)}.split-section,.programs,.impact,.cta-band{padding:78px 0}.hero-card{border-radius:24px;padding:24px}.stat-grid{grid-template-columns:1fr}.stat:nth-child(2){border-top:1px solid rgba(255,255,255,.18)}.section-title{font-size:clamp(2.15rem,9vw,3rem)}.impact-item p{font-size:1.2rem}.nav-brand img{width:64px;max-height:42px}}
   </style>
 </head>
 <body>
-
   <nav class="site-nav">
     <div class="nav-inner">
       <div class="nav-left">
@@ -324,241 +102,105 @@
         <a href="/#events" class="nav-link">Events</a>
         <a href="/#connect" class="nav-link">Connect</a>
       </div>
-
-      <div class="nav-brand">
-        <a href="/">
-          <img src="/ptohome.png" alt="Moore Elementary PTO logo" onerror="this.style.display='none'">
-        </a>
-      </div>
-
+      <div class="nav-brand"><a href="/"><img src="/ptohome.png" alt="Moore Elementary PTO logo" onerror="this.style.display='none'"></a></div>
       <div class="nav-right">
         <a href="/#resources" class="nav-link">Resources</a>
         <a href="/sponsor/" class="nav-link">Become a sponsor</a>
         <a href="/volunteer/" class="nav-cta">Volunteer</a>
       </div>
-
       <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleMenu()">&#9776;</button>
     </div>
-
     <div class="nav-mobile" id="mobileMenu">
-      <a href="/about">About</a>
-      <a href="/#events">Events</a>
-      <a href="/#connect">Connect</a>
-      <a href="/#share">Share</a>
-      <a href="/#resources">Resources</a>
-      <a href="/sponsor/">Become a sponsor</a>
-      <a href="/volunteer/">Volunteer</a>
+      <a href="/about">About</a><a href="/#events">Events</a><a href="/#connect">Connect</a><a href="/#share">Share</a><a href="/#resources">Resources</a><a href="/sponsor/">Become a sponsor</a><a href="/volunteer/">Volunteer</a>
     </div>
   </nav>
 
-  <!-- EDITORIAL HERO -->
-  <section class="editorial-hero">
-    <div class="container">
-      <div class="hero-meta">
-        <span>About</span>
-        <span class="dot"></span>
-        <span class="meta-pill">Moore Elementary PTO</span>
-        <span class="dot"></span>
-        <span>Est. for our students</span>
-      </div>
-
-      <h1>For our <em>students,</em> for our <em>teachers,</em> for our <em>school.</em></h1>
-
-      <div class="hero-deck">
-        <p>
-          The Moore Elementary PTO exists to support students, teachers, and families &mdash; by funding school needs, strengthening connections, and helping create meaningful experiences across every school year.
-        </p>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow"><span>About</span><span class="dot"></span><span>Moore Elementary PTO</span></div>
+        <h1>For our <em>students,</em> teachers, and school.</h1>
+        <p>The Moore Elementary PTO supports students, teachers, and families by funding school needs, strengthening connections, and creating meaningful experiences across every school year.</p>
+        <div class="hero-actions">
+          <a href="https://moorevolunteers.org/volunteer/" class="btn btn-primary">Get Involved</a>
+          <a href="https://moorevolunteers.org/sponsor/" class="btn btn-secondary">Become a Sponsor</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- STAT BAND -->
   <section class="stat-band">
-    <div class="container">
-      <div class="stat-grid">
-        <div class="stat">
-          <div class="stat-num">6</div>
-          <div class="stat-label">Programs<br>powered by parents</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">100%</div>
-          <div class="stat-label">Volunteer<br>powered &amp; led</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">1</div>
-          <div class="stat-label">School,<br>countless families</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">All</div>
-          <div class="stat-label">Parents are<br>automatic members</div>
-        </div>
+    <div class="container stat-grid">
+      <div class="stat"><div class="stat-num">6</div><div class="stat-label">Programs<br>powered by parents</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Volunteer<br>powered &amp; led</div></div>
+      <div class="stat"><div class="stat-num">1</div><div class="stat-label">School,<br>countless families</div></div>
+      <div class="stat"><div class="stat-num">All</div><div class="stat-label">Parents are<br>automatic members</div></div>
+    </div>
+  </section>
+
+  <section class="split-section">
+    <div class="container split-grid">
+      <aside class="split-aside">
+        <div class="kicker">Who We Are</div>
+        <h2 class="section-title">A community of <em>parents,</em> guardians, teachers, and staff.</h2>
+      </aside>
+      <div class="split-body">
+        <p class="intro-line">Working together to help every child feel encouraged, connected, and celebrated.</p>
+        <p>The Moore Elementary PTO exists to serve our school by providing learning and enrichment opportunities for students, supporting teachers and staff, and helping fund school needs through community-driven fundraising.</p>
+        <p>Everything we do is powered by volunteers. Whether a family can help with one event, contribute behind the scenes, or stay involved throughout the year, every effort helps strengthen the Moore community.</p>
+        <div class="quote-card"><p><strong>All parents and guardians</strong> of Moore Elementary students are automatically members of the PTO. Every family is welcome.</p></div>
+        <p>There is no required commitment. We would love to see you involved in whatever way fits your schedule.</p>
       </div>
     </div>
   </section>
 
-  <!-- INTRO / WHO WE ARE -->
-  <section class="section feature-section">
+  <section class="programs">
     <div class="container">
-      <div class="feature-grid">
-        <aside class="feature-side">
-          <div class="feature-kicker">Who We Are</div>
-          <h2>A community of <em>parents,</em> guardians, teachers, and staff.</h2>
-        </aside>
-
-        <div class="feature-body">
-          <p class="lede">
-            Working together to support Moore Elementary and help every child feel encouraged, connected, and celebrated.
-          </p>
-
-          <p>
-            The Moore Elementary PTO exists to serve our school by providing learning and enrichment opportunities for students, supporting teachers and staff, and helping fund the needs of the school through community-driven fundraising.
-          </p>
-
-          <p>
-            Everything we do is powered by volunteers. Whether a family can help with one event, contribute behind the scenes, or stay involved throughout the year &mdash; every effort helps strengthen the Moore community.
-          </p>
-
-          <div class="callout">
-            All parents and guardians of Moore Elementary students are automatically members of the PTO. Every family is welcome.
-          </div>
-
-          <p>
-            There is no application, no waiting list, and no required commitment. If you have a child at Moore, you&rsquo;re already part of it &mdash; and we&rsquo;d love to see you involved in whatever way fits your schedule.
-          </p>
-        </div>
+      <div class="section-head">
+        <div><div class="kicker">Programs &amp; Initiatives</div><h2 class="section-title">How the PTO <em>gives back.</em></h2></div>
+        <p class="lede">Our work reaches students, teachers, and families in many ways throughout the school year. These are a few of the programs, events, and efforts the PTO helps support.</p>
+      </div>
+      <div class="program-grid">
+        <article class="program-card"><div class="program-icon"><img src="miles.png" alt="" onerror="this.style.display='none'"></div><h3>Moore Miles</h3><p>A school-wide fundraiser that brings together school spirit, movement, and community while raising support for Moore’s needs.</p></article>
+        <article class="program-card"><div class="program-icon"><img src="staff.png" alt="" onerror="this.style.display='none'"></div><h3>Teacher &amp; Staff Appreciation</h3><p>Celebrating the teachers and staff who care for Moore students through appreciation events and meaningful support throughout the year.</p></article>
+        <article class="program-card"><div class="program-icon"><img src="bookfair.png" alt="" onerror="this.style.display='none'"></div><h3>Book Fair</h3><p>Promoting reading while helping provide resources and books that support the school library and student learning.</p></article>
+        <article class="program-card"><div class="program-icon"><img src="hospitality.png" alt="" onerror="this.style.display='none'"></div><h3>Hospitality</h3><p>Helping create welcoming experiences for staff and families through welcome-back gatherings, appreciation weeks, and community celebrations.</p></article>
+        <article class="program-card"><div class="program-icon"><img src="parents.png" alt="" onerror="this.style.display='none'"></div><h3>Room Parents</h3><p>Giving parents opportunities to stay active in their child’s classroom and support teachers, students, and classroom celebrations.</p></article>
+        <article class="program-card"><div class="program-icon"><img src="spirit.png" alt="" onerror="this.style.display='none'"></div><h3>Spirit Nights</h3><p>Building relationships with local businesses that give back to Moore while creating fun ways for families to gather and support the school.</p></article>
       </div>
     </div>
   </section>
 
-  <!-- PROGRAMS -->
-  <section class="programs-section">
-    <div class="container">
-      <div class="programs-head">
-        <div>
-          <div class="feature-kicker">Programs &amp; Initiatives</div>
-          <h2>How the PTO <em>gives back.</em></h2>
-        </div>
-
-        <p class="programs-intro">
-          Our work reaches students, teachers, and families in many ways throughout the school year. Here are some of the programs, events, and efforts the PTO helps support.
-        </p>
+  <section class="impact">
+    <div class="container impact-layout">
+      <div class="impact-copy">
+        <div class="kicker">What Your Support Makes Possible</div>
+        <h2 class="section-title">Real needs, met by <em>real families.</em></h2>
+        <p class="lede">PTO fundraising, volunteer service, and community support help strengthen school life in practical and meaningful ways.</p>
       </div>
-
-      <div class="programs-list">
-        <article class="program-item">
-          <div class="program-icon"><img src="miles.png" alt="" onerror="this.style.display='none'"></div>
-          <h3 class="program-name">Moore Miles</h3>
-          <p class="program-desc">A school-wide fundraiser that brings together school spirit, movement, and community while raising support for Moore&rsquo;s needs.</p>
-        </article>
-
-        <article class="program-item">
-          <div class="program-icon"><img src="staff.png" alt="" onerror="this.style.display='none'"></div>
-          <h3 class="program-name">Teacher &amp; Staff Appreciation</h3>
-          <p class="program-desc">Celebrating the teachers and staff who care for Moore students through appreciation events and meaningful support throughout the year.</p>
-        </article>
-
-        <article class="program-item">
-          <div class="program-icon"><img src="bookfair.png" alt="" onerror="this.style.display='none'"></div>
-          <h3 class="program-name">Book Fair</h3>
-          <p class="program-desc">Promoting reading while helping provide additional resources and books that support the school library and student learning.</p>
-        </article>
-
-        <article class="program-item">
-          <div class="program-icon"><img src="hospitality.png" alt="" onerror="this.style.display='none'"></div>
-          <h3 class="program-name">Hospitality</h3>
-          <p class="program-desc">Helping create welcoming experiences for staff and families through events such as welcome-back gatherings, appreciation weeks, and community celebrations.</p>
-        </article>
-
-        <article class="program-item">
-          <div class="program-icon"><img src="parents.png" alt="" onerror="this.style.display='none'"></div>
-          <h3 class="program-name">Room Parents</h3>
-          <p class="program-desc">Giving parents opportunities to stay active in their child&rsquo;s classroom and support teachers, students, and classroom celebrations.</p>
-        </article>
-
-        <article class="program-item">
-          <div class="program-icon"><img src="spirit.png" alt="" onerror="this.style.display='none'"></div>
-          <h3 class="program-name">Spirit Nights</h3>
-          <p class="program-desc">Building relationships with local businesses that give back to Moore while creating fun ways for families to gather and support the school.</p>
-        </article>
+      <div class="impact-list">
+        <div class="impact-item"><div class="impact-num">1</div><p>Classroom supplies and learning materials</p></div>
+        <div class="impact-item"><div class="impact-num">2</div><p>Teacher appreciation and staff support</p></div>
+        <div class="impact-item"><div class="impact-num">3</div><p>Student enrichment and school-wide experiences</p></div>
+        <div class="impact-item"><div class="impact-num">4</div><p>Family events and community-building opportunities</p></div>
+        <div class="impact-item"><div class="impact-num">5</div><p>Fundraising that meets real school needs</p></div>
+        <div class="impact-item"><div class="impact-num">6</div><p>Volunteer opportunities for families to get involved</p></div>
       </div>
     </div>
   </section>
 
-  <!-- IMPACT -->
-  <section class="impact-section">
-    <div class="container">
-      <div class="impact-head">
-        <div class="feature-kicker">What Your Support Makes Possible</div>
-        <h2>Real needs, met by <em>real families.</em></h2>
-        <p>PTO fundraising, volunteer service, and community support help strengthen school life in practical and meaningful ways.</p>
-      </div>
-
-      <div class="impact-grid">
-        <div class="impact-cell">
-          <span class="marker"></span>
-          <p>Classroom supplies and learning materials</p>
-        </div>
-        <div class="impact-cell">
-          <span class="marker"></span>
-          <p>Teacher appreciation and staff support</p>
-        </div>
-        <div class="impact-cell">
-          <span class="marker"></span>
-          <p>Student enrichment and school-wide experiences</p>
-        </div>
-        <div class="impact-cell">
-          <span class="marker"></span>
-          <p>Family events and community-building opportunities</p>
-        </div>
-        <div class="impact-cell">
-          <span class="marker"></span>
-          <p>Fundraising that meets real school needs</p>
-        </div>
-        <div class="impact-cell">
-          <span class="marker"></span>
-          <p>Volunteer opportunities for families to get involved</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA BAND -->
   <section class="cta-band">
-    <div class="container">
-      <div class="cta-grid">
-        <div>
-          <div class="feature-kicker">Get Involved</div>
-          <h2>Care to<em> join us?</em></h2>
-        </div>
-
-        <div class="cta-right">
-          <p>
-            Whether you want to volunteer, support fundraising, sponsor an event, or simply stay connected &mdash; there&rsquo;s a place for every Moore family in the PTO. We&rsquo;d love to have you join us.
-          </p>
-
-          <div class="cta-actions">
-            <a href="/volunteer/" class="btn-primary">Volunteer</a>
-            <a href="/sponsor/" class="btn-secondary">Become a Sponsor</a>
-          </div>
-
-          <p class="cta-contact">
-            Reach us anytime at <a href="mailto:mooreelementaryschool@gmail.com">mooreelementaryschool@gmail.com</a>
-          </p>
-        </div>
+    <div class="container cta-grid">
+      <div><div class="kicker">Get Involved</div><h2>Care to <em>join us?</em></h2></div>
+      <div class="cta-right">
+        <p>Whether you want to volunteer, support fundraising, sponsor an event, or simply stay connected, there is a place for every Moore family in the PTO.</p>
+        <div class="cta-actions"><a href="/volunteer/" class="btn btn-primary">Volunteer</a><a href="/sponsor/" class="btn btn-secondary">Become a Sponsor</a></div>
+        <p class="cta-contact">Reach us anytime at <a href="mailto:mooreelementaryschool@gmail.com">mooreelementaryschool@gmail.com</a></p>
       </div>
     </div>
   </section>
 
-  <footer class="site-footer">
-    <div class="footer-copy">&copy; Moore Elementary PTO 2026</div>
-  </footer>
-
-  <script>
-    function toggleMenu() {
-      var menu = document.getElementById('mobileMenu');
-      menu.classList.toggle('open');
-    }
-  </script>
-
+  <footer class="site-footer"><div class="footer-copy">&copy; Moore Elementary PTO 2026</div></footer>
+  <script>function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}</script>
 </body>
 </html>
