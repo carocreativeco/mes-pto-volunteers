@@ -85,13 +85,35 @@
     /* IMPACT */
     .impact{padding:112px 0;background:var(--paper)}.impact-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:start}.impact-copy{position:sticky;top:120px}.impact-copy .lede{margin-top:20px}.impact-list{border-top:2px solid var(--navy)}.impact-item{display:grid;grid-template-columns:54px 1fr;gap:22px;align-items:center;padding:26px 0;border-bottom:1px solid var(--line)}.impact-num{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:var(--navy);font-weight:800}.impact-item p{font-family:'Baskervville',serif;color:var(--navy);font-size:1.35rem;line-height:1.25;letter-spacing:-.01em}
 
+
+    /* FEEDBACK */
+    .feedback-section{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--paper) 0%,#fff8e6 52%,var(--soft-2) 100%);padding:88px 0}
+    .feedback-section::before{content:"";position:absolute;right:-180px;top:-180px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(255,194,0,.24),rgba(255,194,0,0) 70%);pointer-events:none}
+    .feedback-section::after{content:"";position:absolute;left:-220px;bottom:-260px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(219,109,66,.11),rgba(219,109,66,0) 70%);pointer-events:none}
+    .feedback-shell{position:relative;z-index:2;display:grid;grid-template-columns:.86fr 1.14fr;gap:28px;align-items:stretch;max-width:1120px;margin:0 auto;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.9);border-radius:36px;padding:24px;box-shadow:var(--shadow);backdrop-filter:blur(8px)}
+    .feedback-copy{padding:28px 18px;display:flex;flex-direction:column;justify-content:center;text-align:center;align-items:center}
+    .feedback-copy .kicker{justify-content:center;margin-left:auto;margin-right:auto}
+    .feedback-copy .section-title{max-width:none;width:100%;margin:0 0 18px;text-align:center}
+    .feedback-copy .lede{max-width:720px;margin:0 auto;color:#27324b;text-align:center}
+    .feedback-card{position:relative;background:var(--white);border:1px solid rgba(12,21,70,.1);border-radius:30px;padding:34px;box-shadow:0 16px 44px rgba(12,21,70,.08);overflow:hidden}
+    .feedback-card::before{content:"";position:absolute;left:28px;right:28px;top:22px;height:5px;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--orange))}
+    .feedback-form{display:grid;gap:16px;padding-top:18px}
+    .feedback-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .feedback-field label{display:block;color:var(--navy);font-size:.78rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+    .feedback-field input,.feedback-field select,.feedback-field textarea{width:100%;border:1px solid rgba(12,21,70,.16);border-radius:18px;background:#fbfaf6;color:var(--ink);font-family:'Inter',sans-serif;font-size:1rem;padding:14px 16px;outline:none;transition:border-color .18s ease,box-shadow .18s ease,background .18s ease}
+    .feedback-field textarea{min-height:150px;resize:vertical;line-height:1.6}
+    .feedback-field input:focus,.feedback-field select:focus,.feedback-field textarea:focus{border-color:rgba(12,21,70,.42);box-shadow:0 0 0 4px rgba(255,194,0,.2);background:#fff}
+    .feedback-submit{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 24px;border:none;border-radius:999px;background:var(--navy);color:var(--white);font-family:'Inter',sans-serif;font-size:.98rem;font-weight:800;cursor:pointer;transition:transform .18s ease,background .18s ease;justify-self:start}
+    .feedback-submit:hover{transform:translateY(-1px);background:var(--navy-2)}
+    .feedback-note{color:var(--muted);font-size:.9rem;line-height:1.6;margin-top:2px}
+
     /* CTA */
     .cta-band{background:var(--navy);color:var(--white);padding:104px 0;position:relative;overflow:hidden}.cta-band::before{content:"";position:absolute;top:-220px;right:-220px;width:540px;height:540px;border-radius:50%;background:radial-gradient(circle,rgba(255,194,0,.18),rgba(255,194,0,0) 70%)}.cta-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:end}.cta-band .kicker{color:var(--gold)}.cta-band .kicker::before{background:var(--gold)}.cta-band h2{font-family:'Baskervville',serif;font-size:clamp(2.5rem,5vw,4.35rem);line-height:.96;letter-spacing:-.035em;color:var(--white)}.cta-band h2 em{font-style:italic;color:var(--gold)}.cta-right p{color:rgba(255,255,255,.86);font-size:1.05rem;line-height:1.85;margin-bottom:24px}.cta-actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:22px}.cta-actions .btn-primary{background:var(--gold);color:var(--navy)}.cta-actions .btn-secondary{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.38)}.cta-contact{color:rgba(255,255,255,.78);font-size:.96rem}.cta-contact a{color:var(--gold);font-weight:800;border-bottom:1px solid rgba(255,194,0,.42)}
     .site-footer{background:var(--soft-2);border-top:1px solid rgba(12,21,70,.06);padding:22px 0;text-align:center}.footer-copy{color:var(--ink);line-height:1.6;font-size:.96rem;opacity:.9}
 
-    @media (max-width:1050px){.hero-grid,.split-grid,.section-head,.impact-layout,.cta-grid{grid-template-columns:1fr;gap:40px}.split-aside,.impact-copy{position:static}.split-body,.section-head .lede{border-left:none;border-top:1px solid var(--line);padding-left:0;padding-top:28px}.program-grid{grid-template-columns:repeat(2,1fr)}.stat-grid{grid-template-columns:repeat(2,1fr)}.stat:nth-child(3){border-left:none;padding-left:0}}
+    @media (max-width:1050px){.hero-grid,.split-grid,.section-head,.impact-layout,.cta-grid,.feedback-shell{grid-template-columns:1fr;gap:40px}.split-aside,.impact-copy{position:static}.split-body,.section-head .lede{border-left:none;border-top:1px solid var(--line);padding-left:0;padding-top:28px}.program-grid{grid-template-columns:repeat(2,1fr)}.stat-grid{grid-template-columns:repeat(2,1fr)}.stat:nth-child(3){border-left:none;padding-left:0}}
     @media (max-width:860px){.nav-left,.nav-right{display:none}.nav-toggle{display:block}.nav-inner{grid-template-columns:1fr auto}.nav-brand{justify-content:flex-start}.nav-brand img{width:72px;max-height:48px}.hero{padding:70px 0 60px}.stat{border-left:none;border-top:1px solid rgba(255,255,255,.18);padding-left:0}.stat:nth-child(-n+2){border-top:none}.program-grid{grid-template-columns:1fr}}
-    @media (max-width:640px){.container,.nav-inner,.nav-mobile{width:min(var(--max), calc(100% - 24px))}.hero h1{font-size:clamp(2.85rem,13vw,4.2rem)}.split-section,.programs,.impact,.cta-band{padding:78px 0}.hero-card{border-radius:24px;padding:24px}.stat-grid{grid-template-columns:1fr}.stat:nth-child(2){border-top:1px solid rgba(255,255,255,.18)}.section-title{font-size:clamp(2.15rem,9vw,3rem)}.impact-item p{font-size:1.2rem}.nav-brand img{width:64px;max-height:42px}}
+    @media (max-width:640px){.container,.nav-inner,.nav-mobile{width:min(var(--max), calc(100% - 24px))}.hero h1{font-size:clamp(2.85rem,13vw,4.2rem)}.split-section,.programs,.impact,.feedback-section,.cta-band{padding:78px 0}.hero-card{border-radius:24px;padding:24px}.stat-grid{grid-template-columns:1fr}.stat:nth-child(2){border-top:1px solid rgba(255,255,255,.18)}.section-title{font-size:clamp(2.15rem,9vw,3rem)}.impact-item p{font-size:1.2rem}.feedback-shell{border-radius:26px;padding:16px}.feedback-copy{padding:20px 8px}.feedback-card{border-radius:24px;padding:26px 22px}.feedback-row{grid-template-columns:1fr}.feedback-submit{width:100%}.nav-brand img{width:64px;max-height:42px}}
   </style>
 </head>
 <body>
@@ -189,6 +211,51 @@
     </div>
   </section>
 
+
+  <section class="feedback-section" id="feedback">
+    <div class="container feedback-shell">
+      <div class="feedback-copy">
+        <div class="kicker">PTO Feedback</div>
+        <h2 class="section-title">Have an <em>idea</em> or note for us?</h2>
+        <p class="lede">Share a question, suggestion, event idea, or general PTO feedback. Your message will be addressed to the Moore Elementary PTO inbox.</p>
+      </div>
+
+      <div class="feedback-card">
+        <form class="feedback-form" onsubmit="sendPtoFeedback(event)">
+          <div class="feedback-row">
+            <div class="feedback-field">
+              <label for="feedbackName">Name</label>
+              <input id="feedbackName" name="name" type="text" placeholder="Your name">
+            </div>
+            <div class="feedback-field">
+              <label for="feedbackEmail">Email</label>
+              <input id="feedbackEmail" name="email" type="email" placeholder="you@example.com">
+            </div>
+          </div>
+
+          <div class="feedback-field">
+            <label for="feedbackType">Feedback Type</label>
+            <select id="feedbackType" name="type">
+              <option value="General Feedback">General Feedback</option>
+              <option value="Volunteer Question">Volunteer Question</option>
+              <option value="Event Idea">Event Idea</option>
+              <option value="Fundraising or Sponsorship">Fundraising or Sponsorship</option>
+              <option value="Website Update">Website Update</option>
+            </select>
+          </div>
+
+          <div class="feedback-field">
+            <label for="feedbackMessage">Message</label>
+            <textarea id="feedbackMessage" name="message" placeholder="Tell us what you would like the PTO to know..." required></textarea>
+          </div>
+
+          <button class="feedback-submit" type="submit">Send Feedback</button>
+          <p class="feedback-note">This opens a pre-addressed email to the PTO so you can review and send your message.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <section class="cta-band">
     <div class="container cta-grid">
       <div><div class="kicker">Get Involved</div><h2>Care to <em>join us?</em></h2></div>
@@ -201,6 +268,26 @@
   </section>
 
   <footer class="site-footer"><div class="footer-copy">&copy; Moore Elementary PTO 2026</div></footer>
-  <script>function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}</script>
+  <script>
+    function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+
+    function sendPtoFeedback(event){
+      event.preventDefault();
+      var name = document.getElementById('feedbackName').value.trim();
+      var email = document.getElementById('feedbackEmail').value.trim();
+      var type = document.getElementById('feedbackType').value;
+      var message = document.getElementById('feedbackMessage').value.trim();
+      var subject = 'PTO Feedback: ' + type;
+      var body = [
+        'Feedback Type: ' + type,
+        'Name: ' + (name || 'Not provided'),
+        'Email: ' + (email || 'Not provided'),
+        '',
+        'Message:',
+        message
+      ].join('\n');
+      window.location.href = 'mailto:mooreelementaryschool@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    }
+  </script>
 </body>
 </html>
