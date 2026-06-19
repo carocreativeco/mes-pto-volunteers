@@ -67,70 +67,13 @@ a{text-decoration:none;color:inherit}
 }
 
 /* Nav */
-.site-nav{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:rgba(12,21,70,.92);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-.nav-inner{
-  width:min(var(--max), calc(100% - 40px));
-  margin:0 auto;
-  min-height:78px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-}
-.nav-brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  color:var(--white);
-  font-weight:700;
-}
-.nav-brand img{
-  height:38px;
-  width:auto;
-}
-.nav-brand-text{
-  line-height:1.1;
-}
-.nav-brand-text strong{
-  display:block;
-  font-size:1rem;
-}
-.nav-brand-text span{
-  display:block;
-  font-size:.72rem;
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  color:rgba(255,255,255,.72);
-}
-.nav-links{
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-.nav-link{
-  color:rgba(255,255,255,.88);
-  font-size:.93rem;
-  font-weight:500;
-}
-.nav-link:hover{opacity:.78}
-.nav-cta{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:11px 16px;
-  border-radius:999px;
-  background:var(--gold);
-  color:var(--navy);
-  font-size:.88rem;
-  font-weight:700;
-}
+.site-nav{position:sticky;top:0;z-index:1000;background:rgba(12,21,70,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.1)}
+.nav-inner{width:min(var(--max), calc(100% - 40px));margin:0 auto;min-height:78px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px}
+.nav-left,.nav-right{display:flex;align-items:center;gap:26px}.nav-right{justify-content:flex-end}
+.nav-brand{display:flex;justify-content:center;align-items:center}.nav-brand a{display:grid;place-items:center}.nav-brand img{width:80px;max-height:52px;object-fit:contain}.nav-home-icon{min-width:92px}
+.nav-link{color:rgba(255,255,255,.9);font-size:.95rem;font-weight:500}.nav-link:hover{opacity:.78}
+.nav-cta{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:999px;background:var(--gold);color:var(--navy);font-weight:800;font-size:.9rem}
+.nav-toggle{display:none;border:none;background:none;color:var(--white);font-size:1.5rem;cursor:pointer}.nav-mobile{display:none;width:min(var(--max), calc(100% - 40px));margin:0 auto;padding:0 0 18px}.nav-mobile.open{display:grid;gap:12px}.nav-mobile a{color:rgba(255,255,255,.92);font-size:.96rem}
 
 /* Hero */
 .page-hero{
@@ -765,7 +708,7 @@ a{text-decoration:none;color:inherit}
 }
 
 @media (max-width: 760px){
-  .nav-links{display:none}
+  .nav-left,.nav-right{display:none}.nav-toggle{display:block}.nav-inner{grid-template-columns:1fr auto}.nav-brand{justify-content:flex-start}.nav-brand img{width:72px;max-height:48px}
   .hero-inner{padding:48px 0 42px}
   .main{padding:28px 0 60px}
   .form-card{padding:18px}
@@ -789,6 +732,7 @@ a{text-decoration:none;color:inherit}
   .container,
   .hero-inner,
   .nav-inner,
+  .nav-mobile,
   .footer-inner{
     width:min(var(--max), calc(100% - 24px));
   }
@@ -810,25 +754,26 @@ a{text-decoration:none;color:inherit}
 <body>
 <nav class="site-nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-brand">
-      <img src="MES Stacked.png" alt="Moore Elementary" onerror="this.style.display='none'"/>
-      <div class="nav-brand-text">
-        <strong>Moore Elementary PTO</strong>
-        <span>Volunteer Interest Form</span>
-      </div>
-    </a>
-    <div class="nav-links">
-      <a class="nav-link" href="/">Home</a>
-      <a class="nav-link" href="/about">About</a>
-      <a class="nav-link" href="/#events">Events</a>
-      <a class="nav-cta" href="/admin/">Admin</a>
+    <div class="nav-left">
+      <a href="/about" class="nav-link">About</a>
+      <a href="/#events" class="nav-link">Events</a>
+      <a href="/#connect" class="nav-link">Connect</a>
     </div>
+    <div class="nav-brand nav-home-icon"><a href="/" aria-label="Home"><img src="/pto-home.png" alt="Home" onerror="this.style.display='none'"></a></div>
+    <div class="nav-right">
+      <a href="/#resources" class="nav-link">Resources</a>
+      <a href="/sponsor/" class="nav-link">Become a sponsor</a>
+      <a href="/volunteer/" class="nav-cta">Volunteer</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleMenu()">&#9776;</button>
+  </div>
+  <div class="nav-mobile" id="mobileMenu">
+    <a href="/about">About</a><a href="/#events">Events</a><a href="/#connect">Connect</a><a href="/#share">Share</a><a href="/#resources">Resources</a><a href="/sponsor/">Become a sponsor</a><a href="/volunteer/">Volunteer</a>
   </div>
 </nav>
 
 <header class="page-hero">
   <div class="hero-inner">
-    <div class="hero-eyebrow">Moore Elementary PTO</div>
     <h1 class="hero-title">Volunteer Interest Form</h1>
     <p class="hero-copy">Our PTO runs on the time, generosity, and energy of Moore families. Whether you can help once in a while or throughout the school year, we’d love to learn how you’d like to get involved.</p>
     <div class="hero-meta">
@@ -1069,6 +1014,8 @@ a{text-decoration:none;color:inherit}
 </footer>
 
 <script>
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+
 var STORAGE_KEY = 'moore_pto_v3';
 var STATUS_KEY = 'moore_pto_status';
 var NOTION_VOLUNTEER_ENDPOINT = '/api/submit-volunteer.php';
@@ -1321,15 +1268,7 @@ async function submitForm() {
     st[data.submittedAt + data.email] = 'New';
     localStorage.setItem(STATUS_KEY, JSON.stringify(st));
 
-    document.querySelectorAll('.form-section').forEach(function(s) {
-      s.style.display = 'none';
-    });
-    document.querySelector('.intro-shell').style.display = 'none';
-    document.getElementById('submitSection').style.display = 'none';
-    document.getElementById('errorMsg').style.display = 'none';
-    document.getElementById('confirmScreen').style.display = 'block';
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.href = '/thank-you/?form=volunteer';
   } catch (error) {
     console.error('[Notion submission error]', error);
     showError('There was a problem submitting your form. Please try again. If the issue continues, contact the PTO.');
