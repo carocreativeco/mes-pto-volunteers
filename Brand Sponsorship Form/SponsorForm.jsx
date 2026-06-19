@@ -110,7 +110,7 @@ async function uploadLogoToServer(file) {
   return result;
 }
 
-async function submitSponsorToNotion(payload) {
+async function submitSponsorToNotion(payload){
   const response = await fetch(SPONSOR_SUBMIT_ENDPOINT, {
     method: "POST",
     headers: {
@@ -120,6 +120,7 @@ async function submitSponsorToNotion(payload) {
   });
 
   const result = await response.json();
+  
 
   if (!response.ok || !result.success) {
     throw new Error(result.error || "Sponsor submission failed.");
@@ -383,8 +384,8 @@ function SponsorForm({ t }) {
         message: messageDetails,
       });
 
-      setConfirmed(true);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    window.location.href = "/thank-you/?form=sponsor";
+      
     } catch (err) {
       console.error("Sponsor submission error:", err);
       setError(err.message || "There was a problem submitting your sponsorship. Please try again.");
