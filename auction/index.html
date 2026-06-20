@@ -327,8 +327,6 @@
 
     const AUCTION_FILE_UPLOAD_ENDPOINT = "/api/upload-auction-file.php";
     const AUCTION_SUBMIT_ENDPOINT = "/api/submit-auction.php";
-    const THANK_YOU_URL = "https://moorevolunteers.org/thank-you";
-
     async function uploadAuctionFileToServer(file) {
       const formData = new FormData();
       formData.append("auctionFile", file);
@@ -395,7 +393,11 @@
           throw new Error(result.error || 'Auction submission failed.');
         }
 
-        window.location.href = THANK_YOU_URL;
+        status.textContent = 'Thank you! Your auction item was submitted successfully. The PTO will follow up if anything else is needed.';
+        status.style.color = '#0c1546';
+        form.reset();
+        submitButton.disabled = false;
+        submitButton.textContent = 'Submit Auction Item';
       } catch (error) {
         console.error(error);
         status.textContent = error.message || 'Something went wrong. Please try again or email mooreelementaryschool@gmail.com.';
