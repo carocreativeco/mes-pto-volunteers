@@ -74,7 +74,7 @@
     .form-section{position:relative;overflow:hidden;background:var(--soft);padding:40px 0 64px}
     .form-section::before{content:"";position:absolute;right:-220px;top:-220px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(255,194,0,.18),rgba(255,194,0,0) 70%);pointer-events:none}
     .form-section::after{content:"";position:absolute;left:-240px;bottom:-280px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(219,109,66,.1),rgba(219,109,66,0) 70%);pointer-events:none}
-    .form-shell{position:relative;z-index:2;width:min(1440px, calc(100% - 24px));max-width:none;margin:0 auto;display:grid;grid-template-columns:minmax(260px,2.4fr) minmax(0,7.6fr);gap:0;align-items:start}
+    .form-shell{position:relative;z-index:2;width:min(1480px, calc(100% - 16px));max-width:none;margin:0 auto;display:grid;grid-template-columns:minmax(320px,2.9fr) minmax(0,7.1fr);gap:0;align-items:start}
     .form-column{display:contents}
     .auction-details{grid-column:1 / -1;width:100%;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--navy) 0%,#182568 56%,#283a88 100%);color:var(--white);border-radius:26px;padding:26px 32px 28px;box-shadow:0 14px 42px rgba(12,21,70,.1);margin-bottom:22px}
     .auction-details::before{content:"";position:absolute;inset:0 0 auto 0;height:6px;background:linear-gradient(90deg,var(--gold),var(--orange))}
@@ -85,7 +85,7 @@
     .aside-list{display:grid;gap:12px;margin-top:20px}
     .aside-list span{display:flex;gap:12px;align-items:flex-start;color:rgba(255,255,255,.9);font-size:.96rem;line-height:1.55}
     .aside-list span::before{content:"✓";display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:rgba(255,194,0,.18);color:var(--gold);font-weight:900;flex:0 0 auto;margin-top:1px}
-    .form-card{grid-column:2;position:relative;z-index:3;background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.95);border-radius:28px;box-shadow:0 16px 44px rgba(12,21,70,.1);overflow:hidden;margin-left:-22px}
+    .form-card{grid-column:2;position:relative;z-index:3;background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.95);border-radius:28px;box-shadow:0 16px 44px rgba(12,21,70,.1);overflow:hidden;margin-left:-34px}
     .form-card-head{padding:28px 30px 22px;background:linear-gradient(135deg,#ffffff 0%,#fff8e4 100%);border-bottom:1px solid rgba(12,21,70,.1);text-align:center}
     .form-card-head h2{font-family:'Baskervville',serif;font-size:clamp(2.1rem,3.6vw,3rem);line-height:1;color:var(--navy);letter-spacing:-.03em;margin-bottom:12px}
     .form-card-head h2 em{font-style:italic;color:var(--orange)}
@@ -113,10 +113,10 @@
     .reset-btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;border:1px solid rgba(12,21,70,.16);border-radius:999px;background:transparent;color:var(--navy);font-weight:800;padding:0 22px;font-size:.94rem;cursor:pointer}
     .status{font-size:.92rem;color:#27324b;line-height:1.6;flex:1 1 260px}
 
-    .auction-collage{grid-column:1;position:relative;z-index:1;align-self:stretch;min-height:640px;border-radius:28px 0 0 28px;overflow:hidden;background:linear-gradient(180deg,#fff8e4,#ffffff)}
-    .auction-collage::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(12,21,70,.04),rgba(12,21,70,.12))}
-    .auction-collage::after{content:"";position:absolute;top:0;right:0;bottom:0;width:52%;z-index:3;pointer-events:none;background:linear-gradient(90deg,rgba(238,242,248,0),var(--soft) 78%,var(--soft))}
-    .collage-track{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:150px;gap:8px;padding:0;min-height:100%}
+    .auction-collage{grid-column:1;position:relative;z-index:1;align-self:stretch;min-height:680px;border-radius:28px 0 0 28px;overflow:hidden;background:linear-gradient(180deg,#fff8e4,#ffffff)}
+    .auction-collage::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(12,21,70,.04) 0%,rgba(12,21,70,.12) 72%,var(--soft) 100%)}
+    .auction-collage::after{content:"";position:absolute;top:0;right:0;bottom:0;width:58%;z-index:3;pointer-events:none;background:linear-gradient(90deg,rgba(238,242,248,0),rgba(238,242,248,.82) 70%,var(--soft))}
+    .collage-track{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:156px;gap:8px;padding:0;min-height:100%}
     .collage-card{position:relative;overflow:hidden;border-radius:0;background:var(--navy);box-shadow:none}
     .collage-card img{width:100%;height:100%;object-fit:cover;filter:saturate(1.03) contrast(1.02);transition:transform .45s ease}
     .collage-card:hover img{transform:scale(1.045)}
@@ -365,7 +365,7 @@
       if(!track || !formCard || !AUCTION_COLLAGE_IMAGES.length) return;
 
       const targetHeight = formCard.offsetHeight || 900;
-      const rowHeight = window.innerWidth <= 640 ? 132 : 150;
+      const rowHeight = window.innerWidth <= 640 ? 132 : 156;
       const estimatedCards = Math.max(8, Math.ceil(targetHeight / rowHeight) * 2 + 4);
 
       track.innerHTML = '';
