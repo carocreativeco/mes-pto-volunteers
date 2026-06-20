@@ -113,7 +113,7 @@
     .reset-btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;border:1px solid rgba(12,21,70,.16);border-radius:999px;background:transparent;color:var(--navy);font-weight:800;padding:0 22px;font-size:.94rem;cursor:pointer}
     .status{font-size:.92rem;color:#27324b;line-height:1.6;flex:1 1 260px}
 
-    .auction-collage{grid-column:1;position:relative;z-index:1;align-self:stretch;min-height:680px;border-radius:28px 0 0 28px;overflow:hidden;background:linear-gradient(180deg,#fff8e4,#ffffff)}
+    .auction-collage{grid-column:1;position:relative;z-index:1;align-self:start;height:680px;min-height:0;border-radius:28px 0 0 28px;overflow:hidden;background:linear-gradient(180deg,#fff8e4,#ffffff)}
     .auction-collage::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(12,21,70,.04) 0%,rgba(12,21,70,.12) 72%,var(--soft) 100%)}
     .auction-collage::after{content:"";position:absolute;top:0;right:0;bottom:0;width:58%;z-index:3;pointer-events:none;background:linear-gradient(90deg,rgba(238,242,248,0),rgba(238,242,248,.82) 70%,var(--soft))}
     .collage-track{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:156px;gap:8px;padding:0;min-height:100%}
@@ -131,7 +131,7 @@
       .form-shell{width:min(var(--max), calc(100% - 32px));grid-template-columns:1fr;gap:22px}
       .auction-details,.auction-collage,.form-card{grid-column:1 / -1}
       .form-card{margin-left:0}
-      .auction-collage{min-height:0;max-height:none;border-radius:26px}
+      .auction-collage{height:auto;min-height:0;max-height:none;border-radius:26px}
       .auction-collage::after{display:none}
       .collage-track{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:150px;gap:8px;padding:8px}
       .collage-card{border-radius:18px}
@@ -361,14 +361,16 @@
 
     function buildAuctionCollage(){
       const track = document.getElementById('auctionCollageTrack');
+      const collage = track?.closest('.auction-collage');
       const formCard = document.getElementById('auctionFormCard');
-      if(!track || !formCard || !AUCTION_COLLAGE_IMAGES.length) return;
+      if(!track || !collage || !formCard || !AUCTION_COLLAGE_IMAGES.length) return;
 
       const targetHeight = formCard.offsetHeight || 900;
       const rowHeight = window.innerWidth <= 640 ? 132 : 156;
-      const estimatedCards = Math.max(8, Math.ceil(targetHeight / rowHeight) * 2 + 4);
+      const estimatedCards = Math.max(8, Math.ceil(targetHeight / rowHeight) * 2 + 8);
 
       track.innerHTML = '';
+      collage.style.height = window.innerWidth > 1050 ? `${targetHeight}px` : '';
       track.style.minHeight = `${targetHeight}px`;
 
       for(let i = 0; i < estimatedCards; i++){
