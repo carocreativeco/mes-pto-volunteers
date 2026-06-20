@@ -83,7 +83,7 @@ const HEADLINE_EM = {
 };
 
 /* Paste your online donation page URL here when it's ready. Leave "" for now. */
-const ONLINE_DONATION_URL = "";
+const ONLINE_DONATION_URL = "https://www.zeffy.com/en-US/donation-form/mes-moore-miles-sponsorship";
 
 const SPONSOR_SUBMIT_ENDPOINT = "/api/submit-sponsor.php";
 const LOGO_UPLOAD_ENDPOINT = "/api/upload-logo.php";
