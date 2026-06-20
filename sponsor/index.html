@@ -63,7 +63,7 @@ a{
 }
 
 .container{
-  width:min(var(--max), calc(100% - 40px));
+  width:min(1320px, calc(100% - 28px));
   margin:0 auto;
 }
 
@@ -78,7 +78,7 @@ a{
 }
 
 .nav-inner{
-  width:min(var(--max), calc(100% - 40px));
+  width:min(1320px, calc(100% - 28px));
   margin:0 auto;
   min-height:78px;
   display:grid;
@@ -143,7 +143,7 @@ a{
 
 .nav-mobile{
   display:none;
-  width:min(var(--max), calc(100% - 40px));
+  width:min(1320px, calc(100% - 28px));
   margin:0 auto;
   padding:0 0 18px;
 }
@@ -191,7 +191,7 @@ a{
 .hero-inner{
   position:relative;
   z-index:2;
-  width:min(var(--max), calc(100% - 40px));
+  width:min(1320px, calc(100% - 28px));
   margin:0 auto;
   padding:90px 0 80px;
 }
@@ -269,12 +269,32 @@ a{
   padding:90px 0;
 }
 
+.section-tradition{
+  padding-bottom:45px;
+}
+
+.section-why{
+  padding-top:45px;
+}
+
 .section-alt{
   background:var(--bg-alt);
 }
 
 .section-head{
   margin-bottom:34px;
+}
+
+.tradition-head{
+  max-width:1180px;
+  margin:0 auto 34px;
+  text-align:center;
+}
+
+.tradition-head .section-copy{
+  max-width:1180px;
+  margin:0 auto;
+  line-height:1.55;
 }
 
 .section-title{
@@ -470,30 +490,111 @@ a{
 
 .support-modern-grid{
   display:grid;
-  grid-template-columns:repeat(2, 1fr);
-  gap:18px;
-  margin-top:30px;
+  grid-template-columns:repeat(5, 1fr);
+  gap:14px;
+  margin-top:34px;
 }
 
 .support-modern-item{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  align-items:flex-start;
+  min-height:172px;
+  background:
+    radial-gradient(circle at top right, rgba(255,194,0,.2), transparent 42%),
+    linear-gradient(180deg, #ffffff 0%, #f6f8fd 100%);
+  border:1px solid rgba(12,21,70,.08);
+  border-radius:22px;
+  padding:22px;
+  box-shadow:0 12px 30px rgba(12,21,70,.06);
+}
+
+.support-modern-check{
+  width:44px;
+  height:44px;
+  border-radius:16px;
   display:grid;
-  grid-template-columns:56px 1fr;
-  gap:16px;
-  align-items:center;
-  background:linear-gradient(180deg, #fbfcff 0%, #f6f8fd 100%);
-  border:1px solid rgba(12,21,70,.06);
-  border-radius:24px;
-  padding:20px 22px;
-  box-shadow:0 8px 24px rgba(12,21,70,.04);
+  place-items:center;
+  background:var(--navy);
+  color:var(--gold);
+  box-shadow:0 10px 24px rgba(12,21,70,.18);
+}
+
+.support-modern-check::before{
+  content:"✓";
+  font-size:1.3rem;
+  line-height:1;
+  font-weight:800;
+}
+
+.support-modern-check img{
+  display:none;
 }
 
 .support-modern-item p{
   color:var(--navy);
-  font-size:1.18rem;
-  line-height:1.4;
+  font-size:1.03rem;
+  line-height:1.45;
   font-weight:700;
   padding-top:0;
   margin:0;
+}
+
+.sponsor-inline-cta{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:30px auto 0;
+  width:100%;
+  min-height:104px;
+  border-radius:26px;
+  background:
+    linear-gradient(90deg, rgba(255,194,0,0), rgba(255,194,0,.24), rgba(255,194,0,0)),
+    linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.72));
+}
+
+.sponsor-inline-cta.dark{
+  background:
+    linear-gradient(90deg, rgba(12,21,70,0), rgba(12,21,70,.1), rgba(12,21,70,0)),
+    linear-gradient(180deg, rgba(12,21,70,0), rgba(12,21,70,.04));
+}
+
+.sponsor-inline-btn{
+  position:relative;
+  overflow:hidden;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:68px;
+  min-width:260px;
+  padding:0 46px;
+  border-radius:999px;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255,255,255,.24), transparent 26%),
+    linear-gradient(135deg, var(--navy) 0%, #1d2a66 58%, var(--orange) 100%);
+  color:var(--gold);
+  font-size:1.08rem;
+  font-weight:900;
+  letter-spacing:.03em;
+  white-space:nowrap;
+  box-shadow:0 18px 38px rgba(12,21,70,.22);
+  transition:transform .2s ease, box-shadow .2s ease, color .2s ease;
+}
+
+.sponsor-inline-cta.dark .sponsor-inline-btn{
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255,255,255,.36), transparent 26%),
+    linear-gradient(135deg, var(--gold) 0%, #ffd85d 58%, var(--orange) 100%);
+  color:var(--navy);
+}
+
+.sponsor-inline-btn:hover{
+  transform:translateY(-3px);
+  color:#fff;
+  box-shadow:0 24px 46px rgba(12,21,70,.26);
 }
 
 /* SPONSORSHIP TIERS */
@@ -767,9 +868,12 @@ a{
   }
 
   .value-grid,
-  .support-modern-grid,
   .steps-modern{
     grid-template-columns:1fr;
+  }
+
+  .support-modern-grid{
+    grid-template-columns:repeat(2, 1fr);
   }
 
   .tier-podium{
@@ -797,6 +901,11 @@ a{
 
   .why-stat-row{
     justify-content:center;
+  }
+
+  .sponsor-inline-cta{
+    flex-direction:column;
+    align-items:flex-start;
   }
 }
 
@@ -877,7 +986,7 @@ a{
   }
 
   .support-modern-item{
-    grid-template-columns:48px 1fr;
+    min-height:0;
   }
 
   .support-modern-check{
@@ -893,6 +1002,14 @@ a{
   .support-modern-item p{
     padding-top:6px;
     font-size:1rem;
+  }
+
+  .support-modern-grid{
+    grid-template-columns:1fr;
+  }
+
+  .sponsor-inline-btn{
+    width:100%;
   }
 
   .logo-marquee-wrap::before,
@@ -973,9 +1090,9 @@ a{
 
 <main>
 
-  <section class="section section-alt">
+  <section class="section section-alt section-tradition">
     <div class="container">
-      <div class="section-head reveal">
+      <div class="section-head tradition-head reveal">
         <h2 class="section-title">A beloved tradition.</h2>
         <p class="section-copy">
           Moore Miles is Moore Elementary&rsquo;s signature annual fundraiser &mdash; a week-long celebration of community, fitness, and school spirit. Over one spirited week, every student takes part in a 1-mile Fun Run on campus while five themed spirit days build excitement across the school. The campaign rallies the community toward a $50,000 goal that funds classroom enrichment, field trips, and school supplies &mdash; capped off by a family bake sale and a school-wide auction.
@@ -1021,7 +1138,7 @@ a{
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section-why">
     <div class="container">
       <div class="why-modern reveal">
         <div class="why-modern-intro">
@@ -1061,6 +1178,10 @@ a{
               <p>Our fundraising goal helps provide classroom resources, teacher support, student experiences, field trips, and programs that directly benefit Moore kids.</p>
             </div>
           </div>
+        </div>
+
+        <div class="sponsor-inline-cta reveal">
+          <a href="/Brand%20Sponsorship%20Form/" class="sponsor-inline-btn">Make an Impact</a>
         </div>
       </div>
     </div>
@@ -1271,6 +1392,10 @@ a{
             <p>See your logo on event t-shirts, the thank you banner up all year long, social media, and more.</p>
           </div>
         </div>
+      </div>
+
+      <div class="sponsor-inline-cta dark reveal">
+        <a href="/Brand%20Sponsorship%20Form/" class="sponsor-inline-btn">Start Here</a>
       </div>
     </div>
   </section>
