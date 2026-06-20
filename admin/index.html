@@ -1,1794 +1,659 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Admin Dashboard — Moore Elementary PTO</title>
-
-  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="shortcut icon" href="/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<meta name="apple-mobile-web-app-title" content="MES PTO" />
-<link rel="manifest" href="/site.webmanifest" />
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Admin Dashboard — Moore Elementary PTO
+  </title>
+  <link href="/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"/>
+  <link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+  <meta content="MES PTO" name="apple-mobile-web-app-title"/>
+  <link href="/site.webmanifest" rel="manifest"/>
+  <link href="https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+   :root{--gold:#f5b800;--orange:#e0703f;--navy:#08133f;--navy-2:#17245f;--text:#121827;--muted:#667085;--line:#dbe3f0;--line-soft:#edf1f7;--bg:#f6f7fb;--white:#fff;--success:#16a34a;--danger:#dc2626;--shadow:0 18px 55px rgba(8,19,63,.10);--shadow-soft:0 10px 28px rgba(8,19,63,.07);--max:1220px}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'Inter',sans-serif;background:radial-gradient(circle at top left,rgba(255,194,0,.16),transparent 34rem),radial-gradient(circle at 90% 12%,rgba(224,112,63,.10),transparent 28rem),linear-gradient(180deg,#fbfcff 0%,#f4f6fb 46%,#eef2f8 100%);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}body::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(8,19,63,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(8,19,63,.035) 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(180deg,rgba(0,0,0,.45),transparent 62%);z-index:-1}img{max-width:100%;display:block}button,input,select,textarea{font:inherit}.site-nav{position:sticky;top:0;z-index:1000;background:rgba(8,19,63,.86);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.12);box-shadow:0 10px 35px rgba(8,19,63,.16)}.nav-inner{width:min(var(--max),calc(100% - 40px));margin:0 auto;min-height:74px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px}.nav-left,.nav-right{display:flex;align-items:center;gap:26px}.nav-right{justify-content:flex-end}.nav-brand{display:flex;justify-content:center;align-items:center}.nav-brand img{width:80px;height:auto;max-height:52px;object-fit:contain}.nav-link{color:rgba(255,255,255,.86);font-size:.95rem;font-weight:600;text-decoration:none}.nav-link:hover{opacity:.78}.nav-cta{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:999px;background:var(--gold);color:var(--navy);font-weight:700;font-size:.9rem;text-decoration:none;box-shadow:0 12px 24px rgba(245,184,0,.22)}.nav-toggle{display:none;border:none;background:none;color:var(--white);font-size:1.5rem;cursor:pointer}.nav-mobile{display:none;width:min(var(--max),calc(100% - 40px));margin:0 auto;padding:0 0 18px}.nav-mobile.open{display:grid;gap:12px}.nav-mobile a{color:rgba(255,255,255,.92);font-size:.96rem;text-decoration:none}.login-screen{min-height:calc(100vh - 78px);display:flex;align-items:center;justify-content:center;padding:72px 20px}.login-card{width:100%;max-width:430px;background:#fff;border:1px solid rgba(219,227,240,.9);border-radius:32px;padding:34px;box-shadow:0 28px 80px rgba(8,19,63,.13);position:relative;overflow:hidden}.login-card::before{content:"";position:absolute;inset:0 0 auto 0;height:7px;background:linear-gradient(90deg,var(--gold),var(--orange),var(--navy-2))}.login-eyebrow{color:var(--orange);text-transform:uppercase;letter-spacing:.14em;font-size:.76rem;font-weight:800;margin-bottom:12px}.login-card h2{font-family:'Baskervville',serif;color:var(--navy);font-size:2rem;line-height:1.1;margin-bottom:10px}.login-card p{font-size:.94rem;color:var(--muted);line-height:1.75;margin-bottom:22px}.login-error{background:#fef2f2;border:1px solid #fecaca;color:var(--danger);padding:12px 14px;border-radius:14px;font-size:.88rem;margin-bottom:16px;display:none}.login-error.show{display:block}.login-field{margin-bottom:16px}.login-field label,.form-field label{display:block;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.11em;color:var(--navy);margin-bottom:8px}.login-field input,.form-field input,.form-field textarea,.form-field select,.search-input,.filter-select,.multi-select-toggle{width:100%;padding:13px 15px;border:1px solid var(--line);border-radius:16px;font-size:.92rem;outline:none;background:#fff;color:var(--text)}.login-field input:focus,.form-field input:focus,.form-field textarea:focus,.form-field select:focus,.search-input:focus,.filter-select:focus,.multi-select-toggle:focus{border-color:rgba(255,194,0,.85);box-shadow:0 0 0 4px rgba(255,194,0,.12)}.btn-login{width:100%;padding:14px 18px;background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border:none;border-radius:999px;font-size:.95rem;font-weight:700;cursor:pointer;box-shadow:0 12px 24px rgba(8,19,63,.16)}.dashboard{display:none}.dashboard.active{display:block}.dashboard-shell{width:min(var(--max),calc(100% - 40px));margin:34px auto 64px}.admin-hero{position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(8,19,63,.98),rgba(23,36,95,.94)),radial-gradient(circle at top right,rgba(245,184,0,.30),transparent 24rem);color:#fff;border-radius:34px;padding:34px;margin-bottom:22px;box-shadow:0 24px 70px rgba(8,19,63,.18)}.admin-hero::after{content:"";position:absolute;right:-80px;top:-100px;width:330px;height:330px;border-radius:50%;background:radial-gradient(circle,rgba(245,184,0,.30),rgba(245,184,0,0) 68%)}.admin-hero-content{position:relative;z-index:1;max-width:760px}.admin-hero-kicker{display:inline-flex;color:rgba(255,255,255,.78);text-transform:uppercase;letter-spacing:.14em;font-size:.74rem;font-weight:800;margin-bottom:14px}.admin-hero h1{font-family:'Baskervville',serif;font-size:clamp(2.1rem,4vw,3.5rem);line-height:.98;margin-bottom:12px}.admin-hero p{color:rgba(255,255,255,.76);line-height:1.7;max-width:680px;font-size:1rem}.dashboard-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-bottom:18px}.dashboard-action{display:inline-flex;align-items:center;justify-content:center;padding:11px 16px;border-radius:999px;font-size:.86rem;font-weight:700;text-decoration:none;border:1px solid var(--line);background:#fff;color:var(--navy);box-shadow:var(--shadow-soft)}.dashboard-action.primary{background:var(--gold);border-color:var(--gold)}.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;position:sticky;top:92px;z-index:50;background:rgba(255,255,255,.76);backdrop-filter:blur(16px);border:1px solid rgba(219,227,240,.78);border-radius:999px;padding:8px;box-shadow:var(--shadow-soft);width:max-content;max-width:100%}.tab{border:none;background:transparent;color:var(--muted);border-radius:999px;padding:11px 17px;font-size:.9rem;font-weight:700;cursor:pointer}.tab.active{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;box-shadow:0 12px 24px rgba(8,19,63,.18)}.tab-content{display:none}.tab-content.active{display:block}.section-head{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:end;background:rgba(255,255,255,.70);border:1px solid rgba(219,227,240,.75);border-radius:28px;padding:26px;box-shadow:var(--shadow-soft);margin-bottom:18px}.section-title{font-family:'Baskervville',serif;font-size:clamp(1.8rem,3vw,2.45rem);color:var(--navy);line-height:1.1}.section-intro{color:var(--muted);font-size:.94rem;line-height:1.75;justify-self:end;max-width:480px}.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:30px}.stat-card,.summary-card,.action-card,.volunteer-card,.empty-state,.modal{border:1px solid rgba(219,227,240,.9);box-shadow:var(--shadow-soft);background:rgba(255,255,255,.92);border-radius:26px}.stat-card{position:relative;overflow:hidden;padding:24px}.stat-card.highlight{background:linear-gradient(145deg,var(--navy),var(--navy-2))}.stat-card-label{font-size:.76rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:10px;font-weight:800}.stat-card.highlight .stat-card-label{color:rgba(255,194,0,.95)}.stat-card-value{font-family:'Baskervville',serif;font-size:2.45rem;color:var(--navy);line-height:1}.stat-card.highlight .stat-card-value{color:#fff}.summary-grid,.quick-actions-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:30px}.summary-head{padding:18px 20px 14px;background:linear-gradient(180deg,#fff,#fbfcff);border-bottom:1px solid var(--line-soft)}.summary-head h4{font-family:'Baskervville',serif;font-size:1.2rem;color:var(--navy);margin-bottom:4px}.summary-head p{color:var(--muted);font-size:.84rem}.summary-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line-soft)}.summary-row:last-child{border-bottom:none}.summary-row-label{font-size:.9rem;color:var(--text)}.summary-row-value{font-size:.92rem;color:var(--navy);font-weight:800}.action-card{padding:22px;cursor:pointer}.action-label{display:block;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;font-size:.74rem;font-weight:800;margin-bottom:10px}.action-card strong{display:block;color:var(--navy);font-family:'Baskervville',serif;font-size:1.32rem;margin-bottom:8px}.action-card span{color:var(--muted);font-size:.9rem;line-height:1.6}.action-bar{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px;flex-wrap:wrap;background:rgba(255,255,255,.66);border:1px solid rgba(219,227,240,.72);border-radius:24px;padding:16px}.action-bar h3{font-family:'Baskervville',serif;font-size:1.5rem;color:var(--navy)}.action-buttons{display:flex;gap:10px;flex-wrap:wrap}.btn{border:none;border-radius:999px;padding:12px 16px;font-size:.88rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.18s}.btn:hover{transform:translateY(-1px)}.btn-primary{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;box-shadow:0 12px 24px rgba(8,19,63,.16)}.btn-secondary{background:#fff;color:var(--navy);border:1px solid var(--line);box-shadow:0 8px 18px rgba(8,19,63,.05)}.btn-success{background:var(--success);color:#fff}.btn-sm{padding:9px 13px;font-size:.8rem}.filter-bar{display:flex;gap:12px;margin-bottom:18px;flex-wrap:wrap;background:rgba(255,255,255,.72);border:1px solid rgba(219,227,240,.74);border-radius:24px;padding:14px;box-shadow:var(--shadow-soft)}.search-input{flex:1;min-width:240px}.filter-select{min-width:190px;cursor:pointer}.notion-sync-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:0 0 28px}.notion-sync-card{background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:0 14px 34px rgba(12,21,70,.05);display:flex;gap:14px;align-items:flex-start}.notion-mark{width:36px;height:36px;min-width:36px;border-radius:10px;background:#fff;border:1px solid #d0d5dd;display:inline-flex;align-items:center;justify-content:center;box-shadow:4px 4px 0 rgba(17,24,39,.08);overflow:hidden}.notion-mark img{width:24px;height:24px;object-fit:contain}.notion-sync-card strong{display:block;color:var(--navy);font-size:.96rem;margin-bottom:4px}.notion-sync-card span:not(.notion-mark){display:block;color:var(--muted);font-size:.84rem;line-height:1.55}.notion-open-link{display:inline-flex;align-items:center;margin-top:10px;color:var(--navy);font-size:.82rem;font-weight:800;text-decoration:none}.notion-note{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px 18px;display:flex;gap:13px;align-items:flex-start;margin:-8px 0 24px;box-shadow:0 12px 30px rgba(12,21,70,.04)}.notion-note p{color:var(--muted);font-size:.9rem;line-height:1.6;margin:0}.notion-note strong{color:var(--navy)}.volunteer-list{display:flex;flex-direction:column;gap:16px}.volunteer-card{overflow:hidden}.volunteer-card-header{padding:22px 22px 18px;display:flex;align-items:flex-start;justify-content:space-between;gap:18px;border-bottom:1px solid var(--line-soft);background:linear-gradient(180deg,#fff,#fbfcff)}.volunteer-info h4{font-family:'Baskervville',serif;font-size:1.25rem;color:var(--navy);margin-bottom:6px}.volunteer-info p{font-size:.9rem;color:var(--muted);line-height:1.6}.volunteer-info a{color:var(--navy);text-decoration:none}.volunteer-meta{display:flex;gap:8px;flex-wrap:wrap}.badge{padding:7px 11px;border-radius:999px;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;border:1px solid rgba(255,255,255,.72)}.badge-new{background:#dbeafe;color:#1d4ed8}.badge-contacted{background:#fef3c7;color:#b45309}.badge-confirmed{background:#dcfce7;color:#15803d}.volunteer-card-body{padding:20px 22px}.volunteer-detail{margin-bottom:16px}.volunteer-detail-label{font-size:.74rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:7px;font-weight:800}.volunteer-detail-value{font-size:.92rem;color:var(--text);line-height:1.7}.volunteer-tags{display:flex;flex-wrap:wrap;gap:8px}.tag,.event-pill{background:#f7f9fd;padding:7px 10px;border-radius:999px;font-size:.8rem;color:var(--navy);border:1px solid var(--line-soft);font-weight:700}.event-pill{text-transform:uppercase;letter-spacing:.08em;font-size:.74rem}.volunteer-card-actions{padding:16px 22px;background:#fafbfe;border-top:1px solid var(--line-soft);display:flex;gap:10px;flex-wrap:wrap}.events-list{border-top:none;display:flex;flex-direction:column;gap:14px}.event-item{display:grid;grid-template-columns:190px 1fr auto;gap:22px;align-items:start;background:rgba(255,255,255,.92);border:1px solid rgba(219,227,240,.9);border-radius:26px;padding:22px;box-shadow:var(--shadow-soft)}.event-date-block{background:#f7f9fd;border:1px solid var(--line-soft);border-radius:20px;padding:16px}.event-date-label{display:block;text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:var(--orange);font-weight:800;margin-bottom:6px}.event-date-value{font-family:'Baskervville',serif;font-size:1.45rem;color:var(--navy);line-height:1.1}.event-item-content h4{font-family:'Baskervville',serif;font-size:1.35rem;color:var(--navy);margin-bottom:8px}.event-item-meta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;color:var(--muted);font-size:.88rem}.event-item-desc{color:var(--text);font-size:.92rem;line-height:1.7}.event-item-actions{display:flex;gap:8px;flex-wrap:wrap}.btn-icon{min-width:44px;height:44px;padding:0 14px}.modal-overlay{display:none;position:fixed;inset:0;background:rgba(12,21,70,.52);z-index:1000;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(8px)}.modal-overlay.active{display:flex}.modal{width:100%;max-width:620px;max-height:90vh;overflow-y:auto;background:#fff;border-radius:26px}.modal-header{padding:22px 24px 18px;border-bottom:1px solid var(--line-soft);display:flex;align-items:center;justify-content:space-between;gap:16px;background:linear-gradient(180deg,#fff,#fbfcff)}.modal-header h3{font-family:'Baskervville',serif;font-size:1.4rem;color:var(--navy)}.modal-close{width:40px;height:40px;border:none;border-radius:999px;background:#f4f6fb;color:var(--muted);cursor:pointer;font-size:1.3rem}.modal-body{padding:22px 24px}.modal-footer{padding:16px 24px 24px;border-top:1px solid var(--line-soft);display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap}.form-field{margin-bottom:16px}.form-field textarea{min-height:100px;resize:vertical}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}.form-help{font-size:.82rem;color:var(--muted);line-height:1.5;margin-top:8px}.multi-select{position:relative;width:100%}.multi-select-toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;text-align:left}.multi-select-menu{display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:10px;max-height:260px;overflow-y:auto;z-index:2000}.multi-select-menu.open{display:block}.multi-select-option{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;cursor:pointer}.multi-select-option:hover{background:#f7f8fb}.multi-select-option input{width:16px;height:16px}.multi-select-option span{font-size:.92rem;color:var(--text)}.empty-state{padding:44px 28px;text-align:center}.empty-state h4{font-family:'Baskervville',serif;font-size:1.5rem;color:var(--navy);margin-bottom:8px}.empty-state p{color:var(--muted);font-size:.94rem;line-height:1.7;margin-bottom:18px}@media(max-width:1024px){.summary-grid,.quick-actions-grid,.stats-row,.notion-sync-grid{grid-template-columns:1fr 1fr}}@media(max-width:900px){.section-head{grid-template-columns:1fr}.section-intro{justify-self:start;max-width:none}.event-item{grid-template-columns:1fr;gap:14px}.tabs{position:relative;top:auto;border-radius:24px;width:100%}.admin-hero{padding:28px}}@media(max-width:860px){.nav-left,.nav-right{display:none}.nav-toggle{display:block}.nav-inner{grid-template-columns:1fr auto}.nav-brand{justify-content:flex-start}.nav-brand img{width:72px;max-height:48px}}@media(max-width:720px){.summary-grid,.quick-actions-grid,.stats-row,.form-row,.notion-sync-grid{grid-template-columns:1fr}.volunteer-card-header{flex-direction:column}.event-item-actions{justify-content:flex-start}.notion-note{align-items:flex-start}}@media(max-width:640px){.nav-inner,.nav-mobile,.dashboard-shell{width:min(var(--max),calc(100% - 24px))}.nav-brand img{width:64px;max-height:42px}.admin-hero{border-radius:28px;padding:24px}.section-head{padding:22px;border-radius:24px}.tabs{display:grid;grid-template-columns:1fr 1fr;border-radius:22px}.tab{border-radius:999px}}
   
-<link href="https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-<style>
-:root{
-  --gold:#ffc200;
-  --orange:#db6d42;
-  --navy:#0c1546;
-  --navy-2:#18245a;
-  --text:#172033;
-  --muted:#667085;
-  --line:#dde3ef;
-  --line-soft:#e9edf5;
-  --bg:#f7f8fb;
-  --white:#ffffff;
-  --success:#16a34a;
-  --danger:#dc2626;
-  --warning:#b45309;
-  --shadow:0 20px 50px rgba(12,21,70,.08);
-  --max:1180px;
-}
-
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  font-family:'Inter',sans-serif;
-  background:linear-gradient(180deg,#fbfcfe 0%, #f3f6fb 100%);
-  color:var(--text);
-  min-height:100vh;
-  -webkit-font-smoothing:antialiased;
-}
-img{max-width:100%;display:block}
-button,input,select,textarea{font:inherit}
-
-  .multi-select{
-  position:relative;
-  width:100%;
-}
-
-.multi-select-toggle{
-  width:100%;
-  border:1px solid var(--line);
-  background:var(--white);
-  border-radius:14px;
-  padding:13px 15px;
-  font-size:.92rem;
-  color:var(--text);
-  outline:none;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  cursor:pointer;
-  text-align:left;
-}
-
-.multi-select-toggle:focus{
-  border-color:rgba(255,194,0,.85);
-  box-shadow:0 0 0 4px rgba(255,194,0,.12);
-}
-
-.multi-select-menu{
-  display:none;
-  position:absolute;
-  top:calc(100% + 8px);
-  left:0;
-  right:0;
-  background:var(--white);
-  border:1px solid var(--line);
-  border-radius:16px;
-  box-shadow:var(--shadow);
-  padding:10px;
-  max-height:260px;
-  overflow-y:auto;
-  z-index:2000;
-}
-
-.multi-select-menu.open{
-  display:block;
-}
-
-.multi-select-option{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:10px 12px;
-  border-radius:12px;
-  cursor:pointer;
-}
-
-.multi-select-option:hover{
-  background:#f7f8fb;
-}
-
-.multi-select-option input{
-  width:16px;
-  height:16px;
-  cursor:pointer;
-}
-
-.multi-select-option span{
-  font-size:.92rem;
-  color:var(--text);
-}
-
-/* SITE NAV */
-.site-nav{position:sticky;top:0;z-index:1000;background:rgba(12,21,70,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
-.nav-inner{width:min(var(--max), calc(100% - 40px));margin:0 auto;min-height:78px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px}
-.nav-left,.nav-right{display:flex;align-items:center;gap:26px}
-.nav-right{justify-content:flex-end}
-.nav-brand{display:flex;justify-content:center;align-items:center}
-.nav-brand img{width:80px;height:auto;max-height:52px;object-fit:contain}
-.nav-link{color:rgba(255,255,255,.9);font-size:.95rem;text-decoration:none}
-.nav-link:hover{opacity:.78}
-.nav-cta{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:999px;background:var(--gold);color:var(--navy);font-weight:700;font-size:.9rem;text-decoration:none}
-.nav-toggle{display:none;border:none;background:none;color:var(--white);font-size:1.5rem;cursor:pointer}
-.nav-mobile{display:none;width:min(var(--max), calc(100% - 40px));margin:0 auto;padding:0 0 18px}
-.nav-mobile.open{display:grid;gap:12px}
-.nav-mobile a{color:rgba(255,255,255,.92);font-size:.96rem;text-decoration:none}
-
-/* Login */
-.login-screen{min-height:calc(100vh - 78px);display:flex;align-items:center;justify-content:center;padding:50px 20px}
-.login-card{width:100%;max-width:430px;background:var(--white);border:1px solid var(--line);border-radius:28px;padding:34px;box-shadow:var(--shadow)}
-.login-eyebrow{color:var(--orange);text-transform:uppercase;letter-spacing:.14em;font-size:.76rem;font-weight:700;margin-bottom:12px}
-.login-card h2{font-family:'Baskervville',serif;color:var(--navy);font-size:2rem;line-height:1.1;margin-bottom:10px}
-.login-card p{font-size:.94rem;color:var(--muted);line-height:1.75;margin-bottom:22px}
-.login-error{background:#fef2f2;border:1px solid #fecaca;color:var(--danger);padding:12px 14px;border-radius:14px;font-size:.88rem;margin-bottom:16px;display:none}
-.login-error.show{display:block}
-.login-field{margin-bottom:16px}
-.login-field label{display:block;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--navy);margin-bottom:8px}
-.login-field input{width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:14px;font-size:.95rem;outline:none;background:var(--white)}
-.login-field input:focus{border-color:rgba(255,194,0,.85);box-shadow:0 0 0 4px rgba(255,194,0,.14)}
-.btn-login{width:100%;padding:14px 18px;background:var(--navy);color:var(--white);border:none;border-radius:999px;font-size:.95rem;font-weight:600;cursor:pointer}
-.btn-login:hover{opacity:.94}
-
-/* Dashboard */
-.dashboard{display:none}
-.dashboard.active{display:block}
-.dashboard-shell{width:min(var(--max), calc(100% - 40px));margin:30px auto 50px}
-.dashboard-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
-.dashboard-action{display:inline-flex;align-items:center;justify-content:center;padding:11px 16px;border-radius:999px;font-size:.86rem;font-weight:600;text-decoration:none;border:1px solid var(--line);background:var(--white);color:var(--navy)}
-.dashboard-action.primary{background:var(--gold);color:var(--navy);border-color:var(--gold)}
-
-.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
-.tab{border:1px solid var(--line);background:rgba(255,255,255,.8);color:var(--muted);border-radius:999px;padding:12px 16px;font-size:.9rem;font-weight:600;cursor:pointer}
-.tab:hover{color:var(--navy);border-color:#cfd8eb}
-.tab.active{background:var(--navy);color:var(--white);border-color:var(--navy)}
-.tab-content{display:none}
-.tab-content.active{display:block}
-
-.section-head{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:end;margin-bottom:22px}
-.section-title{font-family:'Baskervville',serif;font-size:2rem;color:var(--navy);line-height:1.1}
-.section-intro{color:var(--muted);font-size:.94rem;line-height:1.75;justify-self:end;max-width:480px}
-.section-rule{height:1px;background:linear-gradient(90deg,var(--navy),rgba(12,21,70,.08));opacity:.18;margin-bottom:28px}
-
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:30px}
-.stat-card{background:var(--white);border:1px solid var(--line);border-radius:22px;padding:22px}
-.stat-card.highlight{background:var(--navy);border-color:var(--navy)}
-.stat-card-label{font-size:.76rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:10px;font-weight:700}
-.stat-card.highlight .stat-card-label{color:rgba(255,194,0,.95)}
-.stat-card-value{font-family:'Baskervville',serif;font-size:2.2rem;color:var(--navy);line-height:1}
-.stat-card.highlight .stat-card-value{color:var(--white)}
-
-.summary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:30px}
-.summary-card{background:var(--white);border:1px solid var(--line);border-radius:22px;overflow:hidden}
-.summary-head{padding:18px 20px 14px}
-.summary-head h4{font-family:'Baskervville',serif;font-size:1.2rem;color:var(--navy);margin-bottom:4px}
-.summary-head p{color:var(--muted);font-size:.84rem}
-.summary-table{border-top:1px solid var(--line-soft)}
-.summary-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 20px;border-bottom:1px solid var(--line-soft)}
-.summary-row:last-child{border-bottom:none}
-.summary-row-label{font-size:.9rem;color:var(--text)}
-.summary-row-value{font-size:.92rem;color:var(--navy);font-weight:700}
-
-.quick-actions-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.action-card{border:1px solid var(--line);background:var(--white);border-radius:22px;padding:22px;cursor:pointer}
-.action-card:hover{box-shadow:var(--shadow);border-color:#cfd8eb}
-.action-label{display:block;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;font-size:.74rem;font-weight:700;margin-bottom:10px}
-.action-card strong{display:block;color:var(--navy);font-family:'Baskervville',serif;font-size:1.25rem;margin-bottom:8px}
-.action-card span{color:var(--muted);font-size:.9rem;line-height:1.6}
-
-.action-bar{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px;flex-wrap:wrap}
-.action-bar h3{font-family:'Baskervville',serif;font-size:1.5rem;color:var(--navy)}
-.action-buttons{display:flex;gap:10px;flex-wrap:wrap}
-.btn{border:none;border-radius:999px;padding:12px 16px;font-size:.88rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px}
-.btn-primary{background:var(--navy);color:var(--white)}
-.btn-secondary{background:var(--white);color:var(--navy);border:1px solid var(--line)}
-.btn-success{background:var(--success);color:var(--white)}
-.btn-sm{padding:9px 13px;font-size:.8rem}
-
-.filter-bar{display:flex;gap:12px;margin-bottom:18px;flex-wrap:wrap}
-.search-input,.filter-select,.form-field input,.form-field textarea,.form-field select{width:100%;border:1px solid var(--line);background:var(--white);border-radius:14px;padding:13px 15px;font-size:.92rem;color:var(--text);outline:none}
-.search-input:focus,.filter-select:focus,.form-field input:focus,.form-field textarea:focus,.form-field select:focus{border-color:rgba(255,194,0,.85);box-shadow:0 0 0 4px rgba(255,194,0,.12)}
-.search-input{flex:1;min-width:240px}
-.filter-select{min-width:190px;cursor:pointer}
-.form-field textarea{min-height:90px;resize:vertical}
-.form-help{font-size:.82rem;color:var(--muted);line-height:1.5;margin-top:8px}
-
-.volunteer-list{display:flex;flex-direction:column;gap:16px}
-.volunteer-card{background:var(--white);border:1px solid var(--line);border-radius:22px;overflow:hidden}
-.volunteer-card-header{padding:22px 22px 18px;display:flex;align-items:flex-start;justify-content:space-between;gap:18px;border-bottom:1px solid var(--line-soft)}
-.volunteer-info h4{font-family:'Baskervville',serif;font-size:1.25rem;color:var(--navy);margin-bottom:6px}
-.volunteer-info p{font-size:.9rem;color:var(--muted);line-height:1.6}
-.volunteer-info a{color:var(--navy);text-decoration:none}
-.volunteer-meta{display:flex;gap:8px;flex-wrap:wrap}
-.badge{padding:7px 11px;border-radius:999px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
-.badge-new{background:#dbeafe;color:#1d4ed8}
-.badge-contacted{background:#fef3c7;color:#b45309}
-.badge-confirmed{background:#dcfce7;color:#15803d}
-.volunteer-card-body{padding:20px 22px}
-.volunteer-detail{margin-bottom:16px}
-.volunteer-detail:last-child{margin-bottom:0}
-.volunteer-detail-label{font-size:.74rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:7px;font-weight:700}
-.volunteer-detail-value{font-size:.92rem;color:var(--text);line-height:1.7}
-.volunteer-tags{display:flex;flex-wrap:wrap;gap:8px}
-.tag{background:#f3f6fb;padding:7px 10px;border-radius:999px;font-size:.8rem;color:var(--navy);border:1px solid var(--line-soft)}
-.volunteer-card-actions{padding:16px 22px;background:#fafbfe;border-top:1px solid var(--line-soft);display:flex;gap:10px;flex-wrap:wrap}
-
-.events-list{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
-.event-item{display:grid;grid-template-columns:160px 1fr auto;gap:22px;align-items:start;padding:22px 0;border-bottom:1px solid var(--line)}
-.event-date-block{padding-top:2px}
-.event-date-label{display:block;text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:var(--orange);font-weight:700;margin-bottom:6px}
-.event-date-value{font-family:'Baskervville',serif;font-size:1.7rem;color:var(--navy);line-height:1.1}
-.event-item-content h4{font-family:'Baskervville',serif;font-size:1.24rem;color:var(--navy);margin-bottom:8px}
-.event-item-meta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;color:var(--muted);font-size:.88rem}
-.event-item-desc{color:var(--text);font-size:.92rem;line-height:1.7}
-.event-item-actions{display:flex;gap:8px;flex-wrap:wrap}
-.btn-icon{min-width:44px;height:44px;padding:0 14px}
-.event-pill{display:inline-block;padding:7px 10px;border-radius:999px;background:#f4f6fb;border:1px solid var(--line-soft);color:var(--navy);font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
-
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(12,21,70,.52);z-index:1000;align-items:center;justify-content:center;padding:24px}
-.modal-overlay.active{display:flex}
-.modal{width:100%;max-width:620px;max-height:90vh;overflow-y:auto;background:var(--white);border-radius:26px;border:1px solid var(--line)}
-.modal-header{padding:22px 24px 18px;border-bottom:1px solid var(--line-soft);display:flex;align-items:center;justify-content:space-between;gap:16px}
-.modal-header h3{font-family:'Baskervville',serif;font-size:1.4rem;color:var(--navy)}
-.modal-close{width:40px;height:40px;border:none;border-radius:999px;background:#f4f6fb;color:var(--muted);cursor:pointer;font-size:1.3rem}
-.modal-body{padding:22px 24px}
-.modal-footer{padding:16px 24px 24px;border-top:1px solid var(--line-soft);display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap}
-.form-field{margin-bottom:16px}
-.form-field label{display:block;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--navy);margin-bottom:8px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-
-.empty-state{background:var(--white);border:1px solid var(--line);border-radius:24px;padding:44px 28px;text-align:center}
-.empty-state h4{font-family:'Baskervville',serif;font-size:1.5rem;color:var(--navy);margin-bottom:8px}
-.empty-state p{color:var(--muted);font-size:.94rem;line-height:1.7;margin-bottom:18px}
-
-@media(max-width:1024px){.summary-grid,.quick-actions-grid,.stats-row{grid-template-columns:1fr 1fr}}
-
-
-@media(max-width:900px){.section-head{grid-template-columns:1fr}.section-intro{justify-self:start;max-width:none}.event-item{grid-template-columns:1fr;gap:14px}}
-@media(max-width:860px){.nav-left,.nav-right{display:none}.nav-toggle{display:block}.nav-inner{grid-template-columns:1fr auto}.nav-brand{justify-content:flex-start}.nav-brand img{width:72px;max-height:48px}}
-@media(max-width:720px){.summary-grid,.quick-actions-grid,.stats-row,.form-row{grid-template-columns:1fr}.volunteer-card-header{flex-direction:column}.event-item-actions{justify-content:flex-start}}
-@media(max-width:640px){.nav-inner,.nav-mobile{width:min(var(--max), calc(100% - 24px))}.nav-brand img{width:64px;max-height:42px}}
-
-/* ===== Modern admin refresh ===== */
-:root{
-  --gold:#f5b800;
-  --orange:#e0703f;
-  --navy:#08133f;
-  --navy-2:#17245f;
-  --text:#121827;
-  --muted:#667085;
-  --line:#dbe3f0;
-  --line-soft:#edf1f7;
-  --bg:#f6f7fb;
-  --white:#ffffff;
-  --success:#16a34a;
-  --danger:#dc2626;
-  --warning:#b45309;
-  --shadow:0 18px 55px rgba(8,19,63,.10);
-  --shadow-soft:0 10px 28px rgba(8,19,63,.07);
-  --radius-xl:30px;
-  --radius-lg:22px;
-  --max:1220px;
-}
-
-body{
-  background:
-    radial-gradient(circle at top left, rgba(255,194,0,.16), transparent 34rem),
-    radial-gradient(circle at 90% 12%, rgba(224,112,63,.10), transparent 28rem),
-    linear-gradient(180deg,#fbfcff 0%,#f4f6fb 46%,#eef2f8 100%);
-}
-
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background-image:
-    linear-gradient(rgba(8,19,63,.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(8,19,63,.035) 1px, transparent 1px);
-  background-size:44px 44px;
-  mask-image:linear-gradient(180deg, rgba(0,0,0,.45), transparent 62%);
-  z-index:-1;
-}
-
-.site-nav{
-  background:rgba(8,19,63,.86);
-  border-bottom:1px solid rgba(255,255,255,.12);
-  box-shadow:0 10px 35px rgba(8,19,63,.16);
-}
-
-.nav-inner{min-height:74px}
-.nav-link{
-  font-weight:600;
-  letter-spacing:.01em;
-  color:rgba(255,255,255,.86);
-}
-.nav-cta{
-  box-shadow:0 12px 24px rgba(245,184,0,.22);
-  transition:transform .18s ease, box-shadow .18s ease;
-}
-.nav-cta:hover{transform:translateY(-1px);box-shadow:0 16px 30px rgba(245,184,0,.28);opacity:1}
-
-.login-screen{
-  padding:72px 20px;
-}
-.login-card{
-  position:relative;
-  overflow:hidden;
-  border-radius:32px;
-  border:1px solid rgba(219,227,240,.9);
-  box-shadow:0 28px 80px rgba(8,19,63,.13);
-}
-.login-card::before{
-  content:"";
-  position:absolute;
-  inset:0 0 auto 0;
-  height:7px;
-  background:linear-gradient(90deg,var(--gold),var(--orange),var(--navy-2));
-}
-.login-eyebrow,.section-intro,.stat-card-label,.action-label,.volunteer-detail-label,.event-date-label,.form-field label,.login-field label{
-  letter-spacing:.11em;
-}
-
-.dashboard-shell{
-  margin:34px auto 64px;
-}
-
-.dashboard-actions{
-  justify-content:flex-end;
-  margin-bottom:18px;
-}
-
-.dashboard-action{
-  box-shadow:var(--shadow-soft);
-  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-}
-.dashboard-action:hover{
-  transform:translateY(-1px);
-  box-shadow:var(--shadow);
-  border-color:#cdd7ea;
-}
-
-.admin-hero{
-  position:relative;
-  overflow:hidden;
-  background:
-    linear-gradient(135deg, rgba(8,19,63,.98), rgba(23,36,95,.94)),
-    radial-gradient(circle at top right, rgba(245,184,0,.30), transparent 24rem);
-  color:#fff;
-  border-radius:34px;
-  padding:34px;
-  margin-bottom:22px;
-  box-shadow:0 24px 70px rgba(8,19,63,.18);
-}
-.admin-hero::after{
-  content:"";
-  position:absolute;
-  right:-80px;
-  top:-100px;
-  width:330px;
-  height:330px;
-  border-radius:50%;
-  background:radial-gradient(circle, rgba(245,184,0,.30), rgba(245,184,0,0) 68%);
-}
-.admin-hero-content{position:relative;z-index:1;max-width:760px}
-.admin-hero-kicker{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  color:rgba(255,255,255,.78);
-  text-transform:uppercase;
-  letter-spacing:.14em;
-  font-size:.74rem;
-  font-weight:800;
-  margin-bottom:14px;
-}
-.admin-hero h1{
-  font-family:'Baskervville',serif;
-  font-size:clamp(2.1rem,4vw,3.5rem);
-  line-height:.98;
-  margin-bottom:12px;
-}
-.admin-hero p{
-  color:rgba(255,255,255,.76);
-  line-height:1.7;
-  max-width:680px;
-  font-size:1rem;
-}
-
-.tabs{
-  position:sticky;
-  top:92px;
-  z-index:50;
-  background:rgba(255,255,255,.76);
-  backdrop-filter:blur(16px);
-  border:1px solid rgba(219,227,240,.78);
-  border-radius:999px;
-  padding:8px;
-  box-shadow:var(--shadow-soft);
-  width:max-content;
-  max-width:100%;
-}
-.tab{
-  border:none;
-  background:transparent;
-  padding:11px 17px;
-  transition:background .18s ease,color .18s ease,transform .18s ease;
-}
-.tab:hover{background:#f1f4fa;transform:translateY(-1px)}
-.tab.active{
-  background:linear-gradient(135deg,var(--navy),var(--navy-2));
-  box-shadow:0 12px 24px rgba(8,19,63,.18);
-}
-
-.section-head{
-  background:rgba(255,255,255,.70);
-  border:1px solid rgba(219,227,240,.75);
-  border-radius:28px;
-  padding:26px;
-  box-shadow:var(--shadow-soft);
-  margin-bottom:18px;
-}
-.section-title{font-size:clamp(1.8rem,3vw,2.45rem)}
-.section-rule{display:none}
-
-.stats-row{gap:18px}
-.stat-card,.summary-card,.action-card,.volunteer-card,.empty-state,.modal{
-  border:1px solid rgba(219,227,240,.9);
-  box-shadow:var(--shadow-soft);
-}
-.stat-card{
-  position:relative;
-  overflow:hidden;
-  border-radius:26px;
-  padding:24px;
-  transition:transform .18s ease, box-shadow .18s ease;
-}
-.stat-card:hover,.summary-card:hover,.action-card:hover,.volunteer-card:hover{
-  transform:translateY(-2px);
-  box-shadow:var(--shadow);
-}
-.stat-card.highlight{
-  background:linear-gradient(145deg,var(--navy),var(--navy-2));
-}
-.stat-card.highlight::after{
-  content:"";
-  position:absolute;
-  right:-34px;
-  bottom:-38px;
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  background:rgba(245,184,0,.18);
-}
-.stat-card-value{font-size:2.45rem}
-
-.summary-card,.action-card,.volunteer-card{
-  border-radius:26px;
-  background:rgba(255,255,255,.92);
-}
-.summary-head{
-  background:linear-gradient(180deg,#fff,#fbfcff);
-}
-.summary-row{
-  padding:14px 20px;
-}
-
-.action-card{
-  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-}
-.action-card strong{font-size:1.32rem}
-
-.action-bar{
-  background:rgba(255,255,255,.66);
-  border:1px solid rgba(219,227,240,.72);
-  border-radius:24px;
-  padding:16px;
-}
-
-.btn,.dashboard-action,.multi-select-toggle,.search-input,.filter-select,.form-field input,.form-field textarea,.form-field select,.btn-login{
-  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
-}
-.btn:hover,.btn-login:hover{
-  transform:translateY(-1px);
-}
-.btn-primary,.btn-login{
-  background:linear-gradient(135deg,var(--navy),var(--navy-2));
-  box-shadow:0 12px 24px rgba(8,19,63,.16);
-}
-.btn-secondary{
-  background:#fff;
-  box-shadow:0 8px 18px rgba(8,19,63,.05);
-}
-.btn-success{box-shadow:0 10px 22px rgba(22,163,74,.16)}
-
-.filter-bar{
-  background:rgba(255,255,255,.72);
-  border:1px solid rgba(219,227,240,.74);
-  border-radius:24px;
-  padding:14px;
-  box-shadow:var(--shadow-soft);
-}
-
-.search-input,.filter-select,.form-field input,.form-field textarea,.form-field select,.multi-select-toggle{
-  border-radius:16px;
-  background:#fff;
-}
-
-.volunteer-card-header{
-  background:linear-gradient(180deg,#fff,#fbfcff);
-}
-.badge{
-  border:1px solid rgba(255,255,255,.72);
-}
-.tag,.event-pill{
-  background:#f7f9fd;
-}
-
-.events-list{
-  border-top:none;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
-.event-item{
-  background:rgba(255,255,255,.92);
-  border:1px solid rgba(219,227,240,.9);
-  border-radius:26px;
-  padding:22px;
-  box-shadow:var(--shadow-soft);
-  transition:transform .18s ease, box-shadow .18s ease;
-}
-.event-item:hover{
-  transform:translateY(-2px);
-  box-shadow:var(--shadow);
-}
-.event-date-block{
-  background:#f7f9fd;
-  border:1px solid var(--line-soft);
-  border-radius:20px;
-  padding:16px;
-}
-.event-date-value{font-size:1.45rem}
-
-.modal-overlay{
-  backdrop-filter:blur(8px);
-}
-.modal{
-  box-shadow:0 28px 90px rgba(8,19,63,.25);
-}
-.modal-header{
-  background:linear-gradient(180deg,#fff,#fbfcff);
-}
-
-
-
-
-.notion-sync-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:0 0 28px}
-.notion-sync-card{background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:22px;padding:18px 18px 17px;box-shadow:0 14px 34px rgba(12,21,70,.05);display:flex;gap:14px;align-items:flex-start}
-.notion-mark{width:36px;height:36px;min-width:36px;border-radius:10px;background:#fff;border:1px solid #d0d5dd;display:inline-flex;align-items:center;justify-content:center;box-shadow:4px 4px 0 rgba(17,24,39,.08);overflow:hidden}
-.notion-mark img{width:24px;height:24px;object-fit:contain}
-.notion-sync-card strong{display:block;color:var(--navy);font-size:.96rem;margin-bottom:4px}
-.notion-sync-card span:not(.notion-mark){display:block;color:var(--muted);font-size:.84rem;line-height:1.55}
-.notion-open-link{display:inline-flex;align-items:center;margin-top:10px;color:var(--navy);font-size:.82rem;font-weight:700;text-decoration:none}
-.notion-open-link:hover{text-decoration:underline}
-.notion-note{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px 18px;display:flex;gap:13px;align-items:flex-start;margin:-8px 0 24px;box-shadow:0 12px 30px rgba(12,21,70,.04)}
-.notion-note p{color:var(--muted);font-size:.9rem;line-height:1.6;margin:0}
-.notion-note strong{color:var(--navy)}
-@media(max-width:1024px){.notion-sync-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:720px){.notion-sync-grid{grid-template-columns:1fr}.notion-note{align-items:flex-start}}
-
-@media(max-width:900px){
-  .tabs{position:relative;top:auto;border-radius:24px;width:100%}
-  .admin-hero{padding:28px}
-}
-@media(max-width:640px){
-  .dashboard-shell{width:min(var(--max), calc(100% - 24px))}
-  .admin-hero{border-radius:28px;padding:24px}
-  .section-head{padding:22px;border-radius:24px}
-  .tabs{display:grid;grid-template-columns:1fr 1fr;border-radius:22px}
-  .tab{border-radius:999px}
+/* Collapsible overview summaries */
+.collapsible-summary{overflow:hidden;}
+.summary-toggle{width:100%;border:0;margin:0;display:flex;align-items:flex-start;justify-content:space-between;gap:18px;text-align:left;cursor:pointer;font:inherit;color:inherit;}
+.summary-toggle span:first-child{min-width:0;}
+.summary-chevron{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;min-width:34px;border-radius:999px;background:#f3f6fb;color:var(--navy);font-size:1.25rem;font-weight:800;line-height:1;transition:transform .2s ease,background .2s ease;}
+.collapsible-summary:not(.open) .summary-chevron{transform:rotate(-90deg);background:#fff;}
+.summary-collapse{display:block;}
+.collapsible-summary:not(.open) .summary-collapse{display:none;}
+@media(max-width:720px){
+  .summary-grid{gap:14px;}
+  .summary-toggle{padding:18px;align-items:center;}
+  .summary-head h4{font-size:1.15rem;}
+  .summary-head p{font-size:.82rem;line-height:1.45;}
+  .summary-row{padding:13px 18px;}
 }
 
 </style>
-</head>
-<body>
-
-<nav class="site-nav">
-  <div class="nav-inner">
+ </head>
+ <body>
+  <nav class="site-nav">
+   <div class="nav-inner">
     <div class="nav-left">
-      <a href="/about" class="nav-link">About</a>
-      <a href="/#events" class="nav-link">Events</a>
-      <a href="/#connect" class="nav-link">Connect</a>
+     <a class="nav-link" href="/about">
+      About
+     </a>
+     <a class="nav-link" href="/#events">
+      Events
+     </a>
+     <a class="nav-link" href="/#connect">
+      Connect
+     </a>
     </div>
-
     <div class="nav-brand">
-      <a href="/">
-        <img src="/ptohome.png" alt="Moore Elementary PTO logo" onerror="this.style.display='none'">
-      </a>
+     <a href="/">
+      <img alt="Moore Elementary PTO logo" onerror="this.style.display='none'" src="/ptohome.png"/>
+     </a>
     </div>
-
     <div class="nav-right">
-      <a href="/#resources" class="nav-link">Resources</a>
-      <a href="/sponsor/" class="nav-link">Become a sponsor</a>
-      <a href="/volunteer/" class="nav-cta">Volunteer</a>
+     <a class="nav-link" href="/auction/">
+      Auction
+     </a>
+     <a class="nav-link" href="/sponsor/">
+      Become a sponsor
+     </a>
+     <a class="nav-cta" href="/volunteer/">
+      Volunteer
+     </a>
     </div>
-
-    <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleMenu()">☰</button>
-  </div>
-
-  <div class="nav-mobile" id="mobileMenu">
-    <a href="/about">About</a>
-    <a href="/#events">Events</a>
-    <a href="/#connect">Connect</a>
-    <a href="/#resources">Resources</a>
-    <a href="/sponsor/">Become a sponsor</a>
-    <a href="/volunteer/">Volunteer</a>
-  </div>
-</nav>
-
-<div class="login-screen" id="loginScreen">
-  <div class="login-card">
-    <div class="login-eyebrow">Moore Elementary PTO</div>
-    <h2>Admin Login</h2>
-    <p>Enter the admin password to access volunteer submissions, manage events, and export PTO data.</p>
-    <div class="login-error" id="loginError">Incorrect password. Please try again.</div>
+    <button aria-label="Toggle menu" class="nav-toggle" onclick="toggleMenu()">
+     ☰
+    </button>
+   </div>
+   <div class="nav-mobile" id="mobileMenu">
+    <a href="/about">
+     About
+    </a>
+    <a href="/#events">
+     Events
+    </a>
+    <a href="/#connect">
+     Connect
+    </a>
+    <a href="/auction/">
+     Auction
+    </a>
+    <a href="/sponsor/">
+     Become a sponsor
+    </a>
+    <a href="/volunteer/">
+     Volunteer
+    </a>
+   </div>
+  </nav>
+  <div class="login-screen" id="loginScreen">
+   <div class="login-card">
+    <div class="login-eyebrow">
+     Moore Elementary PTO
+    </div>
+    <h2>
+     Admin Login
+    </h2>
+    <p>
+     Enter the admin password to access volunteer submissions, manage events, and export PTO data.
+    </p>
+    <div class="login-error" id="loginError">
+     Incorrect password. Please try again.
+    </div>
     <div class="login-field">
-      <label>Password</label>
-      <input type="password" id="loginPassword" placeholder="Enter password" onkeypress="if(event.key==='Enter')attemptLogin()"/>
+     <label>
+      Password
+     </label>
+     <input id="loginPassword" onkeypress="if(event.key==='Enter')attemptLogin()" placeholder="Enter password" type="password"/>
     </div>
-    <button class="btn-login" onclick="attemptLogin()">Log In</button>
+    <button class="btn-login" onclick="attemptLogin()">
+     Log In
+    </button>
+   </div>
   </div>
-</div>
-
-<div class="dashboard" id="dashboard">
-  <div class="dashboard-shell">
-
+  <div class="dashboard" id="dashboard">
+   <div class="dashboard-shell">
     <section class="admin-hero">
-      <div class="admin-hero-content">
-        <div class="admin-hero-kicker">Moore Elementary PTO Admin</div>
-        <h1>Manage PTO activity in one organized dashboard.</h1>
-        <p>Track volunteers, corporate sponsors, PTO events, and exports from one polished admin space. Notion remains the source of truth behind each core category.</p>
+     <div class="admin-hero-content">
+      <div class="admin-hero-kicker">
+       Moore Elementary PTO Admin
       </div>
+      <h1>
+       Manage PTO activity in one organized dashboard.
+      </h1>
+      <p>
+       Track volunteers, corporate sponsors, PTO events, and exports from one polished admin space. Notion remains the source of truth behind each core category.
+      </p>
+     </div>
     </section>
-
     <div class="dashboard-actions">
-      <a href="/announcement-builder/" class="dashboard-action primary">Announcement Builder</a>
+     <a class="dashboard-action primary" href="/announcement-builder/">
+      Announcement Builder
+     </a>
     </div>
-
     <nav class="tabs">
-      <button class="tab active" data-tab="overview">Overview</button>
-      <button class="tab" data-tab="volunteers">Volunteers</button>
-      <button class="tab" data-tab="sponsors">Sponsors</button>
-      <button class="tab" data-tab="events">Events</button>
+     <button class="tab active" data-tab="overview">
+      Overview
+     </button>
+     <button class="tab" data-tab="volunteers">
+      Volunteers
+     </button>
+     <button class="tab" data-tab="sponsors">
+      Sponsors
+     </button>
+     <button class="tab" data-tab="events">
+      Events
+     </button>
     </nav>
-
     <div class="tab-content active" id="tab-overview">
-      <div class="section-head">
-        <h2 class="section-title">Dashboard Overview</h2>
-        <p class="section-intro">A quick snapshot of volunteer activity, event planning, and PTO participation across the school year.</p>
+     <div class="section-head">
+      <h2 class="section-title">
+       Dashboard Overview
+      </h2>
+      <p class="section-intro">
+       A quick snapshot of volunteer activity, event planning, and PTO participation across the school year.
+      </p>
+     </div>
+     <div class="stats-row">
+      <div class="stat-card highlight">
+       <div class="stat-card-label">
+        Total Volunteers
+       </div>
+       <div class="stat-card-value" id="statTotalVolunteers">
+        0
+       </div>
       </div>
-      <div class="section-rule"></div>
-
-      <div class="stats-row">
-        <div class="stat-card highlight"><div class="stat-card-label">Total Volunteers</div><div class="stat-card-value" id="statTotalVolunteers">0</div></div>
-        <div class="stat-card highlight"><div class="stat-card-label">Corporate Sponsors</div><div class="stat-card-value" id="statTotalSponsors">0</div></div>
-        <div class="stat-card"><div class="stat-card-label">Sponsor Dollars</div><div class="stat-card-value" id="statSponsorDollars">$0</div></div>
-        <div class="stat-card"><div class="stat-card-label">Upcoming / Planned Events</div><div class="stat-card-value" id="statUpcomingEvents">0</div></div>
+      <div class="stat-card highlight">
+       <div class="stat-card-label">
+        Corporate Sponsors
+       </div>
+       <div class="stat-card-value" id="statTotalSponsors">
+        0
+       </div>
       </div>
-
-      <div class="notion-sync-grid" aria-label="Notion data storage overview">
-        <div class="notion-sync-card"><span class="notion-mark" aria-hidden="true"><img src="https://cdn.simpleicons.org/notion/000000" alt=""></span><div><strong>PTO Volunteers</strong><span>Volunteer submissions and follow-up status are organized in Notion, then displayed here for quick review.</span><a class="notion-open-link" href="https://app.notion.com/p/0995bbe5b5e9410182d00381963a069c?v=aa1c111be61442c78f1e4d1f40c4845c&source=copy_link" target="_blank" rel="noopener">Open in Notion →</a></div></div>
-        <div class="notion-sync-card"><span class="notion-mark" aria-hidden="true"><img src="https://cdn.simpleicons.org/notion/000000" alt=""></span><div><strong>Corporate Sponsors</strong><span>Sponsor leads, tiers, logos, and payment progress are stored in Notion for one shared source of truth.</span><a class="notion-open-link" href="https://app.notion.com/p/77bf1c4779524bc283c7439475b4ebbd?v=249b9596498141d1b7664fc446a2f6e2&source=copy_link" target="_blank" rel="noopener">Open in Notion →</a></div></div>
-        <div class="notion-sync-card"><span class="notion-mark" aria-hidden="true"><img src="https://cdn.simpleicons.org/notion/000000" alt=""></span><div><strong>PTO Events</strong><span>Event planning details are maintained in Notion and surfaced here for admin-friendly updates.</span><a class="notion-open-link" href="https://app.notion.com/p/3f0308cf64614e9b95e57a7364feb38e?v=9893f458e4cc4d5cab32a4f0c1bc61cf&source=copy_link" target="_blank" rel="noopener">Open in Notion →</a></div></div>
+      <div class="stat-card">
+       <div class="stat-card-label">
+        Sponsor Dollars
+       </div>
+       <div class="stat-card-value" id="statSponsorDollars">
+        $0
+       </div>
       </div>
-
-      <div class="summary-grid">
-        <div class="summary-card">
-          <div class="summary-head"><h4>Volunteers by Area</h4><p>Interest across common PTO support categories.</p></div>
-          <div class="summary-table" id="summaryByArea"></div>
-        </div>
-        <div class="summary-card">
-          <div class="summary-head"><h4>Availability Overview</h4><p>When volunteers are most available to help.</p></div>
-          <div class="summary-table" id="summaryByAvailability"></div>
-        </div>
+      <div class="stat-card">
+       <div class="stat-card-label">
+        Upcoming / Planned Events
+       </div>
+       <div class="stat-card-value" id="statUpcomingEvents">
+        0
+       </div>
       </div>
-
-      <div class="action-bar" style="margin-top:8px"><h3>Quick Actions</h3></div>
-
-      <div class="quick-actions-grid">
-        <div class="action-card" onclick="switchTab('volunteers')">
-          <span class="action-label">Volunteers</span>
-          <strong>View Sign-Ups</strong>
-          <span>Browse submissions, filter by area, and update outreach status.</span>
-        </div>
-        <div class="action-card" onclick="switchTab('sponsors')">
-          <span class="action-label">Sponsors</span>
-          <strong>View Sponsors</strong>
-          <span>Review sponsor leads, logos, tiers, and payment status.</span>
-        </div>
-        <div class="action-card" onclick="switchTab('events')">
-          <span class="action-label">Events</span>
-          <strong>Manage Events</strong>
-          <span>Add, edit, and organize PTO events for the school year.</span>
-        </div>
-        <div class="action-card" onclick="exportVolunteers()">
-          <span class="action-label">Export</span>
-          <strong>Download Volunteer Data</strong>
-          <span>Export all volunteer submissions as a CSV file.</span>
-        </div>
+     </div>
+     <div class="notion-sync-grid">
+      <div class="notion-sync-card">
+       <span class="notion-mark">
+        <img alt="" src="https://cdn.simpleicons.org/notion/000000"/>
+       </span>
+       <div>
+        <strong>
+         PTO Volunteers
+        </strong>
+        <span>
+         Volunteer submissions and follow-up status are organized in Notion.
+        </span>
+        <a class="notion-open-link" href="https://app.notion.com/p/0995bbe5b5e9410182d00381963a069c?v=aa1c111be61442c78f1e4d1f40c4845c&source=copy_link" rel="noopener" target="_blank">
+         Open in Notion →
+        </a>
+       </div>
       </div>
+      <div class="notion-sync-card">
+       <span class="notion-mark">
+        <img alt="" src="https://cdn.simpleicons.org/notion/000000"/>
+       </span>
+       <div>
+        <strong>
+         Corporate Sponsors
+        </strong>
+        <span>
+         Sponsor leads, tiers, logos, and payment progress are stored in Notion.
+        </span>
+        <a class="notion-open-link" href="https://app.notion.com/p/77bf1c4779524bc283c7439475b4ebbd?v=249b9596498141d1b7664fc446a2f6e2&source=copy_link" rel="noopener" target="_blank">
+         Open in Notion →
+        </a>
+       </div>
+      </div>
+      <div class="notion-sync-card">
+       <span class="notion-mark">
+        <img alt="" src="https://cdn.simpleicons.org/notion/000000"/>
+       </span>
+       <div>
+        <strong>
+         PTO Events
+        </strong>
+        <span>
+         Event planning details are maintained in the Notion Events database.
+        </span>
+        <a class="notion-open-link" href="https://app.notion.com/p/3f0308cf64614e9b95e57a7364feb38e?v=9893f458e4cc4d5cab32a4f0c1bc61cf&source=copy_link" rel="noopener" target="_blank">
+         Open in Notion →
+        </a>
+       </div>
+      </div>
+     </div>
+     <div class="summary-grid">
+      <div class="summary-card collapsible-summary" id="summaryAreaCard">
+       <button type="button" class="summary-head summary-toggle" onclick="toggleSummaryCard('summaryAreaCard')" aria-expanded="false">
+        <span>
+         <h4>
+          Volunteers by Area
+         </h4>
+         <p>
+          Interest across common PTO support categories.
+         </p>
+        </span>
+        <span class="summary-chevron" aria-hidden="true">⌄</span>
+       </button>
+       <div class="summary-collapse" id="summaryByArea">
+       </div>
+      </div>
+      <div class="summary-card collapsible-summary" id="summaryAvailabilityCard">
+       <button type="button" class="summary-head summary-toggle" onclick="toggleSummaryCard('summaryAvailabilityCard')" aria-expanded="false">
+        <span>
+         <h4>
+          Availability Overview
+         </h4>
+         <p>
+          When volunteers are most available to help.
+         </p>
+        </span>
+        <span class="summary-chevron" aria-hidden="true">⌄</span>
+       </button>
+       <div class="summary-collapse" id="summaryByAvailability">
+       </div>
+      </div>
+     </div>
+     <div class="quick-actions-grid">
+      <div class="action-card" onclick="switchTab('volunteers')">
+       <span class="action-label">
+        Volunteers
+       </span>
+       <strong>
+        View Sign-Ups
+       </strong>
+       <span>
+        Browse submissions, filter by area, and update outreach status.
+       </span>
+      </div>
+      <div class="action-card" onclick="switchTab('sponsors')">
+       <span class="action-label">
+        Sponsors
+       </span>
+       <strong>
+        View Sponsors
+       </strong>
+       <span>
+        Review sponsor leads, logos, tiers, and payment status.
+       </span>
+      </div>
+      <div class="action-card" onclick="switchTab('events')">
+       <span class="action-label">
+        Events
+       </span>
+       <strong>
+        Manage Events
+       </strong>
+       <span>
+        Add, edit, and organize PTO events for the school year.
+       </span>
+      </div>
+      <div class="action-card" onclick="exportVolunteers()">
+       <span class="action-label">
+        Export
+       </span>
+       <strong>
+        Download Volunteer Data
+       </strong>
+       <span>
+        Export all volunteer submissions as a CSV file.
+       </span>
+      </div>
+     </div>
     </div>
-
     <div class="tab-content" id="tab-volunteers">
-      <div class="section-head">
-        <h2 class="section-title">Volunteer Sign-Ups</h2>
-        <p class="section-intro">Review submissions, search by contact info, and track volunteer follow-up status.</p>
+     <div class="section-head">
+      <h2 class="section-title">
+       Volunteer Sign-Ups
+      </h2>
+      <p class="section-intro">
+       Review submissions, search by contact info, and track volunteer follow-up status.
+      </p>
+     </div>
+     <div class="notion-note">
+      <span class="notion-mark">
+       <img alt="" src="https://cdn.simpleicons.org/notion/000000"/>
+      </span>
+      <p>
+       <strong>
+        Stored in Notion:
+       </strong>
+       Volunteer form submissions, contact details, interest areas, availability, and follow-up status live in the PTO Volunteers database.
+      </p>
+     </div>
+     <div class="filter-bar">
+      <input class="search-input" id="volunteerSearch" oninput="filterVolunteers()" placeholder="Search by name or email..." type="text"/>
+      <select class="filter-select" id="volunteerStatusFilter" onchange="filterVolunteers()">
+       <option value="">
+        All Statuses
+       </option>
+       <option>
+        New
+       </option>
+       <option>
+        Contacted
+       </option>
+       <option>
+        Confirmed
+       </option>
+       <option>
+        Inactive
+       </option>
+      </select>
+      <select class="filter-select" id="volunteerAreaFilter" onchange="filterVolunteers()">
+       <option value="">
+        All Areas
+       </option>
+      </select>
+     </div>
+     <div class="action-bar">
+      <h3>
+       All Volunteers
+      </h3>
+      <div class="action-buttons">
+       <button class="btn btn-secondary" onclick="exportVolunteers()">
+        Export CSV
+       </button>
+       <button class="btn btn-secondary" onclick="openNotionVolunteers()">
+        Open Notion Volunteers
+       </button>
       </div>
-      <div class="section-rule"></div>
-
-      <div class="notion-note"><span class="notion-mark" aria-hidden="true"><img src="https://cdn.simpleicons.org/notion/000000" alt=""></span><p><strong>Stored in Notion:</strong> Volunteer form submissions, contact details, interest areas, availability, and follow-up status live in the PTO Volunteers database.</p></div>
-
-      <div class="filter-bar">
-        <input type="text" class="search-input" id="volunteerSearch" placeholder="Search by name or email..." oninput="filterVolunteers()"/>
-        <select class="filter-select" id="volunteerStatusFilter" onchange="filterVolunteers()">
-          <option value="">All Statuses</option>
-          <option value="New">New</option>
-          <option value="Contacted">Contacted</option>
-          <option value="Confirmed">Confirmed</option>
-          <option value="Inactive">Inactive</option>
-        </select>
-        <select class="filter-select" id="volunteerAreaFilter" onchange="filterVolunteers()">
-          <option value="">All Areas</option>
-        </select>
-      </div>
-
-      <div class="action-bar">
-        <h3>All Volunteers</h3>
-        <div class="action-buttons">
-          <button class="btn btn-secondary" onclick="exportVolunteers()">Export CSV</button>
-          <button class="btn btn-secondary" onclick="openNotionVolunteers()">Open Notion Volunteers</button>
-        </div>
-      </div>
-
-      <div class="volunteer-list" id="volunteerList"></div>
+     </div>
+     <div class="volunteer-list" id="volunteerList">
+     </div>
     </div>
-
     <div class="tab-content" id="tab-sponsors">
-      <div class="section-head">
-        <h2 class="section-title">Corporate Sponsors</h2>
-        <p class="section-intro">Review sponsorship submissions, filter by tier or status, and track logos and follow-up needs.</p>
+     <div class="section-head">
+      <h2 class="section-title">
+       Corporate Sponsors
+      </h2>
+      <p class="section-intro">
+       Review sponsorship submissions, filter by tier or status, and track logos and follow-up needs.
+      </p>
+     </div>
+     <div class="notion-note">
+      <span class="notion-mark">
+       <img alt="" src="https://cdn.simpleicons.org/notion/000000"/>
+      </span>
+      <p>
+       <strong>
+        Stored in Notion:
+       </strong>
+       Corporate sponsor submissions, selected tiers, logo links, payment status, and outreach notes are managed in the Sponsors database.
+      </p>
+     </div>
+     <div class="stats-row">
+      <div class="stat-card highlight">
+       <div class="stat-card-label">
+        Total Sponsors
+       </div>
+       <div class="stat-card-value" id="sponsorStatTotal">
+        0
+       </div>
       </div>
-      <div class="section-rule"></div>
-
-      <div class="notion-note"><span class="notion-mark" aria-hidden="true"><img src="https://cdn.simpleicons.org/notion/000000" alt=""></span><p><strong>Stored in Notion:</strong> Corporate sponsor submissions, selected tiers, logo links, payment status, and outreach notes are managed in the Sponsors database.</p></div>
-
-      <div class="stats-row">
-        <div class="stat-card highlight"><div class="stat-card-label">Total Sponsors</div><div class="stat-card-value" id="sponsorStatTotal">0</div></div>
-        <div class="stat-card highlight"><div class="stat-card-label">Potential Total</div><div class="stat-card-value" id="sponsorStatDollars">$0</div></div>
-        <div class="stat-card"><div class="stat-card-label">Paid</div><div class="stat-card-value" id="sponsorStatPaid">0</div></div>
-        <div class="stat-card"><div class="stat-card-label">Logos Received</div><div class="stat-card-value" id="sponsorStatLogos">0</div></div>
+      <div class="stat-card highlight">
+       <div class="stat-card-label">
+        Potential Total
+       </div>
+       <div class="stat-card-value" id="sponsorStatDollars">
+        $0
+       </div>
       </div>
-
-      <div class="filter-bar">
-        <input type="text" class="search-input" id="sponsorSearch" placeholder="Search by business, contact, or email..." oninput="filterSponsors()"/>
-        <select class="filter-select" id="sponsorStatusFilter" onchange="filterSponsors()">
-          <option value="">All Statuses</option>
-          <option value="Interested">Interested</option>
-          <option value="Contacted">Contacted</option>
-          <option value="Committed">Committed</option>
-          <option value="Paid">Paid</option>
-          <option value="Assets Received">Assets Received</option>
-          <option value="Completed">Completed</option>
-        </select>
-        <select class="filter-select" id="sponsorTierFilter" onchange="filterSponsors()">
-          <option value="">All Tiers</option>
-          <option value="Title Sponsor">Title Sponsor</option>
-          <option value="Platinum">Platinum</option>
-          <option value="Gold">Gold</option>
-          <option value="Community Champion">Community Champion</option>
-          <option value="Community Builder">Community Builder</option>
-        </select>
+      <div class="stat-card">
+       <div class="stat-card-label">
+        Paid
+       </div>
+       <div class="stat-card-value" id="sponsorStatPaid">
+        0
+       </div>
       </div>
-
-      <div class="action-bar">
-        <h3>All Sponsors</h3>
-        <div class="action-buttons">
-          <button class="btn btn-secondary" onclick="exportSponsors()">Export CSV</button>
-          <button class="btn btn-secondary" onclick="openNotionSponsors()">Open Notion Sponsors</button>
-        </div>
+      <div class="stat-card">
+       <div class="stat-card-label">
+        Logos Received
+       </div>
+       <div class="stat-card-value" id="sponsorStatLogos">
+        0
+       </div>
       </div>
-
-      <div class="volunteer-list" id="sponsorList"></div>
+     </div>
+     <div class="filter-bar">
+      <input class="search-input" id="sponsorSearch" oninput="filterSponsors()" placeholder="Search by business, contact, or email..." type="text"/>
+      <select class="filter-select" id="sponsorStatusFilter" onchange="filterSponsors()">
+       <option value="">
+        All Statuses
+       </option>
+       <option>
+        Interested
+       </option>
+       <option>
+        Contacted
+       </option>
+       <option>
+        Committed
+       </option>
+       <option>
+        Paid
+       </option>
+       <option>
+        Assets Received
+       </option>
+       <option>
+        Completed
+       </option>
+      </select>
+      <select class="filter-select" id="sponsorTierFilter" onchange="filterSponsors()">
+       <option value="">
+        All Tiers
+       </option>
+       <option>
+        Title Sponsor
+       </option>
+       <option>
+        Platinum
+       </option>
+       <option>
+        Gold
+       </option>
+       <option>
+        Community Champion
+       </option>
+       <option>
+        Community Builder
+       </option>
+      </select>
+     </div>
+     <div class="action-bar">
+      <h3>
+       All Sponsors
+      </h3>
+      <div class="action-buttons">
+       <button class="btn btn-secondary" onclick="exportSponsors()">
+        Export CSV
+       </button>
+       <button class="btn btn-secondary" onclick="openNotionSponsors()">
+        Open Notion Sponsors
+       </button>
+      </div>
+     </div>
+     <div class="volunteer-list" id="sponsorList">
+     </div>
     </div>
-
     <div class="tab-content" id="tab-events">
-      <div class="section-head">
-        <h2 class="section-title">PTO Events</h2>
-        <p class="section-intro">Manage year-round event planning, including placeholder items with dates and volunteer counts to be determined.</p>
+     <div class="section-head">
+      <h2 class="section-title">
+       PTO Events
+      </h2>
+      <p class="section-intro">
+       Manage year-round event planning from the Notion Events database.
+      </p>
+     </div>
+     <div class="notion-note">
+      <span class="notion-mark">
+       <img alt="" src="https://cdn.simpleicons.org/notion/000000"/>
+      </span>
+      <p>
+       <strong>
+        Stored in Notion:
+       </strong>
+       PTO event details, dates, volunteer needs, status, and areas of interest are kept in the Events database.
+      </p>
+     </div>
+     <div class="action-bar">
+      <h3>
+       Events List
+      </h3>
+      <div class="action-buttons">
+       <button class="btn btn-secondary" onclick="openNotionEvents()">
+        Open Notion Events
+       </button>
+       <button class="btn btn-primary" onclick="openEventModal()">
+        Add Event
+       </button>
       </div>
-      <div class="section-rule"></div>
-
-      <div class="notion-note"><span class="notion-mark" aria-hidden="true"><img src="https://cdn.simpleicons.org/notion/000000" alt=""></span><p><strong>Stored in Notion:</strong> PTO event details, dates, volunteer needs, locations, and planning notes are kept in the Events database for consistent tracking.</p></div>
-
-      <div class="action-bar">
-        <h3>Events List</h3>
-        <div class="action-buttons">
-          <button class="btn btn-secondary" onclick="openNotionEvents()">Open Notion Events</button>
-          <button class="btn btn-primary" onclick="openEventModal()">Add Event</button>
-        </div>
-      </div>
-
-      <div class="events-list" id="eventsList"></div>
+     </div>
+     <div class="events-list" id="eventsList">
+     </div>
     </div>
-
+   </div>
   </div>
-</div>
-
-<div class="modal-overlay" id="eventModal">
-  <div class="modal">
+  <div class="modal-overlay" id="eventModal">
+   <div class="modal">
     <div class="modal-header">
-      <h3 id="eventModalTitle">Add Event</h3>
-      <button class="modal-close" onclick="closeEventModal()">×</button>
+     <h3 id="eventModalTitle">
+      Add Event
+     </h3>
+     <button class="modal-close" onclick="closeEventModal()">
+      ×
+     </button>
     </div>
     <div class="modal-body">
-      <input type="hidden" id="eventEditId"/>
+     <input id="eventEditId" type="hidden"/>
+     <div class="form-field">
+      <label>
+       Event Name *
+      </label>
+      <input id="eventTitle" placeholder="e.g. PTO Meeting" type="text"/>
+     </div>
+     <div class="form-row">
       <div class="form-field">
-        <label>Event Title *</label>
-        <input type="text" id="eventTitle" placeholder="e.g. Fall Festival"/>
-      </div>
-      <div class="form-row">
-        <div class="form-field"><label>Date</label><input type="date" id="eventDate"/></div>
-        <div class="form-field"><label>Time</label><input type="text" id="eventTime" placeholder="e.g. 5:00 PM - 8:00 PM or TBD"/></div>
-      </div>
-      <div class="form-row">
-        <div class="form-field"><label>Location</label><input type="text" id="eventLocation" placeholder="e.g. School Gymnasium"/></div>
-        <div class="form-field"><label>Volunteers Needed</label><input type="text" id="eventVolunteers" placeholder="e.g. 12 or TBD"/></div>
+       <label>
+        Date
+       </label>
+       <input id="eventDate" type="date"/>
       </div>
       <div class="form-field">
-  <label>Areas of Interest</label>
-
-  <div class="multi-select" id="areasMultiSelect">
-    <button type="button" class="multi-select-toggle" onclick="toggleAreasDropdown()">
-      <span id="areasSelectedText">Select areas of interest</span>
-      <span>▾</span>
-    </button>
-
-    <div class="multi-select-menu" id="areasDropdownMenu">
-      <div id="eventAreasOfInterest"></div>
-    </div>
-  </div>
-
-  <div class="form-help">Select one or more areas.</div>
-</div>
-      <div class="form-field">
-        <label>Description</label>
-        <textarea id="eventDescription" placeholder="Brief description of the event..."></textarea>
+       <label>
+        Status
+       </label>
+       <select id="eventStatus">
+        <option>
+         Planned
+        </option>
+        <option>
+         Confirmed
+        </option>
+        <option>
+         Needs Volunteers
+        </option>
+        <option>
+         Complete
+        </option>
+        <option>
+         Cancelled
+        </option>
+       </select>
       </div>
+     </div>
+     <div class="form-field">
+      <label>
+       Volunteers Needed
+      </label>
+      <input id="eventVolunteers" min="0" placeholder="e.g. 12" type="number"/>
+     </div>
+     <div class="form-field">
+      <label>
+       Areas of Interest
+      </label>
+      <div class="multi-select" id="areasMultiSelect">
+       <button class="multi-select-toggle" onclick="toggleAreasDropdown()" type="button">
+        <span id="areasSelectedText">
+         Select areas of interest
+        </span>
+        <span>
+         ▾
+        </span>
+       </button>
+       <div class="multi-select-menu" id="areasDropdownMenu">
+        <div id="eventAreasOfInterest">
+        </div>
+       </div>
+      </div>
+      <div class="form-help">
+       Select one or more areas.
+      </div>
+     </div>
+     <div class="form-field">
+      <label>
+       Description
+      </label>
+      <textarea id="eventDescription" placeholder="Brief description of the event..."></textarea>
+     </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeEventModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="saveEvent()">Save Event</button>
+     <button class="btn btn-secondary" onclick="closeEventModal()">
+      Cancel
+     </button>
+     <button class="btn btn-primary" onclick="saveEvent()">
+      Save Event
+     </button>
     </div>
+   </div>
   </div>
-</div>
-
-<script>
-var ADMIN_PASSWORD = 'moorePTO2026';
-var STORAGE_KEY = 'moore_pto_v3';
-var SPONSORS_KEY = 'moore_pto_sponsors_v1';
-var STATUS_KEY = 'moore_pto_status';
-var SPONSOR_STATUS_KEY = 'moore_pto_sponsor_status';
-var EVENTS_KEY = 'moore_pto_events';
-
-var VOLUNTEERS_API_URL = '/api/get-volunteers.php';
-var SPONSORS_API_URL = '/api/get-sponsors.php';
-
-var EVENTS_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwJPRmjcgGJuBWFq9dEE2ii7cchowgvByQD51YyVUg-XL5fY-vJSs6xpG3-DVeEbONE/exec?sheet=Events';
-var POST_URL = 'https://script.google.com/macros/s/AKfycbwJPRmjcgGJuBWFq9dEE2ii7cchowgvByQD51YyVUg-XL5fY-vJSs6xpG3-DVeEbONE/exec';
-
-var NOTION_VOLUNTEERS_LINK = 'https://app.notion.com/p/0995bbe5b5e9410182d00381963a069c?v=aa1c111be61442c78f1e4d1f40c4845c&source=copy_link';
-var NOTION_SPONSORS_LINK = 'https://app.notion.com/p/77bf1c4779524bc283c7439475b4ebbd?v=249b9596498141d1b7664fc446a2f6e2&source=copy_link';
-var NOTION_EVENTS_LINK = 'https://app.notion.com/p/3f0308cf64614e9b95e57a7364feb38e?v=9893f458e4cc4d5cab32a4f0c1bc61cf&source=copy_link';
-
-function openNotionVolunteers() { window.open(NOTION_VOLUNTEERS_LINK, '_blank'); }
-function openNotionSponsors() { window.open(NOTION_SPONSORS_LINK, '_blank'); }
-function openNotionEvents() { window.open(NOTION_EVENTS_LINK, '_blank'); }
-
-var VOLUNTEER_AREAS = [
-  'Moore Miles','Bake Sale','Book Fair','Teacher Appreciation Week',
-  'Decorations Committee','Classroom Parties','Field Trip Chaperone',
-  'School Events Setup / Cleanup','Photography / Videography',
-  'Graphic Design','Arts & Crafts','Fundraising & Sponsorships'
-];
-
-var EVENT_AREAS_OF_INTEREST = VOLUNTEER_AREAS.slice();
-
-var DEFAULT_EVENTS = [
-  'Teacher Meet & Greet','1st Half Day, Grades 1-4','Kindergarten Parent Meeting',
-  'First Full day for Kindergarten, Butterfly Breakfast for Kinder Parents',
-  '1st PTO Meeting with Room Parents','Parent Orientation','PTO Teacher Support Drive',
-  'Color Run','Early Dismissal','Labor Day: No School','Fill The Nest Donation Campaign',
-  'Moore Miles Spirit Week','Moore Miles!','Fall Break: No School','Fall Parties',
-  'Cranium Carnival','Book Fair','Virtual PTO Meeting','Loaves Of Thanks for Teachers',
-  'Thanksgiving Lunch','Thanksgiving Break: No School',
-  'Can Caroling, Holiday Class Parties: Abbreviated Day','Winter Break: No School',
-  'Students Return to School','MLK Holiday: No School','Valentine’s Day Parties',
-  'Presidents Day: No School','Teacher Appreciation Week','Eagle Extravaganza',
-  'Early Dismissal Day','Spring Break: No School','PTO Meeting with FIS Principal',
-  'Spring Holiday: No School','Fine Arts Night','Kindergarten Kick Off',
-  '4th Grade Walk','Field Day','Abbreviated Last Day of School'
-];
-
-document.addEventListener('DOMContentLoaded', function() {
-  ensureDefaultEvents();
-  buildEventAreasOfInterest();
-
-  if (sessionStorage.getItem('pto_admin_logged_in') === 'true') showDashboard();
-
-  document.querySelectorAll('.tab').forEach(function(tab) {
-    tab.addEventListener('click', function() { switchTab(this.dataset.tab); });
-  });
-
-  var areaFilter = document.getElementById('volunteerAreaFilter');
-  if (areaFilter) {
-    VOLUNTEER_AREAS.forEach(function(area) {
-      var opt = document.createElement('option');
-      opt.value = area;
-      opt.textContent = area;
-      areaFilter.appendChild(opt);
-    });
-  }
-});
-
-document.addEventListener('click', function(event) {
-  var multiSelect = document.getElementById('areasMultiSelect');
-  var menu = document.getElementById('areasDropdownMenu');
-  if (!multiSelect || !menu) return;
-  if (!multiSelect.contains(event.target)) menu.classList.remove('open');
-});
-
-function toggleAreasDropdown() {
-  document.getElementById('areasDropdownMenu').classList.toggle('open');
-}
-
-function updateAreasSelectedText() {
-  var selected = getSelectedMultiSelectValues('eventAreasOfInterest');
-  var text = document.getElementById('areasSelectedText');
-  if (!text) return;
-
-  if (selected.length === 0) text.textContent = 'Select areas of interest';
-  else if (selected.length <= 2) text.textContent = selected.join(', ');
-  else text.textContent = selected.length + ' areas selected';
-}
-
-function buildEventAreasOfInterest() {
-  var container = document.getElementById('eventAreasOfInterest');
-  if (!container) return;
-  container.innerHTML = '';
-
-  EVENT_AREAS_OF_INTEREST.forEach(function(area, index) {
-    var id = 'eventAreaOption_' + index;
-    var label = document.createElement('label');
-    label.className = 'multi-select-option';
-
-    var checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.value = area;
-    checkbox.id = id;
-    checkbox.onchange = updateAreasSelectedText;
-
-    var text = document.createElement('span');
-    text.textContent = area;
-
-    label.appendChild(checkbox);
-    label.appendChild(text);
-    container.appendChild(label);
-  });
-
-  updateAreasSelectedText();
-}
-
-function getSelectedMultiSelectValues(containerId) {
-  var container = document.getElementById(containerId);
-  if (!container) return [];
-  return Array.from(container.querySelectorAll('input[type="checkbox"]:checked')).map(function(input) {
-    return input.value;
-  });
-}
-
-function setSelectedMultiSelectValues(containerId, values) {
-  var container = document.getElementById(containerId);
-  if (!container) return;
-
-  var selectedValues = Array.isArray(values) ? values : [];
-  Array.from(container.querySelectorAll('input[type="checkbox"]')).forEach(function(input) {
-    input.checked = selectedValues.includes(input.value);
-  });
-
-  updateAreasSelectedText();
-}
-
-function clearMultiSelect(selectId) {
-  setSelectedMultiSelectValues(selectId, []);
-}
-
-function toggleMenu() {
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
-
-function attemptLogin() {
-  var password = document.getElementById('loginPassword').value;
-  if (password === ADMIN_PASSWORD) {
-    sessionStorage.setItem('pto_admin_logged_in', 'true');
-    showDashboard();
-  } else {
-    document.getElementById('loginError').classList.add('show');
-  }
-}
-
-async function showDashboard() {
-  document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('dashboard').classList.add('active');
-  await loadDashboardData();
-}
-
-function switchTab(tabId) {
-  document.querySelectorAll('.tab').forEach(function(t) {
-    t.classList.toggle('active', t.dataset.tab === tabId);
-  });
-  document.querySelectorAll('.tab-content').forEach(function(c) {
-    c.classList.toggle('active', c.id === 'tab-' + tabId);
-  });
-}
-
-async function loadDashboardData() {
-  await Promise.all([
-    loadVolunteersFromNotion(),
-    loadSponsorsFromNotion(),
-    loadEventsFromSheet()
-  ]);
-
-  loadStats();
-  loadVolunteers();
-  loadSponsors();
-  loadEvents();
-}
-
-function splitSemicolonList(value) {
-  return String(value || '')
-    .split(';')
-    .map(function(item) { return item.trim(); })
-    .filter(function(item) { return item; });
-}
-
-function parseChildren(value) {
-  value = String(value || '').trim();
-  if (!value) return [];
-
-  return value.split(/\n|;/).map(function(item) {
-    item = item.trim();
-    var match = item.match(/^(.*?)\s*\((.*?),\s*(.*?)\)$/);
-    if (!match) return { name: item, grade: '', teacher: '' };
-
-    return {
-      name: match[1].trim(),
-      grade: match[2].trim(),
-      teacher: match[3].trim()
-    };
-  }).filter(function(c) { return c.name; });
-}
-
-function splitName(fullName) {
-  fullName = String(fullName || '').trim();
-  if (!fullName) return { firstName: '', lastName: '' };
-  var parts = fullName.split(/\s+/);
-  return {
-    firstName: parts.shift() || '',
-    lastName: parts.join(' ')
-  };
-}
-
-function getVolunteers() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-  catch(e) { return []; }
-}
-
-function getSponsors() {
-  try { return JSON.parse(localStorage.getItem(SPONSORS_KEY)) || []; }
-  catch(e) { return []; }
-}
-
-async function loadVolunteersFromNotion() {
-  const response = await fetch(VOLUNTEERS_API_URL);
-  const data = await response.json();
-
-  if (!data.success || !Array.isArray(data.volunteers)) {
-    throw new Error(data.error || 'Unable to load volunteers.');
-  }
-
-  const volunteers = data.volunteers.map(function(row) {
-    var nameParts = splitName(row.name || '');
-    return {
-      id: row.id || '',
-      submittedAt: row.submittedAt || '',
-      firstName: nameParts.firstName,
-      lastName: nameParts.lastName,
-      fullName: row.name || '',
-      email: row.email || '',
-      phone: row.phone || '',
-      contactPref: row.contactPref || '',
-      children: parseChildren(row.children || ''),
-      volunteerAreas: Array.isArray(row.volunteerAreas) ? row.volunteerAreas : [],
-      otherSkills: '',
-      availability: Array.isArray(row.availability) ? row.availability : [],
-      availNotes: row.availNotes || '',
-      comments: row.comments || '',
-      hearAbout: row.hearAbout || '',
-      notionStatus: row.status || 'New'
-    };
-  });
-
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(volunteers));
-}
-
-async function loadSponsorsFromNotion() {
-  const response = await fetch(SPONSORS_API_URL);
-  const data = await response.json();
-
-  if (!data.success || !Array.isArray(data.sponsors)) {
-    throw new Error(data.error || 'Unable to load sponsors.');
-  }
-
-  const sponsors = data.sponsors.map(function(row) {
-    return {
-      id: row.id || '',
-      submittedAt: row.submittedAt || '',
-      businessName: row.businessName || '',
-      contactName: row.contactName || '',
-      email: row.email || '',
-      phone: row.phone || '',
-      tier: row.tier || '',
-      amount: Number(row.amount || 0),
-      notionStatus: row.status || 'Interested',
-      website: row.website || '',
-      social: row.social || '',
-      linkedin: row.linkedin || '',
-      logoUrl: row.logoUrl || '',
-      addressType: row.addressType || '',
-      address: row.address || '',
-      message: row.message || ''
-    };
-  });
-
-  localStorage.setItem(SPONSORS_KEY, JSON.stringify(sponsors));
-}
-
-function getStatuses() {
-  try { return JSON.parse(localStorage.getItem(STATUS_KEY)) || {}; }
-  catch(e) { return {}; }
-}
-
-function setStatuses(s) {
-  localStorage.setItem(STATUS_KEY, JSON.stringify(s));
-}
-
-function getSponsorStatuses() {
-  try { return JSON.parse(localStorage.getItem(SPONSOR_STATUS_KEY)) || {}; }
-  catch(e) { return {}; }
-}
-
-function setSponsorStatuses(s) {
-  localStorage.setItem(SPONSOR_STATUS_KEY, JSON.stringify(s));
-}
-
-function getEvents() {
-  try { return JSON.parse(localStorage.getItem(EVENTS_KEY)) || []; }
-  catch(e) { return []; }
-}
-
-function setEvents(e) {
-  localStorage.setItem(EVENTS_KEY, JSON.stringify(e));
-}
-
-function ensureDefaultEvents() {
-  var existing = getEvents();
-  if (existing && existing.length > 0) return;
-
-  var seeded = DEFAULT_EVENTS.map(function(title, index) {
-    return {
-      id:'seed_evt_'+(index+1),
-      title:title,
-      date:'',
-      dateLabel:'TBD',
-      time:'TBD',
-      location:'',
-      description:'',
-      volunteersNeeded:'TBD',
-      areasOfInterest:[],
-      sortOrder:index
-    };
-  });
-
-  setEvents(seeded);
-}
-
-async function loadEventsFromSheet() {
-  try {
-    const response = await fetch(EVENTS_SHEET_URL);
-    const rows = await response.json();
-    if (!Array.isArray(rows) || rows.length === 0) return;
-
-    const events = rows.map(function(row, index) {
-      return {
-        id: row['ID'] || ('evt_sheet_' + index),
-        title: row['Title'] || '',
-        date: row['Date'] || '',
-        dateLabel: row['Date Label'] || (row['Date'] ? '' : 'TBD'),
-        time: row['Time'] || 'TBD',
-        location: row['Location'] || '',
-        description: row['Description'] || '',
-        volunteersNeeded: row['Volunteers Needed'] || 'TBD',
-        areasOfInterest: splitSemicolonList(row['Areas of Interest'] || ''),
-        sortOrder: row['Sort Order'] !== '' && row['Sort Order'] != null ? Number(row['Sort Order']) : index
-      };
-    });
-
-    localStorage.setItem(EVENTS_KEY, JSON.stringify(events));
-  } catch(e) {
-    console.warn('Events could not be loaded from Google Sheet. Using local events.', e);
-  }
-}
-
-function eventHasRealDate(e) {
-  return !!(e.date && String(e.date).trim());
-}
-
-function getEventDateLabel(e) {
-  if (eventHasRealDate(e)) {
-    var date = new Date(e.date + 'T12:00:00');
-    var monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    var dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    return {
-      label:'Scheduled Date',
-      value:monthNames[date.getMonth()]+' '+date.getDate()+', '+date.getFullYear()+' · '+dayNames[date.getDay()]
-    };
-  }
-
-  return {label:'Scheduled Date',value:e.dateLabel || 'TBD'};
-}
-
-function sortEventsForAdmin(events) {
-  return events.slice().sort(function(a,b) {
-    var aHasDate = eventHasRealDate(a), bHasDate = eventHasRealDate(b);
-    if (aHasDate && bHasDate) return new Date(a.date) - new Date(b.date);
-    if (aHasDate && !bHasDate) return -1;
-    if (!aHasDate && bHasDate) return 1;
-
-    var aOrder = typeof a.sortOrder === 'number' ? a.sortOrder : 9999;
-    var bOrder = typeof b.sortOrder === 'number' ? b.sortOrder : 9999;
-    return aOrder - bOrder;
-  });
-}
-
-function formatMoney(amount) {
-  amount = Number(amount || 0);
-  return '$' + amount.toLocaleString('en-US');
-}
-
-function loadStats() {
-  var volunteers = getVolunteers();
-  var sponsors = getSponsors();
-  var events = getEvents();
-
-  document.getElementById('statTotalVolunteers').textContent = volunteers.length;
-  document.getElementById('statTotalSponsors').textContent = sponsors.length;
-  document.getElementById('statSponsorDollars').textContent = formatMoney(sponsors.reduce(function(sum, s) {
-    return sum + Number(s.amount || 0);
-  }, 0));
-  document.getElementById('statUpcomingEvents').textContent = events.length;
-
-  var areaCounts = {};
-  VOLUNTEER_AREAS.forEach(function(a) { areaCounts[a] = 0; });
-  volunteers.forEach(function(v) {
-    (v.volunteerAreas || []).forEach(function(a) {
-      if (areaCounts.hasOwnProperty(a)) areaCounts[a]++;
-    });
-  });
-
-  var areaHtml = '';
-  VOLUNTEER_AREAS.forEach(function(a) {
-    areaHtml += '<div class="summary-row"><span class="summary-row-label">'+escapeHtml(a)+'</span><span class="summary-row-value">'+areaCounts[a]+'</span></div>';
-  });
-  document.getElementById('summaryByArea').innerHTML = areaHtml;
-
-  var availabilityOptions = ['During school hours','After school / evenings','Weekends','My availability varies'];
-  var availCounts = {};
-  availabilityOptions.forEach(function(o) { availCounts[o] = 0; });
-  volunteers.forEach(function(v) {
-    (v.availability || []).forEach(function(a) {
-      if (availCounts.hasOwnProperty(a)) availCounts[a]++;
-    });
-  });
-
-  var availHtml = '';
-  availabilityOptions.forEach(function(o) {
-    availHtml += '<div class="summary-row"><span class="summary-row-label">'+escapeHtml(o)+'</span><span class="summary-row-value">'+availCounts[o]+'</span></div>';
-  });
-  document.getElementById('summaryByAvailability').innerHTML = availHtml;
-
-  loadSponsorStats();
-}
-
-function loadSponsorStats() {
-  var sponsors = getSponsors();
-  var statuses = getSponsorStatuses();
-
-  document.getElementById('sponsorStatTotal').textContent = sponsors.length;
-  document.getElementById('sponsorStatDollars').textContent = formatMoney(sponsors.reduce(function(sum, s) {
-    return sum + Number(s.amount || 0);
-  }, 0));
-
-  var paidCount = sponsors.filter(function(s) {
-    var status = statuses[s.id] || s.notionStatus || 'Interested';
-    return status === 'Paid' || status === 'Completed';
-  }).length;
-
-  var logoCount = sponsors.filter(function(s) { return !!s.logoUrl; }).length;
-
-  document.getElementById('sponsorStatPaid').textContent = paidCount;
-  document.getElementById('sponsorStatLogos').textContent = logoCount;
-}
-
-function loadVolunteers() {
-  filterVolunteers();
-}
-
-function filterVolunteers() {
-  var volunteers = getVolunteers();
-  var statuses = getStatuses();
-  var search = (document.getElementById('volunteerSearch').value || '').toLowerCase();
-  var statusFilter = document.getElementById('volunteerStatusFilter').value;
-  var areaFilter = document.getElementById('volunteerAreaFilter').value;
-
-  var filtered = volunteers.filter(function(v) {
-    var key = v.id || (v.submittedAt + v.email);
-    var status = statuses[key] || v.notionStatus || 'New';
-    var fullName = (v.fullName || (v.firstName+' '+v.lastName)).toLowerCase();
-    var matchesSearch = !search || fullName.includes(search) || ((v.email || '').toLowerCase().includes(search));
-    var matchesStatus = !statusFilter || status === statusFilter;
-    var matchesArea = !areaFilter || (v.volunteerAreas || []).includes(areaFilter);
-    return matchesSearch && matchesStatus && matchesArea;
-  });
-
-  filtered.sort(function(a,b) {
-    return new Date(b.submittedAt) - new Date(a.submittedAt);
-  });
-
-  renderVolunteers(filtered, statuses);
-}
-
-function renderVolunteers(volunteers, statuses) {
-  var container = document.getElementById('volunteerList');
-  if (volunteers.length === 0) {
-    container.innerHTML = '<div class="empty-state"><h4>No volunteers found</h4><p>No volunteer sign-ups match your current filters.</p></div>';
-    return;
-  }
-
-  var html = '';
-  volunteers.forEach(function(v) {
-    var key = v.id || (v.submittedAt + v.email);
-    var status = statuses[key] || v.notionStatus || 'New';
-    var badgeClass = status === 'New' ? 'badge-new' : (status === 'Contacted' ? 'badge-contacted' : 'badge-confirmed');
-    var date = v.submittedAt ? new Date(v.submittedAt) : null;
-    var dateStr = date && !isNaN(date) ? date.toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'}) : '';
-    var displayName = v.fullName || (v.firstName + ' ' + v.lastName).trim();
-
-    html += '<div class="volunteer-card"><div class="volunteer-card-header"><div class="volunteer-info"><h4>'+escapeHtml(displayName)+'</h4><p><a href="mailto:'+escapeHtml(v.email)+'">'+escapeHtml(v.email)+'</a>';
-    if (v.phone) html += ' · '+escapeHtml(v.phone);
-    html += '</p></div><div class="volunteer-meta"><span class="badge '+badgeClass+'">'+escapeHtml(status)+'</span></div></div><div class="volunteer-card-body">';
-
-    if (v.children && v.children.length > 0) {
-      html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Children</div><div class="volunteer-detail-value">';
-      html += v.children.map(function(c) {
-        var details = [c.grade, c.teacher].filter(Boolean).join(', ');
-        return escapeHtml(c.name) + (details ? ' (' + escapeHtml(details) + ')' : '');
-      }).join('<br>');
-      html += '</div></div>';
-    }
-
-    if (v.volunteerAreas && v.volunteerAreas.length > 0) {
-      html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Areas of Interest</div><div class="volunteer-tags">';
-      v.volunteerAreas.forEach(function(a) { html += '<span class="tag">'+escapeHtml(a)+'</span>'; });
-      html += '</div></div>';
-    }
-
-    if (v.availability && v.availability.length > 0) {
-      html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Availability</div><div class="volunteer-detail-value">'+v.availability.map(escapeHtml).join(', ')+'</div></div>';
-    }
-
-    if (v.availNotes) {
-      html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Schedule Notes</div><div class="volunteer-detail-value">'+escapeHtml(v.availNotes)+'</div></div>';
-    }
-
-    if (v.comments) {
-      html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Comments</div><div class="volunteer-detail-value">'+escapeHtml(v.comments)+'</div></div>';
-    }
-
-    html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Submitted</div><div class="volunteer-detail-value">'+escapeHtml(dateStr)+'</div></div></div>';
-    html += '<div class="volunteer-card-actions">';
-    html += '<button class="btn btn-sm btn-secondary" onclick="updateStatus(\''+escapeJs(key)+'\', \'New\')">Mark New</button>';
-    html += '<button class="btn btn-sm btn-secondary" onclick="updateStatus(\''+escapeJs(key)+'\', \'Contacted\')">Mark Contacted</button>';
-    html += '<button class="btn btn-sm btn-success" onclick="updateStatus(\''+escapeJs(key)+'\', \'Confirmed\')">Mark Confirmed</button>';
-    html += '</div></div>';
-  });
-
-  container.innerHTML = html;
-}
-
-function updateStatus(key, status) {
-  var statuses = getStatuses();
-  statuses[key] = status;
-  setStatuses(statuses);
-  loadStats();
-  filterVolunteers();
-}
-
-function loadSponsors() {
-  filterSponsors();
-}
-
-function filterSponsors() {
-  var sponsors = getSponsors();
-  var statuses = getSponsorStatuses();
-  var search = (document.getElementById('sponsorSearch').value || '').toLowerCase();
-  var statusFilter = document.getElementById('sponsorStatusFilter').value;
-  var tierFilter = document.getElementById('sponsorTierFilter').value;
-
-  var filtered = sponsors.filter(function(s) {
-    var status = statuses[s.id] || s.notionStatus || 'Interested';
-    var haystack = [s.businessName, s.contactName, s.email, s.phone].join(' ').toLowerCase();
-    var matchesSearch = !search || haystack.includes(search);
-    var matchesStatus = !statusFilter || status === statusFilter;
-    var matchesTier = !tierFilter || s.tier === tierFilter;
-    return matchesSearch && matchesStatus && matchesTier;
-  });
-
-  filtered.sort(function(a,b) {
-    return new Date(b.submittedAt) - new Date(a.submittedAt);
-  });
-
-  renderSponsors(filtered, statuses);
-}
-
-function renderSponsors(sponsors, statuses) {
-  var container = document.getElementById('sponsorList');
-  if (!container) return;
-
-  if (sponsors.length === 0) {
-    container.innerHTML = '<div class="empty-state"><h4>No sponsors found</h4><p>No sponsor submissions match your current filters.</p></div>';
-    return;
-  }
-
-  var html = '';
-  sponsors.forEach(function(s) {
-    var status = statuses[s.id] || s.notionStatus || 'Interested';
-    var badgeClass = status === 'Interested' ? 'badge-new' : (status === 'Contacted' || status === 'Committed' ? 'badge-contacted' : 'badge-confirmed');
-    var date = s.submittedAt ? new Date(s.submittedAt) : null;
-    var dateStr = date && !isNaN(date) ? date.toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'}) : '';
-
-    html += '<div class="volunteer-card"><div class="volunteer-card-header"><div class="volunteer-info"><h4>'+escapeHtml(s.businessName)+'</h4><p>';
-    html += escapeHtml(s.contactName || '');
-    if (s.email) html += ' · <a href="mailto:'+escapeHtml(s.email)+'">'+escapeHtml(s.email)+'</a>';
-    if (s.phone) html += ' · '+escapeHtml(s.phone);
-    html += '</p></div><div class="volunteer-meta"><span class="badge '+badgeClass+'">'+escapeHtml(status)+'</span></div></div><div class="volunteer-card-body">';
-
-    html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Sponsorship Tier</div><div class="volunteer-detail-value">'+escapeHtml(s.tier || 'Not selected')+' · '+escapeHtml(formatMoney(s.amount))+'</div></div>';
-
-    if (s.website || s.social || s.linkedin) {
-      html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Online Presence</div><div class="volunteer-detail-value">';
-      if (s.website) html += '<a href="'+escapeHtml(s.website)+'" target="_blank" rel="noopener">'+escapeHtml(s.website)+'</a><br>';
-      if (s.social) html += escapeHtml(s.social)+'<br>';
-      if (s.linkedin) html += '<a href="'+escapeHtml(s.linkedin)+'" target="_blank" rel="noopener">'+escapeHtml(s.linkedin)+'</a>';
-      html += '</div></div>';
-    }
-
-    if (s.logoUrl) {
-      html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Logo</div><div class="volunteer-detail-value"><a href="'+escapeHtml(s.logoUrl)+'" target="_blank" rel="noopener">View uploaded logo</a></div></div>';
-    } else {
-      html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Logo</div><div class="volunteer-detail-value">No logo uploaded</div></div>';
-    }
-
-    if (s.address) {
-      html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Address</div><div class="volunteer-detail-value">'+escapeHtml(s.addressType ? s.addressType + ': ' : '')+escapeHtml(s.address)+'</div></div>';
-    }
-
-    if (s.message) {
-      html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Message</div><div class="volunteer-detail-value">'+escapeHtml(s.message)+'</div></div>';
-    }
-
-    html += '<div class="volunteer-detail"><div class="volunteer-detail-label">Submitted</div><div class="volunteer-detail-value">'+escapeHtml(dateStr)+'</div></div></div>';
-    html += '<div class="volunteer-card-actions">';
-    ['Interested','Contacted','Committed','Paid','Assets Received','Completed'].forEach(function(nextStatus) {
-      var cls = (nextStatus === 'Paid' || nextStatus === 'Completed') ? 'btn-success' : 'btn-secondary';
-      html += '<button class="btn btn-sm '+cls+'" onclick="updateSponsorStatus(\''+escapeJs(s.id)+'\', \''+escapeJs(nextStatus)+'\')">'+escapeHtml(nextStatus)+'</button>';
-    });
-    html += '</div></div>';
-  });
-
-  container.innerHTML = html;
-}
-
-function updateSponsorStatus(id, status) {
-  var statuses = getSponsorStatuses();
-  statuses[id] = status;
-  setSponsorStatuses(statuses);
-  loadSponsorStats();
-  filterSponsors();
-}
-
-function loadEvents() {
-  var events = sortEventsForAdmin(getEvents());
-  var container = document.getElementById('eventsList');
-
-  if (events.length === 0) {
-    container.innerHTML = '<div class="empty-state"><h4>No events yet</h4><p>Add your first PTO event to get started.</p><button class="btn btn-primary" onclick="openEventModal()">Add Event</button></div>';
-    return;
-  }
-
-  var html = '';
-  events.forEach(function(e) {
-    var dateInfo = getEventDateLabel(e);
-    html += '<div class="event-item"><div class="event-date-block"><span class="event-date-label">'+dateInfo.label+'</span><span class="event-date-value">'+escapeHtml(dateInfo.value)+'</span></div>';
-    html += '<div class="event-item-content"><h4>'+escapeHtml(e.title)+'</h4><div class="event-item-meta">';
-    html += '<span class="event-pill">Time: '+escapeHtml(e.time || 'TBD')+'</span>';
-    html += '<span class="event-pill">Volunteers: '+escapeHtml(e.volunteersNeeded || 'TBD')+'</span>';
-    if (e.location) html += '<span class="event-pill">Location: '+escapeHtml(e.location)+'</span>';
-    html += '</div>';
-
-    if (e.areasOfInterest && e.areasOfInterest.length > 0) {
-      html += '<div class="volunteer-tags" style="margin-bottom:10px;">';
-      e.areasOfInterest.forEach(function(area) {
-        html += '<span class="tag">'+escapeHtml(area)+'</span>';
-      });
-      html += '</div>';
-    }
-
-    if (e.description) html += '<div class="event-item-desc">'+escapeHtml(e.description)+'</div>';
-    html += '</div><div class="event-item-actions">';
-    html += '<button class="btn btn-sm btn-secondary btn-icon" onclick="editEvent(\''+escapeJs(e.id)+'\')">Edit</button>';
-    html += '<button class="btn btn-sm btn-secondary btn-icon" onclick="deleteEvent(\''+escapeJs(e.id)+'\')" style="color:var(--danger)">Delete</button>';
-    html += '</div></div>';
-  });
-
-  container.innerHTML = html;
-}
-
-function openEventModal(eventId) {
-  document.getElementById('eventModalTitle').textContent = eventId ? 'Edit Event' : 'Add Event';
-  document.getElementById('eventEditId').value = eventId || '';
-  document.getElementById('eventTitle').value = '';
-  document.getElementById('eventDate').value = '';
-  document.getElementById('eventTime').value = '';
-  document.getElementById('eventLocation').value = '';
-  document.getElementById('eventDescription').value = '';
-  document.getElementById('eventVolunteers').value = '';
-  clearMultiSelect('eventAreasOfInterest');
-
-  if (eventId) {
-    var event = getEvents().find(function(e) { return e.id === eventId; });
-    if (event) {
-      document.getElementById('eventTitle').value = event.title || '';
-      document.getElementById('eventDate').value = event.date || '';
-      document.getElementById('eventTime').value = event.time || '';
-      document.getElementById('eventLocation').value = event.location || '';
-      document.getElementById('eventDescription').value = event.description || '';
-      document.getElementById('eventVolunteers').value = event.volunteersNeeded || '';
-      setSelectedMultiSelectValues('eventAreasOfInterest', event.areasOfInterest || []);
-    }
-  }
-
-  document.getElementById('eventModal').classList.add('active');
-}
-
-function closeEventModal() {
-  document.getElementById('eventModal').classList.remove('active');
-}
-
-function editEvent(eventId) {
-  openEventModal(eventId);
-}
-
-async function postToSheet(payload) {
-  const formData = new FormData();
-  formData.append('data', JSON.stringify(payload));
-  const response = await fetch(POST_URL, { method: 'POST', body: formData });
-  return await response.json();
-}
-
-async function saveEvent() {
-  var title = document.getElementById('eventTitle').value.trim();
-  var date = document.getElementById('eventDate').value.trim();
-  var time = document.getElementById('eventTime').value.trim();
-  var location = document.getElementById('eventLocation').value.trim();
-  var description = document.getElementById('eventDescription').value.trim();
-  var volunteersNeeded = document.getElementById('eventVolunteers').value.trim();
-  var editId = document.getElementById('eventEditId').value;
-
-  if (!title) {
-    alert('Please enter an event title.');
-    return;
-  }
-
-  var selectedAreas = getSelectedMultiSelectValues('eventAreasOfInterest');
-  var events = getEvents();
-  var existingEvent = editId ? events.find(function(e) { return e.id === editId; }) : null;
-  var sortOrder = existingEvent && typeof existingEvent.sortOrder === 'number'
-    ? existingEvent.sortOrder
-    : events.reduce(function(max, e) {
-        return Math.max(max, typeof e.sortOrder === 'number' ? e.sortOrder : 0);
-      }, 0) + 1;
-
-  var payload = {
-    type: 'event-save',
-    id: editId || ('evt_' + Date.now()),
-    title: title,
-    date: date,
-    dateLabel: date ? '' : 'TBD',
-    time: time || 'TBD',
-    location: location,
-    description: description,
-    volunteersNeeded: volunteersNeeded || 'TBD',
-    areasOfInterest: selectedAreas,
-    sortOrder: sortOrder
-  };
-
-  try {
-    var result = await postToSheet(payload);
-    if (!result || result.result !== 'success') throw new Error('Save failed.');
-    await loadEventsFromSheet();
-  } catch(e) {
-    var current = getEvents();
-    var updated = current.filter(function(evt) { return evt.id !== payload.id; });
-    updated.push(payload);
-    setEvents(updated);
-  }
-
-  closeEventModal();
-  loadDashboardData();
-}
-
-async function deleteEvent(eventId) {
-  if (!confirm('Are you sure you want to delete this event?')) return;
-
-  try {
-    var result = await postToSheet({ type: 'event-delete', id: eventId });
-    if (!result || result.result !== 'success') throw new Error('Delete failed.');
-    await loadEventsFromSheet();
-  } catch(e) {
-    setEvents(getEvents().filter(function(evt) { return evt.id !== eventId; }));
-  }
-
-  loadDashboardData();
-}
-
-function exportVolunteers() {
-  var volunteers = getVolunteers(), statuses = getStatuses();
-  if (volunteers.length === 0) {
-    alert('No volunteer data to export.');
-    return;
-  }
-
-  var headers = ['Name','Email','Phone','Contact Preference','Children','Volunteer Areas','Availability','Availability Notes','Comments','How Heard','Status','Submitted'];
-  var rows = [headers.join(',')];
-
-  volunteers.forEach(function(v) {
-    var key = v.id || (v.submittedAt + v.email);
-    var status = statuses[key] || v.notionStatus || 'New';
-    var children = (v.children || []).map(function(c) {
-      var details = [c.grade, c.teacher].filter(Boolean).join(', ');
-      return c.name + (details ? ' (' + details + ')' : '');
-    }).join('; ');
-
-    rows.push([
-      csvEscape(v.fullName || (v.firstName + ' ' + v.lastName).trim()),
-      csvEscape(v.email),
-      csvEscape(v.phone),
-      csvEscape(v.contactPref),
-      csvEscape(children),
-      csvEscape((v.volunteerAreas||[]).join('; ')),
-      csvEscape((v.availability||[]).join('; ')),
-      csvEscape(v.availNotes),
-      csvEscape(v.comments),
-      csvEscape(v.hearAbout),
-      csvEscape(status),
-      csvEscape(v.submittedAt ? new Date(v.submittedAt).toLocaleDateString() : '')
-    ].join(','));
-  });
-
-  downloadCsv(rows, 'pto-volunteers-');
-}
-
-function exportSponsors() {
-  var sponsors = getSponsors(), statuses = getSponsorStatuses();
-  if (sponsors.length === 0) {
-    alert('No sponsor data to export.');
-    return;
-  }
-
-  var headers = ['Business Name','Contact Name','Email','Phone','Tier','Amount','Status','Website','Social Media','LinkedIn','Logo URL','Address Type','Address','Message','Submitted'];
-  var rows = [headers.join(',')];
-
-  sponsors.forEach(function(s) {
-    var status = statuses[s.id] || s.notionStatus || 'Interested';
-
-    rows.push([
-      csvEscape(s.businessName),
-      csvEscape(s.contactName),
-      csvEscape(s.email),
-      csvEscape(s.phone),
-      csvEscape(s.tier),
-      csvEscape(s.amount),
-      csvEscape(status),
-      csvEscape(s.website),
-      csvEscape(s.social),
-      csvEscape(s.linkedin),
-      csvEscape(s.logoUrl),
-      csvEscape(s.addressType),
-      csvEscape(s.address),
-      csvEscape(s.message),
-      csvEscape(s.submittedAt ? new Date(s.submittedAt).toLocaleDateString() : '')
-    ].join(','));
-  });
-
-  downloadCsv(rows, 'pto-sponsors-');
-}
-
-function downloadCsv(rows, prefix) {
-  var blob = new Blob([rows.join('\n')], {type:'text/csv'});
-  var url = URL.createObjectURL(blob);
-  var a = document.createElement('a');
-  a.href = url;
-  a.download = prefix + new Date().toISOString().slice(0,10) + '.csv';
-  a.click();
-  URL.revokeObjectURL(url);
-}
-
-function csvEscape(val) {
-  if (val === null || val === undefined) return '';
-  val = String(val);
-  if (val.indexOf(',') !== -1 || val.indexOf('"') !== -1 || val.indexOf('\n') !== -1) {
-    return '"'+val.replace(/"/g,'""')+'"';
-  }
-  return val;
-}
-
-function escapeHtml(text) {
-  if (text === null || text === undefined) return '';
-  var div = document.createElement('div');
-  div.textContent = String(text);
-  return div.innerHTML;
-}
-
-function escapeJs(text) {
-  return String(text || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-}
-</script>
-
-</body>
+  <script>
+   var ADMIN_PASSWORD='moorePTO2026';var STORAGE_KEY='moore_pto_v3';var SPONSORS_KEY='moore_pto_sponsors_v1';var STATUS_KEY='moore_pto_status';var SPONSOR_STATUS_KEY='moore_pto_sponsor_status';var EVENTS_KEY='moore_pto_events';
+var VOLUNTEERS_API_URL='/api/get-volunteers.php';var SPONSORS_API_URL='/api/get-sponsors.php';var EVENTS_API_URL='/api/get-events.php';var EVENT_SAVE_API_URL='/api/save-event.php';var EVENT_DELETE_API_URL='/api/delete-event.php';
+var NOTION_VOLUNTEERS_LINK='https://app.notion.com/p/0995bbe5b5e9410182d00381963a069c?v=aa1c111be61442c78f1e4d1f40c4845c&source=copy_link';var NOTION_SPONSORS_LINK='https://app.notion.com/p/77bf1c4779524bc283c7439475b4ebbd?v=249b9596498141d1b7664fc446a2f6e2&source=copy_link';var NOTION_EVENTS_LINK='https://app.notion.com/p/3f0308cf64614e9b95e57a7364feb38e?v=9893f458e4cc4d5cab32a4f0c1bc61cf&source=copy_link';
+function openNotionVolunteers(){window.open(NOTION_VOLUNTEERS_LINK,'_blank')}function openNotionSponsors(){window.open(NOTION_SPONSORS_LINK,'_blank')}function openNotionEvents(){window.open(NOTION_EVENTS_LINK,'_blank')}
+var VOLUNTEER_AREAS=['Moore Miles','Bake Sale','Book Fair','Teacher Appreciation Week','Decorations Committee','Classroom Parties','Field Trip Chaperone','School Events Setup / Cleanup','Photography / Videography','Graphic Design','Arts & Crafts','Fundraising & Sponsorships'];
+var EVENT_AREAS_OF_INTEREST=['Decorations Committee','Field Trip','Bake Sale','Graphic Design','Arts & Crafts','Photography/Videography','School Events','Classroom Parties','Teacher Appreciation','General','Book Fair','Moore Miles','Fundraising'];
+document.addEventListener('DOMContentLoaded',function(){buildEventAreasOfInterest();if(sessionStorage.getItem('pto_admin_logged_in')==='true')showDashboard();document.querySelectorAll('.tab').forEach(function(tab){tab.addEventListener('click',function(){switchTab(this.dataset.tab)})});var areaFilter=document.getElementById('volunteerAreaFilter');if(areaFilter){VOLUNTEER_AREAS.forEach(function(area){var opt=document.createElement('option');opt.value=area;opt.textContent=area;areaFilter.appendChild(opt)})}});
+document.addEventListener('click',function(event){var multiSelect=document.getElementById('areasMultiSelect');var menu=document.getElementById('areasDropdownMenu');if(!multiSelect||!menu)return;if(!multiSelect.contains(event.target))menu.classList.remove('open')});
+function toggleAreasDropdown(){document.getElementById('areasDropdownMenu').classList.toggle('open')}function updateAreasSelectedText(){var selected=getSelectedMultiSelectValues('eventAreasOfInterest');var text=document.getElementById('areasSelectedText');if(!text)return;if(selected.length===0)text.textContent='Select areas of interest';else if(selected.length<=2)text.textContent=selected.join(', ');else text.textContent=selected.length+' areas selected'}
+function buildEventAreasOfInterest(){var container=document.getElementById('eventAreasOfInterest');if(!container)return;container.innerHTML='';EVENT_AREAS_OF_INTEREST.forEach(function(area,index){var id='eventAreaOption_'+index;var label=document.createElement('label');label.className='multi-select-option';var checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.value=area;checkbox.id=id;checkbox.onchange=updateAreasSelectedText;var text=document.createElement('span');text.textContent=area;label.appendChild(checkbox);label.appendChild(text);container.appendChild(label)});updateAreasSelectedText()}function getSelectedMultiSelectValues(containerId){var container=document.getElementById(containerId);if(!container)return[];return Array.from(container.querySelectorAll('input[type="checkbox"]:checked')).map(function(input){return input.value})}function setSelectedMultiSelectValues(containerId,values){var container=document.getElementById(containerId);if(!container)return;var selectedValues=Array.isArray(values)?values:[];Array.from(container.querySelectorAll('input[type="checkbox"]')).forEach(function(input){input.checked=selectedValues.includes(input.value)});updateAreasSelectedText()}function clearMultiSelect(selectId){setSelectedMultiSelectValues(selectId,[])}
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}function attemptLogin(){var password=document.getElementById('loginPassword').value;if(password===ADMIN_PASSWORD){sessionStorage.setItem('pto_admin_logged_in','true');showDashboard()}else{document.getElementById('loginError').classList.add('show')}}async function showDashboard(){document.getElementById('loginScreen').style.display='none';document.getElementById('dashboard').classList.add('active');await loadDashboardData()}function switchTab(tabId){document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.tab===tabId)});document.querySelectorAll('.tab-content').forEach(function(c){c.classList.toggle('active',c.id==='tab-'+tabId)})}
+async function loadDashboardData(){await Promise.allSettled([loadVolunteersFromNotion(),loadSponsorsFromNotion(),loadEventsFromNotion()]);loadStats();loadVolunteers();loadSponsors();loadEvents()}
+function splitSemicolonList(value){return String(value||'').split(';').map(function(item){return item.trim()}).filter(Boolean)}function splitName(fullName){fullName=String(fullName||'').trim();if(!fullName)return{firstName:'',lastName:''};var parts=fullName.split(/\s+/);return{firstName:parts.shift()||'',lastName:parts.join(' ')}}function parseChildren(value){value=String(value||'').trim();if(!value)return[];return value.split(/\n|;/).map(function(item){item=item.trim();var match=item.match(/^(.*?)\s*\((.*?),\s*(.*?)\)$/);if(!match)return{name:item,grade:'',teacher:''};return{name:match[1].trim(),grade:match[2].trim(),teacher:match[3].trim()}}).filter(function(c){return c.name})}
+function cleanValue(value){if(value===null||value===undefined)return'';var str=String(value).trim();if(!str||str.toLowerCase()==='undefined'||str.toLowerCase()==='null'||str.toLowerCase()==='nan')return'';return str}function normalizeEventDateValue(value){var raw=cleanValue(value);if(!raw)return'';var m=raw.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);if(m)return m[1]+'-'+String(m[2]).padStart(2,'0')+'-'+String(m[3]).padStart(2,'0');var parsed=new Date(raw);if(isNaN(parsed.getTime())||parsed.getFullYear()<2000)return'';return parsed.getFullYear()+'-'+String(parsed.getMonth()+1).padStart(2,'0')+'-'+String(parsed.getDate()).padStart(2,'0')}function formatEventDate(value){var date=normalizeEventDateValue(value);if(!date)return'TBD';var parts=date.split('-').map(Number);var d=new Date(parts[0],parts[1]-1,parts[2]);var monthNames=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];var dayNames=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];return monthNames[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear()+' · '+dayNames[d.getDay()]}
+function getVolunteers(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||[]}catch(e){return[]}}function getSponsors(){try{return JSON.parse(localStorage.getItem(SPONSORS_KEY))||[]}catch(e){return[]}}function getEvents(){try{return JSON.parse(localStorage.getItem(EVENTS_KEY))||[]}catch(e){return[]}}function setEvents(e){localStorage.setItem(EVENTS_KEY,JSON.stringify(e))}function getStatuses(){try{return JSON.parse(localStorage.getItem(STATUS_KEY))||{}}catch(e){return{}}}function setStatuses(s){localStorage.setItem(STATUS_KEY,JSON.stringify(s))}function getSponsorStatuses(){try{return JSON.parse(localStorage.getItem(SPONSOR_STATUS_KEY))||{}}catch(e){return{}}}function setSponsorStatuses(s){localStorage.setItem(SPONSOR_STATUS_KEY,JSON.stringify(s))}
+async function loadVolunteersFromNotion(){const response=await fetch(VOLUNTEERS_API_URL);const data=await response.json();if(!data.success||!Array.isArray(data.volunteers))throw new Error(data.error||'Unable to load volunteers.');const volunteers=data.volunteers.map(function(row){var nameParts=splitName(row.name||'');return{id:row.id||'',submittedAt:row.submittedAt||'',firstName:nameParts.firstName,lastName:nameParts.lastName,fullName:row.name||'',email:row.email||'',phone:row.phone||'',contactPref:row.contactPref||'',children:parseChildren(row.children||''),volunteerAreas:Array.isArray(row.volunteerAreas)?row.volunteerAreas:[],otherSkills:'',availability:Array.isArray(row.availability)?row.availability:[],availNotes:row.availNotes||'',comments:row.comments||'',hearAbout:row.hearAbout||'',notionStatus:row.status||'New'}});localStorage.setItem(STORAGE_KEY,JSON.stringify(volunteers))}
+async function loadSponsorsFromNotion(){const response=await fetch(SPONSORS_API_URL);const data=await response.json();if(!data.success||!Array.isArray(data.sponsors))throw new Error(data.error||'Unable to load sponsors.');const sponsors=data.sponsors.map(function(row){return{id:row.id||'',submittedAt:row.submittedAt||'',businessName:row.businessName||'',contactName:row.contactName||'',email:row.email||'',phone:row.phone||'',tier:row.tier||'',amount:Number(row.amount||0),notionStatus:row.status||'Interested',website:row.website||'',social:row.social||'',linkedin:row.linkedin||'',logoUrl:row.logoUrl||'',addressType:row.addressType||'',address:row.address||'',message:row.message||''}});localStorage.setItem(SPONSORS_KEY,JSON.stringify(sponsors))}
+async function loadEventsFromNotion(){const response=await fetch(EVENTS_API_URL);const data=await response.json();if(!data.success||!Array.isArray(data.events))throw new Error(data.error||'Unable to load events.');const events=data.events.map(function(row,index){return{id:row.id||'',title:cleanValue(row.title||row.eventName||row.name||''),date:normalizeEventDateValue(row.date||''),description:cleanValue(row.description||''),status:cleanValue(row.status||'Planned')||'Planned',volunteersNeeded:cleanValue(row.volunteersNeeded||'TBD')||'TBD',areasOfInterest:Array.isArray(row.areasOfInterest)?row.areasOfInterest:splitSemicolonList(row.areasOfInterest||''),sortOrder:row.sortOrder!==''&&row.sortOrder!=null?Number(row.sortOrder):index}});localStorage.setItem(EVENTS_KEY,JSON.stringify(events))}
+function formatMoney(amount){amount=Number(amount||0);return'$'+amount.toLocaleString('en-US')}function loadStats(){var volunteers=getVolunteers(),sponsors=getSponsors(),events=getEvents();document.getElementById('statTotalVolunteers').textContent=volunteers.length;document.getElementById('statTotalSponsors').textContent=sponsors.length;document.getElementById('statSponsorDollars').textContent=formatMoney(sponsors.reduce(function(sum,s){return sum+Number(s.amount||0)},0));document.getElementById('statUpcomingEvents').textContent=events.length;var areaCounts={};VOLUNTEER_AREAS.forEach(function(a){areaCounts[a]=0});volunteers.forEach(function(v){(v.volunteerAreas||[]).forEach(function(a){if(areaCounts.hasOwnProperty(a))areaCounts[a]++})});document.getElementById('summaryByArea').innerHTML=VOLUNTEER_AREAS.map(function(a){return'<div class="summary-row"><span class="summary-row-label">'+escapeHtml(a)+'</span><span class="summary-row-value">'+areaCounts[a]+'</span></div>'}).join('');var availabilityOptions=['During school hours','After school / evenings','Weekends','My availability varies'];var availCounts={};availabilityOptions.forEach(function(o){availCounts[o]=0});volunteers.forEach(function(v){(v.availability||[]).forEach(function(a){if(availCounts.hasOwnProperty(a))availCounts[a]++})});document.getElementById('summaryByAvailability').innerHTML=availabilityOptions.map(function(o){return'<div class="summary-row"><span class="summary-row-label">'+escapeHtml(o)+'</span><span class="summary-row-value">'+availCounts[o]+'</span></div>'}).join('');loadSponsorStats()}
+function loadSponsorStats(){var sponsors=getSponsors(),statuses=getSponsorStatuses();document.getElementById('sponsorStatTotal').textContent=sponsors.length;document.getElementById('sponsorStatDollars').textContent=formatMoney(sponsors.reduce(function(sum,s){return sum+Number(s.amount||0)},0));document.getElementById('sponsorStatPaid').textContent=sponsors.filter(function(s){var status=statuses[s.id]||s.notionStatus||'Interested';return status==='Paid'||status==='Completed'}).length;document.getElementById('sponsorStatLogos').textContent=sponsors.filter(function(s){return!!s.logoUrl}).length}
+function loadVolunteers(){filterVolunteers()}function filterVolunteers(){var volunteers=getVolunteers(),statuses=getStatuses(),search=(document.getElementById('volunteerSearch').value||'').toLowerCase(),statusFilter=document.getElementById('volunteerStatusFilter').value,areaFilter=document.getElementById('volunteerAreaFilter').value;var filtered=volunteers.filter(function(v){var key=v.id||(v.submittedAt+v.email),status=statuses[key]||v.notionStatus||'New',fullName=(v.fullName||(v.firstName+' '+v.lastName)).toLowerCase();return(!search||fullName.includes(search)||((v.email||'').toLowerCase().includes(search)))&&(!statusFilter||status===statusFilter)&&(!areaFilter||(v.volunteerAreas||[]).includes(areaFilter))});filtered.sort(function(a,b){return new Date(b.submittedAt)-new Date(a.submittedAt)});renderVolunteers(filtered,statuses)}function renderVolunteers(volunteers,statuses){var container=document.getElementById('volunteerList');if(volunteers.length===0){container.innerHTML='<div class="empty-state"><h4>No volunteers found</h4><p>No volunteer sign-ups match your current filters.</p></div>';return}container.innerHTML=volunteers.map(function(v){var key=v.id||(v.submittedAt+v.email),status=statuses[key]||v.notionStatus||'New',badgeClass=status==='New'?'badge-new':(status==='Contacted'?'badge-contacted':'badge-confirmed'),date=v.submittedAt?new Date(v.submittedAt):null,dateStr=date&&!isNaN(date)?date.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'',displayName=v.fullName||(v.firstName+' '+v.lastName).trim();var body='';if(v.children&&v.children.length)body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Children</div><div class="volunteer-detail-value">'+v.children.map(function(c){var details=[c.grade,c.teacher].filter(Boolean).join(', ');return escapeHtml(c.name)+(details?' ('+escapeHtml(details)+')':'')}).join('<br>')+'</div></div>';if(v.volunteerAreas&&v.volunteerAreas.length)body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Areas of Interest</div><div class="volunteer-tags">'+v.volunteerAreas.map(function(a){return'<span class="tag">'+escapeHtml(a)+'</span>'}).join('')+'</div></div>';if(v.availability&&v.availability.length)body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Availability</div><div class="volunteer-detail-value">'+v.availability.map(escapeHtml).join(', ')+'</div></div>';if(v.comments)body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Comments</div><div class="volunteer-detail-value">'+escapeHtml(v.comments)+'</div></div>';body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Submitted</div><div class="volunteer-detail-value">'+escapeHtml(dateStr)+'</div></div>';return'<div class="volunteer-card"><div class="volunteer-card-header"><div class="volunteer-info"><h4>'+escapeHtml(displayName)+'</h4><p><a href="mailto:'+escapeHtml(v.email)+'">'+escapeHtml(v.email)+'</a>'+(v.phone?' · '+escapeHtml(v.phone):'')+'</p></div><div class="volunteer-meta"><span class="badge '+badgeClass+'">'+escapeHtml(status)+'</span></div></div><div class="volunteer-card-body">'+body+'</div><div class="volunteer-card-actions"><button class="btn btn-sm btn-secondary" onclick="updateStatus(\''+escapeJs(key)+'\', \'New\')">Mark New</button><button class="btn btn-sm btn-secondary" onclick="updateStatus(\''+escapeJs(key)+'\', \'Contacted\')">Mark Contacted</button><button class="btn btn-sm btn-success" onclick="updateStatus(\''+escapeJs(key)+'\', \'Confirmed\')">Mark Confirmed</button></div></div>'}).join('')}function updateStatus(key,status){var statuses=getStatuses();statuses[key]=status;setStatuses(statuses);loadStats();filterVolunteers()}
+function loadSponsors(){filterSponsors()}function filterSponsors(){var sponsors=getSponsors(),statuses=getSponsorStatuses(),search=(document.getElementById('sponsorSearch').value||'').toLowerCase(),statusFilter=document.getElementById('sponsorStatusFilter').value,tierFilter=document.getElementById('sponsorTierFilter').value;var filtered=sponsors.filter(function(s){var status=statuses[s.id]||s.notionStatus||'Interested',haystack=[s.businessName,s.contactName,s.email,s.phone].join(' ').toLowerCase();return(!search||haystack.includes(search))&&(!statusFilter||status===statusFilter)&&(!tierFilter||s.tier===tierFilter)});filtered.sort(function(a,b){return new Date(b.submittedAt)-new Date(a.submittedAt)});renderSponsors(filtered,statuses)}function renderSponsors(sponsors,statuses){var container=document.getElementById('sponsorList');if(!container)return;if(!sponsors.length){container.innerHTML='<div class="empty-state"><h4>No sponsors found</h4><p>No sponsor submissions match your current filters.</p></div>';return}container.innerHTML=sponsors.map(function(s){var status=statuses[s.id]||s.notionStatus||'Interested',badgeClass=status==='Interested'?'badge-new':(status==='Contacted'||status==='Committed'?'badge-contacted':'badge-confirmed'),date=s.submittedAt?new Date(s.submittedAt):null,dateStr=date&&!isNaN(date)?date.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'';var body='<div class="volunteer-detail"><div class="volunteer-detail-label">Sponsorship Tier</div><div class="volunteer-detail-value">'+escapeHtml(s.tier||'Not selected')+' · '+escapeHtml(formatMoney(s.amount))+'</div></div>';if(s.website||s.social||s.linkedin)body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Online Presence</div><div class="volunteer-detail-value">'+(s.website?'<a href="'+escapeHtml(s.website)+'" target="_blank" rel="noopener">'+escapeHtml(s.website)+'</a><br>':'')+(s.social?escapeHtml(s.social)+'<br>':'')+(s.linkedin?'<a href="'+escapeHtml(s.linkedin)+'" target="_blank" rel="noopener">'+escapeHtml(s.linkedin)+'</a>':'')+'</div></div>';body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Logo</div><div class="volunteer-detail-value">'+(s.logoUrl?'<a href="'+escapeHtml(s.logoUrl)+'" target="_blank" rel="noopener">View uploaded logo</a>':'No logo uploaded')+'</div></div>';if(s.message)body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Message</div><div class="volunteer-detail-value">'+escapeHtml(s.message)+'</div></div>';body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Submitted</div><div class="volunteer-detail-value">'+escapeHtml(dateStr)+'</div></div>';return'<div class="volunteer-card"><div class="volunteer-card-header"><div class="volunteer-info"><h4>'+escapeHtml(s.businessName)+'</h4><p>'+escapeHtml(s.contactName||'')+(s.email?' · <a href="mailto:'+escapeHtml(s.email)+'">'+escapeHtml(s.email)+'</a>':'')+(s.phone?' · '+escapeHtml(s.phone):'')+'</p></div><div class="volunteer-meta"><span class="badge '+badgeClass+'">'+escapeHtml(status)+'</span></div></div><div class="volunteer-card-body">'+body+'</div><div class="volunteer-card-actions">'+['Interested','Contacted','Committed','Paid','Assets Received','Completed'].map(function(nextStatus){var cls=(nextStatus==='Paid'||nextStatus==='Completed')?'btn-success':'btn-secondary';return'<button class="btn btn-sm '+cls+'" onclick="updateSponsorStatus(\''+escapeJs(s.id)+'\', \''+escapeJs(nextStatus)+'\')">'+escapeHtml(nextStatus)+'</button>'}).join('')+'</div></div>'}).join('')}function updateSponsorStatus(id,status){var statuses=getSponsorStatuses();statuses[id]=status;setSponsorStatuses(statuses);loadSponsorStats();filterSponsors()}
+function loadEvents(){var events=sortEventsForAdmin(getEvents()),container=document.getElementById('eventsList');if(!events.length){container.innerHTML='<div class="empty-state"><h4>No events yet</h4><p>Add your first PTO event to get started.</p><button class="btn btn-primary" onclick="openEventModal()">Add Event</button></div>';return}container.innerHTML=events.map(function(e){var dateValue=formatEventDate(e.date);var body='<div class="event-item"><div class="event-date-block"><span class="event-date-label">Scheduled Date</span><span class="event-date-value">'+escapeHtml(dateValue)+'</span></div><div class="event-item-content"><h4>'+escapeHtml(e.title||'Untitled event')+'</h4><div class="event-item-meta"><span class="event-pill">Status: '+escapeHtml(e.status||'Planned')+'</span><span class="event-pill">Volunteers: '+escapeHtml(e.volunteersNeeded||'TBD')+'</span></div>';if(e.areasOfInterest&&e.areasOfInterest.length){body+='<div class="volunteer-tags" style="margin-bottom:10px;">'+e.areasOfInterest.map(function(area){return'<span class="tag">'+escapeHtml(area)+'</span>'}).join('')+'</div>'}if(e.description)body+='<div class="event-item-desc">'+escapeHtml(e.description)+'</div>';body+='</div><div class="event-item-actions"><button class="btn btn-sm btn-secondary btn-icon" onclick="editEvent(\''+escapeJs(e.id)+'\')">Edit</button><button class="btn btn-sm btn-secondary btn-icon" onclick="deleteEvent(\''+escapeJs(e.id)+'\')" style="color:var(--danger)">Delete</button></div></div>';return body}).join('')}
+function sortEventsForAdmin(events){return events.slice().sort(function(a,b){var ad=normalizeEventDateValue(a.date),bd=normalizeEventDateValue(b.date);if(ad&&bd)return new Date(ad+'T12:00:00')-new Date(bd+'T12:00:00');if(ad&&!bd)return-1;if(!ad&&bd)return 1;return Number(a.sortOrder||9999)-Number(b.sortOrder||9999)})}function openEventModal(eventId){document.getElementById('eventModalTitle').textContent=eventId?'Edit Event':'Add Event';document.getElementById('eventEditId').value=eventId||'';document.getElementById('eventTitle').value='';document.getElementById('eventDate').value='';document.getElementById('eventStatus').value='Planned';document.getElementById('eventDescription').value='';document.getElementById('eventVolunteers').value='';clearMultiSelect('eventAreasOfInterest');if(eventId){var event=getEvents().find(function(e){return e.id===eventId});if(event){document.getElementById('eventTitle').value=event.title||'';document.getElementById('eventDate').value=normalizeEventDateValue(event.date);document.getElementById('eventStatus').value=event.status||'Planned';document.getElementById('eventDescription').value=event.description||'';document.getElementById('eventVolunteers').value=event.volunteersNeeded==='TBD'?'':event.volunteersNeeded||'';setSelectedMultiSelectValues('eventAreasOfInterest',event.areasOfInterest||[])}}document.getElementById('eventModal').classList.add('active')}function closeEventModal(){document.getElementById('eventModal').classList.remove('active')}function editEvent(eventId){openEventModal(eventId)}async function saveEventToNotion(payload){const response=await fetch(EVENT_SAVE_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const result=await response.json();if(!response.ok||!result.success)throw new Error(result.error||'Event save failed.');return result}async function deleteEventFromNotion(eventId){const response=await fetch(EVENT_DELETE_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:eventId})});const result=await response.json();if(!response.ok||!result.success)throw new Error(result.error||'Event delete failed.');return result}async function saveEvent(){var title=document.getElementById('eventTitle').value.trim(),date=document.getElementById('eventDate').value.trim(),status=document.getElementById('eventStatus').value.trim(),description=document.getElementById('eventDescription').value.trim(),volunteersNeeded=document.getElementById('eventVolunteers').value.trim(),editId=document.getElementById('eventEditId').value;if(!title){alert('Please enter an event name.');return}var selectedAreas=getSelectedMultiSelectValues('eventAreasOfInterest'),events=getEvents(),existingEvent=editId?events.find(function(e){return e.id===editId}):null,sortOrder=existingEvent&&typeof existingEvent.sortOrder==='number'?existingEvent.sortOrder:events.reduce(function(max,e){return Math.max(max,typeof e.sortOrder==='number'?e.sortOrder:0)},0)+1;var payload={id:editId,title:title,eventName:title,date:date,description:description,status:status,volunteersNeeded:volunteersNeeded||'TBD',areasOfInterest:selectedAreas,sortOrder:sortOrder};try{var result=await saveEventToNotion(payload);payload.id=result.id||payload.id;await loadEventsFromNotion()}catch(e){console.error('[Event save error]',e);var current=getEvents();var updated=current.filter(function(evt){return evt.id!==payload.id});updated.push(payload);setEvents(updated);alert('Saved locally, but Notion did not confirm the save. Please check your API files if this continues.')}closeEventModal();loadDashboardData()}async function deleteEvent(eventId){if(!confirm('Are you sure you want to delete this event?'))return;try{await deleteEventFromNotion(eventId);await loadEventsFromNotion()}catch(e){console.error('[Event delete error]',e);setEvents(getEvents().filter(function(evt){return evt.id!==eventId}));alert('Deleted locally, but Notion did not confirm the delete. Please check your API files if this continues.')}loadDashboardData()}
+function exportVolunteers(){var volunteers=getVolunteers(),statuses=getStatuses();if(volunteers.length===0){alert('No volunteer data to export.');return}var headers=['Name','Email','Phone','Contact Preference','Children','Volunteer Areas','Availability','Availability Notes','Comments','How Heard','Status','Submitted'];var rows=[headers.join(',')];volunteers.forEach(function(v){var key=v.id||(v.submittedAt+v.email),status=statuses[key]||v.notionStatus||'New',children=(v.children||[]).map(function(c){var details=[c.grade,c.teacher].filter(Boolean).join(', ');return c.name+(details?' ('+details+')':'')}).join('; ');rows.push([csvEscape(v.fullName||(v.firstName+' '+v.lastName).trim()),csvEscape(v.email),csvEscape(v.phone),csvEscape(v.contactPref),csvEscape(children),csvEscape((v.volunteerAreas||[]).join('; ')),csvEscape((v.availability||[]).join('; ')),csvEscape(v.availNotes),csvEscape(v.comments),csvEscape(v.hearAbout),csvEscape(status),csvEscape(v.submittedAt?new Date(v.submittedAt).toLocaleDateString():'')].join(','))});downloadCsv(rows,'pto-volunteers-')}function exportSponsors(){var sponsors=getSponsors(),statuses=getSponsorStatuses();if(sponsors.length===0){alert('No sponsor data to export.');return}var headers=['Business Name','Contact Name','Email','Phone','Tier','Amount','Status','Website','Social Media','LinkedIn','Logo URL','Address Type','Address','Message','Submitted'];var rows=[headers.join(',')];sponsors.forEach(function(s){var status=statuses[s.id]||s.notionStatus||'Interested';rows.push([csvEscape(s.businessName),csvEscape(s.contactName),csvEscape(s.email),csvEscape(s.phone),csvEscape(s.tier),csvEscape(s.amount),csvEscape(status),csvEscape(s.website),csvEscape(s.social),csvEscape(s.linkedin),csvEscape(s.logoUrl),csvEscape(s.addressType),csvEscape(s.address),csvEscape(s.message),csvEscape(s.submittedAt?new Date(s.submittedAt).toLocaleDateString():'')].join(','))});downloadCsv(rows,'pto-sponsors-')}function downloadCsv(rows,prefix){var blob=new Blob([rows.join('\n')],{type:'text/csv'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download=prefix+new Date().toISOString().slice(0,10)+'.csv';a.click();URL.revokeObjectURL(url)}function csvEscape(val){if(val===null||val===undefined)return'';val=String(val);if(val.indexOf(',')!==-1||val.indexOf('"')!==-1||val.indexOf('\n')!==-1)return'"'+val.replace(/"/g,'""')+'"';return val}function escapeHtml(text){if(text===null||text===undefined)return'';var div=document.createElement('div');div.textContent=String(text);return div.innerHTML}function escapeJs(text){return String(text||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'")}
+  </script>
+ </body>
 </html>
