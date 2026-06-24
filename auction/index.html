@@ -130,9 +130,11 @@
     @media (max-width:1050px){
       .form-shell{width:min(var(--max), calc(100% - 32px));grid-template-columns:1fr;gap:22px}
       .auction-details,.auction-collage,.form-card{grid-column:1 / -1}
-      .form-card{margin-left:0}
-      .auction-collage{height:auto;min-height:0;max-height:none;border-radius:26px}
-      .auction-collage::after{display:none}
+      .auction-details{order:1}
+      .form-card{order:2;margin-left:0}
+      .auction-collage{order:3;height:auto;min-height:0;max-height:360px;margin-top:-44px;border-radius:0 0 26px 26px}
+      .auction-collage::before{background:linear-gradient(180deg,var(--soft) 0%,rgba(238,242,248,0) 20%,rgba(238,242,248,0) 70%,var(--soft) 100%)}
+      .auction-collage::after{display:block;inset:0;width:auto;background:linear-gradient(180deg,var(--soft) 0%,rgba(238,242,248,0) 24%,rgba(238,242,248,0) 68%,var(--soft) 100%)}
       .collage-track{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:150px;gap:8px;padding:8px}
       .collage-card{border-radius:18px}
       .intro-grid{grid-template-columns:1fr}
@@ -370,8 +372,13 @@
       const estimatedCards = Math.max(8, Math.ceil(targetHeight / rowHeight) * 2 + 8);
 
       track.innerHTML = '';
-      collage.style.height = window.innerWidth > 1050 ? `${targetHeight}px` : '';
-      track.style.minHeight = `${targetHeight}px`;
+      if(window.innerWidth > 1050){
+        collage.style.height = `${targetHeight}px`;
+        track.style.minHeight = `${targetHeight}px`;
+      } else {
+        collage.style.height = '';
+        track.style.minHeight = '360px';
+      }
 
       for(let i = 0; i < estimatedCards; i++){
         const card = document.createElement('figure');
