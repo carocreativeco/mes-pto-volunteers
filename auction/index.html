@@ -125,7 +125,7 @@
     .collage-card:nth-child(4n+2){grid-row:span 2}
     .collage-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,21,70,0),rgba(12,21,70,.18));pointer-events:none}
 
-    .site-footer{background:var(--paper);border-top:1px solid rgba(12,21,70,.06);padding:22px 0;text-align:center}.footer-copy{color:var(--ink);line-height:1.6;font-size:.96rem;opacity:.9}
+    .site-footer{background:var(--paper);border-top:1px solid rgba(12,21,70,.06);padding:22px max(24px,calc((100% - var(--max))/2));display:flex;align-items:center;justify-content:space-between;gap:18px}.footer-copy{color:var(--ink);line-height:1.6;font-size:.96rem;opacity:.9}.footer-credit{color:var(--muted);font-size:.78rem;line-height:1.5;text-align:right}.footer-credit a{color:var(--navy);font-weight:700;text-decoration:none}.footer-credit a:hover{color:var(--orange)}
 
     @media (max-width:1050px){
       .form-shell{width:min(var(--max), calc(100% - 32px));grid-template-columns:1fr;gap:22px}
@@ -155,6 +155,7 @@
       .collage-track{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:132px}
       .nav-brand img{width:64px;max-height:42px}
       .form-actions .submit-btn,.form-actions .reset-btn{width:100%}
+      .site-footer{flex-direction:column;gap:6px;text-align:center}.footer-credit{text-align:center}
     }
   </style>
 </head>
@@ -338,7 +339,7 @@
     </section>
   </main>
 
-  <footer class="site-footer"><div class="footer-copy">&copy; Moore Elementary PTO 2026</div></footer>
+  <footer class="site-footer"><div class="footer-copy">&copy; Moore Elementary PTO 2026</div><div class="footer-credit">Designed and managed by <a href="https://carocreativeco.com/" target="_blank" rel="noopener noreferrer">Caro Creative Co.</a></div></footer>
 
   <script>
     function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
