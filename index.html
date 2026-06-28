@@ -523,12 +523,51 @@
     .connect-card .connect-action{display:inline-flex;align-items:center;justify-content:center;width:max-content;max-width:100%;margin-top:auto;padding:12px 18px;border-radius:999px;background:var(--navy);color:var(--white);font-family:'Inter',sans-serif;font-style:normal;font-size:.9rem;font-weight:800;border-bottom:none;white-space:normal;position:relative;z-index:2;text-align:center}
 
     /* FOOTER */
-    .site-footer{
-      background:var(--bg-alt);
-      border-top:1px solid rgba(12,21,70,.06);
-      padding:22px 0;text-align:center;
-    }
-    .footer-copy{color:var(--text);line-height:1.6;font-size:.96rem;opacity:.9}
+    .site-footer {
+  background: var(--paper, #fbfaf6);
+  border-top: 1px solid rgba(12, 21, 70, .06);
+  padding: 22px max(24px, calc((100% - 1200px) / 2));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.footer-copy {
+  color: var(--ink, #172033);
+  line-height: 1.6;
+  font-size: .96rem;
+  opacity: .9;
+}
+
+.footer-credit {
+  color: var(--muted, #667085);
+  font-size: .78rem;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.footer-credit a {
+  color: var(--navy, #0c1546);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.footer-credit a:hover {
+  color: var(--orange, #db6d42);
+}
+
+@media (max-width: 640px) {
+  .site-footer {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+
+  .footer-credit {
+    text-align: center;
+  }
+}
 
     /* RESPONSIVE */
     @media (max-width: 1100px){
@@ -987,8 +1026,14 @@
   </main>
 
   <footer class="site-footer">
-    <div class="footer-copy">&copy; Moore Elementary PTO 2026</div>
-  </footer>
+  <div class="footer-copy">&copy; Moore Elementary PTO 2026</div>
+  <div class="footer-credit">
+    Designed and managed by
+    <a href="https://carocreativeco.com/" target="_blank" rel="noopener noreferrer">
+      Caro Creative Co.
+    </a>
+  </div>
+</footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
