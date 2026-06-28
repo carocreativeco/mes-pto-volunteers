@@ -298,11 +298,12 @@ function SponsorForm({ t }) {
     textTransform: "none", letterSpacing: 0, fontSize: ".95rem", color: "#172033", cursor: "pointer",
   };
   const inlineRow = { display: "flex", alignItems: "center", justifyContent: "flex-start", gap: "8px" };
-  const methodCard = (active) => ({
+  const methodCard = (active, disabled = false) => ({
     display: "flex", alignItems: "center", gap: "13px", width: "100%", boxSizing: "border-box",
-    padding: "16px 18px", marginBottom: "12px", textAlign: "left", cursor: "pointer",
+    padding: "16px 18px", marginBottom: "12px", textAlign: "left", cursor: disabled ? "not-allowed" : "pointer",
     border: "1.5px solid " + (active ? "#0c1546" : "#dde3ef"), borderRadius: "14px",
-    background: active ? "#f6f8ff" : "#fff",
+    background: disabled ? "#f1f3f8" : (active ? "#f6f8ff" : "#fff"),
+    opacity: disabled ? .62 : 1,
   });
 
   const pickLogo = (f) => {
@@ -585,12 +586,12 @@ function SponsorForm({ t }) {
                       Franklin, TN 37064
                     </div>
                   </div>
-                  <label style={methodCard(donateMethod === "online")}>
+                  <label style={methodCard(donateMethod === "online", true)} aria-disabled="true">
                     <input type="radio" name="donateMethod" style={box}
-                      checked={donateMethod === "online"} onChange={() => setDonateMethod("online")} />
+                      checked={donateMethod === "online"} disabled onChange={() => {}} />
                     <span style={{ display: "block" }}>
-                      <span style={{ display: "block", fontWeight: 700, color: "#0c1546", fontSize: "1rem", textTransform: "none", letterSpacing: 0 }}>Online donation</span>
-                      <span style={{ display: "block", fontWeight: 500, color: "#5a6477", fontSize: ".88rem", textTransform: "none", letterSpacing: 0, marginTop: "2px" }}>Pay securely on our donation page</span>
+                      <span style={{ display: "block", fontWeight: 700, color: "#667085", fontSize: "1rem", textTransform: "none", letterSpacing: 0 }}>Online donation</span>
+                      <span style={{ display: "block", fontWeight: 600, color: "#8a94a6", fontSize: ".88rem", textTransform: "none", letterSpacing: 0, marginTop: "2px" }}>Not available at this time</span>
                     </span>
                   </label>
 
