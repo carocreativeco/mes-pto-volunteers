@@ -109,8 +109,51 @@
 
     /* CTA */
     .cta-band{background:var(--navy);color:var(--white);padding:104px 0;position:relative;overflow:hidden}.cta-band::before{content:"";position:absolute;top:-220px;right:-220px;width:540px;height:540px;border-radius:50%;background:radial-gradient(circle,rgba(255,194,0,.18),rgba(255,194,0,0) 70%)}.cta-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:end}.cta-band .kicker{color:var(--gold)}.cta-band .kicker::before{background:var(--gold)}.cta-band h2{font-family:'Baskervville',serif;font-size:clamp(2.5rem,5vw,4.35rem);line-height:.96;letter-spacing:-.035em;color:var(--white)}.cta-band h2 em{font-style:italic;color:var(--gold)}.cta-right p{color:rgba(255,255,255,.86);font-size:1.05rem;line-height:1.85;margin-bottom:24px}.cta-actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:22px}.cta-actions .btn-primary{background:var(--gold);color:var(--navy)}.cta-actions .btn-secondary{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.38)}.cta-contact{color:rgba(255,255,255,.78);font-size:.96rem}.cta-contact a{color:var(--gold);font-weight:800;border-bottom:1px solid rgba(255,194,0,.42)}
-    .site-footer{background:var(--soft-2);border-top:1px solid rgba(12,21,70,.06);padding:22px 0;text-align:center}.footer-copy{color:var(--ink);line-height:1.6;font-size:.96rem;opacity:.9}
+    .site-footer {
+  background: var(--paper, #fbfaf6);
+  border-top: 1px solid rgba(12, 21, 70, .06);
+  padding: 22px max(24px, calc((100% - 1200px) / 2));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
 
+.footer-copy {
+  color: var(--ink, #172033);
+  line-height: 1.6;
+  font-size: .96rem;
+  opacity: .9;
+}
+
+.footer-credit {
+  color: var(--muted, #667085);
+  font-size: .78rem;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.footer-credit a {
+  color: var(--navy, #0c1546);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.footer-credit a:hover {
+  color: var(--orange, #db6d42);
+}
+
+@media (max-width: 640px) {
+  .site-footer {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+
+  .footer-credit {
+    text-align: center;
+  }
+}
     @media (max-width:1050px){.hero-grid,.split-grid,.section-head,.impact-layout,.cta-grid,.feedback-shell{grid-template-columns:1fr;gap:40px}.split-aside,.impact-copy{position:static}.split-body,.section-head .lede{border-left:none;border-top:1px solid var(--line);padding-left:0;padding-top:28px}.program-grid{grid-template-columns:repeat(2,1fr)}.stat-grid{grid-template-columns:repeat(2,1fr)}.stat:nth-child(3){border-left:none;padding-left:0}}
     @media (max-width:860px){.nav-left,.nav-right{display:none}.nav-toggle{display:block}.nav-inner{grid-template-columns:1fr auto}.nav-brand{justify-content:flex-start}.nav-brand img{width:72px;max-height:48px}.hero{padding:46px 0 42px}.hero h1{white-space:normal;max-width:12ch}.hero p{max-width:620px}.stat{border-left:none;border-top:1px solid rgba(255,255,255,.18);padding-left:0}.stat:nth-child(-n+2){border-top:none}.program-grid{grid-template-columns:1fr}}
     @media (max-width:640px){.container,.nav-inner,.nav-mobile{width:min(var(--max), calc(100% - 24px))}.hero h1{font-size:clamp(2.55rem,11vw,3.65rem)}.split-section,.programs,.impact,.cta-band{padding:78px 0}.feedback-section{padding:48px 0 56px}.hero-card{border-radius:24px;padding:24px}.stat-grid{grid-template-columns:1fr}.stat:nth-child(2){border-top:1px solid rgba(255,255,255,.18)}.section-title{font-size:clamp(2.15rem,9vw,3rem)}.impact-item p{font-size:1.2rem}.feedback-shell{border-radius:0;padding:0}.feedback-copy{padding:0 0 20px}.feedback-card{border-radius:0;padding:0}.feedback-row{grid-template-columns:1fr}.feedback-submit{width:100%}.nav-brand img{width:64px;max-height:42px}}
@@ -126,14 +169,14 @@
       </div>
       <div class="nav-brand"><a href="/"><img src="/ptohome.png" alt="Moore Elementary PTO logo" onerror="this.style.display='none'"></a></div>
       <div class="nav-right">
-        <a href="/#resources" class="nav-link">Resources</a>
+        <a href="/auction/" class="nav-link">Auction</a>
         <a href="/sponsor/" class="nav-link">Become a sponsor</a>
         <a href="/volunteer/" class="nav-cta">Volunteer</a>
       </div>
       <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleMenu()">&#9776;</button>
     </div>
     <div class="nav-mobile" id="mobileMenu">
-      <a href="/about">About</a><a href="/#events">Events</a><a href="/#connect">Connect</a><a href="/#share">Share</a><a href="/#resources">Resources</a><a href="/sponsor/">Become a sponsor</a><a href="/volunteer/">Volunteer</a>
+      <a href="/about">About</a><a href="/#events">Events</a><a href="/#connect">Connect</a><a href="/#share">Share</a><a href="/auction/">Auction</a><a href="/sponsor/">Become a sponsor</a><a href="/volunteer/">Volunteer</a>
     </div>
   </nav>
 
@@ -266,7 +309,15 @@
     </div>
   </section>
 
-  <footer class="site-footer"><div class="footer-copy">&copy; Moore Elementary PTO 2026</div></footer>
+  <footer class="site-footer">
+  <div class="footer-copy">&copy; Moore Elementary PTO 2026</div>
+  <div class="footer-credit">
+    Designed and managed by
+    <a href="https://carocreativeco.com/" target="_blank" rel="noopener noreferrer">
+      Caro Creative Co.
+    </a>
+  </div>
+</footer>
   <script>
     function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
 
