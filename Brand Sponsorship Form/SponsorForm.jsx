@@ -586,12 +586,12 @@ function SponsorForm({ t }) {
                       Franklin, TN 37064
                     </div>
                   </div>
-                  <label style={methodCard(donateMethod === "online", true)} aria-disabled="true">
+                  <label style={methodCard(donateMethod === "online")}>
                     <input type="radio" name="donateMethod" style={box}
-                      checked={donateMethod === "online"} disabled onChange={() => {}} />
+                      checked={donateMethod === "online"} onChange={() => setDonateMethod("online")} />
                     <span style={{ display: "block" }}>
-                      <span style={{ display: "block", fontWeight: 700, color: "#667085", fontSize: "1rem", textTransform: "none", letterSpacing: 0 }}>Online donation</span>
-                      <span style={{ display: "block", fontWeight: 600, color: "#8a94a6", fontSize: ".88rem", textTransform: "none", letterSpacing: 0, marginTop: "2px" }}>Not available at this time</span>
+                      <span style={{ display: "block", fontWeight: 700, color: "#0c1546", fontSize: "1rem", textTransform: "none", letterSpacing: 0 }}>Donate online</span>
+                      <span style={{ display: "block", fontWeight: 600, color: "#5a6477", fontSize: ".88rem", textTransform: "none", letterSpacing: 0, marginTop: "2px" }}>Complete your tax-deductible donation through our secure online form.</span>
                     </span>
                   </label>
 
@@ -616,7 +616,7 @@ function SponsorForm({ t }) {
                 </FormSection>
 
                 <div className="submit-section">
-                  <p className="submit-note">Submitting this form reserves your tier and lets the PTO follow up to confirm details. You'll complete your tax-deductible donation on the next step.</p>
+                  <p className="submit-note">Submitting this form reserves your tier and lets the PTO follow up to confirm details. If you choose online donation, you can complete your tax-deductible gift through the secure donation link.</p>
                   <button type="button" className="btn-submit" onClick={submit} disabled={submitting}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <line x1="22" y1="2" x2="11" y2="13"></line>
