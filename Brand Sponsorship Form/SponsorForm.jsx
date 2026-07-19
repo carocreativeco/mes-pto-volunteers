@@ -385,11 +385,11 @@ function SponsorForm({ t }) {
         sponsorshipTier: tierName,
         tier: tierName,
         tierAmount: tierAmount,
-        donationMethod: donateMethod === "check" ? "Check" : "Online donation",
-        zeffyCompleted: donateMethod === "online" ? zeffyCompleted : false,
-        zeffyReceiptNumber: donateMethod === "online" ? zeffyReceiptNumber.trim() : "",
         logoUrl: logoUrl,
         message: messageDetails,
+        donationMethod: donateMethod === "check" ? "Check" : "Online donation",
+        zeffyDonationCompleted: donateMethod === "online" ? zeffyCompleted : false,
+        zeffyReceiptNumber: donateMethod === "online" ? zeffyReceiptNumber.trim() : "",
       });
 
     window.location.href = "/thank-you/?form=sponsor";
@@ -600,14 +600,14 @@ function SponsorForm({ t }) {
                       checked={donateMethod === "online"} onChange={() => { setDonateMethod("online"); setZeffyCompleted(false); setZeffyReceiptNumber(""); }} />
                     <span style={{ display: "block" }}>
                       <span style={{ display: "block", fontWeight: 700, color: "#0c1546", fontSize: "1rem", textTransform: "none", letterSpacing: 0 }}>Donate online</span>
-                      <span style={{ display: "block", fontWeight: 600, color: "#5a6477", fontSize: ".88rem", textTransform: "none", letterSpacing: 0, marginTop: "2px" }}>Complete your tax-deductible donation through our secure online form.</span>
+                      <span style={{ display: "block", fontWeight: 600, color: "#667085", fontSize: ".88rem", textTransform: "none", letterSpacing: 0, marginTop: "2px" }}>Complete your tax-deductible donation through our secure online form.</span>
                     </span>
                   </label>
 
                   {donateMethod === "online" && (
-                    <div style={{ marginTop: "4px", padding: "20px 22px", background: "#f6f8ff", border: "1px solid #d8dff5", borderRadius: "14px", display: "grid", gap: "16px" }}>
+                    <div style={{ marginTop: "4px", padding: "20px 22px", background: "#f6f8ff", border: "1px solid #d8dff5", borderRadius: "14px", display: "grid", gap: "18px" }}>
                       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "14px" }}>
-                        <span style={{ color: "#0c1546", fontWeight: 500, fontSize: ".95rem", lineHeight: 1.5 }}>
+                        <span style={{ color: "#0c1546", fontWeight: 500, fontSize: ".95rem" }}>
                           First, complete your tax-deductible donation in Zeffy. Then return to this form, check the confirmation box, enter your receipt number, and submit your sponsorship.
                         </span>
                         <a href={ONLINE_DONATION_URL || "#"}
@@ -621,28 +621,29 @@ function SponsorForm({ t }) {
                           Open Zeffy donation portal
                         </a>
                       </div>
-                      <label style={{ display: "flex", alignItems: "flex-start", gap: "12px", padding: "16px", background: "#fff", border: "1px solid #dde3ef", borderRadius: "14px", cursor: "pointer" }}>
-                        <input
-                          type="checkbox"
-                          checked={zeffyCompleted}
-                          onChange={(e) => setZeffyCompleted(e.target.checked)}
-                          style={{ ...box, marginTop: "3px" }}
-                          required={donateMethod === "online"}
-                        />
-                        <span style={{ display: "block", color: "#0c1546", fontWeight: 700, fontSize: ".95rem", lineHeight: 1.45, textTransform: "none", letterSpacing: 0 }}>
-                          I have completed my sponsorship donation through Zeffy. <span className="req">*</span>
-                        </span>
-                      </label>
-                      <div className="field">
-                        <label>Zeffy receipt number <span className="req">*</span></label>
-                        <input
-                          type="text"
-                          value={zeffyReceiptNumber}
-                          onChange={(e) => setZeffyReceiptNumber(e.target.value)}
-                          required={donateMethod === "online"}
-                          placeholder="Enter the receipt or confirmation number from Zeffy"
-                        />
-                        <p className="helper" style={{ marginTop: "4px" }}>This helps the PTO match your sponsorship form to your online donation.</p>
+
+                      <div style={{ padding: "18px", background: "#fff", border: "1px solid rgba(12,21,70,.12)", borderRadius: "14px", display: "grid", gap: "16px" }}>
+                        <label style={{ display: "flex", alignItems: "flex-start", gap: "11px", margin: 0, color: "#0c1546", fontWeight: 700, fontSize: ".95rem", lineHeight: 1.5, textTransform: "none", letterSpacing: 0 }}>
+                          <input
+                            type="checkbox"
+                            checked={zeffyCompleted}
+                            onChange={(e) => setZeffyCompleted(e.target.checked)}
+                            required={donateMethod === "online"}
+                            style={{ width: "18px", height: "18px", marginTop: "2px", flex: "0 0 auto", accentColor: "#0c1546" }}
+                          />
+                          <span>I have completed my sponsorship donation through Zeffy. <span className="req">*</span></span>
+                        </label>
+
+                        <div className="field">
+                          <label>Zeffy receipt number <span className="req">*</span></label>
+                          <input
+                            type="text"
+                            value={zeffyReceiptNumber}
+                            onChange={(e) => setZeffyReceiptNumber(e.target.value)}
+                            required={donateMethod === "online"}
+                            placeholder="Enter the receipt or confirmation number from Zeffy"
+                          />
+                        </div>
                       </div>
                     </div>
                   )}
