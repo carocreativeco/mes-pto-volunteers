@@ -279,6 +279,8 @@ function SponsorForm({ t }) {
   const [hearTeacher, setHearTeacher] = useState("");
   const [hearOther, setHearOther]   = useState("");
   const [donateMethod, setDonateMethod] = useState("");
+  const [zeffyCompleted, setZeffyCompleted] = useState(false);
+  const [zeffyReceiptNumber, setZeffyReceiptNumber] = useState("");
   const [logo, setLogo]         = useState(null);
   const [message, setMessage]   = useState("");
   const [error, setError]       = useState("");
@@ -332,6 +334,8 @@ function SponsorForm({ t }) {
     if (hearAbout === "Other" && !hearOther.trim())
       return setError("Please tell us how you heard about us.");
     if (!donateMethod) return setError("Please choose how you'd like to donate.");
+    if (donateMethod === "online" && !zeffyCompleted) return setError("Please confirm that you completed your donation through Zeffy.");
+    if (donateMethod === "online" && !zeffyReceiptNumber.trim()) return setError("Please enter your Zeffy receipt number before submitting.");
 
     const selectedTierForSubmit = TIERS.find((x) => x.id === tier);
     const tierName = selectedTierForSubmit ? selectedTierForSubmit.name : tier;
@@ -358,6 +362,8 @@ function SponsorForm({ t }) {
         message.trim(),
         hearAboutDetails,
         "Donation method: " + (donateMethod === "check" ? "Check" : "Online donation"),
+        donateMethod === "online" ? "Zeffy donation completed: Yes" : "",
+        donateMethod === "online" && zeffyReceiptNumber.trim() ? "Zeffy receipt number: " + zeffyReceiptNumber.trim() : "",
         noWebsite ? "Website: No website" : "",
         tierAmount ? "Sponsorship amount: " + tierAmount : "",
       ].filter(Boolean).join("\n\n");
@@ -379,6 +385,9 @@ function SponsorForm({ t }) {
         sponsorshipTier: tierName,
         tier: tierName,
         tierAmount: tierAmount,
+        donationMethod: donateMethod === "check" ? "Check" : "Online donation",
+        zeffyCompleted: donateMethod === "online" ? zeffyCompleted : false,
+        zeffyReceiptNumber: donateMethod === "online" ? zeffyReceiptNumber.trim() : "",
         logoUrl: logoUrl,
         message: messageDetails,
       });
@@ -399,7 +408,7 @@ function SponsorForm({ t }) {
     setSocial(""); setLinkedin(""); setAddressType(""); setAddress("");
     setContact(""); setEmail(""); setPhone("");
     setHearAbout(""); setHearName(""); setHearTeacher(""); setHearOther("");
-    setDonateMethod("");
+    setDonateMethod(""); setZeffyCompleted(false); setZeffyReceiptNumber("");
     clearLogo(); setMessage(""); setError(""); setConfirmed(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -565,7 +574,7 @@ function SponsorForm({ t }) {
                   <p className="helper">Choose how you'd like to complete your tax-deductible contribution. We'll show the matching details on the confirmation page.</p>
                   <label style={methodCard(donateMethod === "check")}>
                     <input type="radio" name="donateMethod" style={box}
-                      checked={donateMethod === "check"} onChange={() => setDonateMethod("check")} />
+                      checked={donateMethod === "check"} onChange={() => { setDonateMethod("check"); setZeffyCompleted(false); setZeffyReceiptNumber(""); }} />
                     <span style={{ display: "block" }}>
                       <span style={{ display: "block", fontWeight: 700, color: "#0c1546", fontSize: "1rem", textTransform: "none", letterSpacing: 0 }}>Mail or drop check to school (make payable to MES)</span>
                     </span>
@@ -588,7 +597,7 @@ function SponsorForm({ t }) {
                   </div>
                   <label style={methodCard(donateMethod === "online")}>
                     <input type="radio" name="donateMethod" style={box}
-                      checked={donateMethod === "online"} onChange={() => setDonateMethod("online")} />
+                      checked={donateMethod === "online"} onChange={() => { setDonateMethod("online"); setZeffyCompleted(false); setZeffyReceiptNumber(""); }} />
                     <span style={{ display: "block" }}>
                       <span style={{ display: "block", fontWeight: 700, color: "#0c1546", fontSize: "1rem", textTransform: "none", letterSpacing: 0 }}>Donate online</span>
                       <span style={{ display: "block", fontWeight: 600, color: "#5a6477", fontSize: ".88rem", textTransform: "none", letterSpacing: 0, marginTop: "2px" }}>Complete your tax-deductible donation through our secure online form.</span>
@@ -596,27 +605,51 @@ function SponsorForm({ t }) {
                   </label>
 
                   {donateMethod === "online" && (
-                    <div style={{ marginTop: "4px", padding: "20px 22px", background: "#f6f8ff", border: "1px solid #d8dff5", borderRadius: "14px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "14px" }}>
-                      <span style={{ color: "#0c1546", fontWeight: 500, fontSize: ".95rem" }}>
-                        You'll be taken to our secure donation page to complete your gift.
-                      </span>
-                      {/* TODO: replace "#" with your donation page URL when it's ready */}
-                      <a href={ONLINE_DONATION_URL || "#"}
-                        target={ONLINE_DONATION_URL ? "_blank" : undefined}
-                        rel="noopener noreferrer"
-                        onClick={(e) => { if (!ONLINE_DONATION_URL) e.preventDefault(); }}
-                        style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "12px 22px", background: "#0c1546", color: "#ffc200", borderRadius: "10px", fontWeight: 700, fontSize: ".95rem", textDecoration: "none", whiteSpace: "nowrap", letterSpacing: ".01em", textTransform: "none" }}>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                        </svg>
-                        Donate online
-                      </a>
+                    <div style={{ marginTop: "4px", padding: "20px 22px", background: "#f6f8ff", border: "1px solid #d8dff5", borderRadius: "14px", display: "grid", gap: "16px" }}>
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "14px" }}>
+                        <span style={{ color: "#0c1546", fontWeight: 500, fontSize: ".95rem", lineHeight: 1.5 }}>
+                          First, complete your tax-deductible donation in Zeffy. Then return to this form, check the confirmation box, enter your receipt number, and submit your sponsorship.
+                        </span>
+                        <a href={ONLINE_DONATION_URL || "#"}
+                          target={ONLINE_DONATION_URL ? "_blank" : undefined}
+                          rel="noopener noreferrer"
+                          onClick={(e) => { if (!ONLINE_DONATION_URL) e.preventDefault(); }}
+                          style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "12px 22px", background: "#0c1546", color: "#ffc200", borderRadius: "10px", fontWeight: 700, fontSize: ".95rem", textDecoration: "none", whiteSpace: "nowrap", letterSpacing: ".01em", textTransform: "none" }}>
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                          </svg>
+                          Open Zeffy donation portal
+                        </a>
+                      </div>
+                      <label style={{ display: "flex", alignItems: "flex-start", gap: "12px", padding: "16px", background: "#fff", border: "1px solid #dde3ef", borderRadius: "14px", cursor: "pointer" }}>
+                        <input
+                          type="checkbox"
+                          checked={zeffyCompleted}
+                          onChange={(e) => setZeffyCompleted(e.target.checked)}
+                          style={{ ...box, marginTop: "3px" }}
+                          required={donateMethod === "online"}
+                        />
+                        <span style={{ display: "block", color: "#0c1546", fontWeight: 700, fontSize: ".95rem", lineHeight: 1.45, textTransform: "none", letterSpacing: 0 }}>
+                          I have completed my sponsorship donation through Zeffy. <span className="req">*</span>
+                        </span>
+                      </label>
+                      <div className="field">
+                        <label>Zeffy receipt number <span className="req">*</span></label>
+                        <input
+                          type="text"
+                          value={zeffyReceiptNumber}
+                          onChange={(e) => setZeffyReceiptNumber(e.target.value)}
+                          required={donateMethod === "online"}
+                          placeholder="Enter the receipt or confirmation number from Zeffy"
+                        />
+                        <p className="helper" style={{ marginTop: "4px" }}>This helps the PTO match your sponsorship form to your online donation.</p>
+                      </div>
                     </div>
                   )}
                 </FormSection>
 
                 <div className="submit-section">
-                  <p className="submit-note">Submitting this form reserves your tier and lets the PTO follow up to confirm details. If you choose online donation, you can complete your tax-deductible gift through the secure donation link.</p>
+                  <p className="submit-note">For online donations, complete your gift in Zeffy first, then return here to enter your receipt number and submit your sponsorship form.</p>
                   <button type="button" className="btn-submit" onClick={submit} disabled={submitting}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <line x1="22" y1="2" x2="11" y2="13"></line>
