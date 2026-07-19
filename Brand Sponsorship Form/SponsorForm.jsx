@@ -622,8 +622,8 @@ function SponsorForm({ t }) {
                         </a>
                       </div>
 
-                      <div style={{ padding: "18px", background: "#fff", border: "1px solid rgba(12,21,70,.12)", borderRadius: "14px", display: "grid", gap: "16px" }}>
-                        <label style={{ display: "flex", alignItems: "flex-start", gap: "11px", margin: 0, color: "#0c1546", fontWeight: 700, fontSize: ".95rem", lineHeight: 1.5, textTransform: "none", letterSpacing: 0 }}>
+                      <div style={{ padding: "18px", background: "#fff", border: "1px solid rgba(12,21,70,.14)", borderRadius: "14px", display: "grid", gap: "16px" }}>
+                        <label style={{ display: "flex", alignItems: "flex-start", gap: "10px", color: "#0c1546", fontWeight: 700, lineHeight: 1.45, textTransform: "none", letterSpacing: 0, fontSize: ".95rem", cursor: "pointer" }}>
                           <input
                             type="checkbox"
                             checked={zeffyCompleted}
