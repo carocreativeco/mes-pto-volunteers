@@ -574,7 +574,7 @@ function SponsorForm({ t }) {
                   <p className="helper">Choose how you'd like to complete your tax-deductible contribution. We'll show the matching details on the confirmation page.</p>
                   <label style={methodCard(donateMethod === "check")}>
                     <input type="radio" name="donateMethod" style={box}
-                      checked={donateMethod === "check"} onChange={() => { setDonateMethod("check"); setZeffyCompleted(false); setZeffyReceiptNumber(""); }} />
+                      checked={donateMethod === "check"} onChange={() => setDonateMethod("check")} />
                     <span style={{ display: "block" }}>
                       <span style={{ display: "block", fontWeight: 700, color: "#0c1546", fontSize: "1rem", textTransform: "none", letterSpacing: 0 }}>Mail or drop check to school (make payable to MES)</span>
                     </span>
@@ -600,7 +600,7 @@ function SponsorForm({ t }) {
                       checked={donateMethod === "online"} onChange={() => { setDonateMethod("online"); setZeffyCompleted(false); setZeffyReceiptNumber(""); }} />
                     <span style={{ display: "block" }}>
                       <span style={{ display: "block", fontWeight: 700, color: "#0c1546", fontSize: "1rem", textTransform: "none", letterSpacing: 0 }}>Donate online</span>
-                      <span style={{ display: "block", fontWeight: 600, color: "#667085", fontSize: ".88rem", textTransform: "none", letterSpacing: 0, marginTop: "2px" }}>Complete your tax-deductible donation through our secure online form.</span>
+                      <span style={{ display: "block", fontWeight: 600, color: "#667085", fontSize: ".88rem", textTransform: "none", letterSpacing: 0, marginTop: "2px" }}>Complete your tax-deductible donation through our secure Zeffy portal.</span>
                     </span>
                   </label>
 
