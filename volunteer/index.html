@@ -472,6 +472,62 @@ a{text-decoration:none;color:inherit}
   font-weight:500;
 }
 
+
+
+.event-interest-section{
+  position:relative;
+  overflow:hidden;
+}
+.event-interest-section::before{
+  content:"";
+  position:absolute;
+  right:-80px;
+  top:-90px;
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(255,194,0,.16), rgba(255,194,0,0) 70%);
+  pointer-events:none;
+}
+.event-interest-section > *{
+  position:relative;
+  z-index:1;
+}
+.event-grid{
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+}
+.event-loading,
+.event-empty{
+  grid-column:1/-1;
+  color:var(--muted);
+  font-size:.9rem;
+  line-height:1.6;
+  padding:16px 18px;
+  border:1px dashed var(--border);
+  border-radius:18px;
+  background:#f8faff;
+}
+.event-date-chip{
+  display:inline-flex;
+  width:max-content;
+  margin-top:6px;
+  padding:4px 8px;
+  border-radius:999px;
+  background:rgba(255,194,0,.16);
+  color:var(--navy);
+  font-size:.72rem;
+  font-weight:800;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+.check-item.event-check{
+  align-items:flex-start;
+}
+.check-item.event-check .check-label{
+  display:grid;
+  gap:2px;
+}
+
 /* Submit */
 .submit-section{
   display:flex;
@@ -929,9 +985,25 @@ a{text-decoration:none;color:inherit}
           </div>
         </div>
 
-        <div class="form-section">
+        <div class="form-section event-interest-section">
           <div class="section-label">
             <div class="section-num">5</div>
+            <div class="section-title">
+              Event Interest
+              <span class="section-sub">(optional — select all that apply)</span>
+            </div>
+          </div>
+
+          <p class="helper">Choose any upcoming school-hosted events you may be interested in helping with. Events are pulled from the admin page.</p>
+
+          <div class="check-grid event-grid" id="eventInterestOptions">
+            <div class="event-loading">Loading events…</div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-label">
+            <div class="section-num">6</div>
             <div class="section-title">Anything else you'd like us to know?</div>
           </div>
 
@@ -1034,6 +1106,8 @@ function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('op
 var STORAGE_KEY = 'moore_pto_v3';
 var STATUS_KEY = 'moore_pto_status';
 var NOTION_VOLUNTEER_ENDPOINT = '/api/submit-volunteer.php';
+var EVENTS_API_URL = '/api/get-events.php';
+var EVENTS_STORAGE_KEY = 'moore_pto_events';
 var VOLUNTEER_AREAS = [
   'Moore Miles',
   'Bake Sale',
@@ -1083,11 +1157,12 @@ async function sendToNotion(payload) {
 document.addEventListener('DOMContentLoaded', function() {
   buildVolunteerAreas();
   buildAvailabilityOptions();
+  buildEventInterestOptions();
 });
 
-function buildCheckItem(value) {
+function buildCheckItem(value, meta, extraClass) {
   var it = document.createElement('label');
-  it.className = 'check-item';
+  it.className = 'check-item' + (extraClass ? ' ' + extraClass : '');
   it.innerHTML =
     '<input type="checkbox" value="' + escapeHtml(value) + '">' +
     '<div class="check-box">' +
@@ -1095,7 +1170,9 @@ function buildCheckItem(value) {
         '<polyline points="2 6 5 9 10 3"></polyline>' +
       '</svg>' +
     '</div>' +
-    '<span class="check-label">' + escapeHtml(value) + '</span>';
+    '<span class="check-label">' + escapeHtml(value) +
+      (meta ? '<span class="event-date-chip">' + escapeHtml(meta) + '</span>' : '') +
+    '</span>';
   return it;
 }
 
@@ -1116,6 +1193,113 @@ function buildAvailabilityOptions() {
   container.innerHTML = '';
   AVAILABILITY_OPTIONS.forEach(function(option) {
     container.appendChild(buildCheckItem(option));
+  });
+}
+
+
+function cleanEventValue(value) {
+  if (value === null || value === undefined) return '';
+  var str = String(value).trim();
+  if (!str || str.toLowerCase() === 'undefined' || str.toLowerCase() === 'null' || str.toLowerCase() === 'nan') return '';
+  return str;
+}
+
+function normalizeEventDateValue(value) {
+  var raw = cleanEventValue(value);
+  if (!raw) return '';
+  var match = raw.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if (match) return match[1] + '-' + String(match[2]).padStart(2, '0') + '-' + String(match[3]).padStart(2, '0');
+  var parsed = new Date(raw);
+  if (isNaN(parsed.getTime()) || parsed.getFullYear() < 2000) return '';
+  return parsed.getFullYear() + '-' + String(parsed.getMonth() + 1).padStart(2, '0') + '-' + String(parsed.getDate()).padStart(2, '0');
+}
+
+function formatEventDate(value) {
+  var date = normalizeEventDateValue(value);
+  if (!date) return 'Date TBD';
+  var parts = date.split('-').map(Number);
+  var d = new Date(parts[0], parts[1] - 1, parts[2]);
+  var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  return monthNames[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+}
+
+function getStoredEvents() {
+  try {
+    return JSON.parse(localStorage.getItem(EVENTS_STORAGE_KEY)) || [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function setStoredEvents(events) {
+  try {
+    localStorage.setItem(EVENTS_STORAGE_KEY, JSON.stringify(events));
+  } catch (e) {}
+}
+
+function normalizeVolunteerEvent(row, index) {
+  var title = cleanEventValue(row.title || row.eventName || row.name || '');
+  var date = normalizeEventDateValue(row.date || row.eventDate || '');
+  var status = cleanEventValue(row.status || 'Planned') || 'Planned';
+  return {
+    id: row.id || String(index),
+    title: title,
+    date: date,
+    status: status,
+    sortOrder: row.sortOrder !== '' && row.sortOrder != null ? Number(row.sortOrder) : index
+  };
+}
+
+function shouldShowEvent(event) {
+  if (!event.title) return false;
+  var status = cleanEventValue(event.status).toLowerCase();
+  if (status.indexOf('cancel') !== -1 || status.indexOf('archiv') !== -1) return false;
+  return true;
+}
+
+function eventLabel(event) {
+  return event.title + ' — ' + formatEventDate(event.date);
+}
+
+async function loadVolunteerEvents() {
+  try {
+    var response = await fetch(EVENTS_API_URL, { cache: 'no-store' });
+    var data = await response.json();
+    if (!response.ok || !data.success || !Array.isArray(data.events)) {
+      throw new Error(data.error || 'Unable to load events.');
+    }
+    var events = data.events.map(normalizeVolunteerEvent).filter(shouldShowEvent);
+    setStoredEvents(events);
+    return events;
+  } catch (error) {
+    console.warn('[Event load warning]', error);
+    return getStoredEvents().map(normalizeVolunteerEvent).filter(shouldShowEvent);
+  }
+}
+
+async function buildEventInterestOptions() {
+  var container = document.getElementById('eventInterestOptions');
+  if (!container) return;
+
+  container.innerHTML = '<div class="event-loading">Loading events…</div>';
+  var events = await loadVolunteerEvents();
+
+  events.sort(function(a, b) {
+    var sortA = typeof a.sortOrder === 'number' ? a.sortOrder : 9999;
+    var sortB = typeof b.sortOrder === 'number' ? b.sortOrder : 9999;
+    if (sortA !== sortB) return sortA - sortB;
+    return cleanEventValue(a.date).localeCompare(cleanEventValue(b.date));
+  });
+
+  container.innerHTML = '';
+
+  if (!events.length) {
+    container.innerHTML = '<div class="event-empty">No event options are available yet. You can still submit this form and the PTO will follow up when volunteer opportunities are added.</div>';
+    return;
+  }
+
+  events.forEach(function(event) {
+    container.appendChild(buildCheckItem(eventLabel(event), formatEventDate(event.date), 'event-check'));
   });
 }
 
@@ -1195,6 +1379,11 @@ function collectFormData() {
     avail.push(cb.value);
   });
 
+  var eventInterest = [];
+  document.querySelectorAll('#eventInterestOptions .check-item.checked input').forEach(function(cb) {
+    eventInterest.push(cb.value);
+  });
+
   return {
     submittedAt: new Date().toISOString(),
     firstName: document.getElementById('firstName').value.trim(),
@@ -1206,6 +1395,7 @@ function collectFormData() {
     volunteerAreas: areas,
     otherSkills: document.getElementById('otherSkills').value.trim(),
     availability: avail,
+    eventInterest: eventInterest,
     availNotes: document.getElementById('availNotes').value.trim(),
     comments: document.getElementById('comments').value.trim(),
     hearAbout: document.getElementById('hearAbout').value
