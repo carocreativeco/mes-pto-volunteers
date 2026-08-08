@@ -1238,13 +1238,27 @@ function setStoredEvents(events) {
 }
 
 function normalizeVolunteerEvent(row, index) {
-  var title = cleanEventValue(row.title || row.eventName || row.name || '');
-  var date = normalizeEventDateValue(row.date || row.eventDate || '');
-  var status = cleanEventValue(row.status || 'Planned') || 'Planned';
+  row = row || {};
+  var title = cleanEventValue(
+    row.title ||
+    row.eventName ||
+    row.name ||
+    row.event_name ||
+    row['Event Name'] ||
+    row['Title'] ||
+    row['Name'] ||
+    ''
+  );
+  var date = normalizeEventDateValue(row.date || row.eventDate || row.event_date || row['Date'] || '');
+  var dateLabel = cleanEventValue(row.dateLabel || row.date_label || row['Date Label'] || '');
+  var status = cleanEventValue(row.status || row['Status'] || 'Planned') || 'Planned';
   return {
     id: row.id || String(index),
     title: title,
     date: date,
+    dateLabel: dateLabel,
+    time: cleanEventValue(row.time || row['Time'] || ''),
+    location: cleanEventValue(row.location || row['Location'] || ''),
     status: status,
     sortOrder: row.sortOrder !== '' && row.sortOrder != null ? Number(row.sortOrder) : index
   };
@@ -1257,23 +1271,53 @@ function shouldShowEvent(event) {
   return true;
 }
 
+function eventDateDisplay(event) {
+  return cleanEventValue(event.dateLabel) || formatEventDate(event.date);
+}
+
 function eventLabel(event) {
-  return event.title + ' — ' + formatEventDate(event.date);
+  return event.title + ' — ' + eventDateDisplay(event);
+}
+
+function normalizeEventsResponse(data) {
+  if (Array.isArray(data)) return data;
+  if (data && Array.isArray(data.events)) return data.events;
+  if (data && Array.isArray(data.data)) return data.data;
+  if (data && Array.isArray(data.results)) return data.results;
+  return [];
+}
+
+function readLocalEventFallback() {
+  return getStoredEvents().map(normalizeVolunteerEvent).filter(shouldShowEvent);
 }
 
 async function loadVolunteerEvents() {
+  var localFallback = readLocalEventFallback();
+
   try {
     var response = await fetch(EVENTS_API_URL, { cache: 'no-store' });
     var data = await response.json();
-    if (!response.ok || !data.success || !Array.isArray(data.events)) {
-      throw new Error(data.error || 'Unable to load events.');
+    if (!response.ok || data.success === false) {
+      throw new Error((data && data.error) || 'Unable to load events.');
     }
-    var events = data.events.map(normalizeVolunteerEvent).filter(shouldShowEvent);
-    setStoredEvents(events);
-    return events;
+
+    var rows = normalizeEventsResponse(data);
+    var events = rows.map(normalizeVolunteerEvent).filter(shouldShowEvent);
+
+    if (events.length) {
+      setStoredEvents(events);
+      return events;
+    }
+
+    if (localFallback.length) {
+      console.warn('[Event load warning] Events API returned no events. Using locally saved admin events as a fallback.');
+      return localFallback;
+    }
+
+    return [];
   } catch (error) {
     console.warn('[Event load warning]', error);
-    return getStoredEvents().map(normalizeVolunteerEvent).filter(shouldShowEvent);
+    return localFallback;
   }
 }
 
@@ -1299,7 +1343,11 @@ async function buildEventInterestOptions() {
   }
 
   events.forEach(function(event) {
-    container.appendChild(buildCheckItem(eventLabel(event), formatEventDate(event.date), 'event-check'));
+    var metaParts = [];
+    if (eventDateDisplay(event)) metaParts.push(eventDateDisplay(event));
+    if (event.time) metaParts.push(event.time);
+    if (event.location) metaParts.push(event.location);
+    container.appendChild(buildCheckItem(eventLabel(event), metaParts.join(' · '), 'event-check'));
   });
 }
 
