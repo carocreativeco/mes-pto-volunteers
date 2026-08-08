@@ -1488,7 +1488,7 @@
         return '<button type="button" class="event-picker-item' + (index === 0 ? ' active' : '') +
           '" data-event-id="' + escapeHtml(event.id) +
           '" aria-selected="' + (index === 0 ? 'true' : 'false') +
-          '" onclick="selectUpcomingEvent(this.getAttribute(\\'data-event-id\\'))">' +
+          '" onclick="selectUpcomingEvent(this.dataset.eventId)">' +
           formatEventPickerDate(event) +
           '<span class="event-picker-copy">' +
           '<span class="event-picker-title">' + escapeHtml(event.title || 'Upcoming Event') + '</span>' +
