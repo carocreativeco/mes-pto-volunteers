@@ -32,6 +32,28 @@
   .summary-row{padding:13px 18px;}
 }
 
+
+/* Website update request panel */
+.website-request-section{margin-top:34px}
+.website-request-card{position:relative;overflow:hidden;background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(248,250,255,.94));border:1px solid rgba(219,227,240,.9);border-radius:30px;box-shadow:var(--shadow);padding:28px}
+.website-request-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:linear-gradient(180deg,var(--gold),var(--orange))}
+.website-request-head{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:end;margin-bottom:24px}
+.website-request-kicker{display:inline-block;color:var(--orange);font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;margin-bottom:9px}
+.website-request-head h2{font-family:'Baskervville',serif;color:var(--navy);font-size:clamp(1.7rem,3vw,2.35rem);line-height:1.08;margin-bottom:8px}
+.website-request-head p{color:var(--muted);font-size:.92rem;line-height:1.65;max-width:660px}
+.website-request-note{justify-self:end;background:#fff7df;border:1px solid #f8df96;border-radius:18px;padding:14px 16px;color:#6b5310;font-size:.84rem;line-height:1.55;max-width:360px}
+.website-request-form{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.website-request-form .form-field{margin-bottom:0}
+.website-request-form .full-width{grid-column:1/-1}
+.website-request-form textarea{min-height:145px}
+.request-submit-row{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:4px}
+.request-status{font-size:.86rem;color:var(--muted)}
+.request-status.success{color:var(--success);font-weight:700}
+.request-status.error{color:var(--danger);font-weight:700}
+.request-submit-row .btn{min-width:180px}
+@media(max-width:820px){.website-request-head{grid-template-columns:1fr}.website-request-note{justify-self:start;max-width:none}}
+@media(max-width:720px){.website-request-form{grid-template-columns:1fr}.website-request-form .full-width,.request-submit-row{grid-column:1}.website-request-card{padding:22px}}
+
 </style>
  </head>
  <body>
@@ -533,6 +555,69 @@
      <div class="events-list" id="eventsList">
      </div>
     </div>
+    <section class="website-request-section" id="websiteUpdateRequests">
+     <div class="website-request-card">
+      <div class="website-request-head">
+       <div>
+        <span class="website-request-kicker">Website Support</span>
+        <h2>Request a Website Update</h2>
+        <p>Need something changed, added, corrected, or refreshed on the PTO website? Submit the details here so the request is clear and easy to track.</p>
+       </div>
+       <div class="website-request-note">
+        Please include the exact page and as much detail as possible. For content changes, paste the final wording you want used whenever you can.
+       </div>
+      </div>
+      <form class="website-request-form" id="websiteRequestForm" onsubmit="submitWebsiteRequest(event)">
+       <div class="form-field">
+        <label for="requestName">Your Name *</label>
+        <input id="requestName" type="text" placeholder="Name" required/>
+       </div>
+       <div class="form-field">
+        <label for="requestEmail">Email *</label>
+        <input id="requestEmail" type="email" placeholder="you@example.com" required/>
+       </div>
+       <div class="form-field">
+        <label for="requestType">Request Type *</label>
+        <select id="requestType" required>
+         <option value="">Select request type</option>
+         <option>Text / Content Change</option>
+         <option>Photo / Graphic Update</option>
+         <option>New Page or Section</option>
+         <option>Event Update</option>
+         <option>Link or Button Update</option>
+         <option>Form Update</option>
+         <option>Bug / Something Is Not Working</option>
+         <option>Other</option>
+        </select>
+       </div>
+       <div class="form-field">
+        <label for="requestPriority">Priority *</label>
+        <select id="requestPriority" required>
+         <option value="Normal">Normal</option>
+         <option value="Time-Sensitive">Time-Sensitive</option>
+         <option value="Urgent">Urgent</option>
+        </select>
+       </div>
+       <div class="form-field full-width">
+        <label for="requestPage">Page or URL</label>
+        <input id="requestPage" type="text" placeholder="e.g. /moore-miles/ or paste the full page URL"/>
+       </div>
+       <div class="form-field full-width">
+        <label for="requestDetails">Requested Update *</label>
+        <textarea id="requestDetails" placeholder="Describe exactly what should be added, removed, corrected, or changed. Include final wording when applicable." required></textarea>
+       </div>
+       <div class="form-field full-width">
+        <label for="requestAssets">Asset / File Link</label>
+        <input id="requestAssets" type="url" placeholder="Google Drive, Dropbox, Canva, photo, document, or other share link"/>
+        <div class="form-help">Optional. Make sure the link permissions allow the website manager to open it.</div>
+       </div>
+       <div class="request-submit-row">
+        <div class="request-status" id="websiteRequestStatus">Website update requests will be sent directly to the site manager.</div>
+        <button class="btn btn-primary" id="websiteRequestSubmit" type="submit">Submit Request</button>
+       </div>
+      </form>
+     </div>
+    </section>
    </div>
   </div>
   <div class="modal-overlay" id="eventModal">
@@ -562,32 +647,38 @@
       </div>
       <div class="form-field">
        <label>
-        Status
+        Date Label
        </label>
-       <select id="eventStatus">
-        <option>
-         Planned
-        </option>
-        <option>
-         Confirmed
-        </option>
-        <option>
-         Needs Volunteers
-        </option>
-        <option>
-         Complete
-        </option>
-        <option>
-         Cancelled
-        </option>
-       </select>
+       <input id="eventDateLabel" placeholder="e.g. Fall 2026, TBD, Sept. 12" type="text"/>
       </div>
      </div>
-     <div class="form-field">
-      <label>
-       Volunteers Needed
-      </label>
-      <input id="eventVolunteers" min="0" placeholder="e.g. 12" type="number"/>
+     <div class="form-row">
+      <div class="form-field">
+       <label>
+        Time
+       </label>
+       <input id="eventTime" placeholder="e.g. 8:30 AM – 10:30 AM" type="text"/>
+      </div>
+      <div class="form-field">
+       <label>
+        Location
+       </label>
+       <input id="eventLocation" placeholder="e.g. Moore Elementary" type="text"/>
+      </div>
+     </div>
+     <div class="form-row">
+      <div class="form-field">
+       <label>
+        Volunteers Needed
+       </label>
+       <input id="eventVolunteers" min="0" placeholder="e.g. 12" type="number"/>
+      </div>
+      <div class="form-field">
+       <label>
+        Sort Order
+       </label>
+       <input id="eventSortOrder" min="0" placeholder="e.g. 1" type="number"/>
+      </div>
      </div>
      <div class="form-field">
       <label>
@@ -631,6 +722,7 @@
   <script>
    var ADMIN_PASSWORD='moorePTO2026';var STORAGE_KEY='moore_pto_v3';var SPONSORS_KEY='moore_pto_sponsors_v1';var STATUS_KEY='moore_pto_status';var SPONSOR_STATUS_KEY='moore_pto_sponsor_status';var EVENTS_KEY='moore_pto_events';
 var VOLUNTEERS_API_URL='/api/get-volunteers.php';var SPONSORS_API_URL='/api/get-sponsors.php';var EVENTS_API_URL='/api/get-events.php';var EVENT_SAVE_API_URL='/api/save-event.php';var EVENT_DELETE_API_URL='/api/delete-event.php';
+var WEBSITE_REQUESTS_API_URL='/api/submit-website-request.php';var WEBSITE_REQUESTS_KEY='moore_pto_website_requests_v1';
 var NOTION_VOLUNTEERS_LINK='https://app.notion.com/p/0995bbe5b5e9410182d00381963a069c?v=aa1c111be61442c78f1e4d1f40c4845c&source=copy_link';var NOTION_SPONSORS_LINK='https://app.notion.com/p/77bf1c4779524bc283c7439475b4ebbd?v=249b9596498141d1b7664fc446a2f6e2&source=copy_link';var NOTION_EVENTS_LINK='https://app.notion.com/p/3f0308cf64614e9b95e57a7364feb38e?v=9893f458e4cc4d5cab32a4f0c1bc61cf&source=copy_link';
 function openNotionVolunteers(){window.open(NOTION_VOLUNTEERS_LINK,'_blank')}function openNotionSponsors(){window.open(NOTION_SPONSORS_LINK,'_blank')}function openNotionEvents(){window.open(NOTION_EVENTS_LINK,'_blank')}
 var VOLUNTEER_AREAS=['Moore Miles','Bake Sale','Book Fair','Teacher Appreciation Week','Decorations Committee','Classroom Parties','Field Trip Chaperone','School Events Setup / Cleanup','Photography / Videography','Graphic Design','Arts & Crafts','Fundraising & Sponsorships'];
@@ -646,13 +738,65 @@ function cleanValue(value){if(value===null||value===undefined)return'';var str=S
 function getVolunteers(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||[]}catch(e){return[]}}function getSponsors(){try{return JSON.parse(localStorage.getItem(SPONSORS_KEY))||[]}catch(e){return[]}}function getEvents(){try{return JSON.parse(localStorage.getItem(EVENTS_KEY))||[]}catch(e){return[]}}function setEvents(e){localStorage.setItem(EVENTS_KEY,JSON.stringify(e))}function getStatuses(){try{return JSON.parse(localStorage.getItem(STATUS_KEY))||{}}catch(e){return{}}}function setStatuses(s){localStorage.setItem(STATUS_KEY,JSON.stringify(s))}function getSponsorStatuses(){try{return JSON.parse(localStorage.getItem(SPONSOR_STATUS_KEY))||{}}catch(e){return{}}}function setSponsorStatuses(s){localStorage.setItem(SPONSOR_STATUS_KEY,JSON.stringify(s))}
 async function loadVolunteersFromNotion(){const response=await fetch(VOLUNTEERS_API_URL);const data=await response.json();if(!data.success||!Array.isArray(data.volunteers))throw new Error(data.error||'Unable to load volunteers.');const volunteers=data.volunteers.map(function(row){var nameParts=splitName(row.name||'');return{id:row.id||'',submittedAt:row.submittedAt||'',firstName:nameParts.firstName,lastName:nameParts.lastName,fullName:row.name||'',email:row.email||'',phone:row.phone||'',contactPref:row.contactPref||'',children:parseChildren(row.children||''),volunteerAreas:Array.isArray(row.volunteerAreas)?row.volunteerAreas:[],otherSkills:'',availability:Array.isArray(row.availability)?row.availability:[],availNotes:row.availNotes||'',comments:row.comments||'',hearAbout:row.hearAbout||'',notionStatus:row.status||'New'}});localStorage.setItem(STORAGE_KEY,JSON.stringify(volunteers))}
 async function loadSponsorsFromNotion(){const response=await fetch(SPONSORS_API_URL);const data=await response.json();if(!data.success||!Array.isArray(data.sponsors))throw new Error(data.error||'Unable to load sponsors.');const sponsors=data.sponsors.map(function(row){return{id:row.id||'',submittedAt:row.submittedAt||'',businessName:row.businessName||'',contactName:row.contactName||'',email:row.email||'',phone:row.phone||'',tier:row.tier||'',amount:Number(row.amount||0),notionStatus:row.status||'Interested',website:row.website||'',social:row.social||'',linkedin:row.linkedin||'',logoUrl:row.logoUrl||'',addressType:row.addressType||'',address:row.address||'',message:row.message||''}});localStorage.setItem(SPONSORS_KEY,JSON.stringify(sponsors))}
-async function loadEventsFromNotion(){const response=await fetch(EVENTS_API_URL);const data=await response.json();if(!data.success||!Array.isArray(data.events))throw new Error(data.error||'Unable to load events.');const events=data.events.map(function(row,index){return{id:row.id||'',title:cleanValue(row.title||row.eventName||row.name||''),date:normalizeEventDateValue(row.date||''),description:cleanValue(row.description||''),status:cleanValue(row.status||'Planned')||'Planned',volunteersNeeded:cleanValue(row.volunteersNeeded||'TBD')||'TBD',areasOfInterest:Array.isArray(row.areasOfInterest)?row.areasOfInterest:splitSemicolonList(row.areasOfInterest||''),sortOrder:row.sortOrder!==''&&row.sortOrder!=null?Number(row.sortOrder):index}});localStorage.setItem(EVENTS_KEY,JSON.stringify(events))}
+async function loadEventsFromNotion(){const response=await fetch(EVENTS_API_URL);const data=await response.json();if(!data.success||!Array.isArray(data.events))throw new Error(data.error||'Unable to load events.');const events=data.events.map(function(row,index){return{id:row.id||'',title:cleanValue(row.title||row.eventName||row.name||''),date:normalizeEventDateValue(row.date||''),dateLabel:cleanValue(row.dateLabel||''),time:cleanValue(row.time||''),location:cleanValue(row.location||''),description:cleanValue(row.description||''),volunteersNeeded:cleanValue(row.volunteersNeeded||'')||'',areasOfInterest:Array.isArray(row.areasOfInterest)?row.areasOfInterest:splitSemicolonList(row.areasOfInterest||''),sortOrder:row.sortOrder!==''&&row.sortOrder!=null?Number(row.sortOrder):index+1}});localStorage.setItem(EVENTS_KEY,JSON.stringify(events))}
 function formatMoney(amount){amount=Number(amount||0);return'$'+amount.toLocaleString('en-US')}function loadStats(){var volunteers=getVolunteers(),sponsors=getSponsors(),events=getEvents();document.getElementById('statTotalVolunteers').textContent=volunteers.length;document.getElementById('statTotalSponsors').textContent=sponsors.length;document.getElementById('statSponsorDollars').textContent=formatMoney(sponsors.reduce(function(sum,s){return sum+Number(s.amount||0)},0));document.getElementById('statUpcomingEvents').textContent=events.length;var areaCounts={};VOLUNTEER_AREAS.forEach(function(a){areaCounts[a]=0});volunteers.forEach(function(v){(v.volunteerAreas||[]).forEach(function(a){if(areaCounts.hasOwnProperty(a))areaCounts[a]++})});document.getElementById('summaryByArea').innerHTML=VOLUNTEER_AREAS.map(function(a){return'<div class="summary-row"><span class="summary-row-label">'+escapeHtml(a)+'</span><span class="summary-row-value">'+areaCounts[a]+'</span></div>'}).join('');var availabilityOptions=['During school hours','After school / evenings','Weekends','My availability varies'];var availCounts={};availabilityOptions.forEach(function(o){availCounts[o]=0});volunteers.forEach(function(v){(v.availability||[]).forEach(function(a){if(availCounts.hasOwnProperty(a))availCounts[a]++})});document.getElementById('summaryByAvailability').innerHTML=availabilityOptions.map(function(o){return'<div class="summary-row"><span class="summary-row-label">'+escapeHtml(o)+'</span><span class="summary-row-value">'+availCounts[o]+'</span></div>'}).join('');loadSponsorStats()}
 function loadSponsorStats(){var sponsors=getSponsors(),statuses=getSponsorStatuses();document.getElementById('sponsorStatTotal').textContent=sponsors.length;document.getElementById('sponsorStatDollars').textContent=formatMoney(sponsors.reduce(function(sum,s){return sum+Number(s.amount||0)},0));document.getElementById('sponsorStatPaid').textContent=sponsors.filter(function(s){var status=statuses[s.id]||s.notionStatus||'Interested';return status==='Paid'||status==='Completed'}).length;document.getElementById('sponsorStatLogos').textContent=sponsors.filter(function(s){return!!s.logoUrl}).length}
 function loadVolunteers(){filterVolunteers()}function filterVolunteers(){var volunteers=getVolunteers(),statuses=getStatuses(),search=(document.getElementById('volunteerSearch').value||'').toLowerCase(),statusFilter=document.getElementById('volunteerStatusFilter').value,areaFilter=document.getElementById('volunteerAreaFilter').value;var filtered=volunteers.filter(function(v){var key=v.id||(v.submittedAt+v.email),status=statuses[key]||v.notionStatus||'New',fullName=(v.fullName||(v.firstName+' '+v.lastName)).toLowerCase();return(!search||fullName.includes(search)||((v.email||'').toLowerCase().includes(search)))&&(!statusFilter||status===statusFilter)&&(!areaFilter||(v.volunteerAreas||[]).includes(areaFilter))});filtered.sort(function(a,b){return new Date(b.submittedAt)-new Date(a.submittedAt)});renderVolunteers(filtered,statuses)}function renderVolunteers(volunteers,statuses){var container=document.getElementById('volunteerList');if(volunteers.length===0){container.innerHTML='<div class="empty-state"><h4>No volunteers found</h4><p>No volunteer sign-ups match your current filters.</p></div>';return}container.innerHTML=volunteers.map(function(v){var key=v.id||(v.submittedAt+v.email),status=statuses[key]||v.notionStatus||'New',badgeClass=status==='New'?'badge-new':(status==='Contacted'?'badge-contacted':'badge-confirmed'),date=v.submittedAt?new Date(v.submittedAt):null,dateStr=date&&!isNaN(date)?date.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'',displayName=v.fullName||(v.firstName+' '+v.lastName).trim();var body='';if(v.children&&v.children.length)body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Children</div><div class="volunteer-detail-value">'+v.children.map(function(c){var details=[c.grade,c.teacher].filter(Boolean).join(', ');return escapeHtml(c.name)+(details?' ('+escapeHtml(details)+')':'')}).join('<br>')+'</div></div>';if(v.volunteerAreas&&v.volunteerAreas.length)body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Areas of Interest</div><div class="volunteer-tags">'+v.volunteerAreas.map(function(a){return'<span class="tag">'+escapeHtml(a)+'</span>'}).join('')+'</div></div>';if(v.availability&&v.availability.length)body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Availability</div><div class="volunteer-detail-value">'+v.availability.map(escapeHtml).join(', ')+'</div></div>';if(v.comments)body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Comments</div><div class="volunteer-detail-value">'+escapeHtml(v.comments)+'</div></div>';body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Submitted</div><div class="volunteer-detail-value">'+escapeHtml(dateStr)+'</div></div>';return'<div class="volunteer-card"><div class="volunteer-card-header"><div class="volunteer-info"><h4>'+escapeHtml(displayName)+'</h4><p><a href="mailto:'+escapeHtml(v.email)+'">'+escapeHtml(v.email)+'</a>'+(v.phone?' · '+escapeHtml(v.phone):'')+'</p></div><div class="volunteer-meta"><span class="badge '+badgeClass+'">'+escapeHtml(status)+'</span></div></div><div class="volunteer-card-body">'+body+'</div><div class="volunteer-card-actions"><button class="btn btn-sm btn-secondary" onclick="updateStatus(\''+escapeJs(key)+'\', \'New\')">Mark New</button><button class="btn btn-sm btn-secondary" onclick="updateStatus(\''+escapeJs(key)+'\', \'Contacted\')">Mark Contacted</button><button class="btn btn-sm btn-success" onclick="updateStatus(\''+escapeJs(key)+'\', \'Confirmed\')">Mark Confirmed</button></div></div>'}).join('')}function updateStatus(key,status){var statuses=getStatuses();statuses[key]=status;setStatuses(statuses);loadStats();filterVolunteers()}
 function loadSponsors(){filterSponsors()}function filterSponsors(){var sponsors=getSponsors(),statuses=getSponsorStatuses(),search=(document.getElementById('sponsorSearch').value||'').toLowerCase(),statusFilter=document.getElementById('sponsorStatusFilter').value,tierFilter=document.getElementById('sponsorTierFilter').value;var filtered=sponsors.filter(function(s){var status=statuses[s.id]||s.notionStatus||'Interested',haystack=[s.businessName,s.contactName,s.email,s.phone].join(' ').toLowerCase();return(!search||haystack.includes(search))&&(!statusFilter||status===statusFilter)&&(!tierFilter||s.tier===tierFilter)});filtered.sort(function(a,b){return new Date(b.submittedAt)-new Date(a.submittedAt)});renderSponsors(filtered,statuses)}function renderSponsors(sponsors,statuses){var container=document.getElementById('sponsorList');if(!container)return;if(!sponsors.length){container.innerHTML='<div class="empty-state"><h4>No sponsors found</h4><p>No sponsor submissions match your current filters.</p></div>';return}container.innerHTML=sponsors.map(function(s){var status=statuses[s.id]||s.notionStatus||'Interested',badgeClass=status==='Interested'?'badge-new':(status==='Contacted'||status==='Committed'?'badge-contacted':'badge-confirmed'),date=s.submittedAt?new Date(s.submittedAt):null,dateStr=date&&!isNaN(date)?date.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'';var body='<div class="volunteer-detail"><div class="volunteer-detail-label">Sponsorship Tier</div><div class="volunteer-detail-value">'+escapeHtml(s.tier||'Not selected')+' · '+escapeHtml(formatMoney(s.amount))+'</div></div>';if(s.website||s.social||s.linkedin)body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Online Presence</div><div class="volunteer-detail-value">'+(s.website?'<a href="'+escapeHtml(s.website)+'" target="_blank" rel="noopener">'+escapeHtml(s.website)+'</a><br>':'')+(s.social?escapeHtml(s.social)+'<br>':'')+(s.linkedin?'<a href="'+escapeHtml(s.linkedin)+'" target="_blank" rel="noopener">'+escapeHtml(s.linkedin)+'</a>':'')+'</div></div>';body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Logo</div><div class="volunteer-detail-value">'+(s.logoUrl?'<a href="'+escapeHtml(s.logoUrl)+'" target="_blank" rel="noopener">View uploaded logo</a>':'No logo uploaded')+'</div></div>';if(s.message)body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Message</div><div class="volunteer-detail-value">'+escapeHtml(s.message)+'</div></div>';body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Submitted</div><div class="volunteer-detail-value">'+escapeHtml(dateStr)+'</div></div>';return'<div class="volunteer-card"><div class="volunteer-card-header"><div class="volunteer-info"><h4>'+escapeHtml(s.businessName)+'</h4><p>'+escapeHtml(s.contactName||'')+(s.email?' · <a href="mailto:'+escapeHtml(s.email)+'">'+escapeHtml(s.email)+'</a>':'')+(s.phone?' · '+escapeHtml(s.phone):'')+'</p></div><div class="volunteer-meta"><span class="badge '+badgeClass+'">'+escapeHtml(status)+'</span></div></div><div class="volunteer-card-body">'+body+'</div><div class="volunteer-card-actions">'+['Interested','Contacted','Committed','Paid','Assets Received','Completed'].map(function(nextStatus){var cls=(nextStatus==='Paid'||nextStatus==='Completed')?'btn-success':'btn-secondary';return'<button class="btn btn-sm '+cls+'" onclick="updateSponsorStatus(\''+escapeJs(s.id)+'\', \''+escapeJs(nextStatus)+'\')">'+escapeHtml(nextStatus)+'</button>'}).join('')+'</div></div>'}).join('')}function updateSponsorStatus(id,status){var statuses=getSponsorStatuses();statuses[id]=status;setSponsorStatuses(statuses);loadSponsorStats();filterSponsors()}
-function loadEvents(){var events=sortEventsForAdmin(getEvents()),container=document.getElementById('eventsList');if(!events.length){container.innerHTML='<div class="empty-state"><h4>No events yet</h4><p>Add your first PTO event to get started.</p><button class="btn btn-primary" onclick="openEventModal()">Add Event</button></div>';return}container.innerHTML=events.map(function(e){var dateValue=formatEventDate(e.date);var body='<div class="event-item"><div class="event-date-block"><span class="event-date-label">Scheduled Date</span><span class="event-date-value">'+escapeHtml(dateValue)+'</span></div><div class="event-item-content"><h4>'+escapeHtml(e.title||'Untitled event')+'</h4><div class="event-item-meta"><span class="event-pill">Status: '+escapeHtml(e.status||'Planned')+'</span><span class="event-pill">Volunteers: '+escapeHtml(e.volunteersNeeded||'TBD')+'</span></div>';if(e.areasOfInterest&&e.areasOfInterest.length){body+='<div class="volunteer-tags" style="margin-bottom:10px;">'+e.areasOfInterest.map(function(area){return'<span class="tag">'+escapeHtml(area)+'</span>'}).join('')+'</div>'}if(e.description)body+='<div class="event-item-desc">'+escapeHtml(e.description)+'</div>';body+='</div><div class="event-item-actions"><button class="btn btn-sm btn-secondary btn-icon" onclick="editEvent(\''+escapeJs(e.id)+'\')">Edit</button><button class="btn btn-sm btn-secondary btn-icon" onclick="deleteEvent(\''+escapeJs(e.id)+'\')" style="color:var(--danger)">Delete</button></div></div>';return body}).join('')}
-function sortEventsForAdmin(events){return events.slice().sort(function(a,b){var ad=normalizeEventDateValue(a.date),bd=normalizeEventDateValue(b.date);if(ad&&bd)return new Date(ad+'T12:00:00')-new Date(bd+'T12:00:00');if(ad&&!bd)return-1;if(!ad&&bd)return 1;return Number(a.sortOrder||9999)-Number(b.sortOrder||9999)})}function openEventModal(eventId){document.getElementById('eventModalTitle').textContent=eventId?'Edit Event':'Add Event';document.getElementById('eventEditId').value=eventId||'';document.getElementById('eventTitle').value='';document.getElementById('eventDate').value='';document.getElementById('eventStatus').value='Planned';document.getElementById('eventDescription').value='';document.getElementById('eventVolunteers').value='';clearMultiSelect('eventAreasOfInterest');if(eventId){var event=getEvents().find(function(e){return e.id===eventId});if(event){document.getElementById('eventTitle').value=event.title||'';document.getElementById('eventDate').value=normalizeEventDateValue(event.date);document.getElementById('eventStatus').value=event.status||'Planned';document.getElementById('eventDescription').value=event.description||'';document.getElementById('eventVolunteers').value=event.volunteersNeeded==='TBD'?'':event.volunteersNeeded||'';setSelectedMultiSelectValues('eventAreasOfInterest',event.areasOfInterest||[])}}document.getElementById('eventModal').classList.add('active')}function closeEventModal(){document.getElementById('eventModal').classList.remove('active')}function editEvent(eventId){openEventModal(eventId)}async function saveEventToNotion(payload){const response=await fetch(EVENT_SAVE_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const result=await response.json();if(!response.ok||!result.success)throw new Error(result.error||'Event save failed.');return result}async function deleteEventFromNotion(eventId){const response=await fetch(EVENT_DELETE_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:eventId})});const result=await response.json();if(!response.ok||!result.success)throw new Error(result.error||'Event delete failed.');return result}async function saveEvent(){var title=document.getElementById('eventTitle').value.trim(),date=document.getElementById('eventDate').value.trim(),status=document.getElementById('eventStatus').value.trim(),description=document.getElementById('eventDescription').value.trim(),volunteersNeeded=document.getElementById('eventVolunteers').value.trim(),editId=document.getElementById('eventEditId').value;if(!title){alert('Please enter an event name.');return}var selectedAreas=getSelectedMultiSelectValues('eventAreasOfInterest'),events=getEvents(),existingEvent=editId?events.find(function(e){return e.id===editId}):null,sortOrder=existingEvent&&typeof existingEvent.sortOrder==='number'?existingEvent.sortOrder:events.reduce(function(max,e){return Math.max(max,typeof e.sortOrder==='number'?e.sortOrder:0)},0)+1;var payload={id:editId,title:title,eventName:title,date:date,description:description,status:status,volunteersNeeded:volunteersNeeded||'TBD',areasOfInterest:selectedAreas,sortOrder:sortOrder};try{var result=await saveEventToNotion(payload);payload.id=result.id||payload.id;await loadEventsFromNotion()}catch(e){console.error('[Event save error]',e);var current=getEvents();var updated=current.filter(function(evt){return evt.id!==payload.id});updated.push(payload);setEvents(updated);alert('Saved locally, but Notion did not confirm the save. Please check your API files if this continues.')}closeEventModal();loadDashboardData()}async function deleteEvent(eventId){if(!confirm('Are you sure you want to delete this event?'))return;try{await deleteEventFromNotion(eventId);await loadEventsFromNotion()}catch(e){console.error('[Event delete error]',e);setEvents(getEvents().filter(function(evt){return evt.id!==eventId}));alert('Deleted locally, but Notion did not confirm the delete. Please check your API files if this continues.')}loadDashboardData()}
+function eventDisplayDate(e){return cleanValue(e.dateLabel)||formatEventDate(e.date)}
+function loadEvents(){var events=sortEventsForAdmin(getEvents()),container=document.getElementById('eventsList');if(!events.length){container.innerHTML='<div class="empty-state"><h4>No events yet</h4><p>Add your first PTO event to get started.</p><button class="btn btn-primary" onclick="openEventModal()">Add Event</button></div>';return}container.innerHTML=events.map(function(e){var dateValue=eventDisplayDate(e);var body='<div class="event-item"><div class="event-date-block"><span class="event-date-label">Scheduled Date</span><span class="event-date-value">'+escapeHtml(dateValue)+'</span></div><div class="event-item-content"><h4>'+escapeHtml(e.title||'Untitled event')+'</h4><div class="event-item-meta"><span class="event-pill">Volunteers: '+escapeHtml(e.volunteersNeeded||'0')+'</span>'+(e.time?'<span class="event-pill">Time: '+escapeHtml(e.time)+'</span>':'')+(e.location?'<span class="event-pill">Location: '+escapeHtml(e.location)+'</span>':'')+'</div>';if(e.areasOfInterest&&e.areasOfInterest.length){body+='<div class="volunteer-tags" style="margin-bottom:10px;">'+e.areasOfInterest.map(function(area){return'<span class="tag">'+escapeHtml(area)+'</span>'}).join('')+'</div>'}if(e.description)body+='<div class="event-item-desc">'+escapeHtml(e.description)+'</div>';body+='</div><div class="event-item-actions"><button class="btn btn-sm btn-secondary btn-icon" onclick="editEvent(\''+escapeJs(e.id)+'\')">Edit</button><button class="btn btn-sm btn-secondary btn-icon" onclick="deleteEvent(\''+escapeJs(e.id)+'\')" style="color:var(--danger)">Delete</button></div></div>';return body}).join('')}
+function sortEventsForAdmin(events){return events.slice().sort(function(a,b){var ao=Number(a.sortOrder||9999),bo=Number(b.sortOrder||9999);if(ao!==bo)return ao-bo;var ad=normalizeEventDateValue(a.date),bd=normalizeEventDateValue(b.date);if(ad&&bd)return new Date(ad+'T12:00:00')-new Date(bd+'T12:00:00');if(ad&&!bd)return-1;if(!ad&&bd)return 1;return 0})}
+function openEventModal(eventId){document.getElementById('eventModalTitle').textContent=eventId?'Edit Event':'Add Event';document.getElementById('eventEditId').value=eventId||'';document.getElementById('eventTitle').value='';document.getElementById('eventDate').value='';document.getElementById('eventDateLabel').value='';document.getElementById('eventTime').value='';document.getElementById('eventLocation').value='';document.getElementById('eventDescription').value='';document.getElementById('eventVolunteers').value='';document.getElementById('eventSortOrder').value='';clearMultiSelect('eventAreasOfInterest');if(eventId){var event=getEvents().find(function(e){return e.id===eventId});if(event){document.getElementById('eventTitle').value=event.title||'';document.getElementById('eventDate').value=normalizeEventDateValue(event.date);document.getElementById('eventDateLabel').value=event.dateLabel||'';document.getElementById('eventTime').value=event.time||'';document.getElementById('eventLocation').value=event.location||'';document.getElementById('eventDescription').value=event.description||'';document.getElementById('eventVolunteers').value=event.volunteersNeeded||'';document.getElementById('eventSortOrder').value=event.sortOrder||'';setSelectedMultiSelectValues('eventAreasOfInterest',event.areasOfInterest||[])}}document.getElementById('eventModal').classList.add('active')}
+function closeEventModal(){document.getElementById('eventModal').classList.remove('active')}
+function editEvent(eventId){openEventModal(eventId)}
+async function saveEventToNotion(payload){const response=await fetch(EVENT_SAVE_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const result=await response.json();if(!response.ok||!result.success)throw new Error(result.error||'Event save failed.');return result}
+async function deleteEventFromNotion(eventId){const response=await fetch(EVENT_DELETE_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:eventId})});const result=await response.json();if(!response.ok||!result.success)throw new Error(result.error||'Event delete failed.');return result}
+async function saveEvent(){var title=document.getElementById('eventTitle').value.trim(),date=document.getElementById('eventDate').value.trim(),dateLabel=document.getElementById('eventDateLabel').value.trim(),time=document.getElementById('eventTime').value.trim(),location=document.getElementById('eventLocation').value.trim(),description=document.getElementById('eventDescription').value.trim(),volunteersNeeded=document.getElementById('eventVolunteers').value.trim(),sortOrderValue=document.getElementById('eventSortOrder').value.trim(),editId=document.getElementById('eventEditId').value;if(!title){alert('Please enter an event name.');return}var selectedAreas=getSelectedMultiSelectValues('eventAreasOfInterest'),events=getEvents(),existingEvent=editId?events.find(function(e){return e.id===editId}):null,defaultSortOrder=existingEvent&&existingEvent.sortOrder?Number(existingEvent.sortOrder):events.reduce(function(max,e){return Math.max(max,Number(e.sortOrder||0))},0)+1,sortOrder=sortOrderValue?Number(sortOrderValue):defaultSortOrder;var payload={id:editId,title:title,eventName:title,date:date,dateLabel:dateLabel,time:time,location:location,description:description,volunteersNeeded:volunteersNeeded?Number(volunteersNeeded):null,areasOfInterest:selectedAreas,sortOrder:sortOrder};try{var result=await saveEventToNotion(payload);payload.id=result.id||payload.id;await loadEventsFromNotion()}catch(e){console.error('[Event save error]',e);var current=getEvents();var updated=current.filter(function(evt){return evt.id!==payload.id});updated.push(payload);setEvents(updated);alert('Saved locally, but Notion did not confirm the save. Please check your API files if this continues.')}closeEventModal();loadDashboardData()}
+async function deleteEvent(eventId){if(!confirm('Are you sure you want to delete this event?'))return;try{await deleteEventFromNotion(eventId);await loadEventsFromNotion()}catch(e){console.error('[Event delete error]',e);setEvents(getEvents().filter(function(evt){return evt.id!==eventId}));alert('Deleted locally, but Notion did not confirm the delete. Please check your API files if this continues.')}loadDashboardData()}
+
+function getWebsiteRequests(){try{return JSON.parse(localStorage.getItem(WEBSITE_REQUESTS_KEY))||[]}catch(e){return[]}}
+function saveWebsiteRequestLocally(request){var requests=getWebsiteRequests();requests.unshift(request);localStorage.setItem(WEBSITE_REQUESTS_KEY,JSON.stringify(requests))}
+async function submitWebsiteRequest(event){
+ event.preventDefault();
+ var statusEl=document.getElementById('websiteRequestStatus');
+ var submitBtn=document.getElementById('websiteRequestSubmit');
+ var payload={
+  id:'webreq_'+Date.now(),
+  submittedAt:new Date().toISOString(),
+  name:document.getElementById('requestName').value.trim(),
+  email:document.getElementById('requestEmail').value.trim(),
+  type:document.getElementById('requestType').value,
+  priority:document.getElementById('requestPriority').value,
+  page:document.getElementById('requestPage').value.trim(),
+  details:document.getElementById('requestDetails').value.trim(),
+  assetUrl:document.getElementById('requestAssets').value.trim()
+ };
+ if(!payload.name||!payload.email||!payload.type||!payload.details){
+  statusEl.className='request-status error';
+  statusEl.textContent='Please complete all required fields.';
+  return;
+ }
+ submitBtn.disabled=true;
+ submitBtn.textContent='Submitting...';
+ statusEl.className='request-status';
+ statusEl.textContent='Sending request...';
+ try{
+  var response=await fetch(WEBSITE_REQUESTS_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  var result=await response.json();
+  if(!response.ok||!result.success)throw new Error(result.error||'Request submission failed.');
+  statusEl.className='request-status success';
+  statusEl.textContent='Request submitted successfully.';
+  document.getElementById('websiteRequestForm').reset();
+  document.getElementById('requestPriority').value='Normal';
+ }catch(error){
+  console.error('[Website request submission error]',error);
+  saveWebsiteRequestLocally(payload);
+  statusEl.className='request-status error';
+  statusEl.textContent='The server did not confirm the request, so a backup was saved in this browser.';
+ }
+ submitBtn.disabled=false;
+ submitBtn.textContent='Submit Request';
+}
 function exportVolunteers(){var volunteers=getVolunteers(),statuses=getStatuses();if(volunteers.length===0){alert('No volunteer data to export.');return}var headers=['Name','Email','Phone','Contact Preference','Children','Volunteer Areas','Availability','Availability Notes','Comments','How Heard','Status','Submitted'];var rows=[headers.join(',')];volunteers.forEach(function(v){var key=v.id||(v.submittedAt+v.email),status=statuses[key]||v.notionStatus||'New',children=(v.children||[]).map(function(c){var details=[c.grade,c.teacher].filter(Boolean).join(', ');return c.name+(details?' ('+details+')':'')}).join('; ');rows.push([csvEscape(v.fullName||(v.firstName+' '+v.lastName).trim()),csvEscape(v.email),csvEscape(v.phone),csvEscape(v.contactPref),csvEscape(children),csvEscape((v.volunteerAreas||[]).join('; ')),csvEscape((v.availability||[]).join('; ')),csvEscape(v.availNotes),csvEscape(v.comments),csvEscape(v.hearAbout),csvEscape(status),csvEscape(v.submittedAt?new Date(v.submittedAt).toLocaleDateString():'')].join(','))});downloadCsv(rows,'pto-volunteers-')}function exportSponsors(){var sponsors=getSponsors(),statuses=getSponsorStatuses();if(sponsors.length===0){alert('No sponsor data to export.');return}var headers=['Business Name','Contact Name','Email','Phone','Tier','Amount','Status','Website','Social Media','LinkedIn','Logo URL','Address Type','Address','Message','Submitted'];var rows=[headers.join(',')];sponsors.forEach(function(s){var status=statuses[s.id]||s.notionStatus||'Interested';rows.push([csvEscape(s.businessName),csvEscape(s.contactName),csvEscape(s.email),csvEscape(s.phone),csvEscape(s.tier),csvEscape(s.amount),csvEscape(status),csvEscape(s.website),csvEscape(s.social),csvEscape(s.linkedin),csvEscape(s.logoUrl),csvEscape(s.addressType),csvEscape(s.address),csvEscape(s.message),csvEscape(s.submittedAt?new Date(s.submittedAt).toLocaleDateString():'')].join(','))});downloadCsv(rows,'pto-sponsors-')}function downloadCsv(rows,prefix){var blob=new Blob([rows.join('\n')],{type:'text/csv'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download=prefix+new Date().toISOString().slice(0,10)+'.csv';a.click();URL.revokeObjectURL(url)}function csvEscape(val){if(val===null||val===undefined)return'';val=String(val);if(val.indexOf(',')!==-1||val.indexOf('"')!==-1||val.indexOf('\n')!==-1)return'"'+val.replace(/"/g,'""')+'"';return val}function escapeHtml(text){if(text===null||text===undefined)return'';var div=document.createElement('div');div.textContent=String(text);return div.innerHTML}function escapeJs(text){return String(text||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'")}
   </script>
  </body>
