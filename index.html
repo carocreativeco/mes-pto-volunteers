@@ -263,13 +263,11 @@
       pointer-events:none;
     }
     .events-section .container{position:relative;z-index:2}
-    .events-head{
-      max-width:780px;margin:0 auto 56px;text-align:center;
-    }
+    .events-head{max-width:780px;margin:0 auto 56px;text-align:center}
     .events-head .feature-kicker{margin-bottom:16px}
     .events-head h2{
       font-family:'Baskervville',serif;
-      font-size:clamp(2.7rem, 5vw, 4.5rem);
+      font-size:clamp(2.7rem,5vw,4.5rem);
       line-height:.94;letter-spacing:-.04em;
       color:var(--navy);margin-bottom:18px;
     }
@@ -278,70 +276,302 @@
       color:#27324b;font-size:1.08rem;line-height:1.8;
       max-width:64ch;margin:0 auto;
     }
-    .events-calendar-shell{
-      display:grid;grid-template-columns:minmax(320px,.9fr) minmax(0,1.1fr);
-      gap:28px;align-items:stretch;
-      background:rgba(255,255,255,.74);
-      border:1px solid rgba(255,255,255,.9);
-      border-radius:36px;padding:28px;
+
+    .events-interactive-shell{
+      display:grid;
+      grid-template-columns:minmax(0,1.18fr) minmax(300px,.82fr);
+      gap:24px;
+      align-items:stretch;
+      padding:26px;
+      border-radius:36px;
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(255,255,255,.92);
       box-shadow:0 22px 60px rgba(12,21,70,.09);
       backdrop-filter:blur(8px);
     }
-    .calendar-card,.events-list-card{
-      background:var(--white);border:1px solid rgba(12,21,70,.1);
-      border-radius:28px;box-shadow:var(--shadow-soft);overflow:hidden;
+
+    .event-detail-panel,
+    .event-picker-panel{
+      background:var(--white);
+      border:1px solid rgba(12,21,70,.1);
+      border-radius:28px;
+      box-shadow:var(--shadow-soft);
+      overflow:hidden;
     }
-    .calendar-card{padding:24px}
-    .calendar-top{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:20px}
-    .calendar-label{display:block;color:var(--orange);font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-bottom:6px}
-    .calendar-title{font-family:'Baskervville',serif;font-size:2.25rem;line-height:1;color:var(--navy);letter-spacing:-.025em}
-    .calendar-year{color:var(--muted);font-weight:800;font-size:.95rem;padding-bottom:4px}
-    .calendar-weekdays,.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
-    .calendar-weekdays{margin-bottom:8px}
-    .calendar-weekdays span{text-align:center;color:var(--muted);font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-    .calendar-day{
-      position:relative;display:grid;place-items:center;aspect-ratio:1/1;
-      border-radius:14px;color:var(--navy);font-weight:800;font-size:.92rem;
-      background:#f7f8fb;border:1px solid rgba(12,21,70,.06);
+
+    .event-detail-panel{
+      min-height:500px;
+      display:flex;
+      flex-direction:column;
     }
-    .calendar-day.muted{opacity:.28;background:transparent;border-color:transparent}
-    .calendar-day.today{background:rgba(255,194,0,.22);border-color:rgba(255,194,0,.5)}
-    .calendar-day.has-event::after{
-      content:"";position:absolute;bottom:7px;left:50%;transform:translateX(-50%);
-      width:6px;height:6px;border-radius:50%;background:var(--orange);
+
+    .event-detail-inner{
+      padding:34px;
+      display:flex;
+      flex-direction:column;
+      min-height:100%;
+      flex:1;
     }
-    .events-list-card{display:flex;flex-direction:column;min-height:100%}
-    .events-list-head{
-      padding:26px 28px 20px;border-bottom:1px solid rgba(12,21,70,.1);
+
+    .event-detail-topline{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:28px;
+    }
+
+    .event-detail-kicker{
+      color:var(--orange);
+      font-size:.72rem;
+      font-weight:800;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+
+    .event-detail-count{
+      color:var(--muted);
+      font-size:.8rem;
+      font-weight:700;
+    }
+
+    .event-detail-date{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      width:max-content;
+      max-width:100%;
+      padding:9px 13px;
+      border-radius:999px;
+      background:rgba(255,194,0,.18);
+      color:var(--navy);
+      font-size:.76rem;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:18px;
+    }
+
+    .event-detail-title{
+      font-family:'Baskervville',serif;
+      font-size:clamp(2.2rem,4vw,3.8rem);
+      line-height:.98;
+      letter-spacing:-.035em;
+      color:var(--navy);
+      max-width:13ch;
+      margin-bottom:22px;
+    }
+
+    .event-detail-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:9px;
+      margin-bottom:26px;
+    }
+
+    .event-detail-chip{
+      display:inline-flex;
+      align-items:center;
+      min-height:36px;
+      padding:0 13px;
+      border-radius:999px;
+      background:#f4f6fa;
+      border:1px solid rgba(12,21,70,.08);
+      color:var(--navy);
+      font-size:.75rem;
+      font-weight:800;
+      letter-spacing:.05em;
+    }
+
+    .event-detail-description{
+      color:#27324b;
+      font-size:1.06rem;
+      line-height:1.8;
+      max-width:58ch;
+      margin-bottom:24px;
+    }
+
+    .event-detail-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:9px;
+      padding-top:22px;
+      border-top:1px solid rgba(12,21,70,.08);
+      margin-top:auto;
+    }
+
+    .event-detail-tag{
+      display:inline-flex;
+      align-items:center;
+      min-height:36px;
+      padding:0 13px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid rgba(12,21,70,.1);
+      color:var(--navy);
+      font-size:.78rem;
+      font-weight:700;
+    }
+
+    .event-detail-empty{
+      margin:auto;
+      padding:44px 20px;
+      text-align:center;
+      color:var(--muted);
+      line-height:1.75;
+    }
+
+    .event-picker-panel{
+      display:flex;
+      flex-direction:column;
+      min-height:500px;
+    }
+
+    .event-picker-head{
+      padding:26px 26px 20px;
+      border-bottom:1px solid rgba(12,21,70,.08);
       background:linear-gradient(135deg,#ffffff 0%,#fff8e4 100%);
     }
-    .events-list-head h3{font-family:'Baskervville',serif;font-size:2rem;line-height:1;color:var(--navy);letter-spacing:-.02em;margin-bottom:10px}
-    .events-list-head p{color:#27324b;font-size:1rem;line-height:1.7;max-width:58ch}
-    .events-list-home{display:grid;gap:14px;padding:20px 22px 22px}
-    .event-card-home{
-      display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
-      background:#fbfaf6;border:1px solid rgba(12,21,70,.1);
-      border-radius:22px;padding:18px;transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+
+    .event-picker-head .feature-kicker{margin-bottom:9px}
+    .event-picker-head h3{
+      font-family:'Baskervville',serif;
+      font-size:2rem;
+      line-height:1;
+      color:var(--navy);
+      letter-spacing:-.025em;
+      margin-bottom:9px;
     }
-    .event-card-home:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(12,21,70,.1);border-color:rgba(12,21,70,.16)}
-    .event-date-badge{
-      width:58px;min-height:58px;border-radius:18px;background:var(--navy);color:var(--white);
-      display:grid;place-items:center;text-align:center;padding:8px 6px;box-shadow:0 10px 22px rgba(12,21,70,.12);
+    .event-picker-head p{
+      color:#27324b;
+      font-size:.93rem;
+      line-height:1.6;
     }
-    .event-date-badge .month{font-size:.66rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);line-height:1}
-    .event-date-badge .day{font-family:'Baskervville',serif;font-size:1.7rem;line-height:.95;letter-spacing:-.03em}
-    .event-date-badge.tbd{background:var(--gold);color:var(--navy)}
-    .event-date-badge.tbd .month{color:var(--navy)}
-    .event-card-home h3{font-family:'Baskervville',serif;font-size:clamp(1.35rem, 2vw, 1.7rem);line-height:1.08;color:var(--navy);margin-bottom:9px;letter-spacing:-.015em}
-    .event-card-home-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
-    .event-chip{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;background:rgba(12,21,70,.06);color:var(--navy);border:1px solid rgba(12,21,70,.06)}
-    .event-chip.tbd{background:rgba(255,194,0,.2);color:var(--navy);border-color:rgba(255,194,0,.38)}
-    .event-card-home p{color:#27324b;font-size:.98rem;line-height:1.7}
-    .event-card-home-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(12,21,70,.08)}
-    .event-tag-home{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;background:#fff;border:1px solid rgba(12,21,70,.08);color:var(--navy);font-size:.78rem;font-weight:700}
-    .events-empty{padding:26px 28px;color:#27324b;font-size:1.05rem;line-height:1.75}
-    .events-volunteer-cta{padding:0 22px 24px;margin-top:auto}
-    .events-volunteer-cta a{display:flex;align-items:center;justify-content:center;min-height:52px;padding:0 22px;border-radius:999px;background:var(--gold);color:var(--navy);font-weight:800;text-align:center}
+
+    .event-picker-list{
+      display:flex;
+      flex-direction:column;
+      padding:12px;
+      gap:8px;
+      flex:1;
+    }
+
+    .event-picker-item{
+      width:100%;
+      appearance:none;
+      border:1px solid transparent;
+      background:transparent;
+      border-radius:18px;
+      padding:13px;
+      display:grid;
+      grid-template-columns:auto minmax(0,1fr) auto;
+      gap:13px;
+      align-items:center;
+      text-align:left;
+      cursor:pointer;
+      color:inherit;
+      transition:background .18s ease,border-color .18s ease,transform .18s ease;
+    }
+
+    .event-picker-item:hover{
+      background:#f7f8fb;
+      border-color:rgba(12,21,70,.08);
+      transform:translateX(-2px);
+    }
+
+    .event-picker-item.active{
+      background:rgba(255,194,0,.13);
+      border-color:rgba(255,194,0,.42);
+    }
+
+    .event-picker-date{
+      width:52px;
+      min-height:52px;
+      border-radius:16px;
+      background:var(--navy);
+      color:var(--white);
+      display:grid;
+      place-items:center;
+      text-align:center;
+      padding:7px 5px;
+      box-shadow:0 8px 18px rgba(12,21,70,.12);
+      flex:0 0 auto;
+    }
+
+    .event-picker-date .month{
+      font-size:.61rem;
+      line-height:1;
+      font-weight:800;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      color:var(--gold);
+    }
+
+    .event-picker-date .day{
+      font-family:'Baskervville',serif;
+      font-size:1.5rem;
+      line-height:.95;
+    }
+
+    .event-picker-date.tbd{
+      background:var(--gold);
+      color:var(--navy);
+    }
+    .event-picker-date.tbd .month{color:var(--navy)}
+    .event-picker-date.tbd .day{font-size:1rem;font-family:'Inter',sans-serif;font-weight:800}
+
+    .event-picker-copy{min-width:0}
+    .event-picker-title{
+      display:block;
+      font-family:'Baskervville',serif;
+      font-size:1.14rem;
+      line-height:1.12;
+      color:var(--navy);
+      margin-bottom:5px;
+    }
+
+    .event-picker-meta{
+      display:block;
+      color:var(--muted);
+      font-size:.76rem;
+      line-height:1.4;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .event-picker-arrow{
+      color:var(--navy);
+      font-size:1.15rem;
+      opacity:.45;
+      transition:opacity .18s ease,transform .18s ease;
+    }
+    .event-picker-item.active .event-picker-arrow,
+    .event-picker-item:hover .event-picker-arrow{opacity:1;transform:translateX(2px)}
+
+    .events-volunteer-cta{
+      padding:12px 18px 20px;
+      border-top:1px solid rgba(12,21,70,.08);
+    }
+    .events-volunteer-cta a{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:50px;
+      padding:0 20px;
+      border-radius:999px;
+      background:var(--gold);
+      color:var(--navy);
+      font-weight:800;
+      text-align:center;
+    }
+
+    .events-empty{
+      padding:26px;
+      color:#27324b;
+      font-size:1rem;
+      line-height:1.7;
+    }
 
     /* CONNECT */
     .connect-section{background:var(--bg-alt);padding:120px 0}
@@ -572,7 +802,7 @@
     /* RESPONSIVE */
     @media (max-width: 1100px){
       .about-grid,.connect-head,.share-grid,.feature-row{grid-template-columns:1fr;gap:40px}
-      .events-calendar-shell{grid-template-columns:1fr;gap:22px}
+      .events-interactive-shell{grid-template-columns:1fr;gap:22px}
       .about-side{position:static}
       .about-body,.connect-intro{
         border-left:none;border-top:1px solid rgba(12,21,70,.15);
@@ -605,15 +835,12 @@
       .help-intro-header{padding:54px 0 18px}
       .feature-section{padding:30px 0}
       .events-head{text-align:left;margin-bottom:34px}
-      .events-calendar-shell{padding:16px;border-radius:26px}
-      .calendar-card{padding:18px;border-radius:22px}
-      .events-list-card{border-radius:22px}
-      .calendar-title{font-size:1.85rem}
-      .calendar-day{border-radius:10px;font-size:.82rem}
-      .events-list-head{padding:22px 20px 18px}
-      .events-list-home{padding:16px}
-      .event-card-home{grid-template-columns:1fr;gap:12px}
-      .event-date-badge{width:56px;min-height:56px}
+      .events-interactive-shell{padding:14px;border-radius:26px}
+      .event-detail-panel,.event-picker-panel{border-radius:22px}
+      .event-detail-inner{padding:24px}
+      .event-detail-title{font-size:clamp(2rem,10vw,3rem);max-width:none}
+      .event-picker-head{padding:22px 20px 18px}
+      .event-picker-list{padding:10px}
       .about-body .lede{font-size:1.3rem}
       .about-body .lede::first-letter{font-size:2.8rem}
       .callout{font-size:1.2rem}
@@ -838,36 +1065,31 @@
         <div class="events-head">
           <div class="feature-kicker">Upcoming</div>
           <h2>What&rsquo;s <em>ahead.</em></h2>
-          <p>Stay up to date on PTO events, family activities, volunteer opportunities, and ways to participate throughout the school year.</p>
+          <p>Browse upcoming PTO events and select any event to see the details, volunteer needs, and ways to participate.</p>
         </div>
 
-        <div class="events-calendar-shell">
-          <aside class="calendar-card" aria-label="Current month calendar">
-            <div class="calendar-top">
-              <div>
-                <span class="calendar-label">Current Month</span>
-                <h3 class="calendar-title" id="calendarMonthLabel">Month</h3>
-              </div>
-              <div class="calendar-year" id="calendarYearLabel">2026</div>
+        <div class="events-interactive-shell">
+          <section class="event-detail-panel" aria-live="polite" aria-label="Selected event details">
+            <div class="event-detail-inner" id="eventDetailPanel">
+              <div class="event-detail-empty">Loading upcoming events&hellip;</div>
             </div>
-            <div class="calendar-weekdays" aria-hidden="true">
-              <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
-            </div>
-            <div class="calendar-grid" id="calendarGrid"></div>
-          </aside>
+          </section>
 
-          <section class="events-list-card" aria-label="Upcoming events list">
-            <div class="events-list-head">
-              <h3>Upcoming at Moore</h3>
-              <p>Events will populate here as dates are added. Check back for updates and volunteer opportunities.</p>
+          <aside class="event-picker-panel" aria-label="Upcoming events">
+            <div class="event-picker-head">
+              <div class="feature-kicker">Upcoming Events</div>
+              <h3>At Moore</h3>
+              <p>Select an event to view the full details.</p>
             </div>
-            <div id="upcomingEventsWrap">
-              <div class="events-empty">We&rsquo;re planning more PTO events and opportunities now. Check back soon for updates and ways to get involved.</div>
+
+            <div class="event-picker-list" id="upcomingEventsWrap">
+              <div class="events-empty">Loading events&hellip;</div>
             </div>
+
             <div class="events-volunteer-cta">
               <a href="https://moorevolunteers.org/volunteer/">Volunteer for an upcoming event</a>
             </div>
-          </section>
+          </aside>
         </div>
       </div>
     </section>
@@ -1037,7 +1259,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
-    var EVENTS_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwJPRmjcgGJuBWFq9dEE2ii7cchowgvByQD51YyVUg-XL5fY-vJSs6xpG3-DVeEbONE/exec?sheet=Events';
+    var EVENTS_API_URL = '/api/get-events.php';
 
     function toggleMenu() {
       var menu = document.getElementById('mobileMenu');
@@ -1055,7 +1277,8 @@
       return div.innerHTML;
     }
 
-    var eventDatesForCalendar = [];
+    var upcomingEventsData = [];
+    var selectedEventId = null;
 
     function parseEventDate(value) {
       if (!value) return null;
@@ -1072,114 +1295,181 @@
       return new Date(parsed.getFullYear(), parsed.getMonth(), parsed.getDate());
     }
 
-    function sameDay(a, b) {
-      return a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
-    }
+    function formatEventTime(value) {
+      if (!value) return 'TBD';
+      var raw = String(value).trim();
+      if (!raw) return 'TBD';
+      if (/^tbd$/i.test(raw)) return 'TBD';
 
-    function renderCurrentMonthCalendar(eventDates) {
-      var grid = document.getElementById('calendarGrid');
-      var monthLabel = document.getElementById('calendarMonthLabel');
-      var yearLabel = document.getElementById('calendarYearLabel');
-      if (!grid || !monthLabel || !yearLabel) return;
-
-      var today = new Date();
-      var year = today.getFullYear();
-      var month = today.getMonth();
-      var monthName = today.toLocaleString(undefined, { month: 'long' });
-      monthLabel.textContent = monthName;
-      yearLabel.textContent = year;
-
-      var firstDay = new Date(year, month, 1).getDay();
-      var daysInMonth = new Date(year, month + 1, 0).getDate();
-      var cells = [];
-
-      for (var blank = 0; blank < firstDay; blank++) {
-        cells.push('<span class="calendar-day muted" aria-hidden="true"></span>');
+      var isoTime = raw.match(/T(\d{1,2}):(\d{2})(?::\d{2})?/);
+      if (isoTime) {
+        var hour = Number(isoTime[1]);
+        var minute = Number(isoTime[2]);
+        var suffix = hour >= 12 ? 'PM' : 'AM';
+        var displayHour = hour % 12 || 12;
+        return displayHour + ':' + String(minute).padStart(2, '0') + ' ' + suffix;
       }
 
-      for (var day = 1; day <= daysInMonth; day++) {
-        var thisDate = new Date(year, month, day);
-        var classes = ['calendar-day'];
-        if (sameDay(thisDate, today)) classes.push('today');
-        if ((eventDates || []).some(function(date) { return sameDay(date, thisDate); })) classes.push('has-event');
-        cells.push('<span class="' + classes.join(' ') + '">' + day + '</span>');
+      var simpleTime = raw.match(/^(\d{1,2}):(\d{2})(?::\d{2})?\s*(AM|PM)?$/i);
+      if (simpleTime) {
+        var h = Number(simpleTime[1]);
+        var m = Number(simpleTime[2]);
+        var ap = simpleTime[3] ? simpleTime[3].toUpperCase() : '';
+        if (ap) return h + ':' + String(m).padStart(2, '0') + ' ' + ap;
+        var suffix2 = h >= 12 ? 'PM' : 'AM';
+        var displayHour2 = h % 12 || 12;
+        return displayHour2 + ':' + String(m).padStart(2, '0') + ' ' + suffix2;
       }
 
-      grid.innerHTML = cells.join('');
-    }
-
-    async function loadUpcomingTbdEvents() {
-      var wrap = document.getElementById('upcomingEventsWrap');
-      if (!wrap) return;
-
-      try {
-        var response = await fetch(EVENTS_SHEET_URL);
-        var rows = await response.json();
-
-        if (!Array.isArray(rows) || rows.length === 0) {
-          renderUpcomingEvents([]);
-          renderCurrentMonthCalendar([]);
-          return;
-        }
-
-        var events = rows.map(function(row, index) {
-          var eventDate = parseEventDate(row['Date'] || '');
-          return {
-            id: row['ID'] || ('evt_' + index),
-            title: row['Title'] || '',
-            date: row['Date'] || '',
-            eventDate: eventDate,
-            dateLabel: row['Date Label'] || '',
-            time: row['Time'] || 'TBD',
-            location: row['Location'] || '',
-            description: row['Description'] || '',
-            volunteersNeeded: row['Volunteers Needed'] || 'TBD',
-            areasOfInterest: splitSemicolonList(row['Areas of Interest'] || ''),
-            sortOrder: row['Sort Order'] !== '' && row['Sort Order'] != null ? Number(row['Sort Order']) : index
-          };
-        });
-
-        var now = new Date();
-        var startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        var currentMonthEvents = events.filter(function(event) {
-          return event.eventDate && event.eventDate.getFullYear() === now.getFullYear() && event.eventDate.getMonth() === now.getMonth();
-        });
-
-        eventDatesForCalendar = currentMonthEvents.map(function(event) { return event.eventDate; });
-        renderCurrentMonthCalendar(eventDatesForCalendar);
-
-        var upcomingEvents = events
-          .filter(function(event) { return !event.eventDate || event.eventDate >= startOfToday; })
-          .sort(function(a, b) {
-            if (a.eventDate && b.eventDate) return a.eventDate - b.eventDate;
-            if (a.eventDate && !b.eventDate) return -1;
-            if (!a.eventDate && b.eventDate) return 1;
-            var aOrder = typeof a.sortOrder === 'number' ? a.sortOrder : 9999;
-            var bOrder = typeof b.sortOrder === 'number' ? b.sortOrder : 9999;
-            return aOrder - bOrder;
-          });
-
-        renderUpcomingEvents(upcomingEvents.slice(0, 5));
-      } catch (error) {
-        console.error('Failed to load events:', error);
-        renderCurrentMonthCalendar([]);
-        renderUpcomingEvents([]);
-      }
-    }
-
-    function formatEventDateBadge(event) {
-      if (!event.eventDate) {
-        return '<div class="event-date-badge tbd"><span class="month">Date</span><span class="day">TBD</span></div>';
-      }
-      var month = event.eventDate.toLocaleString(undefined, { month: 'short' });
-      var day = event.eventDate.getDate();
-      return '<div class="event-date-badge"><span class="month">' + escapeHtml(month) + '</span><span class="day">' + day + '</span></div>';
+      return raw;
     }
 
     function formatEventDateText(event) {
       if (event.dateLabel) return event.dateLabel;
       if (!event.eventDate) return 'Date TBD';
-      return event.eventDate.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+      return event.eventDate.toLocaleDateString(undefined, {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+      });
+    }
+
+    function formatEventPickerDate(event) {
+      if (!event.eventDate) {
+        return '<span class="event-picker-date tbd"><span class="month">Date</span><span class="day">TBD</span></span>';
+      }
+      var month = event.eventDate.toLocaleString(undefined, { month: 'short' });
+      var day = event.eventDate.getDate();
+      return '<span class="event-picker-date"><span class="month">' + escapeHtml(month) + '</span><span class="day">' + day + '</span></span>';
+    }
+
+    function getEventById(id) {
+      return upcomingEventsData.find(function(event) { return event.id === id; });
+    }
+
+    function selectUpcomingEvent(id) {
+      selectedEventId = id;
+      var event = getEventById(id);
+      if (!event) return;
+
+      document.querySelectorAll('.event-picker-item').forEach(function(button) {
+        button.classList.toggle('active', button.getAttribute('data-event-id') === id);
+        button.setAttribute('aria-selected', button.getAttribute('data-event-id') === id ? 'true' : 'false');
+      });
+
+      renderEventDetail(event);
+    }
+
+    function renderEventDetail(event) {
+      var panel = document.getElementById('eventDetailPanel');
+      if (!panel) return;
+
+      if (!event) {
+        panel.innerHTML = '<div class="event-detail-empty">Select an upcoming event to view the details.</div>';
+        return;
+      }
+
+      var detailIndex = upcomingEventsData.findIndex(function(item) { return item.id === event.id; });
+      var html = '';
+      html += '<div class="event-detail-topline">';
+      html += '<span class="event-detail-kicker">Event Details</span>';
+      html += '<span class="event-detail-count">' + (detailIndex + 1) + ' of ' + upcomingEventsData.length + '</span>';
+      html += '</div>';
+
+      html += '<div class="event-detail-date">' + escapeHtml(formatEventDateText(event)) + '</div>';
+      html += '<h3 class="event-detail-title">' + escapeHtml(event.title || 'Upcoming Event') + '</h3>';
+
+      html += '<div class="event-detail-meta">';
+      html += '<span class="event-detail-chip">Time: ' + escapeHtml(formatEventTime(event.time)) + '</span>';
+      if (event.location) html += '<span class="event-detail-chip">Location: ' + escapeHtml(event.location) + '</span>';
+      html += '<span class="event-detail-chip">Volunteers: ' + escapeHtml(event.volunteersNeeded || 'TBD') + '</span>';
+      html += '</div>';
+
+      html += '<p class="event-detail-description">' +
+        escapeHtml(event.description || 'More details coming soon. Check back for updates and volunteer opportunities related to this event.') +
+        '</p>';
+
+      if (event.areasOfInterest && event.areasOfInterest.length) {
+        html += '<div class="event-detail-tags">';
+        event.areasOfInterest.forEach(function(area) {
+          html += '<span class="event-detail-tag">' + escapeHtml(area) + '</span>';
+        });
+        html += '</div>';
+      }
+
+      panel.innerHTML = html;
+    }
+
+    async function loadUpcomingTbdEvents() {
+      var wrap = document.getElementById('upcomingEventsWrap');
+      var detailPanel = document.getElementById('eventDetailPanel');
+      if (!wrap || !detailPanel) return;
+
+      try {
+        var response = await fetch(EVENTS_API_URL, { cache: 'no-store' });
+        var data = await response.json();
+
+        if (!response.ok || !data.success || !Array.isArray(data.events)) {
+          throw new Error(data.error || 'Unable to load events from Notion.');
+        }
+
+        var events = data.events.map(function(row, index) {
+          var eventDate = parseEventDate(row.date || '');
+          return {
+            id: String(row.id || ('evt_' + index)),
+            title: row.title || row.eventName || row.name || '',
+            date: row.date || '',
+            eventDate: eventDate,
+            dateLabel: row.dateLabel || '',
+            time: row.time || 'TBD',
+            location: row.location || '',
+            description: row.description || '',
+            status: row.status || 'Planned',
+            volunteersNeeded: row.volunteersNeeded || 'TBD',
+            areasOfInterest: Array.isArray(row.areasOfInterest)
+              ? row.areasOfInterest
+              : splitSemicolonList(row.areasOfInterest || ''),
+            sortOrder: row.sortOrder !== '' && row.sortOrder != null
+              ? Number(row.sortOrder)
+              : index
+          };
+        });
+
+        var now = new Date();
+        var startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+        upcomingEventsData = events
+          .filter(function(event) {
+            var status = String(event.status || '').toLowerCase();
+            var isHidden = status === 'cancelled' || status === 'complete' || status === 'completed';
+            return !isHidden && (!event.eventDate || event.eventDate >= startOfToday);
+          })
+          .sort(function(a, b) {
+            if (a.eventDate && b.eventDate) return a.eventDate - b.eventDate;
+            if (a.eventDate && !b.eventDate) return -1;
+            if (!a.eventDate && b.eventDate) return 1;
+
+            var aOrder = Number.isFinite(a.sortOrder) ? a.sortOrder : 9999;
+            var bOrder = Number.isFinite(b.sortOrder) ? b.sortOrder : 9999;
+            return aOrder - bOrder;
+          })
+          .slice(0, 8);
+
+        renderUpcomingEvents(upcomingEventsData);
+
+        if (upcomingEventsData.length) {
+          selectUpcomingEvent(upcomingEventsData[0].id);
+        } else {
+          renderEventDetail(null);
+        }
+      } catch (error) {
+        console.error('Failed to load Notion events:', error);
+        upcomingEventsData = [];
+        renderUpcomingEvents([]);
+        detailPanel.innerHTML =
+          '<div class="event-detail-empty">We couldn&rsquo;t load event details right now. Please check back soon.</div>';
+      }
     }
 
     function renderUpcomingEvents(events) {
@@ -1187,41 +1477,26 @@
       if (!wrap) return;
 
       if (!events || events.length === 0) {
-        wrap.innerHTML = '<div class="events-empty">We&rsquo;re planning more PTO events and opportunities now. Check back soon for updates and ways to get involved.</div>';
+        wrap.innerHTML = '<div class="events-empty">We&rsquo;re planning more PTO events and opportunities now. Check back soon for updates.</div>';
         return;
       }
 
-      var html = '<div class="events-list-home">';
+      wrap.innerHTML = events.map(function(event, index) {
+        var meta = formatEventDateText(event);
+        if (event.location) meta += ' · ' + event.location;
 
-      events.forEach(function(event) {
-        html += '<article class="event-card-home">';
-        html += formatEventDateBadge(event);
-        html += '<div>';
-        html += '<h3>' + escapeHtml(event.title || 'Upcoming Event') + '</h3>';
-        html += '<div class="event-card-home-meta">';
-        html += '<span class="event-chip' + (!event.eventDate ? ' tbd' : '') + '">' + escapeHtml(formatEventDateText(event)) + '</span>';
-        html += '<span class="event-chip">Time: ' + escapeHtml(event.time || 'TBD') + '</span>';
-        if (event.location) html += '<span class="event-chip">Location: ' + escapeHtml(event.location) + '</span>';
-        if (event.volunteersNeeded) html += '<span class="event-chip">Volunteers: ' + escapeHtml(event.volunteersNeeded) + '</span>';
-        html += '</div>';
-        if (event.description) {
-          html += '<p>' + escapeHtml(event.description) + '</p>';
-        } else {
-          html += '<p>More details coming soon. Check back for updates and volunteer opportunities related to this event.</p>';
-        }
-        if (event.areasOfInterest && event.areasOfInterest.length > 0) {
-          html += '<div class="event-card-home-tags">';
-          event.areasOfInterest.forEach(function(area) {
-            html += '<span class="event-tag-home">' + escapeHtml(area) + '</span>';
-          });
-          html += '</div>';
-        }
-        html += '</div>';
-        html += '</article>';
-      });
-
-      html += '</div>';
-      wrap.innerHTML = html;
+        return '<button type="button" class="event-picker-item' + (index === 0 ? ' active' : '') +
+          '" data-event-id="' + escapeHtml(event.id) +
+          '" aria-selected="' + (index === 0 ? 'true' : 'false') +
+          '" onclick="selectUpcomingEvent(this.getAttribute(\\'data-event-id\\'))">' +
+          formatEventPickerDate(event) +
+          '<span class="event-picker-copy">' +
+          '<span class="event-picker-title">' + escapeHtml(event.title || 'Upcoming Event') + '</span>' +
+          '<span class="event-picker-meta">' + escapeHtml(meta) + '</span>' +
+          '</span>' +
+          '<span class="event-picker-arrow" aria-hidden="true">→</span>' +
+          '</button>';
+      }).join('');
     }
 
     window.addEventListener('DOMContentLoaded', function () {
@@ -1236,7 +1511,6 @@
         correctLevel: QRCode.CorrectLevel.H
       });
 
-      renderCurrentMonthCalendar([]);
       loadUpcomingTbdEvents();
     });
   </script>
