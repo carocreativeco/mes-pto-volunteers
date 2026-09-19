@@ -120,7 +120,6 @@
 
           <div class="actions">
             <a href="/" class="btn btn-primary">Return Home</a>
-            <a href="/sponsor/" class="btn btn-secondary" id="secondaryAction">Sponsor Moore</a>
             <a href="mailto:mooreelementaryschool@gmail.com" class="btn btn-outline">Email the PTO</a>
           </div>
         </div>
@@ -142,9 +141,9 @@
         actionHref: '/auction/'
       },
       sponsor: {
-        tag: 'Sponsor Interest Received',
-        message: 'Thank you for your interest in supporting Moore Elementary as a community sponsor. Your partnership helps fund meaningful programs, student experiences, and school-wide support.',
-        next: 'A PTO volunteer will review your sponsorship information and follow up with next steps, logo details, payment information, or any questions about your selected level.',
+        tag: 'Interest Form Received',
+        message: 'Thanks for raising your hand for 2027–28! We’ve added your business to the Moore Elementary sponsorship interest list.',
+        next: 'When 2027–28 sponsorship opportunities open, a PTO volunteer will reach out with the available sponsorship levels, in-kind opportunities, and auction donation details.',
         actionText: 'View Sponsorships',
         actionHref: '/sponsor/'
       },
@@ -178,10 +177,6 @@
     document.getElementById('formTag').textContent = selected.tag;
     document.getElementById('thankMessage').textContent = selected.message;
     document.getElementById('nextMessage').textContent = selected.next;
-
-    const secondaryAction = document.getElementById('secondaryAction');
-    secondaryAction.textContent = selected.actionText;
-    secondaryAction.href = selected.actionHref;
-  </script>
+</script>
 </body>
 </html>
