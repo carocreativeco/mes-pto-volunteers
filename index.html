@@ -777,7 +777,7 @@
     .share-note::before{content:"✓";display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:rgba(255,194,0,.2);color:var(--gold);font-weight:900;flex:0 0 auto}
 
     /* RESOURCES */
-    .resources-section{background:var(--paper);padding:120px 0}
+    .resources-section{background:var(--paper);padding:120px 0 42px}
     .resources-head{max-width:780px;margin-bottom:50px}
     .resources-head h2{
       font-family:'Baskervville',serif;
@@ -865,6 +865,32 @@
     .connect-card .connect-desc{font-size:1rem;line-height:1.75;color:#27324b;max-width:none;position:relative;z-index:2;flex:1}
     .connect-card .connect-action{display:inline-flex;align-items:center;justify-content:center;width:max-content;max-width:100%;margin-top:auto;padding:12px 18px;border-radius:999px;background:var(--navy);color:var(--white);font-family:'Inter',sans-serif;font-style:normal;font-size:.9rem;font-weight:800;border-bottom:none;white-space:normal;position:relative;z-index:2;text-align:center}
 
+
+    /* ADMIN PORTAL */
+    .admin-portal-banner{
+      background:var(--navy);
+      border-top:1px solid rgba(255,255,255,.06);
+    }
+    .admin-portal-banner a{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:86px;
+      padding:22px;
+      color:var(--white);
+      font-family:'Baskervville',serif;
+      font-weight:400;
+      font-style:italic;
+      font-size:1.425rem;
+      letter-spacing:0;
+      text-align:center;
+      transition:background .2s ease,color .2s ease;
+    }
+    .admin-portal-banner a:hover{
+      background:var(--navy-2);
+      color:var(--gold);
+    }
+
     /* FOOTER */
     .site-footer {
   background: var(--paper, #fbfaf6);
@@ -943,7 +969,8 @@
       .hero{min-height:80vh}
       .hero-inner{padding:74px 0 60px}
       .hero h1{font-size:clamp(2.5rem, 12vw, 4rem)}
-      .about-section,.events-section,.connect-section,.share-section,.resources-section{padding:80px 0}
+      .about-section,.events-section,.connect-section,.share-section{padding:80px 0}
+      .resources-section{padding:80px 0 34px}
       .section-header{padding:60px 0 20px}
       .help-intro-header{padding:54px 0 18px}
       .feature-section{padding:30px 0}
@@ -1372,18 +1399,16 @@
             <p>Submit an item, service, gift card, experience, or business contribution for the Moore Elementary school auction.</p>
             <a href="https://moorevolunteers.org/auction/index.html" class="resources-link">Submit an item &rarr;</a>
           </div>
-
-          <div class="resources-cell">
-            <span class="marker"></span>
-            <h3>Admin Dashboard</h3>
-            <p>PTO volunteers can review submissions, manage communications, and stay organized in one place.</p>
-            <a href="/admin/" class="resources-link">Log in &rarr;</a>
-          </div>
         </div>
       </div>
     </section>
 
   </main>
+
+
+  <section class="admin-portal-banner" aria-label="Admin Portal">
+    <a href="/admin/">Admin Portal Login</a>
+  </section>
 
   <footer class="site-footer">
   <div class="footer-copy">&copy; Moore Elementary PTO 2026</div>
