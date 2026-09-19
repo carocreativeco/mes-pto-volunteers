@@ -245,6 +245,119 @@
     }
     .sponsor-cta-note{color:rgba(255,255,255,.6);font-size:.9rem}
 
+
+    /* AUCTION ALERT BANNER */
+    .auction-alert{
+      background:linear-gradient(90deg,var(--gold) 0%,#ffd75a 55%,var(--orange) 100%);
+      color:var(--navy);
+      border-bottom:1px solid rgba(12,21,70,.08);
+    }
+    .auction-alert-inner{
+      width:min(var(--max), calc(100% - 40px));
+      margin:0 auto;
+      min-height:52px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:14px;
+      text-align:center;
+      padding:10px 0;
+      font-size:.93rem;
+      font-weight:800;
+    }
+    .auction-alert-link{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding-bottom:2px;
+      border-bottom:1px solid currentColor;
+      font-family:'Baskervville',serif;
+      font-style:italic;
+      font-size:1rem;
+      white-space:nowrap;
+    }
+
+    /* AUCTION URGENCY CALLOUT */
+    .auction-callout-section{
+      background:var(--paper);
+      padding:72px 0 88px;
+    }
+    .auction-callout{
+      position:relative;
+      overflow:hidden;
+      display:grid;
+      grid-template-columns:1.2fr auto;
+      gap:34px;
+      align-items:center;
+      padding:40px 42px;
+      border-radius:34px;
+      background:
+        radial-gradient(circle at 88% 18%, rgba(255,194,0,.23), transparent 34%),
+        linear-gradient(135deg,#fff9e8 0%,#ffffff 58%,#f7f9fd 100%);
+      border:1px solid rgba(12,21,70,.1);
+      box-shadow:0 20px 48px rgba(12,21,70,.09);
+    }
+    .auction-callout::before{
+      content:"";
+      position:absolute;
+      inset:0 auto 0 0;
+      width:7px;
+      background:linear-gradient(180deg,var(--orange),var(--gold));
+    }
+    .auction-callout-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      color:var(--orange);
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      font-size:.72rem;
+      font-weight:900;
+      margin-bottom:12px;
+    }
+    .auction-callout-kicker::before{
+      content:"";
+      width:22px;
+      height:2px;
+      background:currentColor;
+    }
+    .auction-callout h2{
+      font-family:'Baskervville',serif;
+      font-size:clamp(2rem,4vw,3.2rem);
+      line-height:1;
+      letter-spacing:-.025em;
+      color:var(--navy);
+      margin-bottom:14px;
+    }
+    .auction-callout h2 em{
+      font-style:italic;
+      color:var(--orange);
+    }
+    .auction-callout p{
+      max-width:700px;
+      color:#27324b;
+      font-size:1.03rem;
+      line-height:1.75;
+    }
+    .auction-callout-action{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:56px;
+      padding:0 28px;
+      border-radius:999px;
+      background:var(--navy);
+      color:#fff;
+      font-weight:900;
+      font-size:.95rem;
+      white-space:nowrap;
+      box-shadow:0 14px 30px rgba(12,21,70,.16);
+    }
+    .auction-callout-action:hover{
+      background:var(--navy-2);
+      transform:translateY(-1px);
+    }
+
     /* EVENTS */
     .events-section{
       position:relative;overflow:hidden;
@@ -861,6 +974,21 @@
           radial-gradient(circle at 80% 30%, rgba(255,194,0,.18) 0%, rgba(255,194,0,0) 60%);
       }
       .sponsor-cta-btn{width:100%;justify-content:center}
+
+      .auction-alert-inner{
+        width:min(var(--max), calc(100% - 24px));
+        flex-direction:column;
+        gap:5px;
+        min-height:0;
+        padding:10px 0 11px;
+      }
+      .auction-callout-section{padding:54px 0 66px}
+      .auction-callout{
+        grid-template-columns:1fr;
+        padding:30px 26px;
+        border-radius:26px;
+      }
+      .auction-callout-action{width:100%}
     }
 
 
@@ -896,6 +1024,14 @@
   </style>
 </head>
 <body>
+
+
+  <div class="auction-alert">
+    <div class="auction-alert-inner">
+      <span>🎁 Auction donations are open now — we’re accepting gift cards, services, experiences, products, and more.</span>
+      <a class="auction-alert-link" href="/auction/">Submit an auction item →</a>
+    </div>
+  </div>
 
   <nav class="site-nav">
     <div class="nav-inner">
@@ -950,7 +1086,7 @@
         </p>
         <div class="hero-actions">
           <a href="https://moorevolunteers.org/volunteer/" class="btn-primary">Volunteer</a>
-          <a href="https://moorevolunteers.org/sponsor/" class="btn-secondary">Become a Sponsor</a>
+          
         </div>
       </div>
     </div>
@@ -1034,28 +1170,37 @@
       <div class="container">
         <div class="sponsor-cta-inner">
           <div class="feature-kicker" style="color:var(--gold);">Pass it on</div>
-          <h2 class="sponsor-cta-title">Know a business that should <em>sponsor</em>?</h2>
+          <h2 class="sponsor-cta-title">2026&ndash;27 sponsorships are <em>closed.</em></h2>
           <p class="sponsor-cta-copy">
-            You don&rsquo;t have to own a business to make a difference. Download our sponsorship deck and share it with a local business owner &mdash; a favorite restaurant, your family&rsquo;s dentist, the shop down the street. One quick introduction can help Moore Elementary host meaningful student experiences all year long.
+            We&rsquo;re incredibly grateful for the businesses and community partners supporting Moore this school year.
+            Want to learn how sponsorship works &mdash; or be first to hear when 2027&ndash;28 opportunities open? You can explore the current sponsorship program or add your business to next year&rsquo;s interest list.
           </p>
           <div class="sponsor-cta-actions">
-            <a class="sponsor-cta-btn primary" href="https://drive.google.com/uc?export=download&id=1mnGF-1skbeB61SNJOUlQhVU4tVE5hl4P">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-              </svg>
-              Download sponsorship deck
+            <a class="sponsor-cta-btn primary" href="/sponsor/">
+              Learn More About Sponsorships
             </a>
-            <a class="sponsor-cta-btn secondary" href="mailto:?subject=Moore%20Elementary%20School%20business%20sponsorship%20opportunity&body=Hi%2C%0A%0AAs%20you%20know%2C%20my%20_____%20attends%20Moore%20Elementary%20School%20in%20Franklin%2C%20TN.%20Moore%20Elementary%20PTO%20volunteers%20are%20helping%20the%20school%20connect%20with%20local%20business%20partners%20for%20the%202026%E2%80%932027%20school%20year.%0A%0ABusiness%20gifts%20and%20sponsorships%20are%20made%20to%20Moore%20Elementary%20School%20and%20help%20support%20classroom%20support%2C%20student%20experiences%2C%20teacher%20appreciation%2C%20and%20school-hosted%20community%20events%20throughout%20the%20year.%20PTO%20volunteers%20assist%20the%20school%20by%20sharing%20opportunities%2C%20coordinating%20volunteers%2C%20and%20helping%20with%20event%20support.%0A%0AThe%20sponsorship%20deck%20includes%20tier%20options%20and%20recognition%20opportunities%20for%20local%20businesses.%20I%E2%80%99d%20love%20for%20you%20to%20take%20a%20look%20and%20consider%20whether%20this%20might%20be%20a%20good%20fit%20for%20your%20business%3A%0A%0Ahttps%3A//drive.google.com/file/d/1mnGF-1skbeB61SNJOUlQhVU4tVE5hl4P/view%0A%0AReady%20to%20sign%20up%3F%20You%20can%20complete%20the%202026%E2%80%932027%20sponsorship%20form%20here%3A%0A%0Ahttps%3A//moorevolunteers.org/Brand%2520Sponsorship%2520Form/%0A%0AHappy%20to%20answer%20any%20questions%20or%20connect%20you%20with%20the%20Moore%20volunteers%20helping%20coordinate%20this.%20Thanks%20so%20much%20for%20considering%21%0A%0ABest%2C">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
-              </svg>
-              Send via email
+            <a class="sponsor-cta-btn secondary" href="/sponsor-interest/">
+              Submit Your Interest for 2027&ndash;28
             </a>
           </div>
-          <p class="sponsor-cta-note">Share with a local business owner</p>
+          <p class="sponsor-cta-note">The 2026&ndash;27 sponsorship window is now closed.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="auction-callout-section">
+      <div class="container">
+        <div class="auction-callout">
+          <div>
+            <div class="auction-callout-kicker">Auction donations open now</div>
+            <h2>We still need <em>great auction items.</em></h2>
+            <p>
+              The Moore Elementary auction is coming together now, and every donated item helps make it stronger.
+              If your family or business can contribute a gift card, service, experience, product, package, or other auction-worthy item, now is the time to send it in so we can include it in this year&rsquo;s auction.
+            </p>
+          </div>
+          <a class="auction-callout-action" href="/auction/">Submit an Auction Item →</a>
         </div>
       </div>
     </section>
@@ -1219,13 +1364,6 @@
             <h3>Volunteer Sign-Up</h3>
             <p>Join our parent volunteer community and help support events, classroom activities, and school initiatives throughout the year.</p>
             <a href="https://moorevolunteers.org/volunteer/" class="resources-link">Sign up now &rarr;</a>
-          </div>
-
-          <div class="resources-cell">
-            <span class="marker"></span>
-            <h3>2026&ndash;27 Sponsorship</h3>
-            <p>Explore sponsorship tiers and make a gift to Moore Elementary that supports students, teachers, and school-hosted events all year.</p>
-            <a href="https://moorevolunteers.org/sponsor/" class="resources-link">View sponsorship &rarr;</a>
           </div>
 
           <div class="resources-cell">
