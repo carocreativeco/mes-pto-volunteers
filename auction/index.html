@@ -303,7 +303,7 @@
               <div class="field-grid">
                 <div class="field full">
                   <label for="logoUpload">Logo or item image <span class="required">*</span></label>
-                  <input id="logoUpload" name="auctionFile" type="file" required accept=".png,.jpg,.jpeg,.svg,.pdf">
+                  <input id="logoUpload" name="auctionFile" type="file" required accept=".png,.jpg,.jpeg,.webp,.svg,.pdf">
                   <div class="helper">Upload a business logo, item photo, certificate image, or flyer. PNG, JPG, SVG, PDF, or WEBP accepted.</div>
                 </div>
                 <div class="field">
@@ -331,6 +331,7 @@
             <div class="form-actions">
               <button class="submit-btn" type="submit">Submit Auction Item</button>
               <button class="reset-btn" type="reset">Clear Form</button>
+              <div class="status" id="formStatus" role="status" aria-live="polite"></div>
             </div>
           </form>
           </section>
@@ -419,7 +420,7 @@
       event.preventDefault();
 
       const form = event.currentTarget;
-      const status = document.getElementById('formStatus') || { textContent: '', style: {} };
+      const status = document.getElementById('formStatus');
       const submitButton = form.querySelector('.submit-btn');
       const fileInput = form.querySelector('#logoUpload');
 
@@ -460,7 +461,8 @@
           body: JSON.stringify(payload)
         });
 
-        const result = await response.json();
+        let result;
+        try { result = await response.json(); } catch(e) { throw new Error('The auction API returned an invalid response. Check /api/submit-auction.php.'); }
         if (!response.ok || !result.success) {
           throw new Error(result.error || 'Auction submission failed.');
         }
