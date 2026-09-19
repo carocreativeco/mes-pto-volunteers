@@ -401,9 +401,7 @@ document.getElementById('sponsorInterestForm').addEventListener('submit', async 
       throw new Error(result.error || 'Interest form submission failed.');
     }
 
-    status.textContent = 'You’re on the list! We’ll be in touch when 2027–28 sponsorship opportunities open.';
-    status.style.color = '#0c1546';
-    form.reset();
+    window.location.href = '/thank-you/?form=sponsor';
   } catch (error) {
     console.error(error);
     status.textContent = error.message || 'Something went wrong. Please try again.';
