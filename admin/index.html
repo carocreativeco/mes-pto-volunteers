@@ -738,7 +738,125 @@ function loadSponsorStats(){var sponsors=getSponsors(),statuses=getSponsorStatus
 function loadVolunteers(){filterVolunteers()}function filterVolunteers(){var volunteers=getVolunteers(),statuses=getStatuses(),search=(document.getElementById('volunteerSearch').value||'').toLowerCase(),statusFilter=document.getElementById('volunteerStatusFilter').value,areaFilter=document.getElementById('volunteerAreaFilter').value;var filtered=volunteers.filter(function(v){var key=v.id||(v.submittedAt+v.email),status=statuses[key]||v.notionStatus||'New',fullName=(v.fullName||(v.firstName+' '+v.lastName)).toLowerCase();return(!search||fullName.includes(search)||((v.email||'').toLowerCase().includes(search)))&&(!statusFilter||status===statusFilter)&&(!areaFilter||(v.volunteerAreas||[]).includes(areaFilter))});filtered.sort(function(a,b){return new Date(b.submittedAt)-new Date(a.submittedAt)});renderVolunteers(filtered,statuses)}function renderVolunteers(volunteers,statuses){var container=document.getElementById('volunteerList');if(volunteers.length===0){container.innerHTML='<div class="empty-state"><h4>No volunteers found</h4><p>No volunteer sign-ups match your current filters.</p></div>';return}container.innerHTML=volunteers.map(function(v){var key=v.id||(v.submittedAt+v.email),status=statuses[key]||v.notionStatus||'New',badgeClass=status==='New'?'badge-new':(status==='Contacted'?'badge-contacted':'badge-confirmed'),date=v.submittedAt?new Date(v.submittedAt):null,dateStr=date&&!isNaN(date)?date.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'',displayName=v.fullName||(v.firstName+' '+v.lastName).trim();var body='';if(v.children&&v.children.length)body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Children</div><div class="volunteer-detail-value">'+v.children.map(function(c){var details=[c.grade,c.teacher].filter(Boolean).join(', ');return escapeHtml(c.name)+(details?' ('+escapeHtml(details)+')':'')}).join('<br>')+'</div></div>';if(v.volunteerAreas&&v.volunteerAreas.length)body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Areas of Interest</div><div class="volunteer-tags">'+v.volunteerAreas.map(function(a){return'<span class="tag">'+escapeHtml(a)+'</span>'}).join('')+'</div></div>';if(v.availability&&v.availability.length)body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Availability</div><div class="volunteer-detail-value">'+v.availability.map(escapeHtml).join(', ')+'</div></div>';if(v.comments)body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Comments</div><div class="volunteer-detail-value">'+escapeHtml(v.comments)+'</div></div>';body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Submitted</div><div class="volunteer-detail-value">'+escapeHtml(dateStr)+'</div></div>';return'<div class="volunteer-card"><div class="volunteer-card-header"><div class="volunteer-info"><h4>'+escapeHtml(displayName)+'</h4><p><a href="mailto:'+escapeHtml(v.email)+'">'+escapeHtml(v.email)+'</a>'+(v.phone?' · '+escapeHtml(v.phone):'')+'</p></div><div class="volunteer-meta"><span class="badge '+badgeClass+'">'+escapeHtml(status)+'</span></div></div><div class="volunteer-card-body">'+body+'</div><div class="volunteer-card-actions"><button class="btn btn-sm btn-secondary" onclick="updateStatus(\''+escapeJs(key)+'\', \'New\')">Mark New</button><button class="btn btn-sm btn-secondary" onclick="updateStatus(\''+escapeJs(key)+'\', \'Contacted\')">Mark Contacted</button><button class="btn btn-sm btn-success" onclick="updateStatus(\''+escapeJs(key)+'\', \'Confirmed\')">Mark Confirmed</button></div></div>'}).join('')}function updateStatus(key,status){var statuses=getStatuses();statuses[key]=status;setStatuses(statuses);loadStats();filterVolunteers()}
 function loadSponsors(){filterSponsors()}function filterSponsors(){var sponsors=getSponsors(),statuses=getSponsorStatuses(),search=(document.getElementById('sponsorSearch').value||'').toLowerCase(),statusFilter=document.getElementById('sponsorStatusFilter').value,tierFilter=document.getElementById('sponsorTierFilter').value;var filtered=sponsors.filter(function(s){var status=statuses[s.id]||s.notionStatus||'Interested',haystack=[s.businessName,s.contactName,s.email,s.phone].join(' ').toLowerCase();return(!search||haystack.includes(search))&&(!statusFilter||status===statusFilter)&&(!tierFilter||s.tier===tierFilter)});filtered.sort(function(a,b){return new Date(b.submittedAt)-new Date(a.submittedAt)});renderSponsors(filtered,statuses)}function renderSponsors(sponsors,statuses){var container=document.getElementById('sponsorList');if(!container)return;if(!sponsors.length){container.innerHTML='<div class="empty-state"><h4>No sponsors found</h4><p>No sponsor submissions match your current filters.</p></div>';return}container.innerHTML=sponsors.map(function(s){var status=statuses[s.id]||s.notionStatus||'Interested',badgeClass=status==='Interested'?'badge-new':(status==='Contacted'||status==='Committed'?'badge-contacted':'badge-confirmed'),date=s.submittedAt?new Date(s.submittedAt):null,dateStr=date&&!isNaN(date)?date.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'';var body='<div class="volunteer-detail"><div class="volunteer-detail-label">Sponsorship Tier</div><div class="volunteer-detail-value">'+escapeHtml(s.tier||'Not selected')+' · '+escapeHtml(formatMoney(s.amount))+'</div></div>';if(s.website||s.social||s.linkedin)body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Online Presence</div><div class="volunteer-detail-value">'+(s.website?'<a href="'+escapeHtml(s.website)+'" target="_blank" rel="noopener">'+escapeHtml(s.website)+'</a><br>':'')+(s.social?escapeHtml(s.social)+'<br>':'')+(s.linkedin?'<a href="'+escapeHtml(s.linkedin)+'" target="_blank" rel="noopener">'+escapeHtml(s.linkedin)+'</a>':'')+'</div></div>';body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Logo</div><div class="volunteer-detail-value">'+(s.logoUrl?'<a href="'+escapeHtml(s.logoUrl)+'" target="_blank" rel="noopener">View uploaded logo</a>':'No logo uploaded')+'</div></div>';if(s.message)body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Message</div><div class="volunteer-detail-value">'+escapeHtml(s.message)+'</div></div>';body+='<div class="volunteer-detail"><div class="volunteer-detail-label">Submitted</div><div class="volunteer-detail-value">'+escapeHtml(dateStr)+'</div></div>';return'<div class="volunteer-card"><div class="volunteer-card-header"><div class="volunteer-info"><h4>'+escapeHtml(s.businessName)+'</h4><p>'+escapeHtml(s.contactName||'')+(s.email?' · <a href="mailto:'+escapeHtml(s.email)+'">'+escapeHtml(s.email)+'</a>':'')+(s.phone?' · '+escapeHtml(s.phone):'')+'</p></div><div class="volunteer-meta"><span class="badge '+badgeClass+'">'+escapeHtml(status)+'</span></div></div><div class="volunteer-card-body">'+body+'</div><div class="volunteer-card-actions">'+['Interested','Contacted','Committed','Paid','Assets Received','Completed'].map(function(nextStatus){var cls=(nextStatus==='Paid'||nextStatus==='Completed')?'btn-success':'btn-secondary';return'<button class="btn btn-sm '+cls+'" onclick="updateSponsorStatus(\''+escapeJs(s.id)+'\', \''+escapeJs(nextStatus)+'\')">'+escapeHtml(nextStatus)+'</button>'}).join('')+'</div></div>'}).join('')}function updateSponsorStatus(id,status){var statuses=getSponsorStatuses();statuses[id]=status;setSponsorStatuses(statuses);loadSponsorStats();filterSponsors()}
 function loadEvents(){var events=sortEventsForAdmin(getEvents()),container=document.getElementById('eventsList');if(!events.length){container.innerHTML='<div class="empty-state"><h4>No events yet</h4><p>Add your first PTO event to get started.</p><button class="btn btn-primary" onclick="openEventModal()">Add Event</button></div>';return}container.innerHTML=events.map(function(e){var dateValue=formatEventDate(e.date);var body='<div class="event-item"><div class="event-date-block"><span class="event-date-label">Scheduled Date</span><span class="event-date-value">'+escapeHtml(dateValue)+'</span></div><div class="event-item-content"><h4>'+escapeHtml(e.title||'Untitled event')+'</h4><div class="event-item-meta"><span class="event-pill">Status: '+escapeHtml(e.status||'Planned')+'</span><span class="event-pill">Volunteers: '+escapeHtml(e.volunteersNeeded||'TBD')+'</span></div>';if(e.areasOfInterest&&e.areasOfInterest.length){body+='<div class="volunteer-tags" style="margin-bottom:10px;">'+e.areasOfInterest.map(function(area){return'<span class="tag">'+escapeHtml(area)+'</span>'}).join('')+'</div>'}if(e.description)body+='<div class="event-item-desc">'+escapeHtml(e.description)+'</div>';body+='</div><div class="event-item-actions"><button class="btn btn-sm btn-secondary btn-icon" onclick="editEvent(\''+escapeJs(e.id)+'\')">Edit</button><button class="btn btn-sm btn-secondary btn-icon" onclick="deleteEvent(\''+escapeJs(e.id)+'\')" style="color:var(--danger)">Delete</button></div></div>';return body}).join('')}
-function sortEventsForAdmin(events){return events.slice().sort(function(a,b){var ad=normalizeEventDateValue(a.date),bd=normalizeEventDateValue(b.date);if(ad&&bd)return new Date(ad+'T12:00:00')-new Date(bd+'T12:00:00');if(ad&&!bd)return-1;if(!ad&&bd)return 1;return Number(a.sortOrder||9999)-Number(b.sortOrder||9999)})}function openEventModal(eventId){document.getElementById('eventModalTitle').textContent=eventId?'Edit Event':'Add Event';document.getElementById('eventEditId').value=eventId||'';document.getElementById('eventTitle').value='';document.getElementById('eventDate').value='';document.getElementById('eventStatus').value='Planned';document.getElementById('eventDescription').value='';document.getElementById('eventVolunteers').value='';clearMultiSelect('eventAreasOfInterest');if(eventId){var event=getEvents().find(function(e){return e.id===eventId});if(event){document.getElementById('eventTitle').value=event.title||'';document.getElementById('eventDate').value=normalizeEventDateValue(event.date);document.getElementById('eventStatus').value=event.status||'Planned';document.getElementById('eventDescription').value=event.description||'';document.getElementById('eventVolunteers').value=event.volunteersNeeded==='TBD'?'':event.volunteersNeeded||'';setSelectedMultiSelectValues('eventAreasOfInterest',event.areasOfInterest||[])}}document.getElementById('eventModal').classList.add('active')}function closeEventModal(){document.getElementById('eventModal').classList.remove('active')}function editEvent(eventId){openEventModal(eventId)}async function saveEventToNotion(payload){const response=await fetch(EVENT_SAVE_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const result=await response.json();if(!response.ok||!result.success)throw new Error(result.error||'Event save failed.');return result}async function deleteEventFromNotion(eventId){const response=await fetch(EVENT_DELETE_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:eventId})});const result=await response.json();if(!response.ok||!result.success)throw new Error(result.error||'Event delete failed.');return result}async function saveEvent(){var title=document.getElementById('eventTitle').value.trim(),date=document.getElementById('eventDate').value.trim(),status=document.getElementById('eventStatus').value.trim(),description=document.getElementById('eventDescription').value.trim(),volunteersNeeded=document.getElementById('eventVolunteers').value.trim(),editId=document.getElementById('eventEditId').value;if(!title){alert('Please enter an event name.');return}var selectedAreas=getSelectedMultiSelectValues('eventAreasOfInterest'),events=getEvents(),existingEvent=editId?events.find(function(e){return e.id===editId}):null,sortOrder=existingEvent&&typeof existingEvent.sortOrder==='number'?existingEvent.sortOrder:events.reduce(function(max,e){return Math.max(max,typeof e.sortOrder==='number'?e.sortOrder:0)},0)+1;var payload={id:editId,title:title,eventName:title,date:date,description:description,status:status,volunteersNeeded:volunteersNeeded||'TBD',areasOfInterest:selectedAreas,sortOrder:sortOrder};try{var result=await saveEventToNotion(payload);payload.id=result.id||payload.id;await loadEventsFromNotion()}catch(e){console.error('[Event save error]',e);var current=getEvents();var updated=current.filter(function(evt){return evt.id!==payload.id});updated.push(payload);setEvents(updated);alert('Saved locally, but Notion did not confirm the save. Please check your API files if this continues.')}closeEventModal();loadDashboardData()}async function deleteEvent(eventId){if(!confirm('Are you sure you want to delete this event?'))return;try{await deleteEventFromNotion(eventId);await loadEventsFromNotion()}catch(e){console.error('[Event delete error]',e);setEvents(getEvents().filter(function(evt){return evt.id!==eventId}));alert('Deleted locally, but Notion did not confirm the delete. Please check your API files if this continues.')}loadDashboardData()}
+function sortEventsForAdmin(events){return events.slice().sort(function(a,b){var ad=normalizeEventDateValue(a.date),bd=normalizeEventDateValue(b.date);if(ad&&bd)return new Date(ad+'T12:00:00')-new Date(bd+'T12:00:00');if(ad&&!bd)return-1;if(!ad&&bd)return 1;return Number(a.sortOrder||9999)-Number(b.sortOrder||9999)})}function openEventModal(eventId){document.getElementById('eventModalTitle').textContent=eventId?'Edit Event':'Add Event';document.getElementById('eventEditId').value=eventId||'';document.getElementById('eventTitle').value='';document.getElementById('eventDate').value='';document.getElementById('eventStatus').value='Planned';document.getElementById('eventDescription').value='';document.getElementById('eventVolunteers').value='';clearMultiSelect('eventAreasOfInterest');if(eventId){var event=getEvents().find(function(e){return e.id===eventId});if(event){document.getElementById('eventTitle').value=event.title||'';document.getElementById('eventDate').value=normalizeEventDateValue(event.date);document.getElementById('eventStatus').value=event.status||'Planned';document.getElementById('eventDescription').value=event.description||'';document.getElementById('eventVolunteers').value=event.volunteersNeeded==='TBD'?'':event.volunteersNeeded||'';setSelectedMultiSelectValues('eventAreasOfInterest',event.areasOfInterest||[])}}document.getElementById('eventModal').classList.add('active')}function closeEventModal(){document.getElementById('eventModal').classList.remove('active')}function editEvent(eventId){openEventModal(eventId)}async function saveEventToNotion(payload){
+  const response=await fetch(EVENT_SAVE_API_URL,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(payload)
+  });
+
+  let result;
+
+  try{
+    result=await response.json();
+  }catch(error){
+    throw new Error('The event API returned an invalid response.');
+  }
+
+  if(!response.ok||!result.success){
+    throw new Error(result.error||'Event save failed.');
+  }
+
+  return result;
+}
+
+async function deleteEventFromNotion(eventId){
+  const response=await fetch(EVENT_DELETE_API_URL,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({id:eventId})
+  });
+
+  const result=await response.json();
+
+  if(!response.ok||!result.success){
+    throw new Error(result.error||'Event delete failed.');
+  }
+
+  return result;
+}
+
+async function saveEvent(){
+  var title=document.getElementById('eventTitle').value.trim();
+  var date=document.getElementById('eventDate').value.trim();
+  var status=document.getElementById('eventStatus').value.trim();
+  var description=document.getElementById('eventDescription').value.trim();
+  var volunteersNeeded=document.getElementById('eventVolunteers').value.trim();
+  var editId=document.getElementById('eventEditId').value;
+
+  if(!title){
+    alert('Please enter an event name.');
+    return;
+  }
+
+  var selectedAreas=getSelectedMultiSelectValues('eventAreasOfInterest');
+  var events=getEvents();
+
+  var existingEvent=editId
+    ?events.find(function(e){return e.id===editId})
+    :null;
+
+  var sortOrder=existingEvent&&typeof existingEvent.sortOrder==='number'
+    ?existingEvent.sortOrder
+    :events.reduce(function(max,e){
+      var value=typeof e.sortOrder==='number'
+        ?e.sortOrder
+        :Number(e.sortOrder||0);
+
+      return Math.max(max,isNaN(value)?0:value);
+    },0)+1;
+
+  var payload={
+    id:editId,
+    title:title,
+    eventName:title,
+    date:date,
+    description:description,
+    status:status,
+    volunteersNeeded:
+      volunteersNeeded!==''&&!isNaN(Number(volunteersNeeded))
+        ?Number(volunteersNeeded)
+        :null,
+    areasOfInterest:selectedAreas,
+    sortOrder:sortOrder
+  };
+
+  var saveButton=document.querySelector('#eventModal .modal-footer .btn-primary');
+  var originalButtonText=saveButton?saveButton.textContent:'Save Event';
+
+  if(saveButton){
+    saveButton.disabled=true;
+    saveButton.textContent='Saving...';
+  }
+
+  try{
+    var result=await saveEventToNotion(payload);
+
+    if(result.id){
+      payload.id=result.id;
+    }
+
+    await loadEventsFromNotion();
+
+    closeEventModal();
+    loadDashboardData();
+  }catch(error){
+    console.error('[Event save error]',error);
+
+    alert(
+      error&&error.message
+        ?error.message
+        :'The event could not be saved to Notion.'
+    );
+  }finally{
+    if(saveButton){
+      saveButton.disabled=false;
+      saveButton.textContent=originalButtonText;
+    }
+  }
+}
+
+async function deleteEvent(eventId){if(!confirm('Are you sure you want to delete this event?'))return;try{await deleteEventFromNotion(eventId);await loadEventsFromNotion()}catch(e){console.error('[Event delete error]',e);setEvents(getEvents().filter(function(evt){return evt.id!==eventId}));alert('Deleted locally, but Notion did not confirm the delete. Please check your API files if this continues.')}loadDashboardData()}
 
 function getWebsiteRequests(){try{return JSON.parse(localStorage.getItem(WEBSITE_REQUESTS_KEY))||[]}catch(e){return[]}}
 function saveWebsiteRequestLocally(request){var requests=getWebsiteRequests();requests.unshift(request);localStorage.setItem(WEBSITE_REQUESTS_KEY,JSON.stringify(requests))}
